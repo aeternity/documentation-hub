@@ -1,4 +1,4 @@
-# Documentation Hub
+# Documentation Hub (work in progress)
 # [æternity Node](https://github.com/aeternity/aeternity/blob/master/README.md)
 - [**Threat Model**](https://github.com/aeternity/aetmodel/blob/master/ThreatModel.md)
 - [**Contribution**](https://github.com/aeternity/aeternity/blob/master/CONTRIBUTING.md)
