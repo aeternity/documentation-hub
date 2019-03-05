@@ -1,1 +1,1 @@
-# documentation-hub
+# Documentation Hub
