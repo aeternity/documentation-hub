@@ -5,20 +5,19 @@
 - [**Contribution**](https://github.com/aeternity/aeternity/blob/master/CONTRIBUTING.md)
 - [**Issue Template**](https://github.com/aeternity/aeternity/blob/master/ISSUE_TEMPLATE.md)
 
-# [æternity Node Usage API's](https://github.com/aeternity/protocol/blob/master/node/api/README.md#overview)
-- [Encoding Scheme](https://github.com/aeternity/protocol/blob/master/node/api/api_encoding.md)
-- [Account Management](https://github.com/aeternity/protocol/blob/master/node/api/account_api_usage.md) 
-- [Spending Tokens](https://github.com/aeternity/protocol/blob/master/node/api/spend_api_usage.md) 
-- [Oracle](https://github.com/aeternity/protocol/blob/master/node/api/oracle_api_usage.md) 
-- [AENS Naming System](https://github.com/aeternity/protocol/blob/master/node/api/naming_system_api_usage.md) 
-- [Smart Contract](https://github.com/aeternity/protocol/blob/master/node/api/contract_api_usage.md) 
-- [State Channels](https://github.com/aeternity/protocol/blob/master/node/api/channels_api_usage.md) 
-- [Mining](https://github.com/aeternity/protocol/blob/master/node/api/mining_api_usage.md)
+# [æternity Node Usage API's**](https://github.com/aeternity/protocol/blob/master/node/api/README.md#overview)
+- [**Encoding Scheme**](https://github.com/aeternity/protocol/blob/master/node/api/api_encoding.md)
+- [**Account Management**](https://github.com/aeternity/protocol/blob/master/node/api/account_api_usage.md) 
+- [**Spending Tokens**](https://github.com/aeternity/protocol/blob/master/node/api/spend_api_usage.md) 
+- [**Oracle**](https://github.com/aeternity/protocol/blob/master/node/api/oracle_api_usage.md) 
+- [**AENS Naming System**](https://github.com/aeternity/protocol/blob/master/node/api/naming_system_api_usage.md) 
+- [**Smart Contract**](https://github.com/aeternity/protocol/blob/master/node/api/contract_api_usage.md) 
+- [**State Channels**](https://github.com/aeternity/protocol/blob/master/node/api/channels_api_usage.md) 
+- [**Mining**](https://github.com/aeternity/protocol/blob/master/node/api/mining_api_usage.md)
 
 # Developer Tools
 ## æternity SDK's
 - [**Go**](https://github.com/aeternity/aepp-sdk-go/README.md)
-    - [Change Log](https://github.com/aeternity/aepp-sdk-go/blob/develop/CHANGELOG.md)
     - [CLI](https://github.com/aeternity/aepp-sdk-go/blob/develop/doc/cli/aecli.md)
         -  Query
             -  [State of Chain](https://github.com/aeternity/aepp-sdk-go/blob/develop/doc/cli/aecli_chain.md)
@@ -86,7 +85,7 @@
 ## CLI tools
 - [**JavaScript**](https://github.com/aeternity/aepp-cli-js)
 - [**Stratum**](https://github.com/aeternity/aestratum_client)
-    - [**Library**](https://github.com/aeternity/aestratum_lib)
+    - [Library](https://github.com/aeternity/aestratum_lib)
 - [**Websocket**](https://github.com/aeternity/websocket_client)
 -----
 ## Middleware
@@ -144,23 +143,23 @@
 - [**Smart Contract Editor**](https://testnet.contracts.aepps.com/)
 - [**Blockchain Explorer**](https://testnet.explorer.aepps.com/#/)
 - **Faucet**
-    - [**Token Faucet**](https://testnet.faucet.aepps.com/)
-    - [**aepp Faucet**](https://github.com/aeternity/aepp-faucet/blob/master/README.md)
+    - [Token Faucet](https://testnet.faucet.aepps.com/)
+    - [aepp Faucet](https://github.com/aeternity/aepp-faucet/blob/master/README.md)
 
 # Aeternity Feaures
 - [**Oracles**](https://github.com/aeternity/protocol/blob/master/oracles/oracles.md)
-    - [**Life Cycle**](https://github.com/aeternity/protocol/blob/master/oracles/oracle_life_cycle.md)
-    - [**State Tree**](https://github.com/aeternity/protocol/blob/master/oracles/oracle_state_tree.md)
-    - [**Transactions**](https://github.com/aeternity/protocol/blob/master/oracles/oracle_state_tree.md)
+    - [Life Cycle](https://github.com/aeternity/protocol/blob/master/oracles/oracle_life_cycle.md)
+    - [State Tree](https://github.com/aeternity/protocol/blob/master/oracles/oracle_state_tree.md)
+    - [Transactions](https://github.com/aeternity/protocol/blob/master/oracles/oracle_state_tree.md)
 - [**AENS Naming System**](https://github.com/aeternity/protocol/blob/master/AENS.md)
 - [**Smart Contracts**](https://github.com/aeternity/protocol/blob/master/contracts/contracts.md)
-    - [**Aeternity VM**](https://github.com/aeternity/protocol/blob/master/contracts/contract_vms.md) 
-    - [**Sophia Compiler**](https://github.com/aeternity/aesophia)
-    - [**State Tree**](https://github.com/aeternity/protocol/blob/master/contracts/contract_state_tree.md)
-    - [**Transactions**](https://github.com/aeternity/protocol/blob/master/contracts/contract_transactions.md)
+    - [Aeternity VM](https://github.com/aeternity/protocol/blob/master/contracts/contract_vms.md) 
+    - [Sophia Compiler](https://github.com/aeternity/aesophia)
+    - [State Tree](https://github.com/aeternity/protocol/blob/master/contracts/contract_state_tree.md)
+    - [Transactions](https://github.com/aeternity/protocol/blob/master/contracts/contract_transactions.md)
 - [**State Channels**](https://github.com/aeternity/protocol/blob/master/channels/README.md)
 - **Consensus**
-    - [**Cuckoo Cycle (PoW)**](https://github.com/aeternity/cuckoo/blob/master/README.md)
-        - [**GPU Solver**](https://github.com/aeternity/cuckoo/blob/master/GPU.md)
-    - **Bitcoin-NG**
+    - [Cuckoo Cycle (PoW)](https://github.com/aeternity/cuckoo/blob/master/README.md)
+        - [GPU Solver](https://github.com/aeternity/cuckoo/blob/master/GPU.md)
+    - Bitcoin-NG
 - [**Serializazion Formats**](https://github.com/aeternity/protocol/blob/master/serializations.md)
