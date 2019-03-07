@@ -1,6 +1,7 @@
 # Documentation Hub (work in progress)
 # [æternity Node](https://github.com/aeternity/aeternity/blob/master/README.md)
 - [**Threat Model**](https://github.com/aeternity/aetmodel/blob/master/ThreatModel.md)
+- [**Infrastructure Management**](https://github.com/aeternity/infrastructure/blob/master/README.md)
 - [**Contribution**](https://github.com/aeternity/aeternity/blob/master/CONTRIBUTING.md)
 - [**Issue Template**](https://github.com/aeternity/aeternity/blob/master/ISSUE_TEMPLATE.md)
 
