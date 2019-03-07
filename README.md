@@ -5,7 +5,7 @@
 - [**Contribution**](https://github.com/aeternity/aeternity/blob/master/CONTRIBUTING.md)
 - [**Issue Template**](https://github.com/aeternity/aeternity/blob/master/ISSUE_TEMPLATE.md)
 
-# [æternity Node Usage API's**](https://github.com/aeternity/protocol/blob/master/node/api/README.md#overview)
+# [æternity Node Usage API's](https://github.com/aeternity/protocol/blob/master/node/api/README.md#overview)
 - [**Encoding Scheme**](https://github.com/aeternity/protocol/blob/master/node/api/api_encoding.md)
 - [**Account Management**](https://github.com/aeternity/protocol/blob/master/node/api/account_api_usage.md) 
 - [**Spending Tokens**](https://github.com/aeternity/protocol/blob/master/node/api/spend_api_usage.md) 
