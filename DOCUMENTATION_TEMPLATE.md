@@ -36,4 +36,4 @@ if it's existing (for example referring to debugging tools for testing)
 ...
 
 ## Community
-If you want to report any bugs or have feature requests regarding to this repository, please create an issue for this. If you have any additional questions, please add them in our Forum under the topic FAQ. 
+If you want to report any bugs or have feature requests regarding to this repository, please create an issue for this. If you have any additional questions, please add them in our [**Forum**](https://forum.aeternity.com/) under the topic FAQ. 
