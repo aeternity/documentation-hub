@@ -146,7 +146,7 @@
     - [Token Faucet](https://testnet.faucet.aepps.com/)
     - [aepp Faucet](https://github.com/aeternity/aepp-faucet/blob/master/README.md)
 
-# Aeternity Feaures
+# æternity Feaures
 - [**Oracles**](https://github.com/aeternity/protocol/blob/master/oracles/oracles.md)
     - [Life Cycle](https://github.com/aeternity/protocol/blob/master/oracles/oracle_life_cycle.md)
     - [State Tree](https://github.com/aeternity/protocol/blob/master/oracles/oracle_state_tree.md)
@@ -163,3 +163,10 @@
         - [GPU Solver](https://github.com/aeternity/cuckoo/blob/master/GPU.md)
     - Bitcoin-NG
 - [**Serializazion Formats**](https://github.com/aeternity/protocol/blob/master/serializations.md)
+
+# [æternity Expansions](https://github.com/aeternity/AEXs/blob/master/README.md)
+- [**Issue Template**](https://github.com/aeternity/AEXs/blob/master/ISSUE_TEMPLATE.md)
+- [**Pull Request Template**](https://github.com/aeternity/AEXs/blob/master/PULL_REQUEST_TEMPLATE.md)
+- **AEXS**
+    - [AEX1](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-1.md)
+    - [AEX2](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-2.md)
