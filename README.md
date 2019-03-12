@@ -176,7 +176,7 @@
     - [AEX1](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-1.md)
     - [AEX2](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-2.md)
 
-# Sophia Libraries and Examples
+# [Sophia Libraries and Examples](https://github.com/aeternity/aepp-sophia-examples/blob/master/README.md)
 - **Libraries**
     - [Sophia DateTime](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/DateTime/README.md)
     - [Sophia List](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/List/README.md)
