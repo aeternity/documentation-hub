@@ -146,6 +146,8 @@
     - [Token Faucet](https://testnet.faucet.aepps.com/)
     - [aepp Faucet](https://github.com/aeternity/aepp-faucet/blob/master/README.md)
 
+## [Sophia Support](https://github.com/mradkov/vscode-sophia/blob/master/README.md)
+
 # æternity Feaures
 - [**Oracles**](https://github.com/aeternity/protocol/blob/master/oracles/oracles.md)
     - [Life Cycle](https://github.com/aeternity/protocol/blob/master/oracles/oracle_life_cycle.md)
