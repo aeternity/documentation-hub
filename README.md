@@ -93,6 +93,9 @@
 -----
 ## Frameworks
 - [**ForgAE**](https://github.com/aeternity/aepp-forgae-js/blob/develop/README.md)
+    - Tutorials
+        - [Deploying a Smart Contract on æternity](https://github.com/aeternity/tutorials/blob/master/smart-contract-deployment-in-forgae.md)
+        - [Deploying a Smart Contract with init parameters](https://github.com/aeternity/tutorials/blob/master/deploy-with-init-params.md)
 - [**æpp Components**](https://github.com/aeternity/aepp-components/blob/develop/README.md)
     - [address](http://aeternity.com/aepp-components/#aeaddress)
     - [backdrop](http://aeternity.com/aepp-components/#aebackdrop)
@@ -172,3 +175,26 @@
 - **AEXS**
     - [AEX1](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-1.md)
     - [AEX2](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-2.md)
+
+# Sophia Libraries and Examples
+- **Libraries**
+    - [Sophia DateTime](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/DateTime/README.md)
+    - [Sophia List](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/List/README.md)
+    - [Sophia Ownable](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/Ownable/README.md)
+    - [Sophia Fungible Tokens](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/FuungibleTokens/README.md)
+    - [Sophia NonFungible Tokens](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/NonFungibleTokens/README.md)
+    - [Sophia Muiltisignature Wallet](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/MuiltisignatureWallet/README.md)
+    - [Sophia Base Converter](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/SophiaBaseConverter/README.md)
+    
+- **Examples**
+    - [Sophia SmartShop](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/SmartShop/README.md)
+    - [Sophia Crypto Hamster](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/CryptoHamster/README.md)
+    - [Sophia SmartRealEstate](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/SmartRealEstate/README.md)
+    - [Sophia Data Provider](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/DataProvider/README.md)
+    - [Sophia Spend-to-Many](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/SpendToMany/README.md)
+    - [Sophia TicTacToe](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/TicTacToe/README.md)
+# Tutorials
+## Development
+- **Running Node**
+    - [Ubuntu 18.04](https://github.com/aeternity/tutorials/blob/master/run-node-on-ubuntu-1804.md)
+    - [macOS Mojave](https://github.com/aeternity/tutorials/blob/master/run-node-on-macos-mojave.md)
