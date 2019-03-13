@@ -11,7 +11,7 @@
 - [**Spending Tokens**](https://github.com/aeternity/protocol/blob/master/node/api/spend_api_usage.md) 
 - [**Oracle**](https://github.com/aeternity/protocol/blob/master/node/api/oracle_api_usage.md) 
 - [**AENS Naming System**](https://github.com/aeternity/protocol/blob/master/node/api/naming_system_api_usage.md) 
-- [**Smart Contract**](https://github.com/aeternity/protocol/blob/master/node/api/contract_api_usage.md) 
+- [**Smart Contract**](https://github.com/aeternity/protocol/blob/master/contracts/contracts.md) 
 - [**State Channels**](https://github.com/aeternity/protocol/blob/master/node/api/channels_api_usage.md) 
 - [**Mining**](https://github.com/aeternity/protocol/blob/master/node/api/mining_api_usage.md)
 
