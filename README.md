@@ -1,4 +1,15 @@
-# Documentation Hub (work in progress)
+# DOCUMENTATION HUB (work in progress)
+# INTRODUCTION
+## Welcome to æternity
+
+**Welcome to æternity's Documentation Hub!**
+This Documentation Hub will be your best technical guide on æternity as a whole based on the model of the “Mastering Bitcoin” book, mainly focused on dApp (aepp) developer and miner. It should help you to clear the haze around æternity’s technology and whole ecosystem with a clear structure and well written documentation. æternity’s Documentation Hub should become your guide through the seemingly complex ecosystem of æternity, providing the knowledge you need for participating and mastering æternity. Whether you’re building the next killer aepp, investing in a startup, or simply curious about the technology itself, it will provide all essential details to get you started and to accompany you through your personal journey till æternity.
+
+If you don’t know about æternity yet, please feel free to visit [aeternity.com](www.aeternity.com)
+
+If you’d like to see a specific improvement you can either submit a pull request or file an issue. 
+Please follow our [contribution guidelines](https://github.com/aeternity/aeternity/blob/master/CONTRIBUTING.md).
+
 # [æternity Node](https://github.com/aeternity/aeternity/blob/master/README.md)
 - [**Threat Model**](https://github.com/aeternity/aetmodel/blob/master/ThreatModel.md)
 - [**Infrastructure Management**](https://github.com/aeternity/infrastructure/blob/master/README.md)
@@ -11,11 +22,11 @@
 - [**Spending Tokens**](https://github.com/aeternity/protocol/blob/master/node/api/spend_api_usage.md) 
 - [**Oracle**](https://github.com/aeternity/protocol/blob/master/node/api/oracle_api_usage.md) 
 - [**AENS Naming System**](https://github.com/aeternity/protocol/blob/master/node/api/naming_system_api_usage.md) 
-- [**Smart Contract**](https://github.com/aeternity/protocol/blob/master/contracts/contracts.md) 
+- [**Smart Contract**](https://github.com/aeternity/protocol/blob/master/node/api/contract_api_usage.md) 
 - [**State Channels**](https://github.com/aeternity/protocol/blob/master/node/api/channels_api_usage.md) 
 - [**Mining**](https://github.com/aeternity/protocol/blob/master/node/api/mining_api_usage.md)
 
-# Developer Tools
+# DEVELOPER TOOLS
 ## æternity SDK's
 - [**Go**](https://github.com/aeternity/aepp-sdk-go/README.md)
     - [CLI](https://github.com/aeternity/aepp-sdk-go/blob/develop/doc/cli/aecli.md)
@@ -151,7 +162,7 @@
 
 ## [Sophia Support](https://github.com/mradkov/vscode-sophia/blob/master/README.md)
 
-# æternity Feaures
+# æternity FEATURES
 - [**Oracles**](https://github.com/aeternity/protocol/blob/master/oracles/oracles.md)
     - [Life Cycle](https://github.com/aeternity/protocol/blob/master/oracles/oracle_life_cycle.md)
     - [State Tree](https://github.com/aeternity/protocol/blob/master/oracles/oracle_state_tree.md)
@@ -176,7 +187,7 @@
     - [AEX1](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-1.md)
     - [AEX2](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-2.md)
 
-# [Sophia Libraries and Examples](https://github.com/aeternity/aepp-sophia-examples/blob/master/README.md)
+# SOPHIA LIBRARIES AND EXAMPLES
 - **Libraries**
     - [Sophia DateTime](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/DateTime/README.md)
     - [Sophia List](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/List/README.md)
@@ -185,7 +196,6 @@
     - [Sophia NonFungible Tokens](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/NonFungibleTokens/README.md)
     - [Sophia Muiltisignature Wallet](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/MuiltisignatureWallet/README.md)
     - [Sophia Base Converter](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/SophiaBaseConverter/README.md)
-    
 - **Examples**
     - [Sophia SmartShop](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/SmartShop/README.md)
     - [Sophia Crypto Hamster](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/CryptoHamster/README.md)
@@ -193,7 +203,7 @@
     - [Sophia Data Provider](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/DataProvider/README.md)
     - [Sophia Spend-to-Many](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/SpendToMany/README.md)
     - [Sophia TicTacToe](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/TicTacToe/README.md)
-# Tutorials
+# TUTORIALS
 ## Development
 - **Running Node**
     - [Ubuntu 18.04](https://github.com/aeternity/tutorials/blob/master/run-node-on-ubuntu-1804.md)
