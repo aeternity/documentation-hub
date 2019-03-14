@@ -185,7 +185,7 @@ Please follow our [contribution guidelines](https://github.com/aeternity/aeterni
     - [AEX1](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-1.md)
     - [AEX2](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-2.md)
 
-# SOPHIA LIBRARIES AND EXAMPLES
+# SOPHIA LIBRARY
 - **Libraries**
     - [Sophia DateTime](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/DateTime/README.md)
     - [Sophia List](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/List/README.md)
@@ -194,6 +194,8 @@ Please follow our [contribution guidelines](https://github.com/aeternity/aeterni
     - [Sophia NonFungible Tokens](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/NonFungibleTokens/README.md)
     - [Sophia Muiltisignature Wallet](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/MuiltisignatureWallet/README.md)
     - [Sophia Base Converter](https://github.com/aeternity/aepp-sophia-examples/blob/master/libraries/SophiaBaseConverter/README.md)
+
+# SOPHIA BY EXAMPLE
 - **Examples**
     - [Sophia SmartShop](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/SmartShop/README.md)
     - [Sophia Crypto Hamster](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/CryptoHamster/README.md)
@@ -201,6 +203,7 @@ Please follow our [contribution guidelines](https://github.com/aeternity/aeterni
     - [Sophia Data Provider](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/DataProvider/README.md)
     - [Sophia Spend-to-Many](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/SpendToMany/README.md)
     - [Sophia TicTacToe](https://github.com/aeternity/aepp-sophia-examples/blob/master/examples/TicTacToe/README.md)
+ 
 # TUTORIALS
 ## Development
 - **Running Node**
