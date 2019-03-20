@@ -1,5 +1,20 @@
 site_name: æternity Documentation Hub
-
+nav:
+    - Introduction: 'index.md'
+    - æternity Node:
+        - Introduction: 'æternity/README.md'
+        - Get Started:
+            - Build in Windows: 'æternity/docs/build-windows.md'
+            - Build in Ubuntu: 'æternity/docs/build.md'
+            - Configuration: 'æternity/docs/Configuration.md'
+            - CUDA Miner: 'æternity/docs/cuda-miner.md'
+            - Docker: 'æternity/docs/docker.md'
+            - Installation in Windows: 'æternity/docs/Installation-windows.md'
+            - Installation in Ubuntu: 'æternity/docs/installation.md'
+            - Operation: 'æternity/docs/operation.md'
+        - Code of Conduct: 'æternity/docs/build-windows.md'
+        - Contributing: 'æternity/CONTRIBUTING.md'
+        - Issue Template: 'æternity/ISSUE_TEMPLATE.md'
 theme:
   name: 'material'
   palette:

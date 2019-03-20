@@ -1,0 +1,18 @@
+{application, aevm,
+ [{description, "Virtual machine for Aethernity"},
+  {vsn, {cmd, "cat ../../VERSION"}},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib,
+    lager,
+    jsx,
+    aebytecode,
+    aesophia
+   ]},
+  {env,[]},
+  {modules, []},
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
