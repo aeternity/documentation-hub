@@ -1,0 +1,13 @@
+site_name: æternity Documentation Hub
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'pink'
+    accent: 'purple'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+
+repo_name: 'aeternity/documentation-hub'
+repo_url: 'https://github.com/aeternity/documentation-hub'

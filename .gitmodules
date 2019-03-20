@@ -1,0 +1,3 @@
+[submodule "æternity"]
+	path = æternity
+	url = git@github.com:aeternity/aeternity.git
