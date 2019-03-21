@@ -15,6 +15,22 @@ nav:
         - Code of Conduct: 'æternity/docs/build-windows.md'
         - Contributing: 'æternity/CONTRIBUTING.md'
         - Issue Template: 'æternity/ISSUE_TEMPLATE.md'
+    - æternity Protocol:
+        - Oracles:
+            - Life Cycle: 'protocol/oracles/oracle_life_cycle.md'
+            - State Tree: 'protocol/oracles/oracle_state_tree.md'
+            - Transactions: 'protocol/oracles/oracle_tarnsactions.md'
+        - AENS Naming System: 'protocol/AENS.md'
+        - Smart Contracts:
+            - Contract Life Cycle Examples: 'protocol/contracts/contract_life_cycle.md'
+            - Virtual Machines:
+                - Æternity VM: 'protocol/contracts/contract_vms.md'
+                - Æternity Ethereum VM: 'protocol/contracts/aevm.md'
+            - Sophia Smart Contract Language: 'protocol/contracts/sophia.md'
+            - Contract State Tree: 'protocol/contracts/contract_state_tree.md'
+            - Contract Transactions: 'protocol/contracts/contract_transactions.md'
+        - State Channels: 'protocol/channels/README.md'
+        - Serialization Formats: 'protocol/serializations.md'
 theme:
   name: 'material'
   palette:
