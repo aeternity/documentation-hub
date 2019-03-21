@@ -1,3 +1,6 @@
 [submodule "æternity"]
 	path = æternity
 	url = git@github.com:aeternity/aeternity.git
+[submodule "protocol"]
+	path = protocol
+	url = git@github.com:aeternity/protocol.git
