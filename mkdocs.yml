@@ -31,6 +31,12 @@ nav:
             - Contract Transactions: 'protocol/contracts/contract_transactions.md'
         - State Channels: 'protocol/channels/README.md'
         - Serialization Formats: 'protocol/serializations.md'
+    - æternity Expansions:
+        - AEX's:
+            - AEX1: 'Expansions/AEXS/aex-1.md'
+            - AEX2: 'Expansions/AEXS/aex-2.md'
+        - Issue Template: 'Expansions/ISSUE_TEMPLATE.md'
+        - Pull Request Template: 'Expansions/PULL_REQUEST_TEMPLATE.md'
 theme:
   name: 'material'
   palette:
