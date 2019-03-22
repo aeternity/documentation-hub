@@ -1,25 +1,22 @@
 site_name: æternity Documentation Hub
 nav:
     - Introduction: 'index.md'
-    - æternity Node:
+    - Node:
         - Introduction: 'æternity/README.md'
         - Get Started:
             - Build in Windows: 'æternity/docs/build-windows.md'
             - Build in Ubuntu: 'æternity/docs/build.md'
-            - Configuration: 'æternity/docs/Configuration.md'
+            - Configuration: 'æternity/docs/configuration.md'
             - CUDA Miner: 'æternity/docs/cuda-miner.md'
             - Docker: 'æternity/docs/docker.md'
-            - Installation in Windows: 'æternity/docs/Installation-windows.md'
+            - Installation in Windows: 'æternity/docs/installation-windows.md'
             - Installation in Ubuntu: 'æternity/docs/installation.md'
             - Operation: 'æternity/docs/operation.md'
-        - Code of Conduct: 'æternity/docs/build-windows.md'
-        - Contributing: 'æternity/CONTRIBUTING.md'
-        - Issue Template: 'æternity/ISSUE_TEMPLATE.md'
-    - æternity Protocol:
+    - Protocol:
         - Oracles:
             - Life Cycle: 'protocol/oracles/oracle_life_cycle.md'
             - State Tree: 'protocol/oracles/oracle_state_tree.md'
-            - Transactions: 'protocol/oracles/oracle_tarnsactions.md'
+            - Transactions: 'protocol/oracles/oracle_transactions'
         - AENS Naming System: 'protocol/AENS.md'
         - Smart Contracts:
             - Contract Life Cycle Examples: 'protocol/contracts/contract_life_cycle.md'
@@ -31,17 +28,40 @@ nav:
             - Contract Transactions: 'protocol/contracts/contract_transactions.md'
         - State Channels: 'protocol/channels/README.md'
         - Serialization Formats: 'protocol/serializations.md'
-    - æternity Expansions:
+    - Expansions:
         - AEX's:
             - AEX1: 'Expansions/AEXS/aex-1.md'
             - AEX2: 'Expansions/AEXS/aex-2.md'
-        - Issue Template: 'Expansions/ISSUE_TEMPLATE.md'
-        - Pull Request Template: 'Expansions/PULL_REQUEST_TEMPLATE.md'
+    # - Developer Tools:
+    #     - SDK's:
+    #         - Go
+    #         - JavaScript
+    #         - Python
+    #     - CLI Tools:
+    #         - JavaScript
+    #         - Stratum:
+    #            - Library
+    #         - Websocket
+    #     - Middleware:
+    #     - Frameworks:
+    #         - ForgAE
+    #         - æpp Components
+    #     - Online Test Tools:
+    #         - Smart Contract Editor
+    #         - Blockchain Explorer
+    #         - Faucet
+    #            - Token Faucet
+    #            - æpp Faucet
+    # - Sophia Library:
+    # - Sophia by Example:
+    # - Tutorial:
+    #     - Development:
+    #     - Mining:
 theme:
   name: 'material'
   palette:
     primary: 'pink'
-    accent: 'purple'
+    accent: 'white'
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
