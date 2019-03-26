@@ -7,3 +7,6 @@
 [submodule "Expansions"]
 	path = Expansions
 	url = git@github.com:aeternity/AEXs.git
+[submodule "sdk-js"]
+	path = sdk-js
+	url = git@github.com:aeternity/aepp-sdk-js.git

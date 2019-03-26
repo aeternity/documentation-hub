@@ -57,6 +57,7 @@ nav:
     # - Tutorial:
     #     - Development:
     #     - Mining:
+extra_css: [site/assets/extra.css]
 theme:
   name: 'material'
   palette:
