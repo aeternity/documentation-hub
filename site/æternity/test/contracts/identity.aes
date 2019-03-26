@@ -1,3 +1,0 @@
-
-contract Identity =
-  function main (x:int) = x
