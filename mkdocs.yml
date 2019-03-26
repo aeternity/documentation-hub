@@ -32,10 +32,10 @@ nav:
         - AEX's:
             - AEX1: 'Expansions/AEXS/aex-1.md'
             - AEX2: 'Expansions/AEXS/aex-2.md'
-    # - Developer Tools:
-    #     - SDK's:
+    - Developer Tools:
+        - SDK's:
     #         - Go
-    #         - JavaScript
+            - JavaScript: 'sdk-js/README.md'
     #         - Python
     #     - CLI Tools:
     #         - JavaScript

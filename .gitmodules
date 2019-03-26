@@ -10,3 +10,6 @@
 [submodule "sdk-js"]
 	path = sdk-js
 	url = git@github.com:aeternity/aepp-sdk-js.git
+[submodule "sdk-go"]
+	path = sdk-go
+	url = git@github.com:aeternity/aepp-sdk-go.git
