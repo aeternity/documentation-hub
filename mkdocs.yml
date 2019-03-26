@@ -32,11 +32,20 @@ nav:
         - AEX's:
             - AEX1: 'Expansions/AEXS/aex-1.md'
             - AEX2: 'Expansions/AEXS/aex-2.md'
+    - Node Usage API:
+        - Encoding Scheme: 'protocol/node/api/api_encoding.md'
+        - Account Managment: 'protocol/node/api/account_api_usage.md'
+        - Spending Tokens: 'protocol/node/api/spend_api_usage.md'
+        - Oracle: 'protocol/node/api/oracle_api_usage.md'
+        - Naming System: 'protocol/node/api/naming_system_api_usage.md'
+        - Contract: 'protocol/node/api/contract_api_usage.md'
+        - Channels: 'protocol/node/api/channels_api_usage.md'
+        - Mining: 'protocol/node/api/mining_api_usage.md'
     - Developer Tools:
         - SDK's:
             - Go: 'sdk-go/README.md'
             - JavaScript: 'sdk-js/README.md'
-    #         - Python
+            - Python: 'sdk-python/README.md'
     #     - CLI Tools:
     #         - JavaScript
     #         - Stratum:

@@ -36,7 +36,7 @@
     
     
       
-        <title>Channels api usage - æternity Documentation Hub</title>
+        <title>Channels - æternity Documentation Hub</title>
       
     
     
@@ -62,6 +62,8 @@
     
     <link rel="stylesheet" href="../../../../assets/fonts/material-icons.css">
     
+    
+      <link rel="stylesheet" href="../../../../site/assets/extra.css">
     
     
       
@@ -127,7 +129,7 @@
               æternity Documentation Hub
             </span>
             <span class="md-header-nav__topic">
-              Channels api usage
+              Channels
             </span>
           
         </div>
@@ -697,6 +699,630 @@
   <li class="md-nav__item">
     <a href="../../../../Expansions/AEXS/aex-2/" title="AEX2" class="md-nav__link">
       AEX2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Node Usage API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Node Usage API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api_encoding/" title="Encoding Scheme" class="md-nav__link">
+      Encoding Scheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../account_api_usage/" title="Account Managment" class="md-nav__link">
+      Account Managment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../spend_api_usage/" title="Spending Tokens" class="md-nav__link">
+      Spending Tokens
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../oracle_api_usage/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../naming_system_api_usage/" title="Naming System" class="md-nav__link">
+      Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../contract_api_usage/" title="Contract" class="md-nav__link">
+      Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Channels
+      </label>
+    
+    <a href="./" title="Channels" class="md-nav__link md-nav__link--active">
+      Channels
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#websocket-life-cycle" title="WebSocket life cycle" class="md-nav__link">
+    WebSocket life cycle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-requests" title="HTTP requests" class="md-nav__link">
+    HTTP requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-open" title="Channel open" class="md-nav__link">
+    Channel open
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#websocket-protocol" title="Websocket protocol" class="md-nav__link">
+    Websocket protocol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-parameters" title="Channel parameters" class="md-nav__link">
+    Channel parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-websocket-open" title="Responder WebSocket open" class="md-nav__link">
+    Responder WebSocket open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initiator-websocket-open" title="Initiator WebSocket open" class="md-nav__link">
+    Initiator WebSocket open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-opened-messages" title="Connection opened messages" class="md-nav__link">
+    Connection opened messages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initiator-connection-opened-message" title="Initiator connection opened message" class="md-nav__link">
+    Initiator connection opened message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-connection-opened-message" title="Responder connection opened message" class="md-nav__link">
+    Responder connection opened message
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-transaction-signing" title="Create transaction signing" class="md-nav__link">
+    Create transaction signing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initiator-signs-the-tx" title="Initiator signs the tx" class="md-nav__link">
+    Initiator signs the tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-is-informed" title="Responder is informed" class="md-nav__link">
+    Responder is informed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-signs-the-tx" title="Responder signs the tx" class="md-nav__link">
+    Responder signs the tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initiator-is-informed" title="Initiator is informed" class="md-nav__link">
+    Initiator is informed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signed-channel_create_tx" title="Signed channel_create_tx" class="md-nav__link">
+    Signed channel_create_tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-in-mempool" title="Transaction in mempool" class="md-nav__link">
+    Transaction in mempool
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-inclusion" title="Block inclusion" class="md-nav__link">
+    Block inclusion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-state" title="Initial state" class="md-nav__link">
+    Initial state
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-confirmation" title="Open confirmation" class="md-nav__link">
+    Open confirmation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-off-chain-update" title="Channel off-chain update" class="md-nav__link">
+    Channel off-chain update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel-state" title="Channel state" class="md-nav__link">
+    Channel state
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer" title="Transfer" class="md-nav__link">
+    Transfer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-transfer-update" title="Start transfer update" class="md-nav__link">
+    Start transfer update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-transfer-update" title="Trigger a transfer update" class="md-nav__link">
+    Trigger a transfer update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starter-signs-updated-state" title="Starter signs updated state" class="md-nav__link">
+    Starter signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-contract" title="Create a contract" class="md-nav__link">
+    Create a contract
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-create-contract-update" title="Start create contract update" class="md-nav__link">
+    Start create contract update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-create-contract-update" title="Trigger a create contract update" class="md-nav__link">
+    Trigger a create contract update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#owner-signs-updated-state" title="Owner signs updated state" class="md-nav__link">
+    Owner signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update_1" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update_1" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contract-address-computation" title="Contract address computation" class="md-nav__link">
+    Contract address computation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call-a-contract" title="Call a contract" class="md-nav__link">
+    Call a contract
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-call-a-contract-update" title="Start call a contract update" class="md-nav__link">
+    Start call a contract update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-contract-call-update" title="Trigger a contract call update" class="md-nav__link">
+    Trigger a contract call update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caller-signs-updated-state" title="Caller signs updated state" class="md-nav__link">
+    Caller signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update_2" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update_2" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-a-call-result" title="Getting a call result" class="md-nav__link">
+    Getting a call result
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leave-request" title="Leave request" class="md-nav__link">
+    Leave request
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reestablish" title="Reestablish" class="md-nav__link">
+    Reestablish
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mining_api_usage/" title="Mining" class="md-nav__link">
+      Mining
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Developer Tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Developer Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      SDK's
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        SDK's
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../sdk-go/" title="Go" class="md-nav__link">
+      Go
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../sdk-js/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../sdk-python/" title="Python" class="md-nav__link">
+      Python
     </a>
   </li>
 
@@ -2931,6 +3557,41 @@ The transaction has the following structure:</p>
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../contract_api_usage/" title="Contract" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Contract
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../mining_api_usage/" title="Mining" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Mining
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

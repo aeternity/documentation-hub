@@ -16,3 +16,6 @@
 [submodule "sdk-python"]
 	path = sdk-python
 	url = git@github.com:aeternity/aepp-sdk-python.git
+[submodule "forgae"]
+	path = forgae
+	url = git@github.com:aeternity/aepp-forgae-js.git
