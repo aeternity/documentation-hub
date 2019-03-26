@@ -34,7 +34,7 @@ nav:
             - AEX2: 'Expansions/AEXS/aex-2.md'
     - Developer Tools:
         - SDK's:
-    #         - Go
+            - Go: 'sdk-go/README.md'
             - JavaScript: 'sdk-js/README.md'
     #         - Python
     #     - CLI Tools:
