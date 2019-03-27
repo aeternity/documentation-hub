@@ -19,3 +19,6 @@
 [submodule "forgae"]
 	path = forgae
 	url = git@github.com:aeternity/aepp-forgae-js.git
+[submodule "aepp-sophia-examples"]
+	path = aepp-sophia-examples
+	url = git@github.com:aeternity/aepp-sophia-examples.git

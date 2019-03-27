@@ -29,9 +29,8 @@ nav:
         - State Channels: 'protocol/channels/README.md'
         - Serialization Formats: 'protocol/serializations.md'
     - Expansions:
-        - AEX's:
-            - AEX1: 'Expansions/AEXS/aex-1.md'
-            - AEX2: 'Expansions/AEXS/aex-2.md'
+        - AEX1: 'Expansions/AEXS/aex-1.md'
+        - AEX2: 'Expansions/AEXS/aex-2.md'
     - Node Usage API:
         - Encoding Scheme: 'protocol/node/api/api_encoding.md'
         - Account Managment: 'protocol/node/api/account_api_usage.md'
@@ -46,6 +45,8 @@ nav:
             - Go: 'sdk-go/README.md'
             - JavaScript: 'sdk-js/README.md'
             - Python: 'sdk-python/README.md'
+        - Frameworks:
+            - ForgAE: 'forgae/README.md'
     #     - CLI Tools:
     #         - JavaScript
     #         - Stratum:
@@ -61,8 +62,21 @@ nav:
     #         - Faucet
     #            - Token Faucet
     #            - æpp Faucet
-    # - Sophia Library:
-    # - Sophia by Example:
+    - Sophia Libraries:
+       - DateTime:
+       - List:
+       - Ownable:
+       - Fungible Tokens:
+       - Non Fungible Tokens:
+       - Multisignature Wallet:
+       - Base Converter:
+    - Sophia by Example:
+       - Smart Shop:
+       - Crypto Hamster:
+       - Smart Real Estate:
+       - Data Provider:
+       - Spend-to-Many:
+       - Tic Tac Toe:
     # - Tutorial:
     #     - Development:
     #     - Mining:
