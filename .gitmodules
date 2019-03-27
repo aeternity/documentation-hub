@@ -22,3 +22,6 @@
 [submodule "aepp-sophia-examples"]
 	path = aepp-sophia-examples
 	url = git@github.com:aeternity/aepp-sophia-examples.git
+[submodule "tutorials"]
+	path = tutorials
+	url = git@github.com:aeternity/tutorials.git
