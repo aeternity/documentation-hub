@@ -1,0 +1,2645 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>On-chain - æternity Documentation Hub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../site/assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="white">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#on-chain" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="æternity Documentation Hub" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              æternity Documentation Hub
+            </span>
+            <span class="md-header-nav__topic">
+              On-chain
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="æternity Documentation Hub" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    æternity Documentation Hub
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Get Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Get Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/build-windows/" title="Build in Windows" class="md-nav__link">
+      Build in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/build/" title="Build in Ubuntu" class="md-nav__link">
+      Build in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/cuda-miner/" title="CUDA Miner" class="md-nav__link">
+      CUDA Miner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/installation-windows/" title="Installation in Windows" class="md-nav__link">
+      Installation in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/installation/" title="Installation in Ubuntu" class="md-nav__link">
+      Installation in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/operation/" title="Operation" class="md-nav__link">
+      Operation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Protocol
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Protocol
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../oracles/oracle_life_cycle/" title="Life Cycle" class="md-nav__link">
+      Life Cycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../oracles/oracle_state_tree/" title="State Tree" class="md-nav__link">
+      State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../oracles/oracle_transactions" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../AENS/" title="AENS Naming System" class="md-nav__link">
+      AENS Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Smart Contracts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Smart Contracts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/contract_life_cycle/" title="Contract Life Cycle Examples" class="md-nav__link">
+      Contract Life Cycle Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-2" type="checkbox" id="nav-3-3-2">
+    
+    <label class="md-nav__link" for="nav-3-3-2">
+      Virtual Machines
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-2">
+        Virtual Machines
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/contract_vms/" title="Æternity VM" class="md-nav__link">
+      Æternity VM
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/aevm/" title="Æternity Ethereum VM" class="md-nav__link">
+      Æternity Ethereum VM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/sophia/" title="Sophia Smart Contract Language" class="md-nav__link">
+      Sophia Smart Contract Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/contract_state_tree/" title="Contract State Tree" class="md-nav__link">
+      Contract State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/contract_transactions/" title="Contract Transactions" class="md-nav__link">
+      Contract Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="State Channels" class="md-nav__link">
+      State Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../serializations/" title="Serialization Formats" class="md-nav__link">
+      Serialization Formats
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Expansions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Expansions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Expansions/AEXS/aex-1/" title="AEX1" class="md-nav__link">
+      AEX1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Expansions/AEXS/aex-2/" title="AEX2" class="md-nav__link">
+      AEX2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Node Usage API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Node Usage API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/api_encoding/" title="Encoding Scheme" class="md-nav__link">
+      Encoding Scheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/account_api_usage/" title="Account Managment" class="md-nav__link">
+      Account Managment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/spend_api_usage/" title="Spending Tokens" class="md-nav__link">
+      Spending Tokens
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/oracle_api_usage/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/naming_system_api_usage/" title="Naming System" class="md-nav__link">
+      Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/contract_api_usage/" title="Contract" class="md-nav__link">
+      Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/channels_api_usage/" title="Channels" class="md-nav__link">
+      Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/mining_api_usage/" title="Mining" class="md-nav__link">
+      Mining
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Developer Tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Developer Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      SDK's
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        SDK's
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../sdk-go/README.md" title="Go" class="md-nav__link">
+      Go
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../sdk-js/README.md" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../sdk-python/README.md" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-2" type="checkbox" id="nav-6-2">
+    
+    <label class="md-nav__link" for="nav-6-2">
+      Frameworks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-2">
+        Frameworks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../forgae/README.md" title="ForgAE" class="md-nav__link">
+      ForgAE
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Sophia Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Sophia Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/DateTime/" title="DateTime" class="md-nav__link">
+      DateTime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/List/" title="List" class="md-nav__link">
+      List
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/Ownable/" title="Ownable" class="md-nav__link">
+      Ownable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/FungibleToken/" title="FungibleToken" class="md-nav__link">
+      FungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/NonFungibleToken/" title="NonFungibleToken" class="md-nav__link">
+      NonFungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/MultisignatureWallet/" title="MultisignatureWallet" class="md-nav__link">
+      MultisignatureWallet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Sophia by Example
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Sophia by Example
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/examples/SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
+      Smart Data Provider
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/examples/SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
+      Smart Real Estate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/examples/SpendToMany/" title="Spend-to-Many" class="md-nav__link">
+      Spend-to-Many
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/examples/TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
+      Tic Tac Toe
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      How-To Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        How-To Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-1" type="checkbox" id="nav-9-1">
+    
+    <label class="md-nav__link" for="nav-9-1">
+      Account
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-1">
+        Account
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/account-creation-in-ae-cli/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-2" type="checkbox" id="nav-9-2">
+    
+    <label class="md-nav__link" for="nav-9-2">
+      Middleware
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-2">
+        Middleware
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/running-your-own-ae-middleware/" title="Run Own Middleware" class="md-nav__link">
+      Run Own Middleware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-3" type="checkbox" id="nav-9-3">
+    
+    <label class="md-nav__link" for="nav-9-3">
+      Miner
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-3">
+        Miner
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-cpu-miner-on-ubuntu-1804/" title="Run CPU Miner (Ubuntu)" class="md-nav__link">
+      Run CPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-gpu-miner-on-ubuntu-1804/" title="Run GPU Miner (Ubuntu)" class="md-nav__link">
+      Run GPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-node-on-macos-mojave/" title="Run Node (MacOS)" class="md-nav__link">
+      Run Node (MacOS)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-node-on-ubuntu-1804/" title="Run Node (Ubuntu)" class="md-nav__link">
+      Run Node (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-5" type="checkbox" id="nav-9-5">
+    
+    <label class="md-nav__link" for="nav-9-5">
+      Paper Wallet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-5">
+        Paper Wallet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/create-a-paper-wallet/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-6" type="checkbox" id="nav-9-6">
+    
+    <label class="md-nav__link" for="nav-9-6">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-6">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-language-definition-for-notepad++/" title="Install Sophia Notepad++ Language Definition" class="md-nav__link">
+      Install Sophia Notepad++ Language Definition
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-7" type="checkbox" id="nav-9-7">
+    
+    <label class="md-nav__link" for="nav-9-7">
+      Testnet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-7">
+        Testnet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-local-testnet-with-docker/" title="Run Local Testnet (Docker)" class="md-nav__link">
+      Run Local Testnet (Docker)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/get-testnet-tokens/" title="Get Testnet Tokens" class="md-nav__link">
+      Get Testnet Tokens
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-8" type="checkbox" id="nav-9-8">
+    
+    <label class="md-nav__link" for="nav-9-8">
+      Unit Tests
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-8">
+        Unit Tests
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/how-to-write-unit-test-1/" title="How to Write Unit Test I" class="md-nav__link">
+      How to Write Unit Test I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/how-to-write-unit-test-2/" title="How to Write Unit Test II" class="md-nav__link">
+      How to Write Unit Test II
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-1" type="checkbox" id="nav-10-1">
+    
+    <label class="md-nav__link" for="nav-10-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-oracle-introduction/" title="Sophia Oracle Introduction" class="md-nav__link">
+      Sophia Oracle Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-fungible-token-contract/" title="Fungible Token Contract" class="md-nav__link">
+      Fungible Token Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-token-exchange-contract-1/" title="Token Exchange Contract I" class="md-nav__link">
+      Token Exchange Contract I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-token-exchange-contract-2/" title="Token Exchange Contract II" class="md-nav__link">
+      Token Exchange Contract II
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-token-exchange-contract-3/" title="Token Exchange Contract III" class="md-nav__link">
+      Token Exchange Contract III
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/vote-contract.md" title="Vote Contract" class="md-nav__link">
+      Vote Contract
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      State Channels
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        State Channels
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/state-channels-introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#establishing-a-channel" title="Establishing a channel" class="md-nav__link">
+    Establishing a channel
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel_create" title="channel_create" class="md-nav__link">
+    channel_create
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-a-channel" title="Updating a channel" class="md-nav__link">
+    Updating a channel
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel_deposit" title="channel_deposit" class="md-nav__link">
+    channel_deposit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_withdraw" title="channel_withdraw" class="md-nav__link">
+    channel_withdraw
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_snapshot_solo" title="channel_snapshot_solo" class="md-nav__link">
+    channel_snapshot_solo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#closing-a-channel" title="Closing a channel" class="md-nav__link">
+    Closing a channel
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel_close_mutual" title="channel_close_mutual" class="md-nav__link">
+    channel_close_mutual
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements_1" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_close_solo" title="channel_close_solo" class="md-nav__link">
+    channel_close_solo
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#empty-payload" title="Empty payload" class="md-nav__link">
+    Empty payload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-payload" title="Transaction payload" class="md-nav__link">
+    Transaction payload
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_settle" title="channel_settle" class="md-nav__link">
+    channel_settle
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements_2" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forcing-progress" title="Forcing progress" class="md-nav__link">
+    Forcing progress
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel_force_progress_tx" title="channel_force_progress_tx" class="md-nav__link">
+    channel_force_progress_tx
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#empty-payload_1" title="Empty Payload" class="md-nav__link">
+    Empty Payload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-payload_1" title="Transaction Payload" class="md-nav__link">
+    Transaction Payload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#force-progress-side-effects" title="Force progress side effects" class="md-nav__link">
+    Force progress side effects
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-channel-object" title="Updating channel object" class="md-nav__link">
+    Updating channel object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call-object" title="Call object" class="md-nav__link">
+    Call object
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disputing-updates" title="Disputing updates" class="md-nav__link">
+    Disputing updates
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#force-progress-dispute-with-closing-channel" title="Force progress dispute with closing channel" class="md-nav__link">
+    Force progress dispute with closing channel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#force-progress-dispute-with-open-channel-example" title="Force progress dispute with open channel example" class="md-nav__link">
+    Force progress dispute with open channel example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#force-progress-dispute-with-closing-channel-example" title="Force progress dispute with closing channel example" class="md-nav__link">
+    Force progress dispute with closing channel example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel_slash" title="channel_slash" class="md-nav__link">
+    channel_slash
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#empty-payload_2" title="Empty payload" class="md-nav__link">
+    Empty payload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-payload_2" title="Transaction payload" class="md-nav__link">
+    Transaction payload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements_3" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-state-tree" title="Channel state tree" class="md-nav__link">
+    Channel state tree
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aeternity/documentation-hub/edit/master/docs/protocol/channels/ON-CHAIN.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="on-chain">On-chain</h1>
+<p>Operating a state channel requires, at least, an initial setup via a
+<code>channel_create</code> transaction, that locks up a configurable amount of coins from
+each involved party in the channel. This requires consent, in the form of
+signatures, from all participants.</p>
+<p>In the ideal case, all on-chain transactions get signed off by all participants,
+implying that there are no disagreements. These operations can be committed
+immediately and will generally override all operations initiated unilaterally.</p>
+<p>Transactions not signed off by everyone, except the <code>channel_snapshot_solo</code>, can
+be disputed via <code>channel_slash</code> and <code>channel_force_progress_tx</code> transactions.
+During normal operation, these solo transactions can be disputed indefinitely.
+If the channel is in the closing state, disputes have to happen within the
+pre-negotiated <code>lock_period</code>, given that closure requires a bounded finality.</p>
+<p>Each transaction updating on-chain state provides two fields essential for
+future conflict resolution: <code>round</code> and <code>state_hash</code>. The state hash is the root
+hash of the channel's state tree after the on-chain has been applied to the
+local state tree. The <code>round</code> is the <em>next</em> state channel internal round. Thus
+the on-chain update transaction represents on-chain the next off-chain state
+of the channel. This way we can solo close a channel according to the last
+on-chain state. All we have to do is to provide a proof of inclusion having
+the same <code>state_hash</code>.</p>
+<ul>
+<li><a href="#establishing-a-channel">Establishing a channel</a><ul>
+<li><a href="#channel_create"><code>channel_create</code></a></li>
+</ul>
+</li>
+<li><a href="#updating-a-channel">Updating a channel</a><ul>
+<li><a href="#channel_deposit"><code>channel_deposit</code></a></li>
+<li><a href="#channel_withdraw"><code>channel_withdraw</code></a></li>
+<li><a href="#channel_snapshot_solo"><code>channel_snapshot_solo</code></a></li>
+</ul>
+</li>
+<li><a href="#closing-a-channel">Closing a channel</a><ul>
+<li><a href="#channel_close_mutual"><code>channel_close_mutual</code></a></li>
+<li><a href="#channel_close_solo"><code>channel_close_solo</code></a></li>
+<li><a href="#channel_settle"><code>channel_settle</code></a></li>
+</ul>
+</li>
+<li><a href="#disputing-updates">Disputing updates</a><ul>
+<li><a href="#channel_slash"><code>channel_slash</code></a></li>
+</ul>
+</li>
+<li><a href="#forcing-progress">Forcing progress</a><ul>
+<li><a href="#channel_force_progress_tx"><code>channel_force_progress_tx</code></a></li>
+</ul>
+</li>
+<li><a href="#channel-state-tree">Channel state tree</a></li>
+</ul>
+<h2 id="establishing-a-channel">Establishing a channel</h2>
+<p>All of the on-chain operations could be submitted by any peer but we assume that
+the initiating peer pays for the setup of the channel. Therefore the <code>initiator</code>
+MUST pay the standard transaction fees.</p>
+<h3 id="channel_create"><code>channel_create</code></h3>
+<p>The <code>channel_create</code> transaction is used to register a channel on-chain and its
+inclusion on-chain causes the specified amounts to be locked up.</p>
+<p>e.g.</p>
+<pre><code>Account(initiator).balance := Account(initiator).balance - initiator_amount
+
+Account(responder).balance := Account(responder).balance - responder_amount
+
+Channel(cid).amount := initiator_amount + responder_amount
+</code></pre>
+
+<p>Serialization defined <a href="../../serializations/#channel-create-transaction">here</a></p>
+<ul>
+<li><code>initiator_id</code>: account id of the initiating peer</li>
+<li><code>responder_id</code>: account id of the responding peer</li>
+<li><code>initiator_amount</code>: unsigned amount of coins the initiator commits to the
+  channel</li>
+<li><code>responder_amount</code>: unsigned amount of coins the responder commits to the
+  channel</li>
+<li><code>lock_period</code>: period for disputes after solo operations</li>
+<li><code>delegate_ids</code>: a list of delegate account ids. The delegates play a role in
+  the solo closing sequence: except for the participants of the channel, they
+  are the only ones that can provide a slash transaction.</li>
+<li><code>state_hash</code>: the root hash of the channel state tree; This is not validated,
+  just kept in the channel's object</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: <code>initiator</code>'s account nonce</li>
+</ul>
+<p>The length of the <code>lock_period</code> is a trade-off between responsiveness, e.g. how
+fast solo operations can be committed, and security. Choosing a <code>lock_period</code>
+that gives participants enough time to react to potential malicious solo
+operations is crucial.</p>
+<p>The <code>ttl</code> is in absolute chain height. The involved parties will want to set the
+<code>ttl</code> to a value quite a bit larger than the present chain height, to avoid
+uncertainty. If the fees included are low and transaction pressure is high, then
+the transaction might end up being stuck in the mempool for an extended period.
+<code>ttl</code> is optional, no <code>ttl</code> means a transaction that is valid "forever".</p>
+<p>The <code>fee</code> and <code>nonce</code> refer to the <code>initiator</code> account, i.e. the <code>fee</code> MUST be
+taken from their balance and the <code>nonce</code> of their account MUST be incremented.</p>
+<h4 id="requirements">Requirements</h4>
+<p><code>Account(initiator).balance &gt;= initiator_amount + fee</code></p>
+<p><code>Account(responder).balance &gt;= responder_amount</code></p>
+<p><code>initiator_amount &gt;= channel_reserve</code></p>
+<p><code>responder_amount &gt;= channel_reserve</code></p>
+<h2 id="updating-a-channel">Updating a channel</h2>
+<p>An update to an open channel requires the signatures of all participants and a
+channel identification (<code>channel_id</code>).</p>
+<p>Both <code>channel_deposit</code> and <code>channel_withdraw</code> MUST be signed by all involved
+parties, since changing channel balances might change the dynamics of code
+running in a channel.</p>
+<p>The <code>channel_id</code> is computed from the public key of the initiator, the nonce of
+the create transaction and the public key of the responder using Blake2b (256
+bits digest).</p>
+<pre><code>channel_id = Blake2b(initiator || channel_create_tx_nonce || responder)
+                        32                  32                  32
+</code></pre>
+
+<h3 id="channel_deposit"><code>channel_deposit</code></h3>
+<p>Depositing funds into a channel after creation should allow channels to be more
+long lived due to the increased ease of balancing them out. The amount of coins
+sent along with this transaction will get locked up just like the initial
+deposit.</p>
+<p>While it could be desirable to allow anyone to deposit into a channel, we are
+going to restrict deposits to the peers of a channel. That means, the <code>from_id</code>
+field MUST be an address of one of the participants of the targeted channel and
+the standard transaction fee MUST be paid by the <code>from_id</code> account.</p>
+<p>This operation is not mandatory for normal channel operation.</p>
+<p>Serialization defined <a href="../../serializations/#channel-deposit-transaction">here</a></p>
+<ul>
+<li><code>channel_id</code>: channel id as recorded on-chain</li>
+<li><code>from_id</code>: sender of the deposit</li>
+<li><code>amount</code>: amount of coins deposited</li>
+<li><code>state_hash</code>: the root hash of the channel state tree after the deposit had
+  been applied; This is not validated, just kept in the channel's object</li>
+<li><code>round</code>: the channel's internal round that applies the deposit</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: <code>from_id</code>'s account nonce</li>
+</ul>
+<p>Note that the <code>round</code> SHOULD be incremented on each off-chain update. This
+means, in order for an on-chain transaction, referring to off-chain state, to
+be considered valid, it MUST include a <code>round</code> bigger than the currently
+recorded <code>Channel(channel_id).round</code>.</p>
+<p>If this transaction is valid then it sets:</p>
+<ul>
+<li><code>Channel(channel_id).round := round</code></li>
+<li><code>Channel(channel_id).solo_round := round</code></li>
+<li><code>Channel(channel_id).state_hash := state_hash</code></li>
+<li><code>Channel(channel_id).total_amount := Channel(channel_id).total_amount + amount</code></li>
+</ul>
+<h3 id="channel_withdraw"><code>channel_withdraw</code></h3>
+<p>Channels should generally not be used to hold significant amounts of coins but
+being able to withdraw locked coins might still be of use.</p>
+<p>Serialization defined <a href="../../serializations/#channel-withdraw-transaction">here</a></p>
+<ul>
+<li><code>channel_id</code>: channel id as recorded on-chain</li>
+<li><code>to</code>: receiver of the withdraw</li>
+<li><code>amount</code>: amount of coins withdrawn</li>
+<li><code>state_hash</code>: the root hash of the channel state tree after the withdraw had
+  been applied; This is not validated, just kept in the channel's object</li>
+<li><code>round</code>: the channel's internal round that applies the withdraw</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: <code>to</code>'s account nonce</li>
+</ul>
+<p>The <code>to</code> account MUST be a participant in the target channel. The <code>amount</code> MUST
+be less or equal than the sum of all participants balances, i.e. channels cannot
+create coins out of thin air. The fee is paid by the <code>to</code> account and that
+account should hold enough coins to pay the fee, i.e., the fee is subtracted
+before the withdrawn coins arrive.</p>
+<p>Note that the <code>round</code> SHOULD be incremented on each off-chain update. This
+means, in order for an on-chain transaction, referring to off-chain state, to
+be considered valid, it MUST include a <code>round</code> bigger than or equal to the
+currently recorded <code>Channel(channel_id).round</code>.</p>
+<p>If this transaction is valid then it sets:</p>
+<ul>
+<li><code>Channel(channel_id).round := round</code></li>
+<li><code>Channel(channel_id).solo_round := round</code></li>
+<li><code>Channel(channel_id).state_hash := state_hash</code></li>
+<li><code>Channel(channel_id).total_amount := Channel(channel_id).total_amount - amount</code></li>
+</ul>
+<h3 id="channel_snapshot_solo"><code>channel_snapshot_solo</code></h3>
+<p>In order to make channels both secure and trustless even when one party goes
+offline, we provide the functionality of snapshots.
+Snapshots provide a recent off-chain state to be recorded on-chain. This state
+is represented by a <code>round</code> and a <code>state_hash</code>. After its inclusion the channel
+can not be closed using an older state—as indicated by the <code>round</code>—than the one
+provided in the snapshot.</p>
+<p>Serialization defined <a href="../../serializations/#channel-snapshot-solo-transaction">here</a></p>
+<ul>
+<li><code>channel_id</code>: channel id as recorded on-chain</li>
+<li><code>from_id</code>: the account that posts the transaction</li>
+<li><code>payload</code>: co-signed off-chain state of the same channel</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: the <code>from_id</code> account nonce</li>
+</ul>
+<p>The <code>from_id</code> account MUST be a participant in the target channel. The <code>payload</code>
+MUST be a co-signed off-chain state. It MUST be part of the same channel
+(containing same channel id) and it MUST have a <code>round</code> greater than the
+one currently recorded on-chain.</p>
+<p>This transaction MUST NOT trigger the <code>lock_period</code> and MUST NOT be used when
+the channel is in the locked state. It can be used to overwrite a state produced
+by a <code>channel_force_progress_tx</code> while the channel is in the open state.</p>
+<p>If this transaction is valid then it sets:</p>
+<ul>
+<li><code>Channel(channel_id).round := payload.round</code></li>
+<li><code>Channel(channel_id).solo_round := payload.round</code></li>
+<li><code>Channel(channel_id).state_hash := payload.state_hash</code></li>
+</ul>
+<h2 id="closing-a-channel">Closing a channel</h2>
+<p>We expect channels to be only closed in the case of non-cooperation or malicious
+behaviour. If all parties decide to close the channel, closing is just a matter
+of issuing one on-chain transaction, signed by everyone involved.</p>
+<p>In the case of a solo closing, operations are subject to the <code>lock_period</code>,
+during which they can be disputed via a <code>channel_slash</code>.</p>
+<h3 id="channel_close_mutual"><code>channel_close_mutual</code></h3>
+<p>Serialization defined <a href="../../serializations/#channel-close-mutual-transaction">here</a></p>
+<ul>
+<li><code>channel_id</code>: channel id as recorded on-chain</li>
+<li><code>from_id</code>: the account that posts the transaction</li>
+<li><code>initiator_amount_final</code>: final balance for the initiator</li>
+<li><code>responder_amount_final</code>: final balance for the responder</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: the <code>from_id</code> account nonce</li>
+</ul>
+<p><code>initiator_amount_final</code> and <code>responder_amount_final</code> are the agreed upon distribution of coins.
+The initiator's and responder's account balances are incremented by
+<code>initiator_amount_final</code> and <code>responder_amount_final</code> respectively.
+The channel MUST have enough total coins to pay for the fee as well as the
+agreed upon amounts. The total closing amount of a channel is computed by
+adding the amounts of the initiator and responder (before the close) and the
+fee. If this total closing amount is lower than the total amount coins already
+dedicated to the channel, the excess of coins is <a href="../../consensus/locking/">locked</a>.</p>
+<h4 id="requirements_1">Requirements</h4>
+<p>This transaction MUST have valid signatures of all involved parties.</p>
+<p>This transaction MUST NOT be disputed and any ongoing dispute MUST be considered
+resolved by this transaction.</p>
+<p>After this transaction has been included in a block, the channel MUST be
+considered closed and allow no further modifications.</p>
+<p><code>channel total ==
+  transcation initiator_amount_final + responder_amount_final + fee</code></p>
+<h3 id="channel_close_solo"><code>channel_close_solo</code></h3>
+<p>In order to close a channel unilaterally, a participant has to send a
+<code>channel_close_solo</code> transaction. This is only necessary if one peer stops
+responding but can also be used by an malicious peer trying to close a channel
+with a state that hasn't been agreed on by all participants.</p>
+<p>At any point a channel participant can initiate the solo closing sequence.
+After the <code>channel_close_solo</code> is posted and included in the chain a
+<code>lock_period</code> block height timer is started.
+This lock period is required to give the other party an opportunity to dispute
+the state, that the closing sequence is based on. This can be done via the
+<code>channel_slash</code> and <code>channel_force_progress_tx</code> transactions.</p>
+<p>With the inclusion of this transaction on-chain, the channel enters the <code>locked</code>
+state, during which the <code>channel_close_solo</code> can be disputed.</p>
+<p>Serialization defined <a href="../../serializations/#channel-close-solo-transaction">here</a></p>
+<ul>
+<li><code>channel_id</code>: channel id as recorded on-chain</li>
+<li><code>from_id</code>: participant of the channel that posts the closing transaction</li>
+<li><code>payload</code>: empty or a transaction proving that the proof of inclusion is part
+  of the channel</li>
+<li><code>poi</code>: proof of inclusion</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: taken from the <code>from_id</code>'s account</li>
+</ul>
+<p>Proof of inclusion represents the channel's internal state. At the bare minimum
+it has to include all accounts and their balances. It must provide enough
+information to close the channel. Miners are to check balances in it and use
+this data to update the channel's on-chain representation. This is how the
+poster initiates the solo closing sequence.
+If there are any contracts in the channel and those have balances of their own,
+they are not provided in the proof of inclusion but they are rather to be force-
+pushed in subsequent transactions. It is up to participants to decide if they
+want to post them at all. Thus the accumulative balances of the accounts in the
+solo-close transaction can be lower than the channel balance persisted on-chain.</p>
+<p>The <code>payload</code> can be either empty or a signed transaction.</p>
+<h4 id="empty-payload">Empty payload</h4>
+<p>If the payload is empty, the last on-chain persisted state and <code>solo_round</code> are
+used. In this case the proof of inclusion root hash MUST be equal to the one
+persisted for the channel on-chain. If that state was produced unilaterally,
+i.e. via a <code>channel_force_progress_tx</code>, making
+<code>Channel(channel_id).round != Channel(channel_id).solo_round</code>, the solo close is
+based on the <code>solo_round</code> and thus can still be disputed.</p>
+<ul>
+<li><code>Channel(channel_id).locked_until := Block.height + Channel(channel_id).lock_period</code></li>
+</ul>
+<h4 id="transaction-payload">Transaction payload</h4>
+<p>If the payload is a transaction it MUST be a <code>channel_offchain_tx</code>. It MUST be
+co-signed.</p>
+<p>Payload is a valid transaction that has:</p>
+<ul>
+<li><code>state_hash</code> equal to the proof of inclusion's root hash. This is a proof
+  that the PoI is correct</li>
+<li><code>channel_id</code> being the same as the transaction <code>channel_id</code></li>
+<li><code>round</code> greater than <code>Channel(channel_id).round</code>. If
+  <code>Channel(channel_id).solo_round &gt; Channel(channel_id).round</code>, then
+  this close will invalidate progress produced on-chain</li>
+</ul>
+<p>If true, the following changes will be made:</p>
+<ul>
+<li><code>Channel(channel_id).round := payload.round</code></li>
+<li><code>Channel(channel_id).solo_round := payload.round</code></li>
+<li><code>Channel(channel_id).state_hash := payload.state_hash</code></li>
+<li><code>Channel(channel_id).locked_until := Block.height + Channel(channel_id).lock_period</code></li>
+</ul>
+<h3 id="channel_settle"><code>channel_settle</code></h3>
+<p>The settlement transaction is the last one in the lifecycle of a channel, but
+only required if the parties involved did not manage to cooperate when trying
+to close the channel. It has to be issued after all possible disputes are
+resolved to then redistribute the locked coins.</p>
+<p>The <code>channel_settle</code> MUST only be included in a block if:</p>
+<ul>
+<li>a <code>channel_close_solo</code> transaction was published and has expired, i.e.
+<code>blockheight(top) - blockheight(channel_close_solo_tx) &gt;= lock_period</code></li>
+<li>there are no open disputes, which means that the channel is not currently
+  locked from a prior solo action</li>
+</ul>
+<p>Serialization defined <a href="../../serializations/#channel-settle-transaction">here</a></p>
+<ul>
+<li><code>channel_id</code>: channel id as recorded on-chain</li>
+<li><code>from_id</code>: participant of the channel that posts the settling transaction</li>
+<li><code>initiator_amount_final</code>: unsigned amount of coins the initiator gets from the
+  channel</li>
+<li><code>responder_amount_final</code>: unsigned amount of coins the responder gets from the
+  channel</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: taken from the <code>from_id</code>'s account</li>
+</ul>
+<h4 id="requirements_2">Requirements</h4>
+<p>After this transaction has been included in a block, the channel MUST be
+considered closed and allow no further modifications.</p>
+<p>The transaction MUST be signed using private key corresponding to the public key <code>from_id</code>.</p>
+<p>The amounts must correspond to the ones on-chain, provided by the last
+<code>channel_close_solo</code> or <code>channel_slash</code>. The sum of those final amounts form
+the total closing amount of the channel. If this total closing amount is lower
+than the total amount coins already dedicated to the channel, the excess of
+coins is <a href="../../consensus/locking/">locked</a>.</p>
+<h2 id="forcing-progress">Forcing progress</h2>
+<p>Forcing progress is the mechanism to be used when a dispute arises between
+parties and one of them wants to use the blockchain as an arbiter. The poster
+provides the off-chain state so that an off-chain contract can be executed
+on-chain and thus producing the channel's next off-chain state.</p>
+<p>This can happen both while a channel is closing or while it is still active. If
+the channel is not closing, participants can continue using it from the on-chain
+produced state or initiate a closing. If the channel is already closing, the
+force-progress updates what are the currently expected closing amounts for each
+participant (according to the contract's execution).</p>
+<p>The force progress is based on what is considered to be the latest off-chain
+state. We have no way of proving that this state is actually up-to-date so any
+progress on chain can always be disputed by providing a co-signed state with a
+higher round number than the round number that the to be disputed
+<code>channel_force_progress_tx</code> transaction used.</p>
+<p>If the channel is in the closing state, issuing a <code>channel_force_progress_tx</code>
+locks it for <code>lock_period</code> blocks, during which the update can be disputed. This
+lock is necessary to prevent the channel from being closed immediately after
+a new round has been produced on chain.</p>
+<p>It is worth mentioning that what is to be disputed is the off-chain state that
+the force progress had been based on and not the forcing of progress itself. If
+an older state had been provided by the forcing party, the other party can post
+a newer co-signed off-chain state (via a snapshot for example). The co-signed
+state with the same or greater round will replace the on-chain produced one.</p>
+<h3 id="channel_force_progress_tx"><code>channel_force_progress_tx</code></h3>
+<p>Serialization defined <a href="../../serializations/#channel-solo-force-progress-transaction">here</a></p>
+<ul>
+<li><code>channel_id</code>: channel id as recorded on-chain</li>
+<li><code>from_id</code>: participant of the channel that posts the force progress transaction</li>
+<li><code>payload</code>: empty or a transaction proving that the state trees are part of the
+  channel</li>
+<li><code>round</code>: channel's next round</li>
+<li><code>update</code>: channel off-chain update that contains the contract call with gas
+  limit and gas prices to be consumed for the on-chain execution</li>
+<li><code>state_hash</code>: channel's expected new root hash of off-chain state trees</li>
+<li><code>offchain_trees</code>: the full state channel's state trees</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: taken from the <code>from_id</code>'s account</li>
+</ul>
+<p>The <code>offchain_trees</code> is the full off-chain state trees set: all accounts and
+all contracts. It MUST include both participants' off-chain accounts.
+Based on the <code>offchain_trees</code>, the next state is going to be computed and its
+root hash will become the new state's <code>state_hash</code>. The newly produced state
+trees will be different than the provided ones at least with the newly added
+<code>call</code> object. Thus even if the contract call fails a new <code>state_hash</code> is
+produced.</p>
+<p>If this transaction is sent while the channel is in the <code>closing</code> state, it will
+transition the channel into the <code>locked</code> state for the next <code>lock_period</code> blocks.</p>
+<p>The payload can be either empty or a signed transaction.</p>
+<h4 id="empty-payload_1">Empty Payload</h4>
+<p>If the payload is empty, the last on-chain persisted state and <code>solo_round</code> are
+used. In this case the state trees root hash MUST be equal to the one persisted
+for the channel on-chain.</p>
+<p>If the contract execution is successful, the channel will be updated with:</p>
+<ul>
+<li><code>Channel(channel_id).solo_round := Channel(channel_id).solo_round + 1</code></li>
+<li><code>Channel(channel_id).state_hash := state_hash</code></li>
+</ul>
+<p>Additionally, if the channel is in the <code>closing</code> state:</p>
+<ul>
+<li><code>Channel(channel_id).locked_until := Block.height + Channel(channel_id).lock_period</code></li>
+</ul>
+<h4 id="transaction-payload_1">Transaction Payload</h4>
+<p>If the payload is a transaction it MUST be a <code>channel_offchain_tx</code>. It MUST be
+co-signed.</p>
+<p>An off-chain transaction payload is a valid transaction if it has:</p>
+<ul>
+<li><code>state_hash</code> equal to the state trees' root hash. This is a proof
+  that the <code>offchain_trees</code> are something both participants had agreed upon</li>
+<li><code>channel_id</code> being the same as the transaction <code>channel_id</code></li>
+<li><code>round</code> greater than <code>Channel(channel_id).round</code></li>
+</ul>
+<p>The update MUST be a call to a contract. The caller of this update MUST be the
+poster of the force progress transaction. <code>amount</code>, <code>gas</code> and <code>gas_price</code> are
+specified in the update as well. The gas fees are going to be paid by the poster
+of the transaction.
+The state_hash will be the root hash of the updated channel's state trees. After
+applying the contract call to the provided <code>offchain_trees</code> and updating accounts
+accordingly, a new channel's state tree is produced. It MUST have the same
+value of root hash as the state hash. If those do not match the force progress
+fails but since this can only be determined after the call had been executed, a
+call object is added on-chain and gas is consumed.</p>
+<p>If the contract call succeeded, the channel state will be updated:</p>
+<ul>
+<li><code>Channel(channel_id).round := payload.round</code></li>
+<li><code>Channel(channel_id).solo_round := payload.round + 1</code></li>
+<li><code>Channel(channel_id).state_hash := state_hash</code></li>
+</ul>
+<p>Additionally, if the channel is in the <code>closing</code> state:</p>
+<ul>
+<li><code>Channel(channel_id).locked_until := Block.height + Channel(channel_id).lock_period</code></li>
+</ul>
+<h4 id="force-progress-side-effects">Force progress side effects</h4>
+<h5 id="updating-channel-object">Updating channel object</h5>
+<p>Channel state trees are recreated according to the <code>offchain_trees</code> being
+provided. The update is an off-chain contract call. It is applied on the
+channel's state trees and modifies them. The modified trees have a root
+hash. It might be:</p>
+<ul>
+<li>equal to the <code>state_hash</code> provided in the force progress transaction.
+  This hash indeed is the expected result of the contract call and the
+  blockchain has confirmed it. The on-chain channel object is updated
+  accordingly:</li>
+<li>channel's state hash is updated to be the newly computed one</li>
+<li>channel's round is the one in the force progress transaction</li>
+<li>if the channel had been in a closing state, closing balances of
+    participants are updated according to the ones in the modified channel state
+    trees</li>
+<li>not equal to the <code>state_hash</code> provided in the force progress transaction. The
+  hash provided was not confirmed to be the expected one. In this case the force
+  progress fails and no new state channel state is created. The on-chain channel
+  object is NOT modified and thus - the <code>round</code> and <code>state_hash</code> as stored
+  on-chain remain unchanged. Gas is still consumed and a call object is created
+  on-chain.</li>
+</ul>
+<p>A special case would be the forcer providing an invalid update call to be
+forced. Examples for an invalid update calls would be:</p>
+<ul>
+<li>A remote call to a missing contract</li>
+<li>Spending too much coins in the call so a participants's off-chain balance
+  goes bellow the <code>channel_reserve</code> threshold</li>
+<li>Contract call being terminated due to a <code>out_of_gas</code> exception</li>
+</ul>
+<p>In this case the contract can not be executed and the forcing of progress
+fails to produce a new state. The end result is exactly the same as if there
+had been a mismatch of the produced <code>state_hash</code> and the expected one.</p>
+<h5 id="call-object">Call object</h5>
+<p>If the <code>channel_force_progress_tx</code> is valid, the contract call in the <code>update</code>
+is executed upon the MPT that had been produced by the <code>offchain_trees</code>.
+The output is a new MPT that will represent the new off-chain channel state.
+Participants are to either continue using the channel or close it. If there is
+no later off-chain update, they are expected to use this produced MPT in both
+cases.</p>
+<p>The contract execution consumes gas. The <code>update</code> itself defines both the gas
+limit and the gas price. After the contract call has been executed and the real
+gas consumption has been calculated, the balance of the account posting the
+transaction is updated to pay the gas fee. Since this is not a co-signed
+transaction but rather a unilateral one, the initiator of the progress
+enforcement pays the fees.</p>
+<p>The contract call produces on-chain a new call object in the on-chain state
+trees for contract calls. Usually calls have a key that is composed by the
+contract's address, the caller's address and the caller's nonce. Since the off-
+chain contract is not persisted on-chain, it does not have an address that can
+be used in that manner. The calls produced by forcing progress use the
+<code>channel_force_progress_tx</code>'s hash instead.</p>
+<p>Since the miner is expending resources for the contract's execution, the gas
+fees are paid and the call object is created for every force progress, no matter
+if it was successful to update the on-chain channel object or not.</p>
+<h2 id="disputing-updates">Disputing updates</h2>
+<p>Disputes should be considered anomalies, which only happen whenever one party
+tries to unilaterally publish an outdated state while:</p>
+<ul>
+<li>closing a channel unilaterally</li>
+<li>forcing progress</li>
+<li>or slashing</li>
+</ul>
+<p>and can be disputed via <code>channel_slash</code>, <code>channel_force_progress_tx</code>,
+<code>channel_snapshot_solo</code> transactions.</p>
+<p>Since disputes can themselves be challenged, we could end up in situations,
+where a malicious party progresses rounds rapidly via <code>channel_force_progress_tx</code>
+transactions, depriving the other party of the ability to dispute. To prevent
+this situation we can either:</p>
+<ol>
+<li>enforce each dispute to always have to wait for the <code>lock_period</code> to expire
+   and have only one dispute per period</li>
+<li>or not restrict the number consecutive disputes but always have the option of
+   challenging the first element of any chain of disputes, invalidating the full
+   chain.</li>
+</ol>
+<p>We choose to use the second strategy because it allows faster progress in the
+case of a peer that disappeared while still guaranteeing safety. This makes
+keeping track of the proper states more complex but we assume a peer
+disappearing has a higher likelihood than them being actively malicious.
+Therefore we try to optimise for that case.</p>
+<h3 id="force-progress-dispute-with-closing-channel">Force progress dispute with closing channel</h3>
+<p>If the channel is in the closing state, which only happens via a
+<code>channel_close_solo</code>, then each dispute triggers an extension of the channel
+lock by <code>lock_period</code> blocks. If a channel is locked, the same rules as above
+apply. That is, as many <code>channel_force_progress_tx</code> or <code>channel_slash</code>
+transactions as desired can be submitted—each one extending the lock—but as long
+as the channel is locked, the entire chain can be invalidated if a state with a
+higher round number can be posted.</p>
+<p>Having the lock is necessary here because otherwise a malicious party might post
+a <code>channel_force_progress_tx</code> or <code>channel_slash</code> containing an outdated state
+and then immediately try to have the channel be settled based on the result.</p>
+<h3 id="force-progress-dispute-with-open-channel-example">Force progress dispute with open channel example</h3>
+<p>Setup:</p>
+<ul>
+<li>Bob and Alice open a channel between each other with <code>lock_period := 100</code></li>
+<li>At <code>chain_height := 1000</code> Bob posts a <code>channel_force_progress_tx</code> with a
+  payload containing <code>round := 23</code> and  produces <code>round := 24</code> on chain</li>
+<li>The channel state will now contain 23 as the latest <code>round</code> and 24 as
+  the <code>solo_round</code></li>
+</ul>
+<p>With the selected strategy, Bob does not have to wait for the <code>lock_period</code> to
+expire and can post as many <code>channel_force_progress_tx</code> as he wants, e.g. at
+<code>chain_height := 1001</code> he produces <code>solo_round := 25</code> and by <code>chain_height := 1011</code>
+arrives at <code>solo_round := 31</code>. The <code>round</code> is still at 23.</p>
+<p>Now if Alice returns at <code>chain_height := 1110</code>, she can still dispute the
+<em>initial</em> update issued by Bob at <code>chain_height := 1000</code> by providing a
+co-signed payload with <code>round := 24</code> or higher via either a <code>channel_force_progress_tx</code>
+or a <code>channel_snapshot_solo</code>.</p>
+<h3 id="force-progress-dispute-with-closing-channel-example">Force progress dispute with closing channel example</h3>
+<p>Setup:</p>
+<ul>
+<li>Bob and Alice open a channel between each other with <code>lock_period := 100</code></li>
+<li>At <code>chain_height := 1000</code> Bob posts a <code>channel_close_solo</code> with a
+  payload containing <code>round := 23</code>. The channel is now locked until
+  <code>chain_height == 1100</code></li>
+</ul>
+<p>With the selected strategy, Bob has to wait for the <code>lock_period</code> to expire, if
+he wants to settle the channel. But while the channel is locked, he can still
+post as many <code>channel_force_progress_tx</code> as he wants, e.g. at
+<code>chain_height := 1001</code> he produces <code>solo_round := 24</code> and by <code>chain_height := 1011</code>
+arrives at <code>solo_round := 31</code>. Each subsequent operation issued bumps the
+<code>lock_period</code> ahead. That is, by <code>chain_height == 1011</code> the <code>lock_period</code> is set
+to run out at <code>chain_height == 1111</code>.</p>
+<p>Now it is important to note, that at even at <code>chain_height := 1110</code> Alice can
+still dispute the <em>initial</em> update issued by Bob at <code>chain_height := 1000</code> by
+providing a co-signed payload with <code>round := 24</code> or higher but her dispute would
+bump the lock by <code>lock_period</code> too.</p>
+<h3 id="channel_slash"><code>channel_slash</code></h3>
+<p>If a malicious party sent a <code>channel_close_solo</code> or <code>channel_force_progress_tx</code>
+with an outdated state, the honest party has the opportunity to issue a
+<code>channel_slash</code> transaction. This transaction MUST include a state with a higher
+<code>round</code> number than the one being disputed, signed by all peers for a successful
+challenge.</p>
+<p>Serialization defined <a href="../../serializations/#channel-slash-transaction">here</a></p>
+<ul>
+<li><code>channel_id</code>: channel id as recorded on-chain</li>
+<li><code>from_id</code>: channel participant or delegate that posts the slashing transaction</li>
+<li><code>payload</code>: transaction proving that the proof of inclusion is part of the
+  channel</li>
+<li><code>poi</code>: proof of inclusion</li>
+<li><code>ttl</code>: blockheight target until which this transaction can be included</li>
+<li><code>fee</code>: transaction fee</li>
+<li><code>nonce</code>: taken from the <code>from_id</code>'s account</li>
+</ul>
+<p>The proof of inclusion represents the channel's internal state. It has to
+include both participants' accounts and their balances.
+If there are any contracts in the channel and those have balances of their own,
+they are not provided in the proof of inclusion but they are rather to be force
+pushed in subsequent transactions. It is up to participants to decide if they
+want to post them at all. Thus the accumulative balances of the accounts in the
+slash transaction can be lower than the channel balance persisted on-chain.</p>
+<p>The payload can be either empty or a signed transaction.</p>
+<h4 id="empty-payload_2">Empty payload</h4>
+<p>If the payload is empty, the last on-chain persisted state and <code>solo_round</code> are
+used. In this case the proof of inclusion root hash MUST be equal to the one
+persisted for the channel on-chain. If that state was produced unilaterally,
+i.e. via a <code>channel_force_progress_tx</code>, making
+<code>Channel(channel_id).round != Channel(channel_id).solo_round</code>, the slash is
+based on the <code>solo_round</code> and thus can still be disputed.</p>
+<ul>
+<li><code>Channel(channel_id).locked_until := Block.height + Channel(channel_id).lock_period</code></li>
+</ul>
+<h4 id="transaction-payload_2">Transaction payload</h4>
+<p>If the payload is a transaction it MUST be a <code>channel_offchain_tx</code>. It MUST be
+co-signed.</p>
+<p>Payload is a valid transaction that has:</p>
+<ul>
+<li><code>state_hash</code> equal to the proof of inclusion's root hash. This is a proof
+  that the PoI is correct</li>
+<li><code>channel_id</code> being the same as the transaction <code>channel_id</code></li>
+<li><code>round</code> greater than <code>Channel(channel_id).round</code>. If
+  <code>Channel(channel_id).solo_round &gt; Channel(channel_id).round</code>, then
+  this slash will invalidate progress produced on-chain</li>
+</ul>
+<p>If true, the following changes will be made:</p>
+<ul>
+<li><code>Channel(channel_id).round := payload.round</code></li>
+<li><code>Channel(channel_id).solo_round := payload.round</code></li>
+<li><code>Channel(channel_id).state_hash := payload.state_hash</code></li>
+<li><code>Channel(channel_id).locked_until := Block.height + Channel(channel_id).lock_period</code></li>
+</ul>
+<h4 id="requirements_3">Requirements</h4>
+<p>MUST be signed using private key corresponding to the public key <code>from_id</code>.</p>
+<h2 id="channel-state-tree">Channel state tree</h2>
+<p>Each block MUST commit to a Merkle Patricia tree of open channels, where the
+<code>channel_id</code> specifies the path.
+At a leaf, nodes store information pertaining to the current state of the given
+channel.</p>
+<ul>
+<li><code>channel_id</code></li>
+<li><code>initiator_id</code></li>
+<li><code>responder_id</code></li>
+<li><code>delegator_ids</code></li>
+<li><code>total_amount</code></li>
+<li><code>initiator_amount</code></li>
+<li><code>responder_amount</code></li>
+<li><code>channel_reserve</code></li>
+<li><code>state_hash</code>: last published state_hash</li>
+<li><code>round</code>: last known co-signed round</li>
+<li><code>solo_round</code>: last round produced via a <code>channel_force_progress_tx</code></li>
+<li><code>lock_period</code>: agreed upon locking period by peers</li>
+<li><code>locked_until</code>: on-chain channel height after which the channel can be settled</li>
+</ul>
+<p>Keeping track of the <code>state_hash</code>, <code>round</code>, <code>locked_until</code>, and <code>lock_period</code> is
+necessary for nodes to be able to assess the validity of <code>channel_slash</code> and
+<code>channel_settle</code> transactions.</p>
+<p>The <code>locked_until</code> is initialised with <code>0</code> and will stay <code>0</code> until the channel
+enters the <code>closing</code> state.</p>
+<p>Serialization defined <a href="../../serializations/#channel">here</a></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+    
+  </body>
+</html>
