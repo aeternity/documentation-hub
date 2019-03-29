@@ -42,11 +42,11 @@ nav:
         - Mining: 'protocol/node/api/mining_api_usage.md'
     - Developer Tools:
         - SDK's:
-            - Go: 'sdk-go/README.md'
-            - JavaScript: 'sdk-js/README.md'
-            - Python: 'sdk-python/README.md'
+            - Go: 'developer-tools/sdk/sdk-go/README.md'
+            - JavaScript: 'developer-tools/sdk/sdk-js/README.md'
+            - Python: 'developer-tools/sdk/sdk-python/README.md'
         - Frameworks:
-            - ForgAE: 'forgae/README.md'
+            - ForgAE: 'developer-tools/frameworks/orgae/README.md'
     #     - CLI Tools:
     #         - JavaScript
     #         - Stratum:
