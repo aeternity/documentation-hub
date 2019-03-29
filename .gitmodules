@@ -1,0 +1,27 @@
+[submodule "æternity"]
+	path = æternity
+	url = git@github.com:aeternity/aeternity.git
+[submodule "protocol"]
+	path = protocol
+	url = git@github.com:aeternity/protocol.git
+[submodule "Expansions"]
+	path = Expansions
+	url = git@github.com:aeternity/AEXs.git
+[submodule "sdk-js"]
+	path = sdk-js
+	url = git@github.com:aeternity/aepp-sdk-js.git
+[submodule "sdk-go"]
+	path = sdk-go
+	url = git@github.com:aeternity/aepp-sdk-go.git
+[submodule "sdk-python"]
+	path = sdk-python
+	url = git@github.com:aeternity/aepp-sdk-python.git
+[submodule "forgae"]
+	path = forgae
+	url = git@github.com:aeternity/aepp-forgae-js.git
+[submodule "aepp-sophia-examples"]
+	path = aepp-sophia-examples
+	url = git@github.com:aeternity/aepp-sophia-examples.git
+[submodule "tutorials"]
+	path = tutorials
+	url = git@github.com:aeternity/tutorials.git
