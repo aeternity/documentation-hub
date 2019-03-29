@@ -1,3 +1,4 @@
+!(aeternity_logo.png)
 # INTRODUCTION
 ## Welcome to æternity's Documentation Hub! (work in progress)
 

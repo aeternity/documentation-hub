@@ -75,9 +75,38 @@ nav:
         - Smart Real Estate: 'aepp-sophia-examples/examples/SmartRealEstate/README.md'
         - Spend-to-Many: 'aepp-sophia-examples/examples/SpendToMany/README.md'
         - Tic Tac Toe: 'aepp-sophia-examples/examples/TicTacToe/README.md'
-    # - Tutorial:
-    #     - Development:
-    #     - Mining:
+    - How-To Guides:
+        - Account:
+            - Create (in æ CLI): 'tutorials/account-creation-in-ae-cli.md'
+        - Middleware:
+            - Run Own Middleware: 'tutorials/running-your-own-ae-middleware.md'
+        - Miner:
+            - Run CPU Miner (Ubuntu): 'tutorials/run-cpu-miner-on-ubuntu-1804.md'
+            - Run GPU Miner (Ubuntu): 'tutorials/run-gpu-miner-on-ubuntu-1804.md'
+        - Node:
+            - Run Node (MacOS): 'tutorials/run-node-on-macos-mojave.md'
+            - Run Node (Ubuntu): 'tutorials/run-node-on-ubuntu-1804.md'
+        - Paper Wallet:
+            - Create (in æ CLI): 'tutorials/create-a-paper-wallet.md'
+        - Sophia:
+            - Install Sophia Notepad++ Language Definition: 'tutorials/sophia-language-definition-for-notepad++.md'
+        - Testnet:
+            - Run Local Testnet (Docker): 'tutorials/run-local-testnet-with-docker.md'
+            - Get Testnet Tokens: 'tutorials/get-testnet-tokens.md'
+        - Unit Tests:
+            - How to Write Unit Test I: 'tutorials/how-to-write-unit-test-1.md'
+            - How to Write Unit Test II: 'tutorials/how-to-write-unit-test-2.md'
+    - Tutorials:
+        - Oracles:
+            - Sophia Oracle Introduction: 'tutorials/sophia-oracle-introduction.md'
+        - Sophia:
+            - Fungible Token Contract: 'tutorials/sophia-fungible-token-contract.md'
+            - Token Exchange Contract I: 'tutorials/sophia-token-exchange-contract-1.md'
+            - Token Exchange Contract II: 'tutorials/sophia-token-exchange-contract-2.md'
+            - Token Exchange Contract III: 'tutorials/sophia-token-exchange-contract-3.md'
+            - Vote Contract: 'tutorials/vote-contract.md'
+        - State Channels:
+            - Introduction: 'tutorials/state-channels-introduction.md'
 extra_css: [site/assets/extra.css]
 theme:
   name: 'material'

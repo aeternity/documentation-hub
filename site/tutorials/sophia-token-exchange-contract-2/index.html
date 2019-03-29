@@ -1,0 +1,2448 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Token Exchange Contract II - æternity Documentation Hub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../site/assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="white">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#tutorial-simple-fungible-token-exchange-smart-contract-part-2" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="æternity Documentation Hub" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              æternity Documentation Hub
+            </span>
+            <span class="md-header-nav__topic">
+              Token Exchange Contract II
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="æternity Documentation Hub" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    æternity Documentation Hub
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Get Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Get Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/build-windows/" title="Build in Windows" class="md-nav__link">
+      Build in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/build/" title="Build in Ubuntu" class="md-nav__link">
+      Build in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/cuda-miner/" title="CUDA Miner" class="md-nav__link">
+      CUDA Miner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/installation-windows/" title="Installation in Windows" class="md-nav__link">
+      Installation in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/installation/" title="Installation in Ubuntu" class="md-nav__link">
+      Installation in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/operation/" title="Operation" class="md-nav__link">
+      Operation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Protocol
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Protocol
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/oracles/oracle_life_cycle/" title="Life Cycle" class="md-nav__link">
+      Life Cycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/oracles/oracle_state_tree/" title="State Tree" class="md-nav__link">
+      State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/oracles/oracle_transactions" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/AENS/" title="AENS Naming System" class="md-nav__link">
+      AENS Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Smart Contracts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Smart Contracts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/contract_life_cycle/" title="Contract Life Cycle Examples" class="md-nav__link">
+      Contract Life Cycle Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-2" type="checkbox" id="nav-3-3-2">
+    
+    <label class="md-nav__link" for="nav-3-3-2">
+      Virtual Machines
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-2">
+        Virtual Machines
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/contract_vms/" title="Æternity VM" class="md-nav__link">
+      Æternity VM
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/aevm/" title="Æternity Ethereum VM" class="md-nav__link">
+      Æternity Ethereum VM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/sophia/" title="Sophia Smart Contract Language" class="md-nav__link">
+      Sophia Smart Contract Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/contract_state_tree/" title="Contract State Tree" class="md-nav__link">
+      Contract State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/contract_transactions/" title="Contract Transactions" class="md-nav__link">
+      Contract Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/channels/" title="State Channels" class="md-nav__link">
+      State Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/serializations/" title="Serialization Formats" class="md-nav__link">
+      Serialization Formats
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Expansions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Expansions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Expansions/AEXS/aex-1/" title="AEX1" class="md-nav__link">
+      AEX1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Expansions/AEXS/aex-2/" title="AEX2" class="md-nav__link">
+      AEX2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Node Usage API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Node Usage API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/api_encoding/" title="Encoding Scheme" class="md-nav__link">
+      Encoding Scheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/account_api_usage/" title="Account Managment" class="md-nav__link">
+      Account Managment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/spend_api_usage/" title="Spending Tokens" class="md-nav__link">
+      Spending Tokens
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/oracle_api_usage/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/naming_system_api_usage/" title="Naming System" class="md-nav__link">
+      Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/contract_api_usage/" title="Contract" class="md-nav__link">
+      Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/channels_api_usage/" title="Channels" class="md-nav__link">
+      Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/mining_api_usage/" title="Mining" class="md-nav__link">
+      Mining
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Developer Tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Developer Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      SDK's
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        SDK's
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sdk-go/" title="Go" class="md-nav__link">
+      Go
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sdk-js/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sdk-python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-2" type="checkbox" id="nav-6-2">
+    
+    <label class="md-nav__link" for="nav-6-2">
+      Frameworks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-2">
+        Frameworks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../forgae/" title="ForgAE" class="md-nav__link">
+      ForgAE
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Sophia Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Sophia Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/DateTime/" title="DateTime" class="md-nav__link">
+      DateTime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/List/" title="List" class="md-nav__link">
+      List
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/Ownable/" title="Ownable" class="md-nav__link">
+      Ownable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/FungibleToken/" title="FungibleToken" class="md-nav__link">
+      FungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/NonFungibleToken/" title="NonFungibleToken" class="md-nav__link">
+      NonFungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/MultisignatureWallet/" title="MultisignatureWallet" class="md-nav__link">
+      MultisignatureWallet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Sophia by Example
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Sophia by Example
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/examples/SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
+      Smart Data Provider
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/examples/SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
+      Smart Real Estate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/examples/SpendToMany/" title="Spend-to-Many" class="md-nav__link">
+      Spend-to-Many
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/examples/TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
+      Tic Tac Toe
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      How-To Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        How-To Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-1" type="checkbox" id="nav-9-1">
+    
+    <label class="md-nav__link" for="nav-9-1">
+      Account
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-1">
+        Account
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../account-creation-in-ae-cli/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-2" type="checkbox" id="nav-9-2">
+    
+    <label class="md-nav__link" for="nav-9-2">
+      Middleware
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-2">
+        Middleware
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../running-your-own-ae-middleware/" title="Run Middleware" class="md-nav__link">
+      Run Middleware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-3" type="checkbox" id="nav-9-3">
+    
+    <label class="md-nav__link" for="nav-9-3">
+      Miner
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-3">
+        Miner
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-cpu-miner-on-ubuntu-1804/" title="Run CPU Miner (Ubuntu)" class="md-nav__link">
+      Run CPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-gpu-miner-on-ubuntu-1804/" title="Run GPU Miner (Ubuntu)" class="md-nav__link">
+      Run GPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-node-on-macos-mojave/" title="Run Node (MacOS)" class="md-nav__link">
+      Run Node (MacOS)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-node-on-ubuntu-1804/" title="Run Node (Ubuntu)" class="md-nav__link">
+      Run Node (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-5" type="checkbox" id="nav-9-5">
+    
+    <label class="md-nav__link" for="nav-9-5">
+      Paper Wallet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-5">
+        Paper Wallet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../create-a-paper-wallet/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-6" type="checkbox" id="nav-9-6">
+    
+    <label class="md-nav__link" for="nav-9-6">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-6">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-language-definition-for-notepad++/" title="Install Sophia Notepad++ Language Definition" class="md-nav__link">
+      Install Sophia Notepad++ Language Definition
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-7" type="checkbox" id="nav-9-7">
+    
+    <label class="md-nav__link" for="nav-9-7">
+      Testnet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-7">
+        Testnet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-local-testnet-with-docker/" title="Run Local Testnet (Docker)" class="md-nav__link">
+      Run Local Testnet (Docker)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../get-testnet-tokens/" title="Get Testnet Tokens" class="md-nav__link">
+      Get Testnet Tokens
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-8" type="checkbox" id="nav-9-8">
+    
+    <label class="md-nav__link" for="nav-9-8">
+      Unit Tests
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-8">
+        Unit Tests
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../how-to-write-unit-test-1/" title="How to Write Unit Test I" class="md-nav__link">
+      How to Write Unit Test I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../how-to-write-unit-test-2/" title="How to Write Unit Test II" class="md-nav__link">
+      How to Write Unit Test II
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10" checked>
+    
+    <label class="md-nav__link" for="nav-10">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-1" type="checkbox" id="nav-10-1">
+    
+    <label class="md-nav__link" for="nav-10-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-oracle-introduction/" title="Sophia Oracle Introduction" class="md-nav__link">
+      Sophia Oracle Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2" checked>
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-fungible-token-contract/" title="Fungible Token Contract" class="md-nav__link">
+      Fungible Token Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-token-exchange-contract-1/" title="Token Exchange Contract I" class="md-nav__link">
+      Token Exchange Contract I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Token Exchange Contract II
+      </label>
+    
+    <a href="./" title="Token Exchange Contract II" class="md-nav__link md-nav__link--active">
+      Token Exchange Contract II
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" title="Tutorial Overview" class="md-nav__link">
+    Tutorial Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content" title="Content" class="md-nav__link">
+    Content
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-plan" title="Execution plan" class="md-nav__link">
+    Execution plan
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-approach" title="Manual approach" class="md-nav__link">
+    Manual approach
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-your-local-development-network" title="Start your local development network" class="md-nav__link">
+    Start your local development network
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-two-fungible-token-contracts-on-the-local-network" title="Deploying two fungible token contracts on the local network" class="md-nav__link">
+    Deploying two fungible token contracts on the local network
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploying-receiving-token" title="Deploying Receiving token" class="md-nav__link">
+    Deploying Receiving token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-sending-token" title="Deploying Sending token" class="md-nav__link">
+    Deploying Sending token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" title="Summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-simple-fungible-token-exchange-contract" title="Building simple fungible token exchange contract" class="md-nav__link">
+    Building simple fungible token exchange contract
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sophia-exchange-contract-code" title="Sophia exchange contract code" class="md-nav__link">
+    Sophia exchange contract code
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-the-exchange-sophia-contract" title="Deploying the Exchange Sophia contract" class="md-nav__link">
+    Deploying the Exchange Sophia contract
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interacting-with-the-exchange-contract" title="Interacting with the exchange contract" class="md-nav__link">
+    Interacting with the exchange contract
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-next" title="What is next?" class="md-nav__link">
+    What is next?
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-token-exchange-contract-3/" title="Token Exchange Contract III" class="md-nav__link">
+      Token Exchange Contract III
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vote-contract.md" title="Vote Contract" class="md-nav__link">
+      Vote Contract
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      State Channels
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        State Channels
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../state-channels-introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" title="Tutorial Overview" class="md-nav__link">
+    Tutorial Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content" title="Content" class="md-nav__link">
+    Content
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-plan" title="Execution plan" class="md-nav__link">
+    Execution plan
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-approach" title="Manual approach" class="md-nav__link">
+    Manual approach
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-your-local-development-network" title="Start your local development network" class="md-nav__link">
+    Start your local development network
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-two-fungible-token-contracts-on-the-local-network" title="Deploying two fungible token contracts on the local network" class="md-nav__link">
+    Deploying two fungible token contracts on the local network
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploying-receiving-token" title="Deploying Receiving token" class="md-nav__link">
+    Deploying Receiving token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-sending-token" title="Deploying Sending token" class="md-nav__link">
+    Deploying Sending token
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" title="Summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-simple-fungible-token-exchange-contract" title="Building simple fungible token exchange contract" class="md-nav__link">
+    Building simple fungible token exchange contract
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sophia-exchange-contract-code" title="Sophia exchange contract code" class="md-nav__link">
+    Sophia exchange contract code
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-the-exchange-sophia-contract" title="Deploying the Exchange Sophia contract" class="md-nav__link">
+    Deploying the Exchange Sophia contract
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interacting-with-the-exchange-contract" title="Interacting with the exchange contract" class="md-nav__link">
+    Interacting with the exchange contract
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-next" title="What is next?" class="md-nav__link">
+    What is next?
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aeternity/documentation-hub/edit/master/docs/tutorials/sophia-token-exchange-contract-2.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="tutorial-simple-fungible-token-exchange-smart-contract-part-2">TUTORIAL: Simple Fungible Token Exchange Smart Contract - Part 2</h1>
+<h2 id="tutorial-overview">Tutorial Overview</h2>
+<p>The second part of the tutorial will show you how to interact with our ExchangeContract created in the previous article using the step-by-step approach. It will teach you how to use the aecli commands and the forgae tool to decode a base58 addresses, deploy a contract with and without parameter and call a deployed contract functions.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Created the two contracts <code>FungibleToken.aes</code> and <code>ExchangeContract.aes</code> from the first part - <a href="https://github.com/aeternity/tutorials/blob/master/sophia-token-exchange-contract-1.md">Simple Fungible Token Exchange Smart Contract - Part 1</a></li>
+</ul>
+<h2 id="content">Content</h2>
+<p>In this tutorial we will deploy two fungible token contracts on the local network and will deploy a simple fungible token exchange contract created in the previous part. The <code>ExchangeContract</code> will store the addresses of the token contracts and their exchange rate. The exchange function will transfer the first token type(hereafter called receivingToken) from caller to exchange contract and after that will transfer the second token type(hereafter called sendingToken) from exchange contract to caller, based on the stated rate. </p>
+<h2 id="execution-plan">Execution plan</h2>
+<p>I will show you two ways how to interact with the <code>ExchangeContract</code>.
+The first approach(Manual) will be shown in this tutorial and will include:
+- step-by-step commands which will let us know in details how to:
+    - decode a base58 address to hex string via <strong>aecli</strong>;
+    - deploy a contract with and without parameters;
+    - call a deployed contract functions through <strong>aecli</strong>;</p>
+<p>The second approach(Scripted) will be shown in <a href="https://github.com/aeternity/tutorials/blob/master/sophia-token-exchange-contract-3.md">Simple Fungible Token Exchange Smart Contract - Part 3</a> and will include:
+- building a script which will pack all of the above commands in one place;</p>
+<p><em>Please start with the first approach. This will help you understand the next one.</em></p>
+<h2 id="manual-approach">Manual approach</h2>
+<h3 id="start-your-local-development-network">Start your local development network</h3>
+<pre><code>forgae node
+</code></pre>
+
+<p>At the end of this command we will be presented with accounts that we can use in our tests.
+The result of the above command should be:</p>
+<pre><code>===== Starting node =====
+.Starting fungible-token_proxy_1 ...
+Starting fungible-token_node3_1 ...
+Starting fungible-token_proxy_1 ... done
+Starting fungible-token_node1_1 ... done
+Starting fungible-token_node2_1 ... done
+.
+
+.............................
+===== Node was successfully started! =====
+===== Funding default wallets! =====
+Miner ------------------------------------------------------------
+public key: ak_2mwRmUeYmfuW93ti9HMSUJzCk1EYcQEfikVSzgo6k2VghsWhgU
+private key: bb9f0b01c8c9553cfbaf7ef81a50f977b1326801ebf7294d1c2cbccdedf27476e9bbf604e611b5460a3b3999e9771b6f60417d73ce7c5519e12f7e127a1225ca
+Wallet's balance is 7667346699999999999999994
+#0 ------------------------------------------------------------
+public key: ak_fUq2NesPXcYZ1CcqBcGC3StpdnQw3iVxMA3YSeCNAwfN4myQk
+private key: 7c6e602a94f30e4ea7edabe4376314f69ba7eaa2f355ecedb339df847b6f0d80575f81ffb0a297b7725dc671da0b1769b1fc5cbe45385c7b5ad1fc2eaf1d609d
+Wallet's balance is 40000000000000000
+#1 ------------------------------------------------------------
+public key: ak_tWZrf8ehmY7CyB1JAoBmWJEeThwWnDpU4NadUdzxVSbzDgKjP
+private key: 7fa7934d142c8c1c944e1585ec700f671cbc71fb035dc9e54ee4fb880edfe8d974f58feba752ae0426ecbee3a31414d8e6b3335d64ec416f3e574e106c7e5412
+Wallet's balance is 40000000000000000
+#2 ------------------------------------------------------------
+public key: ak_FHZrEbRmanKUe9ECPXVNTLLpRP2SeQCLCT6Vnvs9JuVu78J7V
+private key: 1509d7d0e113528528b7ce4bf72c3a027bcc98656e46ceafcfa63e56597ec0d8206ff07f99ea517b7a028da8884fb399a2e3f85792fe418966991ba09b192c91
+Wallet's balance is 40000000000000000
+#3 ------------------------------------------------------------
+public key: ak_RYkcTuYcyxQ6fWZsL2G3Kj3K5WCRUEXsi76bPUNkEsoHc52Wp
+private key: 58bd39ded1e3907f0b9c1fbaa4456493519995d524d168e0b04e86400f4aa13937bcec56026494dcf9b19061559255d78deea3281ac649ca307ead34346fa621
+Wallet's balance is 40000000000000000
+#4 ------------------------------------------------------------
+public key: ak_2VvB4fFu7BQHaSuW5EkQ7GCaM5qiA5BsFUHjJ7dYpAaBoeFCZi
+private key: 50458d629ae7109a98e098c51c29ec39c9aea9444526692b1924660b5e2309c7c55aeddd5ebddbd4c6970e91f56e8aaa04eb52a1224c6c783196802e136b9459
+Wallet's balance is 40000000000000000
+#5 ------------------------------------------------------------
+public key: ak_286tvbfP6xe4GY9sEbuN2ftx1LpavQwFVcPor9H4GxBtq5fXws
+private key: 707881878eacacce4db463de9c7bf858b95c3144d52fafed4a41ffd666597d0393d23cf31fcd12324cd45d4784d08953e8df8283d129f357463e6795b40e88aa
+Wallet's balance is 40000000000000000
+#6 ------------------------------------------------------------
+public key: ak_f9bmi44rdvUGKDsTLp3vMCMLMvvqsMQVWyc3XDAYECmCXEbzy
+private key: 9262701814da8149615d025377e2a08b5f10a6d33d1acaf2f5e703e87fe19c83569ecc7803d297fde01758f1bdc9e0c2eb666865284dff8fa39edb2267de70db
+Wallet's balance is 40000000000000000
+#7 ------------------------------------------------------------
+public key: ak_23p6pT7bajYMJRbnJ5BsbFUuYGX2PBoZAiiYcsrRHZ1BUY2zSF
+private key: e15908673cda8a171ea31333538437460d9ca1d8ba2e61c31a9a3d01a8158c398a14cd12266e480f85cc1dc3239ed5cfa99f3d6955082446bebfe961449dc48b
+Wallet's balance is 40000000000000000
+#8 ------------------------------------------------------------
+public key: ak_gLYH5tAexTCvvQA6NpXksrkPJKCkLnB9MTDFTVCBuHNDJ3uZv
+private key: 6eb127925aa10d6d468630a0ca28ff5e1b8ad00db151fdcc4878362514d6ae865951b78cf5ef047cab42218e0d5a4020ad34821ca043c0f1febd27aaa87d5ed7
+Wallet's balance is 40000000000000000
+#9 ------------------------------------------------------------
+public key: ak_zPoY7cSHy2wBKFsdWJGXM7LnSjVt6cn1TWBDdRBUMC7Tur2NQ
+private key: 36595b50bf097cd19423c40ee66b117ed15fc5ec03d8676796bdf32bc8fe367d82517293a0f82362eb4f93d0de77af5724fba64cbcf55542328bc173dbe13d33
+Wallet's balance is 40000000000000000
+</code></pre>
+
+<h3 id="deploying-two-fungible-token-contracts-on-the-local-network">Deploying two fungible token contracts on the local network</h3>
+<p>In the previous tutorial we deployed a token contract via forgae. We will use the same approach here.Let's update our deployment script which is located at <code>~/exchange-contract/deployment/deploy.js</code>.</p>
+<p>We have to change the contract path  from<code>./contracts/ExampleContract.aes</code> to <code>./contracts/FungibleToken.aes</code>.  The <strong>deploy.js</strong> file should now look like this:</p>
+<pre><code>const Deployer = require('forgae').Deployer;
+
+const deploy = async (network, privateKey) =&gt; {
+    let deployer = new Deployer(network, privateKey);
+
+    await deployer.deploy(&quot;./contracts/FungibleToken.aes&quot;);
+};
+
+module.exports = {
+    deploy
+};
+</code></pre>
+
+<h4 id="deploying-receiving-token">Deploying Receiving token</h4>
+<p>Next step is to run our deploy command: </p>
+<pre><code>forgae deploy
+</code></pre>
+
+<p>The structure of the output you can expect looks something like this:</p>
+<pre><code>===== Contract: FungibleToken.aes has been deployed =====
+{ owner: 'ak_2mwRmUeYmfuW93ti9HMSUJzCk1EYcQEfikVSzgo6k2VghsWhgU',
+  transaction: 'th_zXYbgU5NVMHif4LEKqHUbe1Yw4s72mqXGeYt1LSq3awDGQRhs',
+  address: 'ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5',
+  call: [Function],
+  callStatic: [Function],
+  createdAt: 2019-01-21T12:46:58.361Z }
+Your deployment script finished successfully!
+</code></pre>
+
+<p>Аeternity command line interface accepts parameters of type address as hex string. So we have to decode the base58 contract address to hex string and add prefix <code>0x</code> - in my case <strong>ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5</strong> to this format <strong>0x19877d65b8e253d10e7b0319a45191b7ef8919b6d73551d4dbdb3b1a59f4eb3c</strong>.</p>
+<pre><code>aecli crypto decode ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5
+Decoded address (hex): 19877d65b8e253d10e7b0319a45191b7ef8919b6d73551d4dbdb3b1a59f4eb3c
+</code></pre>
+
+<p>Prepending <code>0x</code> and we get:</p>
+<pre><code>0x19877d65b8e253d10e7b0319a45191b7ef8919b6d73551d4dbdb3b1a59f4eb3c
+</code></pre>
+
+<p>The above address will be used as the contract address function parameter via <strong>aecli</strong>.
+Interacting with the functions of the deployed first token contract will be done using the base58 format - in my case <code>ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5</code>. </p>
+<h4 id="deploying-sending-token">Deploying Sending token</h4>
+<p>Let's repeat the deployment procedure for our second fungible token type(sendingToken).
+The deployment script remains the same.</p>
+<pre><code>forgae deploy
+</code></pre>
+
+<pre><code>===== Contract: FungibleToken.aes has been deployed =====
+{ owner: 'ak_2mwRmUeYmfuW93ti9HMSUJzCk1EYcQEfikVSzgo6k2VghsWhgU',
+  transaction: 'th_2E61F7Xbho25x8sGWinn2mRjPMMu5o3uysWt3vbKmahnpCwgUH',
+  address: 'ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme',
+  call: [Function],
+  callStatic: [Function],
+  createdAt: 2019-01-21T12:46:59.614Z }
+Your deployment script finished successfully!
+</code></pre>
+
+<p>The second token type hex address representation in my case is:</p>
+<pre><code>aecli crypto decode ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme
+Decoded address (hex): 6d03829c7c61f395ab39aa0200e6849ff5916384d195ef4a77b0c597ba7ea245
+</code></pre>
+
+<p><em>Please replace <code>ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme</code> with the address of your deployed contract.</em></p>
+<pre><code>0x6d03829c7c61f395ab39aa0200e6849ff5916384d195ef4a77b0c597ba7ea245
+</code></pre>
+
+<p>The above address will be used for passing the contract address as function parameter via <strong>aecli</strong>.
+Interacting with the functions of the deployed second token contract will be done using the base58 format - in my case <code>ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme</code>.</p>
+<h4 id="summary">Summary</h4>
+<p>Our two fungible token contracts have been deployed on the local network. </p>
+<p>The hex addresses for the two deployed token contracts in our case are:</p>
+<pre><code>Receiving token - 0x19877d65b8e253d10e7b0319a45191b7ef8919b6d73551d4dbdb3b1a59f4eb3c
+Sending token - 0x6d03829c7c61f395ab39aa0200e6849ff5916384d195ef4a77b0c597ba7ea245
+</code></pre>
+
+<p>The base58 addresses:</p>
+<pre><code>Receiving token - ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5
+Sending token - ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme
+</code></pre>
+
+<h3 id="building-simple-fungible-token-exchange-contract">Building simple fungible token exchange contract</h3>
+<p>Let's create a new file <code>ExchangeContract.aes</code> in the<code>contracts</code> folder.</p>
+<pre><code>touch ./contracts/ExchangeContract.aes
+</code></pre>
+
+<p><em>Keep in mind that the Sophia indentation should be using two spaces.</em></p>
+<p>Firstly, we will create an interface for FungibleToken contract. It will allow us to perform the <code>transfer</code> and <code>transfer_from</code> functions. The interface contract includes the signatures of both functions:</p>
+<pre><code>contract FungibleToken =
+  public function transfer : (address, int) =&gt; bool
+  public function transfer_from : (address, address, int) =&gt; bool
+</code></pre>
+
+<p>Let's continue with <code>ExchangeContract</code>. 
+It will store:
+- the addresses of the deployed fungible token contracts from the above section
+- the exchange rate</p>
+<p>At contract creation we will initialize the data.</p>
+<pre><code>contract FungibleToken =
+  public function transfer : (address, int) =&gt; bool
+  public function transfer_from : (address, address, int) =&gt; bool
+
+contract ExchangeContract =
+  record state = {
+    receiving_token : FungibleToken,
+    sending_token   : FungibleToken,
+    rate            : int}
+
+  public stateful function init(receiving_token: FungibleToken, sending_token: FungibleToken, rate: int) = {
+    receiving_token = receiving_token,
+    sending_token   = sending_token,
+    rate            = rate}
+</code></pre>
+
+<p>The main function of our contracts is called <code>exchange</code>. It accepts just one parameter - the amount of tokens which we want to exchange.</p>
+<pre><code>public function exchange(value: int) : bool =
+  state.receiving_token.transfer_from(Call.caller, Contract.address, value)
+  state.sending_token.transfer(Call.caller, value * state.rate)
+  true
+</code></pre>
+
+<p>There are two ways to send tokens from one address to another: 
+- the transfer() function transfers a number of tokens directly from the message sender to another address;
+- approve() and transfer_from() are two functions that allow the transfer to work using a two-step process. In the first step a token holder gives another address (usually of a contract) approval to transfer up to a certain number of tokens, known as an allowance. The token holder uses approve() to provide this information.</p>
+<p>The first line of our <code>exchange</code> function transfers previously approved tokens(receivingToken) from caller to еxchange contract.
+Next line transfers the second type tokens(sendingToken) from exchange contract to caller.</p>
+<h4 id="sophia-exchange-contract-code">Sophia exchange contract code</h4>
+<p>The code shown here is our Sophia exchange contract:</p>
+<pre><code>contract FungibleToken =
+  public function transfer : (address, int) =&gt; bool
+  public function transfer_from : (address, address, int) =&gt; bool
+
+contract ExchangeContract =
+  record state = {
+    receiving_token : FungibleToken,
+    sending_token   : FungibleToken,
+    rate            : int}
+
+  public stateful function init(receiving_token: FungibleToken, sending_token: FungibleToken, rate: int) = {
+    receiving_token = receiving_token,
+    sending_token   = sending_token,
+    rate            = rate}
+
+  public function exchange(value: int) : bool =
+    state.receiving_token.transfer_from(Call.caller, Contract.address, value)
+    state.sending_token.transfer(Call.caller, value * state.rate)
+    true
+
+</code></pre>
+
+<h3 id="deploying-the-exchange-sophia-contract">Deploying the Exchange Sophia contract</h3>
+<p>The exchange contract accepts three parameters at deployment time:
+- receivingToken;
+- sendingToken;
+- rate;</p>
+<p>Let's change our deploy script to add parameters. The parameters of the init functions are always passed as tuple. Here is how our new deploy script deploy function looks like:</p>
+<pre><code>const Deployer = require('forgae').Deployer;
+
+const deploy = async (network, privateKey) =&gt; {
+    let deployer = new Deployer(network, privateKey);
+    const receivingTokenAddress = &quot;0x19877d65b8e253d10e7b0319a45191b7ef8919b6d73551d4dbdb3b1a59f4eb3c&quot;;
+    const sendingTokenAddress = &quot;0x6d03829c7c61f395ab39aa0200e6849ff5916384d195ef4a77b0c597ba7ea245&quot;;
+    const rate = 2;
+
+    await deployer.deploy(&quot;./contracts/ExchangeContract.aes&quot;, undefined, `(${receivingTokenAddress}, ${sendingTokenAddress}, ${rate})`);
+};
+
+module.exports = {
+    deploy
+};
+</code></pre>
+
+<p><em>Please replace the token addresses with yours.</em></p>
+<p>As you can see, we passed the token addresses and the exchange rate. Let's set the exchange rate to 2, which means if we want to exchange 5 token of the first type, we will receive 10 of the second type.</p>
+<p>Let's run our deploy script:</p>
+<pre><code>forgae deploy
+</code></pre>
+
+<pre><code>===== Contract: ExchangeContract.aes has been deployed =====
+{ owner: 'ak_2mwRmUeYmfuW93ti9HMSUJzCk1EYcQEfikVSzgo6k2VghsWhgU',
+  transaction: 'th_rscBoiBkPyfYKAAU5e6Bby1MLVyxSMc5y1Ub4FKEhnbQ26zXK',
+  address: 'ct_Lu9XYdtkDbTSJuadtMXkJHe2ybrF5dPAK973AMEURyZkMUEZw',
+  call: [Function],
+  callStatic: [Function],
+  createdAt: 2019-01-21T12:47:00.804Z }
+Your deployment script finished successfully!
+</code></pre>
+
+<p>I will decode the deployed contract address <code>ct_Lu9XYdtkDbTSJuadtMXkJHe2ybrF5dPAK973AMEURyZkMUEZw</code>:</p>
+<pre><code>aecli crypto decode ct_Lu9XYdtkDbTSJuadtMXkJHe2ybrF5dPAK973AMEURyZkMUEZw
+Decoded address (hex): 2d2eed67337a96e2f0819cf6cdf754947dbd6ac95659a84e656b0fb85617047
+</code></pre>
+
+<p>The result is <code>0x2d2eed67337a96e2f0819cf6cdf754947dbd6ac95659a84e656b0fb85617047</code>. Please do the same for your exchange contract address.</p>
+<h3 id="interacting-with-the-exchange-contract">Interacting with the exchange contract</h3>
+<p>The exchange mechanism is as follows - the exchange contract accepts <em>receiving</em> tokens and returns <em>sending</em> token multiplied by the rate.</p>
+<p>Here is a reminder of how looks the exchange function of the ExchangeContract:</p>
+<pre><code>public function exchange(value: int) : bool =
+  state.receiving_token.transfer_from(Call.caller, Contract.address, value)
+  state.sending_token.transfer(Call.caller, value * state.rate)
+  true
+</code></pre>
+
+<p>In order to be able to achieve token exchange, we have to:
+- mint <em>receiving</em> tokens to our caller account;
+- mint <em>sending</em> tokens to our ExchangeContract;
+- give permission to ExchangeContract to spend some amount of the <em>receiving</em> tokens owned by caller account;
+- execute the exchange function of ExchangeContract;
+- check the caller account balance of the receiving and sending tokens;</p>
+<p>First of all, let's mint some receiving tokens to our caller account. In order to do that we would need hex representation of the miner account:</p>
+<pre><code>aecli crypto decode ak_2mwRmUeYmfuW93ti9HMSUJzCk1EYcQEfikVSzgo6k2VghsWhgU
+Decoded address (hex): e9bbf604e611b5460a3b3999e9771b6f60417d73ce7c5519e12f7e127a1225ca
+</code></pre>
+
+<p>Interacting with a deployed contract is done using <code>aecli contract call</code>. </p>
+<p>We have to create a wallet file for the <em>miner</em> account to be able to call contract functions. 
+We will use the <code>aecli account save</code> command. It generates a keypair file from private key and encrypt it by password.
+The whole command looks like this:</p>
+<pre><code>aecli account save owner-wallet bb9f0b01c8c9553cfbaf7ef81a50f977b1326801ebf7294d1c2cbccdedf27476e9bbf604e611b5460a3b3999e9771b6f60417d73ce7c5519e12f7e127a1225ca --password 12345
+</code></pre>
+
+<ul>
+<li>owner-wallet - the name of the wallet file;</li>
+<li>private key of the miner account;</li>
+<li>encryption password;</li>
+</ul>
+<p>The result should be similar to:</p>
+<pre><code>    Wallet saved
+    Wallet address________________ ak_2mwRmUeYmfuW93ti9HMSUJzCk1EYcQEfikVSzgo6k2VghsWhgU
+    Wallet path___________________ ~/exchange-contract/owner-wallet
+</code></pre>
+
+<p>For instance, calling of the <em>mint</em> function of our first fungible token contract looks like this:</p>
+<pre><code>aecli contract call &lt;wallet_file&gt; --password &lt;wallet_password&gt; 
+mint bool &lt;account_address&gt; &lt;created_token_amount&gt; 
+--contractAddress &lt;deployed_contract_address&gt; 
+-u http://localhost:3001 
+--internalUrl http://localhost:3001/internal --networkId ae_devnet
+</code></pre>
+
+<p>In my case the above command looks like this:</p>
+<pre><code>aecli contract call ./owner-wallet --password 12345 
+mint bool 0xe9bbf604e611b5460a3b3999e9771b6f60417d73ce7c5519e12f7e127a1225ca 100 
+--contractAddress ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5 
+-u http://localhost:3001 
+--internalUrl http://localhost:3001/internal --networkId ae_devnet
+</code></pre>
+
+<p>We are calling the mint function of the first deployed fungible token with address - <code>ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5</code>. We want to mint 100 tokens of the <em>receiving</em> type.</p>
+<p>Our caller account has <strong>100</strong> tokens of type <em>receiving</em>.</p>
+<p>Next step is to mint tokens of the <em>sending</em> type to ExchangeContract. We will call the mint function of the token contract with <em>sending</em> type(contract address - <code>ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme</code>). The minted tokens will be assigned to the address of ExchangeContract, in my case - <code>0x2d2eed67337a96e2f0819cf6cdf754947dbd6ac95659a84e656b0fb85617047</code>.
+I will apply my addresses to the structure of mint function described above: </p>
+<pre><code>aecli contract call ./owner-wallet --password 12345 
+mint bool 0x2d2eed67337a96e2f0819cf6cdf754947dbd6ac95659a84e656b0fb85617047 
+1000 
+--contractAddress ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme 
+-u http://localhost:3001 
+--internalUrl http://localhost:3001/internal --networkId ae_devnet
+</code></pre>
+
+<p><em>Please replace the address of your deployed ExchangeContract as hex string and the address of deployed second token type(sending) as base58.</em></p>
+<p>The above command shows how to mint 1000 tokens of the second(sendingToken) type.</p>
+<p>Our exchange contract has <strong>1000</strong> sending tokens now.</p>
+<p>In order to be able to perform the <code>transfer_from</code> function of FungibleToken contract our Exchange contract has to have permission to spend some amount of the first token type(receiving).</p>
+<pre><code>aecli contract call ./owner-wallet --password 12345 
+approve bool 0x2d2eed67337a96e2f0819cf6cdf754947dbd6ac95659a84e656b0fb85617047 
+50  
+--contractAddress ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5 
+-u http://localhost:3001 
+--internalUrl http://localhost:3001/internal --networkId ae_devnet
+</code></pre>
+
+<p>The above command shows how we as caller with address <code>0xe9bbf604e611b5460a3b3999e9771b6f60417d73ce7c5519e12f7e127a1225ca</code> and as owner of <strong>100</strong> <em>receiving</em> tokens give permission to the ExchangeContract with address <code>0x2d2eed67337a96e2f0819cf6cdf754947dbd6ac95659a84e656b0fb85617047</code> to spend <strong>50</strong> of our <em>receiving</em> tokens.</p>
+<p>Our account is the owner of <strong>100</strong> <em>receiving</em> tokens. Our goal is to call the exchange function of the Exchange contract and to receive tokens of the <em>sending</em> type based on our passed amount and the exchange rate.</p>
+<p>The execution of the exchange function is as follows: </p>
+<pre><code>aecli contract call ./owner-wallet --password 12345 
+exchange bool 5 
+--contractAddress ct_Lu9XYdtkDbTSJuadtMXkJHe2ybrF5dPAK973AMEURyZkMUEZw 
+-u http://localhost:3001 
+--internalUrl http://localhost:3001/internal --networkId ae_devnet
+</code></pre>
+
+<p>We want to exchange <strong>5</strong> of our <em>receiving</em> tokens for <em>sending</em> ones.
+So let's check the balance of our account.
+First the <em>receiving</em> tokens balance:</p>
+<pre><code>aecli contract call ./owner-wallet --password 12345 
+balance_of int 0xe9bbf604e611b5460a3b3999e9771b6f60417d73ce7c5519e12f7e127a1225ca 
+--contractAddress ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5 
+-u http://localhost:3001 
+--internalUrl http://localhost:3001/internal --networkId ae_devnet
+</code></pre>
+
+<p><code>--contractAddress ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5</code> is the address of our <em>receiving</em> token contract.</p>
+<p>The result of the above command is: </p>
+<pre><code>Contract address_________ ct_CF7R6Q8VSirY2MguEi8ukGWMStUFGiNXzpbo1KST4gNNvCiD5
+Gas price________________ 1
+Gas used_________________ 1920
+Return value (encoded)___ cb_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF+2YqXM
+Return value (decoded)___ 95
+Return remote type_______ word
+</code></pre>
+
+<p>The returned value is <strong>95</strong> <em>receiving</em> tokens. 5 of our previous amount of 100 tokens are transferred from caller to exchange contract with the first line of our <code>exchange</code> function - <code>state.receiving_token.transfer_from(Call.caller, Contract.address, value)</code>. So let's check the balance of the second token type.</p>
+<pre><code>aecli contract call ./owner-wallet --password 12345 
+balance_of int 0xe9bbf604e611b5460a3b3999e9771b6f60417d73ce7c5519e12f7e127a1225ca 
+--contractAddress ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme 
+-u http://localhost:3001 
+--internalUrl http://localhost:3001/internal --networkId ae_devnet
+</code></pre>
+
+<p>The result is:</p>
+<pre><code>Contract address_________ ct_q1cKXEbgxJ6WmUTQwrSdsCZsbB8ygUV6Pk8TpFwBsujkNSRme
+Gas price________________ 1
+Gas used_________________ 1920
+Return value (encoded)___ cb_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABX4y1tk
+Return value (decoded)___ 10
+Return remote type_______ word
+</code></pre>
+
+<p>As you can see the returned value is <strong>10</strong> tokens of our second type(sendingToken).</p>
+<p>Our account balance before exchange: 
+- <strong>100</strong> <em>receiving</em> tokens;
+- <strong>0</strong> <em>sending</em> tokens;</p>
+<p>The balance after exchange:
+- <strong>95</strong> <em>receiving</em> tokens;
+- <strong>10</strong> <em>sending</em> tokens;</p>
+<h2 id="what-is-next">What is next?</h2>
+<p>As you can see, this approach requires some degree of manual work. In the next <a href="https://github.com/aeternity/tutorials/blob/master/sophia-token-exchange-contract-3.md">Part 3</a>, we automate decoding and deployment through the use of forgae deployment scripts.</p>
+<p>The æternity team will keep this tutorial updated. If you encounter any problems please contact us through the <a href="https://forum.aeternity.com/c/development">æternity Forum</a>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../sophia-token-exchange-contract-1/" title="Token Exchange Contract I" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Token Exchange Contract I
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../sophia-token-exchange-contract-3/" title="Token Exchange Contract III" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Token Exchange Contract III
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+    
+  </body>
+</html>
