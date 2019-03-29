@@ -1,0 +1,4339 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Channels - æternity Documentation Hub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../../site/assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="white">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#channels-intended-usage" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../.." title="æternity Documentation Hub" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              æternity Documentation Hub
+            </span>
+            <span class="md-header-nav__topic">
+              Channels
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../.." title="æternity Documentation Hub" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    æternity Documentation Hub
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Get Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Get Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/build-windows/" title="Build in Windows" class="md-nav__link">
+      Build in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/build/" title="Build in Ubuntu" class="md-nav__link">
+      Build in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/cuda-miner/" title="CUDA Miner" class="md-nav__link">
+      CUDA Miner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/installation-windows/" title="Installation in Windows" class="md-nav__link">
+      Installation in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/installation/" title="Installation in Ubuntu" class="md-nav__link">
+      Installation in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/operation/" title="Operation" class="md-nav__link">
+      Operation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Protocol
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Protocol
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../oracles/oracle_life_cycle/" title="Life Cycle" class="md-nav__link">
+      Life Cycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../oracles/oracle_state_tree/" title="State Tree" class="md-nav__link">
+      State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../oracles/oracle_transactions" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../AENS/" title="AENS Naming System" class="md-nav__link">
+      AENS Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Smart Contracts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Smart Contracts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../contracts/contract_life_cycle/" title="Contract Life Cycle Examples" class="md-nav__link">
+      Contract Life Cycle Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-2" type="checkbox" id="nav-3-3-2">
+    
+    <label class="md-nav__link" for="nav-3-3-2">
+      Virtual Machines
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-2">
+        Virtual Machines
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../contracts/contract_vms/" title="Æternity VM" class="md-nav__link">
+      Æternity VM
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../contracts/aevm/" title="Æternity Ethereum VM" class="md-nav__link">
+      Æternity Ethereum VM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../contracts/sophia/" title="Sophia Smart Contract Language" class="md-nav__link">
+      Sophia Smart Contract Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../contracts/contract_state_tree/" title="Contract State Tree" class="md-nav__link">
+      Contract State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../contracts/contract_transactions/" title="Contract Transactions" class="md-nav__link">
+      Contract Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../channels/" title="State Channels" class="md-nav__link">
+      State Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../serializations/" title="Serialization Formats" class="md-nav__link">
+      Serialization Formats
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Expansions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Expansions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../Expansions/AEXS/aex-1/" title="AEX1" class="md-nav__link">
+      AEX1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../Expansions/AEXS/aex-2/" title="AEX2" class="md-nav__link">
+      AEX2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Node Usage API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Node Usage API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api_encoding/" title="Encoding Scheme" class="md-nav__link">
+      Encoding Scheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../account_api_usage/" title="Account Managment" class="md-nav__link">
+      Account Managment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../spend_api_usage/" title="Spending Tokens" class="md-nav__link">
+      Spending Tokens
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../oracle_api_usage/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../naming_system_api_usage/" title="Naming System" class="md-nav__link">
+      Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../contract_api_usage/" title="Contract" class="md-nav__link">
+      Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Channels
+      </label>
+    
+    <a href="./" title="Channels" class="md-nav__link md-nav__link--active">
+      Channels
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#websocket-life-cycle" title="WebSocket life cycle" class="md-nav__link">
+    WebSocket life cycle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-requests" title="HTTP requests" class="md-nav__link">
+    HTTP requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-open" title="Channel open" class="md-nav__link">
+    Channel open
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#websocket-protocol" title="Websocket protocol" class="md-nav__link">
+    Websocket protocol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-parameters" title="Channel parameters" class="md-nav__link">
+    Channel parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-websocket-open" title="Responder WebSocket open" class="md-nav__link">
+    Responder WebSocket open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initiator-websocket-open" title="Initiator WebSocket open" class="md-nav__link">
+    Initiator WebSocket open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-opened-messages" title="Connection opened messages" class="md-nav__link">
+    Connection opened messages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initiator-connection-opened-message" title="Initiator connection opened message" class="md-nav__link">
+    Initiator connection opened message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-connection-opened-message" title="Responder connection opened message" class="md-nav__link">
+    Responder connection opened message
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-transaction-signing" title="Create transaction signing" class="md-nav__link">
+    Create transaction signing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initiator-signs-the-tx" title="Initiator signs the tx" class="md-nav__link">
+    Initiator signs the tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-is-informed" title="Responder is informed" class="md-nav__link">
+    Responder is informed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-signs-the-tx" title="Responder signs the tx" class="md-nav__link">
+    Responder signs the tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initiator-is-informed" title="Initiator is informed" class="md-nav__link">
+    Initiator is informed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signed-channel_create_tx" title="Signed channel_create_tx" class="md-nav__link">
+    Signed channel_create_tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-in-mempool" title="Transaction in mempool" class="md-nav__link">
+    Transaction in mempool
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-inclusion" title="Block inclusion" class="md-nav__link">
+    Block inclusion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-state" title="Initial state" class="md-nav__link">
+    Initial state
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-confirmation" title="Open confirmation" class="md-nav__link">
+    Open confirmation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-off-chain-update" title="Channel off-chain update" class="md-nav__link">
+    Channel off-chain update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel-state" title="Channel state" class="md-nav__link">
+    Channel state
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer" title="Transfer" class="md-nav__link">
+    Transfer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-transfer-update" title="Start transfer update" class="md-nav__link">
+    Start transfer update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-transfer-update" title="Trigger a transfer update" class="md-nav__link">
+    Trigger a transfer update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starter-signs-updated-state" title="Starter signs updated state" class="md-nav__link">
+    Starter signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-contract" title="Create a contract" class="md-nav__link">
+    Create a contract
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-create-contract-update" title="Start create contract update" class="md-nav__link">
+    Start create contract update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-create-contract-update" title="Trigger a create contract update" class="md-nav__link">
+    Trigger a create contract update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#owner-signs-updated-state" title="Owner signs updated state" class="md-nav__link">
+    Owner signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update_1" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update_1" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contract-address-computation" title="Contract address computation" class="md-nav__link">
+    Contract address computation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call-a-contract" title="Call a contract" class="md-nav__link">
+    Call a contract
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-call-a-contract-update" title="Start call a contract update" class="md-nav__link">
+    Start call a contract update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-contract-call-update" title="Trigger a contract call update" class="md-nav__link">
+    Trigger a contract call update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caller-signs-updated-state" title="Caller signs updated state" class="md-nav__link">
+    Caller signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update_2" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update_2" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-a-call-result" title="Getting a call result" class="md-nav__link">
+    Getting a call result
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leave-request" title="Leave request" class="md-nav__link">
+    Leave request
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reestablish" title="Reestablish" class="md-nav__link">
+    Reestablish
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mining_api_usage/" title="Mining" class="md-nav__link">
+      Mining
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Developer Tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Developer Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      SDK's
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        SDK's
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../developer-tools/sdk/sdk-go/" title="Go" class="md-nav__link">
+      Go
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../developer-tools/sdk/sdk-js/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../developer-tools/sdk/sdk-python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-2" type="checkbox" id="nav-6-2">
+    
+    <label class="md-nav__link" for="nav-6-2">
+      Frameworks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-2">
+        Frameworks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../developer-tools/frameworks/orgae/README.md" title="ForgAE" class="md-nav__link">
+      ForgAE
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Sophia Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Sophia Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/DateTime/" title="DateTime" class="md-nav__link">
+      DateTime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/List/" title="List" class="md-nav__link">
+      List
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/Ownable/" title="Ownable" class="md-nav__link">
+      Ownable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/FungibleToken/" title="FungibleToken" class="md-nav__link">
+      FungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/NonFungibleToken/" title="NonFungibleToken" class="md-nav__link">
+      NonFungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/MultisignatureWallet/" title="MultisignatureWallet" class="md-nav__link">
+      MultisignatureWallet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Sophia by Example
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Sophia by Example
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/examples/SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
+      Smart Data Provider
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/examples/SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
+      Smart Real Estate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/examples/SpendToMany/" title="Spend-to-Many" class="md-nav__link">
+      Spend-to-Many
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/examples/TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
+      Tic Tac Toe
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      How-To Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        How-To Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-1" type="checkbox" id="nav-9-1">
+    
+    <label class="md-nav__link" for="nav-9-1">
+      Account
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-1">
+        Account
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/account-creation-in-ae-cli/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-2" type="checkbox" id="nav-9-2">
+    
+    <label class="md-nav__link" for="nav-9-2">
+      Middleware
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-2">
+        Middleware
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/running-your-own-ae-middleware/" title="Run Own Middleware" class="md-nav__link">
+      Run Own Middleware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-3" type="checkbox" id="nav-9-3">
+    
+    <label class="md-nav__link" for="nav-9-3">
+      Miner
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-3">
+        Miner
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-cpu-miner-on-ubuntu-1804/" title="Run CPU Miner (Ubuntu)" class="md-nav__link">
+      Run CPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-gpu-miner-on-ubuntu-1804/" title="Run GPU Miner (Ubuntu)" class="md-nav__link">
+      Run GPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-node-on-macos-mojave/" title="Run Node (MacOS)" class="md-nav__link">
+      Run Node (MacOS)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-node-on-ubuntu-1804/" title="Run Node (Ubuntu)" class="md-nav__link">
+      Run Node (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-5" type="checkbox" id="nav-9-5">
+    
+    <label class="md-nav__link" for="nav-9-5">
+      Paper Wallet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-5">
+        Paper Wallet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/create-a-paper-wallet/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-6" type="checkbox" id="nav-9-6">
+    
+    <label class="md-nav__link" for="nav-9-6">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-6">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-language-definition-for-notepad++/" title="Install Sophia Notepad++ Language Definition" class="md-nav__link">
+      Install Sophia Notepad++ Language Definition
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-7" type="checkbox" id="nav-9-7">
+    
+    <label class="md-nav__link" for="nav-9-7">
+      Testnet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-7">
+        Testnet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-local-testnet-with-docker/" title="Run Local Testnet (Docker)" class="md-nav__link">
+      Run Local Testnet (Docker)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/get-testnet-tokens/" title="Get Testnet Tokens" class="md-nav__link">
+      Get Testnet Tokens
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-8" type="checkbox" id="nav-9-8">
+    
+    <label class="md-nav__link" for="nav-9-8">
+      Unit Tests
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-8">
+        Unit Tests
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/how-to-write-unit-test-1/" title="How to Write Unit Test I" class="md-nav__link">
+      How to Write Unit Test I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/how-to-write-unit-test-2/" title="How to Write Unit Test II" class="md-nav__link">
+      How to Write Unit Test II
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-1" type="checkbox" id="nav-10-1">
+    
+    <label class="md-nav__link" for="nav-10-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-oracle-introduction/" title="Sophia Oracle Introduction" class="md-nav__link">
+      Sophia Oracle Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-fungible-token-contract/" title="Fungible Token Contract" class="md-nav__link">
+      Fungible Token Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-token-exchange-contract-1/" title="Token Exchange Contract I" class="md-nav__link">
+      Token Exchange Contract I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-token-exchange-contract-2/" title="Token Exchange Contract II" class="md-nav__link">
+      Token Exchange Contract II
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-token-exchange-contract-3/" title="Token Exchange Contract III" class="md-nav__link">
+      Token Exchange Contract III
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/vote-contract.md" title="Vote Contract" class="md-nav__link">
+      Vote Contract
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      State Channels
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        State Channels
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/state-channels-introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#websocket-life-cycle" title="WebSocket life cycle" class="md-nav__link">
+    WebSocket life cycle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-requests" title="HTTP requests" class="md-nav__link">
+    HTTP requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-open" title="Channel open" class="md-nav__link">
+    Channel open
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#websocket-protocol" title="Websocket protocol" class="md-nav__link">
+    Websocket protocol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-parameters" title="Channel parameters" class="md-nav__link">
+    Channel parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-websocket-open" title="Responder WebSocket open" class="md-nav__link">
+    Responder WebSocket open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initiator-websocket-open" title="Initiator WebSocket open" class="md-nav__link">
+    Initiator WebSocket open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-opened-messages" title="Connection opened messages" class="md-nav__link">
+    Connection opened messages
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initiator-connection-opened-message" title="Initiator connection opened message" class="md-nav__link">
+    Initiator connection opened message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-connection-opened-message" title="Responder connection opened message" class="md-nav__link">
+    Responder connection opened message
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-transaction-signing" title="Create transaction signing" class="md-nav__link">
+    Create transaction signing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initiator-signs-the-tx" title="Initiator signs the tx" class="md-nav__link">
+    Initiator signs the tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-is-informed" title="Responder is informed" class="md-nav__link">
+    Responder is informed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responder-signs-the-tx" title="Responder signs the tx" class="md-nav__link">
+    Responder signs the tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initiator-is-informed" title="Initiator is informed" class="md-nav__link">
+    Initiator is informed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signed-channel_create_tx" title="Signed channel_create_tx" class="md-nav__link">
+    Signed channel_create_tx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-in-mempool" title="Transaction in mempool" class="md-nav__link">
+    Transaction in mempool
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#block-inclusion" title="Block inclusion" class="md-nav__link">
+    Block inclusion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-state" title="Initial state" class="md-nav__link">
+    Initial state
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-confirmation" title="Open confirmation" class="md-nav__link">
+    Open confirmation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#channel-off-chain-update" title="Channel off-chain update" class="md-nav__link">
+    Channel off-chain update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channel-state" title="Channel state" class="md-nav__link">
+    Channel state
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transfer" title="Transfer" class="md-nav__link">
+    Transfer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-transfer-update" title="Start transfer update" class="md-nav__link">
+    Start transfer update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-transfer-update" title="Trigger a transfer update" class="md-nav__link">
+    Trigger a transfer update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starter-signs-updated-state" title="Starter signs updated state" class="md-nav__link">
+    Starter signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-contract" title="Create a contract" class="md-nav__link">
+    Create a contract
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-create-contract-update" title="Start create contract update" class="md-nav__link">
+    Start create contract update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-create-contract-update" title="Trigger a create contract update" class="md-nav__link">
+    Trigger a create contract update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#owner-signs-updated-state" title="Owner signs updated state" class="md-nav__link">
+    Owner signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update_1" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update_1" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contract-address-computation" title="Contract address computation" class="md-nav__link">
+    Contract address computation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call-a-contract" title="Call a contract" class="md-nav__link">
+    Call a contract
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-call-a-contract-update" title="Start call a contract update" class="md-nav__link">
+    Start call a contract update
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-contract-call-update" title="Trigger a contract call update" class="md-nav__link">
+    Trigger a contract call update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caller-signs-updated-state" title="Caller signs updated state" class="md-nav__link">
+    Caller signs updated state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acknowledger-update_2" title="Acknowledger update" class="md-nav__link">
+    Acknowledger update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finish-update_2" title="Finish update" class="md-nav__link">
+    Finish update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-a-call-result" title="Getting a call result" class="md-nav__link">
+    Getting a call result
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leave-request" title="Leave request" class="md-nav__link">
+    Leave request
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reestablish" title="Reestablish" class="md-nav__link">
+    Reestablish
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aeternity/documentation-hub/edit/master/docs/protocol/node/api/channels_api_usage.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <p><a href="../">back</a></p>
+<h1 id="channels-intended-usage">Channels - intended usage</h1>
+<p><strong>NOTE:</strong> A description of the newer JSON-RPC-based protocol <a href="../channel_ws_api_json-rpc/">can be found here</a></p>
+<h2 id="introduction">Introduction</h2>
+<p>You interact with an Aeternity node both through HTTP requests and WebSocket
+connections.
+To learn more about channels and their life cycle see <a href="/channels/README.md">the doc</a>.</p>
+<p>In each channel there are two WebSocket client parties. For each channel, a new WebSocket connection is opened. Once the channel is opened - participants are
+equal in every regard. They have different roles while opening and we have
+names for them - <code>initiator</code> and <code>responder</code>. For short we will call them <em>the
+parties</em>.</p>
+<p>There are two basic types of interaction: persisted connection events and HTTP API calls.</p>
+<h3 id="websocket-life-cycle">WebSocket life cycle</h3>
+<p>These are used for the scenario when all parties behave correctly and as
+expected. The flow is the following:</p>
+<ol>
+<li><a href="#channel-open">Channel open</a></li>
+<li><a href="#channel-off-chain-update">Channel off-chain update</a></li>
+<li><a href="#transfer">Transfer</a></li>
+<li><a href="#create-a-contract">Create a contract</a></li>
+<li><a href="#call-a-contract">Call a contract</a></li>
+<li><a href="#leave-reestablish">Optionally leave/reestablish</a></li>
+<li><a href="#channel-mutual-close">Channel mutual close</a></li>
+</ol>
+<p>There are a some WebSocket events that can occur while the connection is open
+but are not necessarily part of the channel's life cycle.</p>
+<ul>
+<li>
+<p><a href="#update-error">Update error</a></p>
+</li>
+<li>
+<p><a href="#update-conflict">Update conflict</a></p>
+</li>
+<li>
+<p><a href="#generic-messages">Generic messages</a></p>
+</li>
+<li>
+<p><a href="#deposit-events">Deposit</a></p>
+</li>
+<li>
+<p><a href="#withdraw-events">Withdrawal</a></p>
+</li>
+<li>
+<p><a href="#getting-state">Getting state</a></p>
+</li>
+<li>
+<p><a href="#get-balances">Balances</a></p>
+</li>
+<li>
+<p><a href="#get-proof-of-inclusion">Proof of inclusion</a></p>
+</li>
+<li>
+<p><a href="#dry-run-a-contract">Dry-run a contract</a></p>
+</li>
+<li>
+<p><a href="#get-contract-calls">Contract call</a></p>
+</li>
+<li>
+<p><a href="#pruning-contract-calls">Cleaning local contract calls</a></p>
+</li>
+</ul>
+<p>Only steps 1 and 4 require chain interactions, step 2 and 3 are off-chain.</p>
+<h3 id="http-requests">HTTP requests</h3>
+<p>There are two types of HTTP requests:
+<em> Total amount-modifying ones - <a href="#deposit-transaction">deposit</a> and <a href="#withdraw-transaction">withdrawal</a>
+</em> <a href="#solo-closing-sequence">Channel-closing ones</a> - <a href="#solo-close-on-chain-transaction">solo close</a>, <a href="#slash-on-chain-transaction">slash</a> and <a href="#settle-on-chain-transaction">settle</a></p>
+<h2 id="channel-open">Channel open</h2>
+<p>In order to use a channel, it must be opened. Both parties negotiate parameters for the channel - for example the amounts to participate. Some of those are relevant to the chain and end up in a<code>channel_create_tx</code> that is posted on the chain. Once a certain amount of blocks have been mined on top of the one that included it, the channel is considered to be opened.</p>
+<h3 id="websocket-protocol">Websocket protocol</h3>
+<p>The channel websocket api currently supports two protocols: <a href="https://www.jsonrpc.org/specification"><code>json-rpc</code></a> and <code>legacy</code>. Which protocol to use can be specified with the <code>protocol</code> option.
+ If omitted, <code>legacy</code> is chosen by default, although this default is likely to change in the future.</p>
+<p>In the examples below, the <code>legacy</code> protocol is used. For a description on how to translate into the <code>json-rpc</code> format, see <a href="../channel_ws_api_json-rpc/">channel_ws_api_json-rpc.md</a>.</p>
+<p>Detailed message transcripts from test suites can also be found <a href="./examples/aehttp_integration_SUITE/json-rpc/">for JSON-RPC</a> and <a href="./examples/aehttp_integration_SUITE/legacy/">for <code>legacy</code></a></p>
+<h3 id="channel-parameters">Channel parameters</h3>
+<p>Each channel has a set of parameters that is required for opening a
+connection. Most of those are part of the <code>channel_create_tx</code> which is included
+in the chain, and the others are metadata used for the connection itself.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+<th>Part of the <code>channel_create_tx</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>initiator_id</td>
+<td>string</td>
+<td>initiator's public key</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>responder_id</td>
+<td>string</td>
+<td>responder's public key</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lock_period</td>
+<td>integer</td>
+<td>amount of blocks for disputing a solo close</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>push_amount</td>
+<td>integer</td>
+<td>initial deposit in favour of the responder by the initiator</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>initiator_amount</td>
+<td>integer</td>
+<td>amount of tokens the initiator has committed to the channel</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>responder_amount</td>
+<td>integer</td>
+<td>amount of tokens the responder has committed to the channel</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>channel_reserve</td>
+<td>integer</td>
+<td>the minimum amount both peers need to maintain</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>integer</td>
+<td>minimum block height to include the <code>channel_create_tx</code></td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>host</td>
+<td>string</td>
+<td>host of the <code>responder</code>'s node</td>
+<td>Yes if <code>role=initiator</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td>port</td>
+<td>integer</td>
+<td>the port of the <code>responder</code>s node</td>
+<td>Yes if <code>role=initiator</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td>role</td>
+<td>string</td>
+<td>the role of the client - either <code>initiator</code> or <code>responder</code></td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>timeouts</td>
+<td>object</td>
+<td>the maximum lenght of time waiting for the other party to respond in the different states</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>minimum_depth</td>
+<td>integer</td>
+<td>the minimum amount of blocks to be mined</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p><code>responder</code>'s port and host pair must be reachable from <code>initiator</code> network
+  so unless participants are part of a LAN, they should be exposed to the
+  internet as described <a href="../">here</a>.</p>
+<p>In the following examples we will be using the following parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>initiator_id</td>
+<td>ak_8wWs1j2vhgjexQmKfgEBrG8ysAucRJdb3jsag3PJKjEeXswb7</td>
+</tr>
+<tr>
+<td>responder_id</td>
+<td>ak_bmtGbfP3SdPoJNZCQGjjzbKRje15J9CEcWYaL1gZyv2qEyiMe</td>
+</tr>
+<tr>
+<td>lock_period</td>
+<td>10</td>
+</tr>
+<tr>
+<td>push_amount</td>
+<td>3</td>
+</tr>
+<tr>
+<td>initiator_amount</td>
+<td>10</td>
+</tr>
+<tr>
+<td>responder_amount</td>
+<td>10</td>
+</tr>
+<tr>
+<td>channel_reserve</td>
+<td>2</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>initiator</code> will be connecting to the <code>responder</code> on localhost:1234
+  We will be using the tool <a href="https://github.com/websockets/wscat">wscat</a>
+  We assume the channel's WebSocket listener is set on port 3014 (default one)</p>
+<h3 id="responder-websocket-open">Responder WebSocket open</h3>
+<p>Using the set of prenegotiated parameters the responder connects</p>
+<pre><code>$ wscat --connect 'localhost:3014/channel?initiator_id=ak_8wWs1j2vhgjexQmKfgEBrG8ysAucRJdb3jsag3PJKjEeXswb7&amp;responder_id=ak_bmtGbfP3SdPoJNZCQGjjzbKRje15J9CEcWYaL1gZyv2qEyiMe&amp;lock_period=10&amp;push_amount=3&amp;initiator_amount=10&amp;responder_amount=10&amp;channel_reserve=2&amp;ttl=1000&amp;port=1234&amp;role=responder'
+
+connected (press CTRL+C to quit)
+</code></pre>
+
+<p>Note the <code>role=responder</code> as it is specific. Note also that the <code>host</code> is missing - it is not required for the responder.
+The <code>port</code> being specified is the one the <code>responder</code>'s node will start
+listening for the <code>initiator</code>'s connection. If the <code>responder</code>'s node is
+behind a firewall or some port forwarding is done - this should be done before
+the initiator starts connecting as it will fail.</p>
+<p>At this point the <code>responder</code> is listening on address <code>0.0.0.0</code> for the <code>initiator</code>'s
+connection on the specified port - <code>1234</code>.</p>
+<h3 id="initiator-websocket-open">Initiator WebSocket open</h3>
+<p>Using the set of prenegotiated parameters the initiator connects</p>
+<pre><code>$ wscat --connect 'localhost:3014/channel?initiator_id=ak_8wWs1j2vhgjexQmKfgEBrG8ysAucRJdb3jsag3PJKjEeXswb7&amp;responder_id=ak_bmtGbfP3SdPoJNZCQGjjzbKRje15J9CEcWYaL1gZyv2qEyiMe&amp;lock_period=10&amp;push_amount=3&amp;initiator_amount=10&amp;responder_amount=10&amp;channel_reserve=2&amp;ttl=1000&amp;host=localhost&amp;port=1234&amp;role=initiator'
+
+connected (press CTRL+C to quit)
+</code></pre>
+
+<p>Note the <code>role=initiator</code> as it is specific. Note also the <code>host</code> and <code>port</code>
+being provided by the <code>responder</code>.</p>
+<h3 id="connection-opened-messages">Connection opened messages</h3>
+<p>Parties' WebSocket clients receive messages for the opening of the TCP
+connection.</p>
+<h4 id="initiator-connection-opened-message">Initiator connection opened message</h4>
+<p>The initiator receives the following message</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'channel_accept'}
+ }
+</code></pre>
+
+<h4 id="responder-connection-opened-message">Responder connection opened message</h4>
+<p>The responder receives the following message</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'channel_open'}
+ }
+</code></pre>
+
+<h3 id="create-transaction-signing">Create transaction signing</h3>
+<p>The <code>channel_create_tx</code> is sent subsequently to both parties and they co-sign
+it. Then it is posted to the chain.</p>
+<h4 id="initiator-signs-the-tx">Initiator signs the tx</h4>
+<p>The initiator receives a message containing the unsigned transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'initiator_signed',
+ 'payload': {'tx': 'tx_6GDUCeNUH5DYb7RB6Aa9WNHwPzjj8jWwp1rt9iyimoJvpKe7NeCAcWryYY965s6Y8F7FxHyYffSxE5VhLPdm1gWiJFCG3Qd2FuZzs9vi4zhmY5MvHQpWrtuPdMd71YCu8kL5VNGkCQVPBLHWddCeuFRyknZPR3b'}
+ }
+</code></pre>
+
+<p>Initiator is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'initiator_signed',
+ 'payload': {'tx': 'tx_7gq4gp1GGiqdJ1qEZv5h4UiUdaPS4BtwyR1FitViBERzHjntzwCUWLgVM6khGeLuYMehyhbPuqYD6HwR5r1bQb9BTKt3WcaGgBQhUx8CFdjTA2QPhZnGrE5k8uuturu7uaeRLXeyUQJMyoSf5xZzD3DrzomkUJuYb1r3E6pHvNxjUbq2Qo4xoDYp6kjBo5nzNdAEnwk8iwn1opLjFRDX519nPAfEujqsTrkjCScu2FjaUwqkvSnVA8JT8v4FumsdP5ua'}
+ }
+</code></pre>
+
+<p>Please note that the these are just example transactions and you're to have
+different values for those.</p>
+<h4 id="responder-is-informed">Responder is informed</h4>
+<p>The responder receives the following message</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'funding_created'}
+ }
+</code></pre>
+
+<h4 id="responder-signs-the-tx">Responder signs the tx</h4>
+<p>After being informed for the initiator's signing the responder receives a message containing the unsigned transaction to be signed as well</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'responder_signed',
+ 'payload': {'tx': 'tx_6GDUCeNUH5DYb7RB6Aa9WNHwPzjj8jWwp1rt9iyimoJvpKe7NeCAcWryYY965s6Y8F7FxHyYffSxE5VhLPdm1gWiJFCG3Qd2FuZzs9vi4zhmY5MvHQpWrtuPdMd71YCu8kL5VNGkCQVPBLHWddCeuFRyknZPR3b'}
+ }
+</code></pre>
+
+<p>Note that this is the same transaction. Responder is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'responder_signed',
+ 'payload': {'tx': 'tx_6GDUCeNUH5DYb7RB6Aa9WNHwPzjj8jWwp1rt9iyimoJvpKe7NeCAcWryYY965s6Y8F7FxHyYffSxE5VhLPdm1gWiJFCG3Qd2FuZzs9vi4zhmY5MvHQpWrtuPdMd71YCu8kL5VNGkCQVPBLHWddCeuFRyknZPR3b'}
+ }
+</code></pre>
+
+<h4 id="initiator-is-informed">Initiator is informed</h4>
+<p>The initiator receives the following message</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'funding_signed'}
+ }
+</code></pre>
+
+<h4 id="signed-channel_create_tx">Signed channel_create_tx</h4>
+<p>Both participants receive the co-signed <code>channel_create_tx</code>:</p>
+<pre><code>{'action': 'on_chain_tx',
+ 'payload': {'tx': 'tx_9mmqY8QRoYS8QR5nyRkWwTyhwecE8NzHotRK1yMjvfvyPfsaBNwWFDrmzG3M5rHKARm39AqeJpgN4Aj7V57yP4KusptAvMA2r3y593vr51ubXN8zo8t8qg7Arb32wWhmYDvRXVGKhfYoqu91BpkammeY69xCjGuQrXKDk3t9aPCcrvM3PbERAMvkmvD9dsb2H5iujGin8qZTy42xsUYS6QcTiaomxo8CmieGSvZkAai1KCZ84MZzsAjsR1FP54Su7rfBPXZTd5u2AmyF7LwZoHQsJEspLnzXxun2MtKTkhR3du8PY'
+            }
+}
+</code></pre>
+
+<p>Using its hash, participants can track its progress on the chain: entering the mempool, block inclusion and a number of confirmations.</p>
+<h4 id="transaction-in-mempool">Transaction in mempool</h4>
+<p>At this point both parties had received the co-signed the <code>channel_create_tx</code> transaction. The transaction is posted by the state
+channel's software to the node and goes to the mempool. Having calculated its hash, one can validate it using the external HTTP API:</p>
+<pre><code>$ curl 'http://localhost:3013/v2/transactions/th_hNyHzj4dSzyBqReAMR36GGz1mhuXxQFuES3AnPkXkuY2w6dZb'
+</code></pre>
+
+<p>if the <code>block_hash</code> is <code>none</code> - then the transaction is still in the mempool.</p>
+<h3 id="block-inclusion">Block inclusion</h3>
+<p>When the transaction is included in a block - this is the first confirmation. A block height timer is
+started and it ends after <code>minimum_depth + 1</code> confirmations. Default value for
+it is 4, so 5 blocks need to be mined. As a result, each party will receive
+two kinds of confirmation.</p>
+<p>An update from one's own node that the block height needed is reached:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'own_funding_locked'}
+ }
+</code></pre>
+
+<p>An update from one's own node that the other party had confirmed that the block
+height needed is reached:</p>
+<pre><code>{'action': 'info',
+ 'channel_id': 'ch_RnmrHrmv7m37fMS9RfWAGZMhtDbYnqJk4n7G9X9bTyepzwm5t',
+ 'payload': {'event': 'funding_locked'}
+ }
+</code></pre>
+
+<h3 id="initial-state">Initial state</h3>
+<p>After both parties have confirmed that the funding is signed - they can proceed
+with sending the messages for off-chain updates. The inital state is the one
+described in the create transaction.</p>
+<h4 id="open-confirmation">Open confirmation</h4>
+<p>After both parties have co-signed the state update both of them will receive a info for the channel open:</p>
+<pre><code>{'action': 'info',
+ 'channel_id': 'ch_RnmrHrmv7m37fMS9RfWAGZMhtDbYnqJk4n7G9X9bTyepzwm5t',
+ 'payload': {'event': 'open'}
+ }
+</code></pre>
+
+<p>From this point on, the channel is considered to be opened.</p>
+<h2 id="channel-off-chain-update">Channel off-chain update</h2>
+<p>After the channel has been opened and before it has been closed there is a
+channel state that is updated when needed. The updates are off-chain and
+broadcasted only between parties in the channel. The state is a full state
+tree that holds all the latest accounts, contracts and contract calls.
+A state is considered to be valid only if both parties have agreed upon it.
+Agreement it proven with signing a message that contains the channel id, round
+and root of the state tree (state_hash). States are ordered by their round - the greater the round,
+the newer the state. The latest channel state is the last valid state, having
+the greatest round. At any time the latest state can be used for unilaterally closing the channel.</p>
+<h3 id="channel-state">Channel state</h3>
+<p>There are a couple of different types that could define the channel state.
+Those are deposit, withdrawal and off-chain transactions. They all containt at
+least the following data:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel id</td>
+<td>string</td>
+<td>ID of the channel</td>
+</tr>
+<tr>
+<td>state_hash</td>
+<td>string</td>
+<td>root of the state tree</td>
+</tr>
+<tr>
+<td>round</td>
+<td>integer</td>
+<td>current round</td>
+</tr>
+</tbody>
+</table>
+<p>You can find further information for them as it follows:</p>
+<ul>
+<li><a href="../../../serializations/#channel-deposit-transaction">deposit transaction</a></li>
+<li><a href="../../../serializations/#channel-withdraw-transaction">withdrawal transaction</a></li>
+<li><a href="../../../serializations/#channel-off-chain-transaction">off-chain transaction</a></li>
+</ul>
+<p>Each subsequent state has a <code>round</code> increased with 1</p>
+<p>Since both participants are peers, they can both trigger new updates to the
+state.
+Since one of them starts the update and the other acknowledges is below we are
+going to use <code>starter</code> and <code>acknowledger</code>. Both the initiator and the
+responder can take either of the roles.</p>
+<h3 id="transfer">Transfer</h3>
+<p>The transfer update is moving tokens from one channel account to another. The update is a change to be applied on top of the latest state. It has the
+following structure:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>sender's public key</td>
+</tr>
+<tr>
+<td>to</td>
+<td>string</td>
+<td>receiver's public key</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>integer</td>
+<td>the amount given</td>
+</tr>
+</tbody>
+</table>
+<p>Sender and receiver are the channel parties. Both the initiator and responder
+can take those roles. Any public key outside of the channel is considered invalid.</p>
+<h4 id="start-transfer-update">Start transfer update</h4>
+<h5 id="trigger-a-transfer-update">Trigger a transfer update</h5>
+<p>The starter sends a message containing the desired change</p>
+<pre><code>{'action': 'update',
+ 'tag': 'new',
+ 'channel_id': 'ch_RnmrHrmv7m37fMS9RfWAGZMhtDbYnqJk4n7G9X9bTyepzwm5t',
+ 'payload': {
+    'from': 'ak_3YGRJv1QMgNbeDzvqX7qJrZWJDaHGmrHYHifxSbhSEgn6anuNYCNPrzsB911xTbZ35bvJYWLyYjrQaQKfvja9gkpvYMfEZ',
+    'to': 'ak_3gVuduh7vR9G7Hq3TpFaA7q9oQkMZZF2VsUxDYZabNeKC1uaqtjpKSth7wPn9dxnUzsHoT2fa6GPUzepbDXMHyC2F3HupT',
+    'amount': 2
+    }
+ }
+</code></pre>
+
+<p>The <code>starter</code> might take the role of <code>from</code> or <code>to</code> so the <code>starter</code> can
+trigger sending or request for tokens.</p>
+<h5 id="starter-signs-updated-state">Starter signs updated state</h5>
+<p>The starter receives a message containing the updated channel state as an
+off-chain transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'update',
+ 'payload' {
+    'tx': 'tx_21uV5so71tzLyBzTGBd5qd318n8Z33ninWoJzuBBKa3y3cLv8jL1gBsUpwoT1Wzs57fpxgxk7asMpuxcKpYxRnH1Qk679DjPUjLx3Lu6eNnPnfDwb4NpMq5tmm1Sq1j4MLfi6mFLadQ4CyuiENcytACQgkiU2CP8jWHKDCxAprKxP7EnXRKGbyaXkQRjvxmd5BK5XpnPHMoLb4zrrQfex5Wi8SkJjxWrhRyTr7u8jqyyebVPYmz3iRnnoEHfiECzBLdAYBz12U4VgUNrYug8C3ns5GcB1ytaUmggpDGY4K97dyYR8aMorFfqY6rPjwpRoL1BjbJgUBw54VVgMEijfeVCNcyw8wrVJnZeUAQKSesJcPhWShY717GVeQfGGHLzJhTY7iYBUUQCLfoVms86jJ3vMo1d9DpnahpCXfrZeR2PExg8Cn9DXc'}
+}
+</code></pre>
+
+<p>The starter is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'update',
+ 'channel_id': 'ch_RnmrHrmv7m37fMS9RfWAGZMhtDbYnqJk4n7G9X9bTyepzwm5t',
+ 'payload': {
+    'tx': 'tx_xCHADUvUikbjGRcBmioKtXFQKpGs7yZHvhkcjByxQDG5xnCpU6YVQs4qyBZL6h18xjTSy1wtUFe8ipKMHLp6VmU2KwLgd4mbUtqELz6w9wV6PGTex6ZS2y7TtqZsDuesGFTZqYET8syCor8kzGjemUkzvwHMJdKsQ5guDWj1C2EcuNR3MnK9heJLbKuf19peGDvijjS8zdCD1pxE4QcsVi9pAGUBCgFyKx8FkDzhv6LxjysuxdmuZqeTGq49s71QdVB74Y1DAQUq5JsH1kyhadFxVepS6FYmcBC4xK8h1sefipPAAVFY7YwNtj2W6U9CTCqSVAQSrpfGAo6322gSneD8aRKoGpQpy1NfxVePKqM5igmd1B6QDGcEYDigBzzNwrXpuYqjrdG5eB6C6ehwAxNskmiudbEuKrjwNL5JzExxrR21L5oQCDc3RMyPdeWJxs8eJfHCrWyzyAwsykV4hVGxddbsbrDWd3re42N5HARXpQG6Gq6aMGnSHJAKbXCWxys4Si6Wjpey7HyEgT1hYoxqtmwEGhW96Ksig'
+    }
+}
+</code></pre>
+
+<h4 id="acknowledger-update">Acknowledger update</h4>
+<p>The acknowledger receives an info message indicating an upcoming change:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'update'}
+ }
+</code></pre>
+
+<p>Then the acknowledger receives a new message containing the updated channel state as an
+off-chain transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'update_ack',
+ 'payload' {
+    'tx': 'tx_21uV5so71tzLyBzTGBd5qd318n8Z33ninWoJzuBBKa3y3cLv8jL1gBsUpwoT1Wzs57fpxgxk7asMpuxcKpYxRnH1Qk679DjPUjLx3Lu6eNnPnfDwb4NpMq5tmm1Sq1j4MLfi6mFLadQ4CyuiENcytACQgkiU2CP8jWHKDCxAprKxP7EnXRKGbyaXkQRjvxmd5BK5XpnPHMoLb4zrrQfex5Wi8SkJjxWrhRyTr7u8jqyyebVPYmz3iRnnoEHfiECzBLdAYBz12U4VgUNrYug8C3ns5GcB1ytaUmggpDGY4K97dyYR8aMorFfqY6rPjwpRoL1BjbJgUBw54VVgMEijfeVCNcyw8wrVJnZeUAQKSesJcPhWShY717GVeQfGGHLzJhTY7iYBUUQCLfoVms86jJ3vMo1d9DpnahpCXfrZeR2PExg8Cn9DXc'
+    }
+}
+</code></pre>
+
+<p>Note that this is the same transaction as the one that the starter had already signed. The acknowledger is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'update_ack',
+ 'payload': {
+    'tx': 'tx_xCHADUvUikbjGRcBmj4YQkTJGCoGV6JQVdJW2FU1ZAYGhdayeCZerGqPWbRz4Eduq1KtjUbBJgdxSF3UKyChKMXne3dEDnChRdiUop4HYkHJ8GF3xQpbSspvST5qPTJqvcCstQCDXmJMLiYiWQ2hoPXL3a1qiiVmSwx2ztVuVqsEf1NsQCbMiNeJj8Uvrcp2FKN8TG2VoMTBTiMcCdLGXhX31EaLYTTDVyFTXGgFRUTdAsHgBjcQzm9hgQS75QjhKY7VtyUBCisUEQp8Dcr76rpdT1Qy9n8JYKboPkFZpY9DVx9We2hstbP3fjgZVLgDRAvLoC5YppVE7GZgUbRp6PMmbPUyc3qFYaxA82g7TzndipqnrKuuGzDjoPaM2w5evx1TvXAF5u1beac2kW7kJyKjLfLhjKQ8bnwBwcZ3WpdRfCVe55LtPwYEoZQJtdzojjVcuLmgJjbb2GDHioi8KXTasHre5oZKwkyYByMqzDafVTMT3kJqvdQG6HKAm8XGP6LGRsZFcpkn5jGtGbq7PRpTbAn1RbHWvRAEH'
+  }
+}
+</code></pre>
+
+<h4 id="finish-update">Finish update</h4>
+<p>After both the parties have signed the new updated state of the channel - it is
+considered the latest one. Corresponding update messages are sent to both
+parties to indicate it. The payload of the message contains the latest
+co-signed off-chain update so the participants can persist it locally.</p>
+<pre><code>{'action': 'update',
+ 'channel_id': 'ch_RnmrHrmv7m37fMS9RfWAGZMhtDbYnqJk4n7G9X9bTyepzwm5t',
+ 'payload': {
+    'state': 'tx_3XPhV5wAjiGDkUqu4PWDEXdXEztp6iG1VYDCKU7U46Rgpk79c3cB1ZTnsYSYYyadgA5mU4ww2hzJePnu355nTZnGJTxYeGUS8ct8Zwgf6DTYxW8uKuwDbqtyX4xzPxVbPyhweeNM5s7nqqEojhg4tiwW9hXnrvvj9YyJqK8r77K5ZVoSHN7kg6TowztWjGqhGfeMVnRzkgyNWJvNgUCaUbHi9U2dgL4cX78XbhAiqPdn7emCsF4JhPJumXyMr54oToU6fb4QpmYiWXku3TVymK9vgz49FS53PYebtSZzrhTkgMM9mF7VguJ2Jfx9s2VCdhFeEMj58E2jFL4VfFeUnvc6xUD4jHdfspojDqa6hjWTSQ4bwguC5ZPLDWsnTArFTWYpQi7S9H2coebFNdCLb'}
+ }
+</code></pre>
+
+<p>After that a new state updated can be triggered.</p>
+<h3 id="create-a-contract">Create a contract</h3>
+<p>The create contract update is creating a contract inside the channel's internal state tree. The update is a change to be applied on top of the latest state. It has the
+following structure:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vm_version</td>
+<td>integer</td>
+<td>version of the AEVM</td>
+</tr>
+<tr>
+<td>abi_version</td>
+<td>integer</td>
+<td>version of the ABI</td>
+</tr>
+<tr>
+<td>deposit</td>
+<td>integer</td>
+<td>initial amount the owner of the contract commits to it</td>
+</tr>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>api encoded compiled AEVM byte code</td>
+</tr>
+<tr>
+<td>call_data</td>
+<td>string</td>
+<td>api encoded compiled AEVM call data for the code</td>
+</tr>
+</tbody>
+</table>
+<p>That would create a contract with the poster being the <code>owner</code> of it. Poster
+commits initially a <code>deposit</code> amount of tokens to the new contract.</p>
+<h4 id="start-create-contract-update">Start create contract update</h4>
+<h5 id="trigger-a-create-contract-update">Trigger a create contract update</h5>
+<p>The owner sends a message containing the desired change</p>
+<pre><code>{'action': 'update',
+ 'tag': 'new_contract',
+ 'payload' :{
+    'code' : 'cb_HKtpipK4aCgYb17wZcAGDdbYRuQPiQwNR6zb1g67sksoVdSbY2a9zsZsBnQ3bNCTNHDpTn4RochKB7bSuLrmEx2MW8UGN5omnH8wapTCNbyYNqPfvXCfYGqrqpzW8PzG1srqg2xf5kzDEKjfbndQB2oNgbUv1ibvjs77iPvADVnJeVHn2EfqvwJQ3M3L4nyR2ETAFmVb8E3HdRaghd84NerKmjFGqUFEt59GXGjoybGuzwL3YyQz6M6tbvUTHnCrVub2wiUsBpkULW94eBWW9ieFy6XYSaPDbGWaM2DwZYrziK3E1rMAHeFd4JZDtfF6SPU5zS9fyMZH8cKFTjLQQgaAHZMzjzkVpnAzgwco9G8GM6SjP1BSK2oinioBuC6DVhKq98W9MppUzaVpZe16xCQo9U7Nj1mafijumtmALtLG7Az7imLQ12wnj8wLxb4mDroxbqxg1sNV1j1no6pj6Yfo9o1c435s2sfhVNAe2PrecuTa4knduHn4ChYWLNG1VnzvJ2Z8WcVccYKpVSdzmZLyin,
+    'call_data': 'cb_1111111111111111111111111111111yC4CoPDhKfwheTUFxWaEmAud5DzXdDtnFd3Pdr7SkLrw9ze6ZF21i8tR8VyUz4zLwTwBhFi3dCvp4fSTk38mdQ2ov8GPqznR3G83irbxNjrHkfS9nQDcRnFEZ17EfeXqBgB5Pan1iiLG8EqjL316nF6YPZUxV1L52TQFrot1HRtcHT5zkgwDtQvi5muwgToWBQYd4LhYeBRn3VKpEd1nBaNvra18S4KRU',
+    'deposit': 10,
+    'vm_version': 3,
+    'abi_version': 1}
+}
+</code></pre>
+
+<h5 id="owner-signs-updated-state">Owner signs updated state</h5>
+<p>The owner receives a message containing the updated channel state as an
+off-chain transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'update',
+ 'payload' {
+    'tx': 'tx_JgoYCDwwyZGhYZcpejLVGEP2us4MVhHom43vJBRf5mfthGBErZrcPgBDCExqbZoX98TpqyutbUxs1ZhyJMEmXJrAzTivT17BHP8km5Zmsf6wBNk9kw6hKvn2gsHtb5ktHRLKu7oCiwsG2ro6VePKZCKV1Fo51d4bVkPEZmKkNqrrzuN6mHn88rYT3esKH848edtP9CMpyDDiV8DvsMsYmw5ZEzpUwKxf9UrEYPkfNzxm9Fax9tQscio8tGgTJh6xS6xEs8hH2R38kM9xjNBnhgwSS1VAk2jNT2VZz4NpRjYe2n9HabNo2SyYd5kPK3voVEV896GG8htzFCpytBptUZUmWrt3b8zfWtAkwboZRjzEF3AXBn7jpBcBgu9zFhpT6iwTAL5ACQcKNEu7bzJV4MBpNjEn7DXKBnBHXqDyk2URQenfXNnyJg9Aw1Mx1V5h5nmUYqi363u775f978MXaqoTyjBWSUZq14ZJ8H9GcAMBGiZTp3Rxa7fAvMUcCGwt34WCVEe4TWu9HcyKrMUebtpM5P5aMdQS3jVUaz26zMaJiCjjngx14zjrfSV1Wnfh5ESr7s4dyRXTHnG5tZFCFSAguEKTrZiZP2yTP7r1cNfJ15PoGHXCLLCNNoTAYDghAon8MhwcGBJhoqQ5gaAdYBwjKU92mJqBwU11KruxVkj2D1JYGgUyt1SJHo7tzeSHXX6N7RxKeHez9ST9qWSUEog1QF64RhJstdnBYcR6njscN7wh8GY4o6w2h6dauh5wzrCUvYc4B3reh4To9LgmL6hbHsXBMXbeCXCjVhZv24D7GZXZB68RTzxBy5SuJysEDZYSUSErStSHoqZbwzXaLieXsiMrhppyWDSNJAduJr7UrMuH2nWz5vPae714uwQKKGkEvakh3ZAC1nqZ1KrD6Jo59fyP6mPGYEpvpkte7WRtdHypRsiCus7nisFVzUg3p7hB6LdQYMoBAJ'}
+}
+</code></pre>
+
+<p>The owner is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'update',
+ 'payload': {
+    'tx': 'tx_8YK7n5J3XLNE1t6pvhTLvFPWcoZyers5MonYRCYm6ahvRPpuBeF2kQML9D9AYjMAsPVbqjLajCMyAYV1irNBd5MLzcBugVRRHBW1kAPNvYUpQX4b5NBovAzZh3ULQ22hYfAXSJ9tXmmqteDG3eaQjFGQj1p1cUs29wqeXmMwRouxofovtprfnyTgEUqmvRn5TyxSECQTVoNgGvU7ERxEETynaL2AAxqMU67BLC5r4KY2SMRTX4aaJmeyC7spxDTfFM11w2fbVCgDusgdDhQiUSKR2cRT16EYkHM1bTPSJXhzBkN7ASRXCkBP9XqX8p9bri1U7bcvCTJNwojLUQxhzbwdUMhfMXtR63m1QV7bmpYJaSiAx5Xt4P31Yb6ZYAkKNrG4GXSsufioUvVHqBGKPTvbng1H1vHt871Afc4jUhPfzBhQ1Tz1brxMAc8rsSYFzTyn6z6EZsBGvZqXVFVUzkSv4BjaVm2d1iN8PyJwsQkeAuNHgMzKyvNVC2t1i2kZxCqCuPZcAiKQGqvPco3WPYvDWcxAdgfKvu4hTPAvxvef4zskmdbgNGtfR6BJV6SC1qDCrxF14BUMKF2ayJRhNL67Cm2HZPQ7TBbcTF3gHHTmmQdYzvKeu9xNzUoZsR5P5WaEirYmGdsi3rcWkpnoTmiKkMSyxDDZVh5Km9r9Mks33YHVnKpkWfpVq81xac2GNYyyjaFFuZjEggpgmZwWHmvVkkaFBAFdcWLqYrE8xTVFsXKth3ppopnuZD3TuYDmFTGkB46FPKF3suireqA2hPyZTnfEWsYNH177UDKFprpR8Cz7kvwz6pBHo7A9qMmDjN7N4GwBXspxyjddJRAvtPgtJsTDRrFKFzmtF3Nfm789gp2FYxV6S6FjYHfR2cWLJhnCvCBbDECiEtfJh2Pn4enLmPumZQfsnV8BgXz1hMDtXcMf6NzhP3kJEh2NebZpVidi64A1xAvRu9zxJkoWFhVN7eUDQhYFmGE1Avt9PY2xPEiuCMzgcp6zNrv5mWgf4AsrQM9T3gWhD52yU7SFw3KV4QMjHRJLFaJuXgFMGSaohpwzUu669p'
+    }
+}
+</code></pre>
+
+<h4 id="acknowledger-update_1">Acknowledger update</h4>
+<p>The acknowledger receives an info message indicating an upcoming change:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'update'}
+ }
+</code></pre>
+
+<p>Then the acknowledger receives a new message containing the updated channel state as an
+off-chain transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'update_ack',
+ 'payload' {
+    'tx': 'tx_JgoYCDwwyZGhYZcpejLVGEP2us4MVhHom43vJBRf5mfthGBErZrcPgBDCExqbZoX98TpqyutbUxs1ZhyJMEmXJrAzTivT17BHP8km5Zmsf6wBNk9kw6hKvn2gsHtb5ktHRLKu7oCiwsG2ro6VePKZCKV1Fo51d4bVkPEZmKkNqrrzuN6mHn88rYT3esKH848edtP9CMpyDDiV8DvsMsYmw5ZEzpUwKxf9UrEYPkfNzxm9Fax9tQscio8tGgTJh6xS6xEs8hH2R38kM9xjNBnhgwSS1VAk2jNT2VZz4NpRjYe2n9HabNo2SyYd5kPK3voVEV896GG8htzFCpytBptUZUmWrt3b8zfWtAkwboZRjzEF3AXBn7jpBcBgu9zFhpT6iwTAL5ACQcKNEu7bzJV4MBpNjEn7DXKBnBHXqDyk2URQenfXNnyJg9Aw1Mx1V5h5nmUYqi363u775f978MXaqoTyjBWSUZq14ZJ8H9GcAMBGiZTp3Rxa7fAvMUcCGwt34WCVEe4TWu9HcyKrMUebtpM5P5aMdQS3jVUaz26zMaJiCjjngx14zjrfSV1Wnfh5ESr7s4dyRXTHnG5tZFCFSAguEKTrZiZP2yTP7r1cNfJ15PoGHXCLLCNNoTAYDghAon8MhwcGBJhoqQ5gaAdYBwjKU92mJqBwU11KruxVkj2D1JYGgUyt1SJHo7tzeSHXX6N7RxKeHez9ST9qWSUEog1QF64RhJstdnBYcR6njscN7wh8GY4o6w2h6dauh5wzrCUvYc4B3reh4To9LgmL6hbHsXBMXbeCXCjVhZv24D7GZXZB68RTzxBy5SuJysEDZYSUSErStSHoqZbwzXaLieXsiMrhppyWDSNJAduJr7UrMuH2nWz5vPae714uwQKKGkEvakh3ZAC1nqZ1KrD6Jo59fyP6mPGYEpvpkte7WRtdHypRsiCus7nisFVzUg3p7hB6LdQYMoBAJ'}
+    }
+}
+</code></pre>
+
+<p>Note that this is the same transaction as the one that the owner had already signed. The acknowledger is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'update_ack',
+ 'payload': {
+    'tx': 'tx_8YK7n5J3XLNE1EoLatcNhJSoTnv2zUqxS6N3iVgqiBc4bjnTyoarR2qYZa5oJX4td78HnuHddPqe47DbbtWmY5SiK2rAurz59V49Pie5z1i7bPZzGa1QXo5obJG4kX64hVhHD2Wcz54vdfKFjEtQv4muUHjXfxav9LNja6rvRbUiASepmVa2B3ykbBVjhivkszNqubEwQ6NKiTC7G5NJnvFq5YFzDxWjrJfDmHsuz8TGETdYYHk6oQPhnudfQ4pXyp4zvzC2RG9KKLTWG2YkgL4w6QGFoHM6zFFw1NAR7vfGucBnSdf6Mb7Vwt2qBcm3CkHrP3ShvksQsE6GTuaniBGF3bE1xc3psBDa6rXKUiTpAx9W4W7N2Pe9qWmZMcfsG4iwMMvaAvkshW6usmTHFL8xcsmq5hd8VRDNQajoT5XaLhwnt3erfUYcZcAkHwvPjsrGya6L8rxa5d5yibPjZPYdmZiuD6XNabSKnt66b2d4b8S1QjVFkjUvibMAMWGngfFPGgs2uoiCsZ4bHsrgHTSvrDvN9v1vn7hMRvyvcVboBgv5uqtau3jDe3fybZZNDfY1hbxABTZeqNZ5BSE2mdGxftqQew1XCFwKyJZCz3CTPm3Wf9ab3U28GuLm4Bf74N7MzHr91qzhNAzcv7fKGru2JHxho6Hfhj16Fr2ME1XxQYmMo8neo65dtYY1cV5qcg94qVaTkTFAtCvjbWat36pubFG82EgbPf7Ptcfv1wPR6VZeikYzmW2j1DQvebs2EQv6qqwCXByqM4NMcZenvLwCkkK6vnaX4Jzpqpdvu5iEatso2wqdgE7f9iZrv5u86vw6vsej7sVVRUjiVpLYeJfEqXP9Zirm2p2qPGaSD9zXvnGS5uz3dxUH4pnkRmwoB8cXbPYvfLagmNYQXXzbxhi1BfSYbtGq7dfXLrZuzdxwGpLbv5HwPQKKtKUaeUpYTQ2XPBtga16sTuSbDw7xmBY76ywBHjnPt6n9RqoUT1WWj3jkGPvtKKkiWThiG9jzQP9P8mBCS22w2QLm6EwPuJ6sVTkr7nMWAaVcgY1qKJbUmneFi4x8fr'
+  }
+}
+</code></pre>
+
+<h4 id="finish-update_1">Finish update</h4>
+<p>After both the parties have signed the new updated state of the channel - it is
+considered the latest one. Corresponding update messages are sent to both
+parties to indicate it. The payload of the message contains the latest
+co-signed off-chain update so the participants can persist it locally.</p>
+<pre><code>{'action': 'update',
+ 'payload': {
+    'state': 'tx_DxpMPQqimD6NuzKT6SWXsnQY3c9hVxqughSXAkRZJQzCbUDM8HazSos6Xqkpw2ndfRu8NQwDLbU4SsLKb7xasMShPYRfW9oe55pEdXLZi9ZMa4nMKzSN45sxsupiJ815VnNNKTwqH8G8yU1snTKCUz4Sed2xUAjx5KADR5eEbNfDUMhseczXyYZ6tj9ahYVnjqdxqgBuLmrEXq8LMirPzNAfzKaz55NaLMxXkMCpRdxy9mBXLpwcvRM8DxzBbK7n28r3GKk99x9fwgP5Tv2psyyAEMgxhFznXVTvVnSZY1zT8eKc5LJEL6LKBxSkXJXdTqeZWmjeRZruEqcmygFD4Tvpr6LpSyXStoL9tV4B4nyYuJdpESNd35H6eL57MSKrpSpGSnnhgefJ4pqXmEut9XcKT1TsXR1BbTvDDYnBAgZhxvwq1NB9CQy2pibnz1G5XHJVu6QmSj5yQUxRYtsksbAkXL5xhiSZ6DWwynqVKiSThwvU9wHYDFJuWLYKrUCJuA1zu4fmfvhsuL2FSMW2wft1ELm53UpkrPRq68nGeegYMYuMCpoGUruvDCwVPwhP8DKq1cSrhRSxn6HzMCDa7zBQKrmKnksQbdeWWxSgVEosxtvdLtNZ6tDYPJe4q78a5PkyGVDdiAkYYo1CmRt46wYoMvYQPiG6vpt3fTK2oambanFSdXjtK4MBXZxpUKA4bhwTFjiFadCkkGAgkGkaHP6ztnYQP11YGP4huyfZH6WoYXwmWVXahipTAoQFpTPQTp9wLy3QS2o8iY7wT1SSweYNuzgwh31LFfcbs8pXNuJ5NFqUR5ygRQQcaVcq2D6dv35YSNi7pfzpgLk1WGdwbPfTpAssNCwETda6r1k6zwWmn3nqL8hsy381KyrQPRkHbeaYG2msZd61QEZFm1CHkbx5xMp17jiTMJ2gZwVx6SpSGCxLogpWBxxcTPfUKphW5bVUYn5aoxZsgBcg5MrExouV6fk82GYoAsZ4yR1F6J3onJkBejMvd6XXSPYAx2dS22VGJhjQpzy6woBgwiVCV3kCSfnoaru6NzkkjVfW7THTvWz2dLbMoToFnPLnaypEjfh1heF2Ypr8QmV3XLrzwHQ7G8ZPFLRDm2jL5Zp6rnZLErD9wbyiiRGda7mQqg1wR1FznsJ3XXatpJmn'}
+ }
+</code></pre>
+
+<p>After that a new state updated can be triggered.</p>
+<h4 id="contract-address-computation">Contract address computation</h4>
+<p>The created contract is part of the state tree. It has its own balance and its
+place in the contracts subtree of the channel's state tree. In order to
+inspect its balance or call the contract one needs its address.</p>
+<p>Computation of this address is done exactly as it is in on-chain contracts -
+it is a hashed version of the channel's owner pubkey and the nonce. Only
+difference is that nonce is not computated in channels and the update round is
+used instead.</p>
+<h3 id="call-a-contract">Call a contract</h3>
+<p>The call contract update is calling a preexisting contract inside the channel's internal state tree. The update is a change to be applied on top of the latest state. It has the
+following structure.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>contract</td>
+<td>string</td>
+<td>address of the contract to call</td>
+</tr>
+<tr>
+<td>abi_version</td>
+<td>integer</td>
+<td>version of the ABI</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>integer</td>
+<td>amount the caller of the contract commits to it</td>
+</tr>
+<tr>
+<td>call_data</td>
+<td>string</td>
+<td>ABI encoded compiled AEVM call data for the code</td>
+</tr>
+</tbody>
+</table>
+<p>That would call a contract with the poster being the <code>caller</code> of it. Poster
+commits an <code>amount</code> amount of tokens to the contract.</p>
+<p>The call would also create a <code>call</code> object inside the channel state tree. It contains the result of the contract call.</p>
+<h4 id="start-call-a-contract-update">Start call a contract update</h4>
+<h5 id="trigger-a-contract-call-update">Trigger a contract call update</h5>
+<p>The caller sends a message containing the desired change</p>
+<pre><code>{'action': 'update',
+ 'tag': 'call_contract',
+ 'payload' :{
+      'contract': 'ct_9sRA9AVE4BYTAkh5RNfJYmwQe1NZ4MErasQLXZkFWG43TPBqa',
+      'abi_version': 1,
+      'amount': 0,
+      'call_data': 'cb_1111111111111111111111111111111yC4CoPDhKfwheTUFxWaEmAud5DzXdDtnFd3Pdr7SkLrw9ze6ZF21i8tR8VyUz4zLwTwBhFi3dCvp4fSTk38mdQ2ov8GPqznR3G83irbxNjrHkfS9nQDcRnFEZ17EfeXqBgB5Q6k6H3JLjPns3ZGECU3rf9gzbbFmwxJbMFsjK2vhxRBmpXoaq4RUqAEu5KZ8xfuCHG17vJn33UmvtayzkJvYTUYQcprT2'
+    },
+}
+
+</code></pre>
+
+<h5 id="caller-signs-updated-state">Caller signs updated state</h5>
+<p>The caller receives a message containing the updated channel state as an
+off-chain transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'update',
+ 'payload' {
+    'tx': 'tx_Sweh544j3PL6BzGK8Sk6dqW9ywspMup8J8ETuajNnTGkx3vTbwCS8K8LWAPNSBrkDUWEQCxDR2Kyvuv2v19YtsiNxcetmwWwEjYicTaZ1nZ84PvVs5WoP4LgSgur5yaiDwvoY4xkk5dGjfiXGYWE7udn8HwbZdHUQPXWtJdeGhcApf31SPYWUkW3hWk8sKZeHKU6f9aLQgiSsP2MNoqzfiTL1xppK4NPrS6gje7iVGdz8zBbQ1TRXcTsN7pecY8fSPMwKhEtH88jRbmXouYxatBUvYLy4vRiQJBcsZaCXhHKezoXqggPsPDUjfaM1P1FMrC3GxWS3CHotuR588TuvaUwPBVjwwoMYL1MJcTYLvejnDktsisFtfhH811h7R7pazQuhqbmMSWhRkYMLfXXwTXs32q334CMEZpz1UpWWA1DRJMBUVWmE7FmPedZDaqobUbNe2CKPk8oMG9apvdrrxE6cQRGupVyjXNor'}
+}
+</code></pre>
+
+<p>The caller is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'update',
+ 'payload': {
+    'tx': 'tx_C4TACwXiGbsZf6sCqqEkZU7ngzvoDdqPHQMfNVGZUMQhsT9Nj64j3DbGYE6nB8V7R56zmfY8zuGCjAWgZecsby4RCwDtm5nE57DcX3srHgrzt4NS1mFUq9Vuan57SXT8n4xA5BFjz8WvKEqFptsHqzRhv6veY5o9cmTi4ea1t21BaCdfZiVg6mkf4pvrAzsNtnQ149BxuCLqLJJdaJXVWzJthDXBHLcHmDRTvqYRpnH8gD2veHizbJqnvApeVGwMJ9m5rZc3Tw3EDcZnsiFzKXBiZ1FMMBqZtiNzCCRhhn7uANkJiSi8e8iHcBJLyFRPzSgU6KTVNVGcc2CZVh2RQcMoJXWecdHHeMiCnGaX2MiT2EyjEox9a7kZBkTAAnoeri5F2GhGvdK98a275PjaCrA16xizH2DnvRdw92HFA2PgjQmHE3SgxB7MMhTAkaR3LcqmR5KfwLqikneU9DNM5PQzvYTh1J7rupP9AHXUhhFpGQXYcakXQfmEt2D3D4E3zBGDWqJRfVG8xmxYftzefkx5X5CpeWnCyiCepnUSbNyHFxZS4vyzvhZnTHmWVZksyY68MJAMmERk9'
+    }
+}
+</code></pre>
+
+<h4 id="acknowledger-update_2">Acknowledger update</h4>
+<p>The acknowledger receives an info message indicating an upcoming change:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'update'}
+ }
+</code></pre>
+
+<p>Then the acknowledger receives a new message containing the updated channel state as an
+off-chain transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'update_ack',
+ 'payload' {
+    'tx': 'tx_Sweh544j3PL6BzGK8Sk6dqW9ywspMup8J8ETuajNnTGkx3vTbwCS8K8LWAPNSBrkDUWEQCxDR2Kyvuv2v19YtsiNxcetmwWwEjYicTaZ1nZ84PvVs5WoP4LgSgur5yaiDwvoY4xkk5dGjfiXGYWE7udn8HwbZdHUQPXWtJdeGhcApf31SPYWUkW3hWk8sKZeHKU6f9aLQgiSsP2MNoqzfiTL1xppK4NPrS6gje7iVGdz8zBbQ1TRXcTsN7pecY8fSPMwKhEtH88jRbmXouYxatBUvYLy4vRiQJBcsZaCXhHKezoXqggPsPDUjfaM1P1FMrC3GxWS3CHotuR588TuvaUwPBVjwwoMYL1MJcTYLvejnDktsisFtfhH811h7R7pazQuhqbmMSWhRkYMLfXXwTXs32q334CMEZpz1UpWWA1DRJMBUVWmE7FmPedZDaqobUbNe2CKPk8oMG9apvdrrxE6cQRGupVyjXNor'
+    }
+}
+</code></pre>
+
+<p>Note that this is the same transaction as the one that the caller had already signed. The acknowledger is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'update_ack',
+ 'payload': {
+    'tx': 'tx_C4TACwXiGbsZg1Z9ChAEuaVJge62Uax5riSw4Tpp763SKTwLLGjhqPDUqjb9swx5X2G6XnpQk72v1yhFSLZvPtUv4JgoimKLqhAVUSoHB3btwEUTdgb3kVbaS6WLiaF86cqBZiDwbiL3GpThgZK7VhYedXFZK6PdK2RjywURhC9s8PNwP19Zetj19VkL4MYn1Z5tkoEh387dMfh9Mfh9jPf7gaBJjvwxNLuMjqHQXwSKPEpR8jYBF4cuzwaZzWeUSPKMxp44wDWQqqG8MTMwR1i8JbZjbAFtuj49TJWMw6xrvXski8XieHLHXrx5y4873CgD1FhRQT374Yvb5mYBTMtsYc8ttUCPiwi7AQteey7h1iRJgGc5bcd2omdGG8BmQZETfLaqwqXWN7mXXxPGfJQUaknHdocTum9FNyncYiAt6Y7znFJ1rZT2UkHvKwbvtJvhftWBJPrbExfeFMypn9DoW4SoaQ7RjBcmz5PWdt79BjRXhZpM7qbjvGF9i1f2cXiQFeKcj9FxXdzttN28kdtDvpYWdBbWcSMaWAYy7EBnMRHrGo2XdcDeJeGQdGnSBKaMHdN5LVhKF'
+  }
+}
+</code></pre>
+
+<h4 id="finish-update_2">Finish update</h4>
+<p>After both the parties have signed the new updated state of the channel - it is
+considered the latest one. Corresponding update messages are sent to both
+parties to indicate it. The payload of the message contains the latest
+co-signed off-chain update so the participants can persist it locally.</p>
+<pre><code>{'action': 'update',
+ 'channel_id: 'ch_RnmrHrmv7m37fMS9RfWAGZMhtDbYnqJk4n7G9X9bTyepzwm5t',
+ 'payload': {
+    'state': 'tx_L1mTJpyV97nWgMAFmrqcwECSThovgaU9qv5DYeqn3YQgzjCShS96n6u2rACsXyXAJyRrqGNTv2ytC1LgmH8zSuD6SkDTEiT2eCGuCsM1xXyZGooq14nu8naSZ3rhJEwBoZLTn3Tt86W3eUc1rPs2HaFwtxwsFhFu4dXHJTjmaVjigG8Juhvq1oQytscRCPVt9sjijr8h1mCCj73yhnsvwwJuMLi9WgspqwJfHHRVc8RWPtvKg6hbUKxn4cEP2M1rpXhVEUhCAkgKVfm58m4xvnuCNhvJhi37cGeSMSJkdrs64111jnQY2nwpiiS5dRW8c3VcHt1Zm8Sg1fyQgdmgbr3Rwbez1L6hCndppgX1DA2UniQB1y7eqC8nYMe4DUmXxnjcFxCQyaiTCBGavjcZiQUThHzwoACJ1yf4fr1HXZ2BzsgeSsuE2AuvphAvtiPSDmRUiFwxt1KGg3YRBxsSqs2Ums7D6QDoju11VH3k8ERcb9Hj6uJmHFC2yGu48jKHPB8bUCm1qDBZqEiDBVTQo6E1AiSLtvJmLoRd1gyUZ4pvCPPmGPQJ4Qsb16xH6q4YnJVMVQb7TWSs5PorsdqV1XPKg8rZSwSZJGZ1gT7fkf75ocXt986k3PMNCa98cDQmwbqFuqYYC4iMixj6k2txsFYUCyxrucHidNC8MFC'}
+ }
+</code></pre>
+
+<h4 id="getting-a-call-result">Getting a call result</h4>
+<p>All calls are stored in the channel state tree. In order to extract one out of
+there and inspect it, one shall send a WebSocket event</p>
+<pre><code>{'action': 'get',
+ 'tag': 'contract_call',
+ 'payload': {
+    'contract_address': 'ct_9sRA9AVE4BYTAkh5RNfJYmwQe1NZ4MErasQLXZkFWG43TPBqa',
+    'caller_address': 'ak_2YeNqB4jQ1DG7QvUKgCkKeZAiXb2rnzkEoLTS8XeKF8Smgit2e',
+    'round': 8
+    }
+}
+</code></pre>
+
+<p>The <code>contract_address</code> is the address of the contract that had been called, the <code>round</code> is the round of the update and
+<code>caller_address</code> is the address of the caller.</p>
+<p>Then the call is returned through an incoming message:</p>
+<pre><code>{'action': 'get',
+ 'tag': 'contract_call',
+ 'payload': {
+      'contract_address': 'ct_9sRA9AVE4BYTAkh5RNfJYmwQe1NZ4MErasQLXZkFWG43TPBqa',
+      'caller_address': 'ak_2YeNqB4jQ1DG7QvUKgCkKeZAiXb2rnzkEoLTS8XeKF8Smgit2e',
+      'caller_nonce': 8,
+      'gas_price': 0,
+      'gas_used': 524,
+      'height': 8,
+      'return_type': 'ok',
+      'return_value': 'cb_11111111111111111111111111111115rHyByZ'
+    }
+}
+</code></pre>
+
+<p>It is worth mentioning that since this is an off-chain transaction the gas price specified is not consumed.
+That amount of gas represents the amount of computations. It could be used for
+aproximation for the gas needed for executing a contract on-chain if a similar amount of
+computations are required. Computation heavy contracts might be just too
+expensive to be force progressed on-chain, so please use with caution.</p>
+<h2 id="optionally-leavereestablish"><a name="leave-reestablish"></a>Optionally leave/reestablish</h2>
+<p>It is possible to leave a channel and then later reestablish the channel
+off-chain state and continue operation. Leaving the channel can either be
+done by simply disconnecting, or by sending a <code>'leave'</code> request. When receving
+a leave request, the channel fsm passes it on to the peer fsm, reports the
+current mutually signed state and then terminates. The <code>'reestablish'</code> request
+is very similar to a <a href="#channel-open">Channel open</a> request, but also requires
+the channel id and the latest mutually signed state.</p>
+<p>The full state, including state trees, is cached internally by the Aeternity
+node, and upon reestablish, it is verified that the encoded state provided
+by the client corresponds to the latest full state retrieved from the cache.</p>
+<h3 id="leave-request">Leave request</h3>
+<p>Example:</p>
+<pre><code class="javascript">{'action': 'leave'}
+</code></pre>
+
+<p>The fsm responds with the following type of report:</p>
+<pre><code class="javascript">{'action': 'leave',
+ 'channel_id': 'ch_FhYNM5KorNAcRwexe1CE3jH5DZd7FBD2g9XhBDHGEouDqVRCR',
+ 'payload':
+    {'state': 'tx_6jPYBUFTkcmQ7A3JYkUsYMChMHNqe3TMEhDZaSat7P1sbP4XXQP9QmaFfaAftUDjws3GhdKaBGyJRMBhHKyk2irBZsymgUVuxfQXR63ojEjg7C583D6cNKLSZtybZr9Cw6mmCkSDRVu41WbF1jKEkAkXbXznANm3AyJ1BLqNVB7qiAyFSVeq5qVcvHL4Z1y2DAhcLLw6YGSqFyuyg8pKVQRhL2LuePa9mdtoYZyY5VhvgShLz2oY8R3taBL8RrnnTvcwECvQu51yPKyM2pryoHaQbED5Zn7hdegZy6KN9wfpLXedtNB9ssmMvz5jHcK12vmtfeUMzRrySqtmBDGfiqwFZrYZ5A7xz1uqi'
+    }
+}
+</code></pre>
+
+<h3 id="reestablish">Reestablish</h3>
+<p>Open the channel in the same way as in the
+<a href="#initiator-websocket-open">Initiator WebSocket open</a> example,
+adding the parameters <code>existing_channel_id</code> and <code>offchain_tx</code> with values
+matching the ones provided in the <code>leave</code> report above:</p>
+<pre><code>$ wscat --connect
+'localhost:3014/channel?initiator=ak_...&amp;role=initiator&amp;existing_channel_id=ch_FhYNM5KorNAcRwexe1CE3jH5DZd7FBD2g9XhBDHGEouDqVRCR&amp;offchain_tx=tx_6jPYBUFTkcmQ7A3JYkUsYMChMHNqe3TMEhDZaSat7P1sbP4XXQP9QmaFfaAftUDjws3GhdKaBGyJRMBhHKyk2irBZsymgUVuxfQXR63ojEjg7C583D6cNKLSZtybZr9Cw6mmCkSDRVu41WbF1jKEkAkXbXznANm3AyJ1BLqNVB7qiAyFSVeq5qVcvHL4Z1y2DAhcLLw6YGSqFyuyg8pKVQRhL2LuePa9mdtoYZyY5VhvgShLz2oY8R3taBL8RrnnTvcwECvQu51yPKyM2pryoHaQbED5Zn7hdegZy6KN9wfpLXedtNB9ssmMvz5jHcK12vmtfeUMzRrySqtmBDGfiqwFZrYZ5A7xz1uqi
+</code></pre>
+
+<p>The channel fsm responds with the following event reports if all goes well:</p>
+<pre><code class="javascript">{'action': 'info',
+ 'payload': {'event': 'channel_reestablished'}
+}
+</code></pre>
+
+<p>then the standard report indicating that the channel is open:</p>
+<pre><code class="javascript">{'action': 'info',
+ 'channel_id': 'ch_FhYNM5KorNAcRwexe1CE3jH5DZd7FBD2g9XhBDHGEouDqVRCR',
+ 'payload': {'event': 'open'}
+}
+</code></pre>
+
+<p>followed by an update report with the latest mutually-signed state:</p>
+<pre><code class="javascript">{'action': 'update',
+ 'channel_id': 'ch_FhYNM5KorNAcRwexe1CE3jH5DZd7FBD2g9XhBDHGEouDqVRCR',
+ 'payload':
+   {'state': 'tx_6jPYBUFTkcmQ7A3JYkUsYMChMHNqe3TMEhDZaSat7P1sbP4XXQP9QmaFfaAftUDjws3GhdKaBGyJRMBhHKyk2irBZsymgUVuxfQXR63ojEjg7C583D6cNKLSZtybZr9Cw6mmCkSDRVu41WbF1jKEkAkXbXznANm3AyJ1BLqNVB7qiAyFSVeq5qVcvHL4Z1y2DAhcLLw6YGSqFyuyg8pKVQRhL2LuePa9mdtoYZyY5VhvgShLz2oY8R3taBL8RrnnTvcwECvQu51yPKyM2pryoHaQbED5Zn7hdegZy6KN9wfpLXedtNB9ssmMvz5jHcK12vmtfeUMzRrySqtmBDGfiqwFZrYZ5A7xz1uqi'
+   }
+}
+</code></pre>
+
+<h2 id="channel-mutual-close">Channel mutual close</h2>
+<p>At any moment after the channel is opened, a closing procedure can be
+triggered. This can be done by either of the parties. The process is similar to
+the <a href="#channel-off-chain-update">off-chain updates</a>. The most notable change is the
+special transaction co-signed by both parties. It is called
+<code>channel_close_mutual_tx</code>. After gathering singatures it will end up on the
+chain and has the following structure:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel id</td>
+<td>string</td>
+<td>ID of the channel</td>
+</tr>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>initiator's public key</td>
+</tr>
+<tr>
+<td>initiator_amount_final</td>
+<td>integer</td>
+<td>final amount of tokens to be awarded by the initiator</td>
+</tr>
+<tr>
+<td>responder_amount_final</td>
+<td>integer</td>
+<td>final amount of tokens to be awarded by the responder</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>integer</td>
+<td>maximum block height to include the transaction</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>integer</td>
+<td>fee to be paid to the miner</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>integer</td>
+<td>initiator's nonce</td>
+</tr>
+</tbody>
+</table>
+<p>Since any of the participants can initiate a closing, we will use <code>starter</code>
+for the peer that triggers the process and <code>acknowledger</code> for the other one.</p>
+<h3 id="initiate-mutual-close">Initiate mutual close</h3>
+<p>The starter sends the following message and triggers the closing procedure:</p>
+<pre><code>{'action': 'shutdown'}
+</code></pre>
+
+<h3 id="starter-signing">Starter signing</h3>
+<p>Then the starter receives a <code>channel_close_mutual_tx</code> to sign:</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'shutdown_sign',
+ 'payload': {
+    'tx': 'tx_SUBGDUaJgWhDYs73EPSiX42Xd3PSmHAhRmwd1th9ibGipCVVbsdS96roQZEH4MF'
+    }
+}
+</code></pre>
+
+<p>Starter is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'shutdown_sign',
+ 'payload': {
+    'tx': 'tx_8oWtHcfnWDSQV6Wdehp1MdXYhcbV29a7tWe3LWDqU5RwKvMhzPQLiSJKaYhtw4NLaBN1m3pmEtsVjoygkohXi9i8e3vpYgenphdKJmYLrFqjouxmyC5yKbsQUY8m9i4EzcMNuHmrLwrXrrPhKC1qY25Pxb6u74VEVuk'
+    }
+}
+</code></pre>
+
+<h3 id="acknowledger-signing">Acknowledger signing</h3>
+<p>Then the acknowledger receives a <code>channel_close_mutual_tx</code> to sign:</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'shutdown_sign_ack',
+ 'payload': {
+    'tx': 'tx_SUBGDUaJgWhDYs73EPSiX42Xd3PSmHAhRmwd1th9ibGipCVVbsdS96roQZEH4MF'
+    }
+}
+</code></pre>
+
+<p>Note that this is the same transaction. The acknowledger is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'shutdown_sign_ack',
+ 'payload': {
+    'tx': 'tx_8oWtHcfnWDSYu4SfLLLHqYqM5JXiCZd6De7fLQZesMHrArZeWzP7893EVpBpUR56tKUeJXJ3YUTuqB8a4efiHaw6ai3GKwoeu3ZyzfGPUfb5EMG6viv2dM8mhtKqaG7fkEAWuswbmFN4bDjXANbAK2sMU36yfBc9p1h'
+    }
+}
+</code></pre>
+
+<h4 id="signed-channel_close_mutual_tx">Signed channel_close_mutual_tx</h4>
+<p>Both participants receive the co-signed <code>channel_close_mutual_tx</code>:</p>
+<pre><code>{'action': 'on_chain_tx',
+ 'payload': {'tx': 'tx_ERkuTBJfEHtrmDkFz7BaigSKsnqmsCc8MorKFUwAW5VmpSoatcN3Njy2Vda8asojeshjb7SoXsqevaDLzXj78GSPwTTfYJmJtwrewTwK3LSFBe5BEYMA8rxNAWSahW1ecp1wbkBgpdiUQn1Q1UFLcYVpWYGpTWFH5DXn69iz6kFWX8sa7c5PSTaLenjVZEkbV9pEgKHKbjfovvd15Jc821y3zhQvtfhcYKS89r7gnhi81LWsjnSghmjANgjiC'
+            }
+}
+</code></pre>
+
+<p>Using its hash, participants can track its progress on the chain: entering the mempool, block inclusion and a number of confirmations.</p>
+<h3 id="channel-closing">Channel closing</h3>
+<p>After both parties have received the co-signed <code>channel_close_mutual_tx</code> transaction, it is posted on the chain and the microservice handling the off-chain
+requests dies. Parties receive the following info:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'died'}
+ }
+</code></pre>
+
+<p>Then the WebSocket connection is closed.</p>
+<h3 id="tracking-the-progress-of-the-onchain-transaction">Tracking the progress of the onchain transaction</h3>
+<p>After calculating the hash of the co-signed <code>channel_close_mutual_tx</code> parties can track
+its progress as they would do with any on-chain transaction</p>
+<pre><code>curl 'http://127.0.0.1:3013/v2/transactions/th_2qkN973cNJiejXVJoXkXbttf1iKetWJCSY1W5VUBh3pnRS1kCC'
+</code></pre>
+
+<p>if the <code>block_hash</code> is <code>none</code> - then the transaction is still in the mempool.</p>
+<h3 id="other-websocket-events">Other WebSocket events</h3>
+<h4 id="update-error">Update error</h4>
+<p>Updates are not always successful, for example one participant tries to spend
+more tokens that one currently has in the channel's balance. This diverges
+from the update flow <a href="#channel-off-chain-update">described above</a>.</p>
+<p>Example message for when the <code>from</code> does not have enough tokens to spend</p>
+<pre><code>{'action': 'error',
+ 'payload': {'reason': 'insufficient_balance',
+             'request': {'action': 'update',
+                         'payload': {'amount': 10000,
+                                     'from': 'ak_8wWs1j2vhgjexQmKfgEBrG8ysAucRJdb3jsag3PJKjEeXswb7',
+                                     'to': 'ak_bmtGbfP3SdPoJNZCQGjjzbKRje15J9CEcWYaL1gZyv2qEyiMe'
+                                     },
+                          'tag': 'new'
+                          }
+              }
+}
+</code></pre>
+
+<p>The structure is having a <code>reason</code> and <code>request</code> holding the request being
+sent. Possible error reasons are:</p>
+<ul>
+<li>
+<p><code>insufficient_balance</code> - when <code>from</code> does not have enough tokens in the
+  channel. Keep in mind that there is a minimal amount of <code>channel_reserve</code>
+  tokens to be kept by both parties.</p>
+</li>
+<li>
+<p><code>negative_amount</code> - the <code>udpate</code> event contained a negative amount</p>
+</li>
+<li>
+<p><code>invalid_pubkeys</code> - at least one of the addresses in the <code>update</code> event is
+  not present in the channel.</p>
+</li>
+</ul>
+<h4 id="update-conflict">Update conflict</h4>
+<p>Since updates can be triggered by either party, it is possible both
+participants to start an <code>update</code> almost simultaneously. If a new <code>update</code> is
+started by a participant while the other participant has started an <code>update</code> of
+ones' own - a conflict occurs. Then both <code>update</code>-s are invalidated and the
+state is reverted to the last mutually signed one. Both participant receive a
+message containing a reference to the correct state.</p>
+<pre><code>{'action': 'conflict',
+ 'payload': {'channel_id': 'ch_WmpDbaiCs5roqRCL5KEKbpsDNJSbcbiUvt2cs1qyj4sM9HA3b',
+             'round': 42
+             }
+}
+</code></pre>
+
+<h4 id="generic-messages">Generic messages</h4>
+<p>There is the functionality to send participants messages containing
+information. In the scope of this - we are going to be calling those a <code>sender</code>
+and a <code>receiver</code>. These roles can be taken by any of the participants, anytime.</p>
+<p>The <code>sender</code> pushes a message with the following structure:</p>
+<pre><code>{'action': 'message',
+ 'payload': {'info': 'hejsan',
+             'to': 'ak_bmtGbfP3SdPoJNZCQGjjzbKRje15J9CEcWYaL1gZyv2qEyiMe'
+             }
+}
+</code></pre>
+
+<p>Then the <code>receiver</code> gets an event containing the info being sent and some
+details:</p>
+<pre><code>{'action': 'message',
+ 'payload': {'message': {'channel_id': 'ch_6SgSc7a14dGbwMNCsjjQZCYVreVLKkFwBzJEZ58ZSZnV9FiQ1',
+                         'from': 'ak_8wWs1j2vhgjexQmKfgEBrG8ysAucRJdb3jsag3PJKjEeXswb7',
+                         'to': 'ak_bmtGbfP3SdPoJNZCQGjjzbKRje15J9CEcWYaL1gZyv2qEyiMe',
+                         'info': 'hejsan'
+                         }
+            }
+}
+</code></pre>
+
+<h4 id="total-balance-update-events">Total balance update events</h4>
+<p>After the channel has been opened it has a total balance of tokens committed to
+it. This balance is persisted as part of the on-chain channel state. Upon
+closing a channel on-chain, the closing balances of the participants are
+checked against this balance. Under no circumstances can the sum of the closing balances
+be greater than the total balance on-chain.</p>
+<p>Participants are able to modify the total balance: the following two functionalities are available:</p>
+<ul>
+<li>deposit - when a participant wants to commit more tokens from his on-chain
+  balance to the channel total balance</li>
+<li>withdrawal - when a participant wants to transfer tokens out of the channel
+  on-chain balance to one's personal account</li>
+</ul>
+<h3 id="deposit-events">Deposit events</h3>
+<p>After the channel had been opened any of the participants can initiate a
+deposit. The process closely resembles the <a href="#update">update</a>. The most notable
+difference is the transaction has been co-signed: it is <code>channel_deposit_tx</code> and
+after the procedure is finished, it is posted on-chain.</p>
+<p>Since both the initiator and responder can deposit tokens, in the scope of this description we
+will call the participant that commits tokens to the channel a depositor and
+the other party - acknowledger. Note that any public key outside of the channel participants
+is considered invalid for the depositor role.</p>
+<h4 id="deposit-transaction">Deposit transaction</h4>
+<p>The <code>channel_deposit_tx</code> is a change to be applied on top of the latest channel state. It also is
+posted on-chain and is included in a block. It has the following structure:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel id</td>
+<td>string</td>
+<td>ID of the channel</td>
+</tr>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>depositor's public key</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>integer</td>
+<td>the amount committed to the channel</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>integer</td>
+<td>minimum block height to include the transaction</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>integer</td>
+<td>fee to be paid to the miner</td>
+</tr>
+<tr>
+<td>state_hash</td>
+<td>string</td>
+<td>the root of the internal channel state hash after the deposit</td>
+</tr>
+<tr>
+<td>round</td>
+<td>integer</td>
+<td>the next channel round</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>integer</td>
+<td>depositor's nonce</td>
+</tr>
+</tbody>
+</table>
+<h4 id="start-deposit">Start deposit</h4>
+<p>Any of the participants can initiate a deposit. Only requirements are:
+<em> Channel is already opened
+</em> No off-chain update/deposit/withdrawal is currently being performed
+<em> Channel is not being closed or in a solo closing state
+</em> The deposit must be equal to or greater than zero, and cannot exceed the
+  available balance on the depositor's account</p>
+<h5 id="trigger-a-deposit">Trigger a deposit</h5>
+<p>The depositor sends a WebSocket message containing the desired change</p>
+<pre><code>{'action': 'deposit',
+ 'payload': {
+    'amount': 2
+    }
+ }
+</code></pre>
+
+<h5 id="depositor-signs-updated-state">Depositor signs updated state</h5>
+<p>The depositor receives a message containing the updated channel state as a
+<code>channel_deposit_tx</code> transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'deposit_tx',
+ 'payload' {
+    'tx': 'tx_2C9es4FjJF3MtD1M3Np7tUzgCk8AE3ARVJe94Sxmh63feCNt2CekXvjLhBPS2i8pQ8JKGQfgzMQnvfntEdYmMYo7D1UP59UUQ31Bss5G1gz8sPhzmrx1cXCawF9eB27gjYVhTnaLXwUEqdJfHqfATuwLqJtc1p'}
+}
+</code></pre>
+
+<p>The depositor is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'deposit_tx',
+ 'payload': {
+    'tx': 'tx_i2WsEQsiC5XsnyKgLeXGW6b9ys87yoQzNB65csymQbK9AsuWApenk9ViHpzxb2oJwUCGiqzA1Cc1D6pJAjkLcQ6w3m8Bhvt41HSqtpSpEd1MciHMcFg1xsZG9CsPu1NUBey9EupgXFJtZ4caNMXcV4evV7ocBjzdBcJo5CUMQgapQZ8ajgUrPgfqQTb3Gq8FFCuHHaHytA7fTNik4KAAvyHiEDutXf1VJxXG2oYkpoNTQGuriV3g4Hxrms3r7LD8ko91'
+    }
+}
+</code></pre>
+
+<h4 id="acknowledger-update_3">Acknowledger update</h4>
+<p>The acknowledger receives an info message indicating an upcoming change:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'deposit_created'}
+ }
+</code></pre>
+
+<p>Then the acknowledger receives a new message containing the deposit
+transaction for confirmation:</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'deposit_ack',
+ 'payload' {
+    'tx': 'tx_2C9es4FjJF3MtD1M3Np7tUzgCk8AE3ARVJe94Sxmh63feCNt2CekXvjLhBPS2i8pQ8JKGQfgzMQnvfntEdYmMYo7D1UP59UUQ31Bss5G1gz8sPhzmrx1cXCawF9eB27gjYVhTnaLXwUEqdJfHqfATuwLqJtc1p'
+    }
+}
+</code></pre>
+
+<p>Note that this is the same transaction as the one that the depositor had already signed. The acknowledger is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'deposit_ack',
+ 'payload': {
+    'tx': 'tx_2WsEQsiC5Xso1aHppqY8EwniUa9demV2SAdrNckji4H5ZRDnakiMPAWRv4SSksecqXBCriNTTFg6c3dXK9TzmRV7DoqkKH68Vh7XbVGS7g9CQfaj46S8wgsFBdJtoBMnHV3xbbzSz36cMAAN3eosKaA74TMkgXWgrDCD619RnmskuyvArGbgy6fMFqSniG1s9a3WoTMLoFyw6ucpxgS523Dk3SQEbPAxznbL9KsBEjsCroe4HBVZZG5bX3LU8ZX9PUy'
+  }
+}
+</code></pre>
+
+<h4 id="finish-deposit">Finish deposit</h4>
+<p>After both parties had signed the deposit transaction, the transaction is posted on-chain and
+both parties receive it:</p>
+<pre><code>{'action': 'on_chain_tx',
+ 'payload': {'tx': 'tx_3cDMp6242sBycND2FPT2jcDWFceRgA7zL3ckU8VzLQdvf2Uqjx5CKkjMXbYrmYjMnLnDihVTrF2fCLqNG93BTAsCNWT6QiJwdmXrTXLQ2d2d7rAc5bYepTC2w3LyrZ37jhx3dN7ATusjXtSu6jw9N8exaPxnjKD3twye5B6bdqbZEHKXXtqStUmaTmUDofEWtGaUCxTWKCboMH7T2mxEjzxgpaH2fbHRxA3GmxaTaKWoTfbnvqragH9QVo6QxiCRAGNUEkbRbPw8m1qPUKjVFWWQSZ9VcCdXte3DitS3anXv7jtTKAA7uuj5pbdG4qi64dDLTd52sSQP6JZpzMxa6oyJTDo5s'
+            }
+}
+</code></pre>
+
+<p>They are both to compute the transaction hash. Using it,
+participants can track its progress on the chain: entering the mempool, block
+inclusion and a number of confirmations.</p>
+<p>After the <code>minimum_depth</code> block confirmations each participant is informed
+for the deposit progress on-chain by one's own node:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'own_deposit_locked'}
+ }
+</code></pre>
+
+<p>An update from one's own node that the other party had confirmed that the block
+height needed is reached:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'deposit_locked'}
+ }
+</code></pre>
+
+<p>With this the deposit sequence is complete and the channel can continue with
+other updates. Note that the deposit transaction's <code>round</code> and <code>state_hash</code>
+are the ones considered latest from the channel's perspective. For example the
+next correct off-chain update/deposit/withdrawal shall have a deposit
+transaction's <code>round</code> plus one.</p>
+<h3 id="withdraw-events">Withdraw events</h3>
+<p>After the channel had been opened any of the participants can initiate a
+withdrawal. The process closely resembles the <a href="#update">update</a>. The most notable
+difference is that the transaction has been co-signed: it is <code>channel_withdraw_tx</code> and
+after the procedure is finished - it is being posted on-chain.</p>
+<p>Since both the initiator and responder can withdraw tokens, in the scope of this description we
+will call the participant that commits tokens to the channel a withdrawer and
+the other party - an acknowledger. Note that any public key outside of the channel participants
+is considered invalid for the withdrawer role.</p>
+<h4 id="withdraw-transaction">Withdraw transaction</h4>
+<p>The <code>channel_withdraw_tx</code> is a change to be applied on top of the latest channel state. It also is
+posted on-chain and is included in a block. It has the following structure:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel id</td>
+<td>string</td>
+<td>ID of the channel</td>
+</tr>
+<tr>
+<td>to</td>
+<td>string</td>
+<td>withdrawer's public key</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>integer</td>
+<td>the amount taken out from the channel</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>integer</td>
+<td>minimum block height to include the transaction</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>integer</td>
+<td>fee to be paid to the miner</td>
+</tr>
+<tr>
+<td>state_hash</td>
+<td>string</td>
+<td>the root of the internal channel state hash after the withdraw</td>
+</tr>
+<tr>
+<td>round</td>
+<td>integer</td>
+<td>the next channel round</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>integer</td>
+<td>withdrawer's nonce</td>
+</tr>
+</tbody>
+</table>
+<h4 id="start-withdraw">Start withdraw</h4>
+<p>Any of the participants can initiate a withdrawal. The only requirements are:
+<em> Channel is already opened
+</em> No off-chain update/deposit/withdrawal is currently being performed
+<em> Channel is not being closed or in a solo closing state
+</em> The withdrawal amount must be equal to or greater than zero, and cannot
+  exceed the available balance on the channel (minus the <code>channel_reserve</code>)</p>
+<h5 id="trigger-a-withdrawal">Trigger a withdrawal</h5>
+<p>The withdrawer sends a WebSocket message containing the desired change</p>
+<pre><code>{'action': 'withdraw',
+ 'payload': {
+    'amount': 2
+    }
+ }
+</code></pre>
+
+<h5 id="withdrawer-signs-updated-state">Withdrawer signs updated state</h5>
+<p>The withdrawer receives a message containing the updated channel state as a
+<code>channel_withdraw_tx</code> transaction</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'withdraw_tx',
+ 'payload' {
+    'tx': 'tx_2C9estKT2f86WwC7LCa18cDTTmMCrXM7N2AcrXKmgnTo9DNchXjNmewbgNX2YW4RYk8iHkVRnPpeYLRgh6xH96mHNxCMW4aUL2hgTe6iqdrKyM5eqMbCN9YgTdDvUzDyASJwoicxXb7UeDF5kFWvsEMxXBKGX2'}
+}
+</code></pre>
+
+<p>The withdrawer is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'withdraw_tx',
+ 'payload': {
+    'tx': 'tx_2WsEQsiC5Xsn85g88TmLYonFu2r8HT53jQPJ7f6Ai9uvnZGwnExRyJ51nHS2mU4g2FUTf2PHUsgs22X5Nwg1E1Zy8ofuoJAttqhXpySyYJhCwdWXYKF6bapSXCLwQoKJ9bWLYYZqudsiPfwv43ekzgJHtaWozzFjrEq835B7Xbd8LSd4znVh2FRWfAPW1Zvsm6nKjN2NfEPndwbps7zgqvbQYeKngwFk952CLtDEpGfXXiS5pUp5ExYTwsxGE4E6LKV'
+    }
+}
+</code></pre>
+
+<h4 id="acknowledger-update_4">Acknowledger update</h4>
+<p>The acknowledger receives an info message indicating an upcoming change:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'withdraw_created'}
+ }
+</code></pre>
+
+<p>Then the acknowledger receives a new message containing the withdraw
+transaction for confirmation:</p>
+<pre><code>{'action': 'sign',
+ 'tag': 'withdraw_ack',
+ 'payload' {
+    'tx': 'tx_2C9estKT2f86WwC7LCa18cDTTmMCrXM7N2AcrXKmgnTo9DNchXjNmewbgNX2YW4RYk8iHkVRnPpeYLRgh6xH96mHNxCMW4aUL2hgTe6iqdrKyM5eqMbCN9YgTdDvUzDyASJwoicxXb7UeDF5kFWvsEMxXBKGX2'}
+    }
+}
+</code></pre>
+
+<p>Note that this is the same transaction as the one that the withdrawer has already signed. The acknowledger is to decode the transaction, inspect its contents, sign it, encode
+it and then post it back via a WebSocket message:</p>
+<pre><code>{'action': 'withdraw_ack',
+ 'payload': {
+    'tx': 'tx_2WsEQsiC5XsmkQF6BS1aUhB55XkktxRJi2ZWbpCbGVHgQNPQzUeaEJk57RrhWBagGqNUyUA9YY6PrZhTiXcYs6dK1BxASu8EummTYvfpTjfnA8hU21pw6Ms9fWbJbhBbLNai4hLGPEJZ12r1UHqxLTnq6nJ69vw6szeisRzVJ3XYNpvGgSR5dVyW7Yd2VvtW5CGEMCXCHVYquD8gt6RMBDDr1Q6LeLUTomBpgFGQknjKv56tLtZ2FHkWWa9mU22jXMS'
+  }
+}
+</code></pre>
+
+<h4 id="finish-withdrawal">Finish withdrawal</h4>
+<p>After both the parties had signed the withdraw transaction, the transaction is posted on-chain and
+both parties receive it:</p>
+<pre><code>{'action': 'on_chain_tx',
+ 'payload': {'tx': 'tx_3cDMp6242sByJUzkqj5qREcZdMg99K3hYXtj8LTJrYvFEcd2FUa4CNfUzhnUQDkzaeeexK1ejuYPMJDD5bwjuGibBYLE1AYPPncdzwe9dHhATA2ftRgouyUxztZoQKQ1jNCDUpgkWcYPiBBRfSUJhoGGLzTfMHrfU5UiiMkcCkv6CmSWEm8JsiGAciJFJzzsRQyCJTZ6a6JM7ztBikcs9sQsG6crEdfnMwjG3zEowFT4wpaYZAxH849Y7m3c3pQkkABtcAkXznZEmtS89H9GWaecxKWkaAipz6WvCKAu33haGb4SM3apigLUYZc6xa2KyTJ8CutCKYWP8Jacua6z8B4hg4qM4'
+            }
+}
+</code></pre>
+
+<p>They are both to compute the transaction hash. Using it,
+participants can track its progress on the chain: entering the mempool, block
+inclusion and a number of confirmations.</p>
+<p>After the <code>minimum_depth</code> block confirmations each participant is informed
+for the withdraw progress on-chain by one's own node:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'own_withdraw_locked'}
+ }
+</code></pre>
+
+<p>An update from one's own node that the other party had confirmed that the block
+height needed is reached:</p>
+<pre><code>{'action': 'info',
+ 'payload': {'event': 'withdraw_locked'}
+ }
+</code></pre>
+
+<p>With this the withdrawal sequence is complete and the channel can continue with
+other updates. Note that the withdraw transaction's <code>round</code> and <code>state_hash</code>
+are the ones considered latest from the channel's perspective. For example the
+next correct off-chain update/deposit/withdrawal shall have a withdraw
+transaction's <code>round</code> plus one.</p>
+<h3 id="getting-state">Getting state</h3>
+<p>At any moment in time any participant can ask one's own FSM for various views of
+the latest channel state. This is to help wallet apps but they shall not trust
+FSM and compute state locally.</p>
+<h4 id="get-balances">Get balances</h4>
+<p>In order to get the balances as those are part from the channel's state tree, a
+participant sends a WebSocket message</p>
+<pre><code>{'action': 'get',
+ 'tag': 'balances'
+ 'payload': {
+    'accounts': ['ak_Y1NRjHuoc3CGMYMvCmdHSBpJsMDR6Ra2t5zjhRcbtMeXXLpLH',
+                 'ak_V6an1xhec1xVaAhLuak7QoEbi6t7w5hEtYWp9bMKaJ19i6A9E']
+  }
+}
+</code></pre>
+
+<p>The <code>accounts</code> section of the payload contains a list of addresses to fetch
+balances of. Those can be either account balances or a contract ones, encoded
+as an account addresses.</p>
+<p>A response of this call looks like</p>
+<pre><code>{'action': 'get',
+ 'tag': 'balances'
+ 'payload': [
+    {'account': 'ak_Y1NRjHuoc3CGMYMvCmdHSBpJsMDR6Ra2t5zjhRcbtMeXXLpLH',
+     'balance': 700},
+    {'account': 'ak_V6an1xhec1xVaAhLuak7QoEbi6t7w5hEtYWp9bMKaJ19i6A9E',
+     'balance': 400}
+  ]
+}
+</code></pre>
+
+<p>If a certain account address had not being found in the state tree - it is simply
+skipped in the response.</p>
+<h4 id="get-proof-of-inclusion">Get proof of inclusion</h4>
+<p>In order to build and use different services, one might need to provide a third party
+a minimal view of the internal channel's state.</p>
+<p>In order to fetch a proof of inclusion from the latest modified state tree,
+a participant sends a WebSocket message</p>
+<pre><code>{'action': 'get',
+ 'tag': 'poi'
+ 'payload': {
+    'accounts': ['ak_Y1NRjHuoc3CGMYMvCmdHSBpJsMDR6Ra2t5zjhRcbtMeXXLpLH',
+                 'ak_V6an1xhec1xVaAhLuak7QoEbi6t7w5hEtYWp9bMKaJ19i6A9E'],
+    'contracts': ['ct_2dCUAWYZdrWfACz3a2faJeKVTVrfDYxCQHCqAt5zM15f3u2UfA']
+  }
+}
+</code></pre>
+
+<p>The <code>accounts</code> section of the payload contains a list of addresses to include in the
+proof of inclusion. Almost the same goes with the contract addesses listed in <code>contracts</code> section:
+the only difference being that contract's accounts will be automatically be added
+to proof of inclusion as well as their state.</p>
+<p>A response of this call looks like</p>
+<pre><code>{'action': 'get',
+ 'tag': 'balances'
+ 'payload': {
+    'poi': 'pi_g1JxqVQDQdvjvekeM8hEnVeMFUgfF7YYNjjtrvir7q5tAKq2hFVdtvQo7q4p5Aix1S5XNvKabjEwQVvYVezmnq9VWYoJcmctc5mAu6xVj7KgDk3aG5E7topuuLPXEyGP6hAzRPbr2KzQrQ7KZvTdH15bY1WW7D7XGBRmuiDgYiDj8MAVVjqRFnBS5C6GgevgCkUpKX2tyQL7Y3svSNwDiGxV1b3G6xMbhDeStzgtZ9SrsCaLArP1g9wCDJkChEDXneCmMcvEv2acGwsmXHPfT1uy8oSTVny8tbivnnET7XVdjPJZWuvFbwGAmywa4fRF7wkzn4FQjasLo24DRS5fGYg7Z3uwnFbt4U8sn6yg4FvUBUweW28qMjFRAqVJPH6JKU6o8kZjgRjXsC2L7fbhRkYboecoft11FkFuFXdPjsCj3XGXWtTTAXihPooyTpbjp9yszXZqVxLZ7ms7zc6qtPS8Arq8yTf7UmManvhpYKreDMUqPLtkbUTy32LmeRGBUdhhCzUSg49EHtRo5ti8SCrARQt11ScBJnytnok4o3WvmNVq7SRcWPQgH3ABa8g9csirhcZcrx4f2LQoJwQ2VRnkZUUuxDPNEGRwprVWeCU7KfB3CU86z1eHDQWLnodaxLLJnM1fvpdbrjknRcTSTUjPR7rHcsWVmtkNTVqajCZJKUZN2izAAq5qnQUZwkgFLokynCkMGnkV4woi8j4YKusqXUGZ9w5iFfFsSRjw7brqEBySpQa3QayBBmqKu5CF3pTvikRyGhigCDhmyB3QUQ9SQNr2e4r91hoJmfLXN9o1mkW5ndCuVkKoJjSqiscshpZnvUWVKhQZoHEacdZM5z6U42DfqEVDUR6ptokdNpkJtQtuKo1YD1SyhXgvoHh2d2QCpR29wgRkUKswEDru4sFMRaaxk4uL2MpJg3XaAFhxv6WeKeELCGuYRn9yFnhT9pntUkoFWSghcBkk73uN8sYGo9EkDFkV59Gyrra2hm8Dj7iSUUMqJSMApssN8dWzL9HhC5Hb12mFy8ZzAw1jdYmEYXSmjP859A8cKdP6StwwjuhLacfqv7BkFsQX6Rg4w3ykjRPF2Aj2cf4rTMsNnU4bKFmGYc5RPctTx5pj6PchPyX8GgXMf7EfedQNv7rtT8pCLZ199MRCnPy1X3HURAb8PE9Mj8aZz21N8FDU3nT2XraYKE4DBfnwPnqTV6YNcUVk7AYbJ42BZ2AhTwtZzDovZ3FhK6RvjvUtU4MBPcbYFnidFeqNHq3uM1UeWyaHZJwRoQiptojxCPaDLr7gfNb4jUYRihbbczgNgWwbBsahC75rJWUn7C3dSzJYBY5BbRtgAUivU7tQAhE1SCZ79RDsHwo9Md6iFdX1W1YRB3U9b4gi2NN3HfH4dnA7ediYgB1r9eNGh8mw8SYXSruHFLV59LkSRyR9rFeTCUSTt418fNZAftdbqWhd1UceLZhB3QsdKA8UmSKZcjx1q8ZF83m5zDDgJnkkpiqoHRpZ5pzogPWR8HiJpaDUySD1D8yGgMuGbfsxLhrBm9oDqB1QDqKEWgtsBgu5ZYNob7DqY9cwmsfKnssuNofMG3MqpsYe28ZwEAGfVi1wm87QkSNqyCHYUa3yQ7woeR4ZvQwWJPF3GcXKpBhjVuJusE'
+  }
+}
+</code></pre>
+
+<p>If a certain address of an account or a contract is not found in the state tree -
+the response is an error.</p>
+<h4 id="dry-run-a-contract">Dry-run a contract</h4>
+<p>In order to get the result of a potential contract call, one might need to
+dry-run a contract call. It takes the exact same arguments as a call would and
+returns the <code>call</code> object.</p>
+<pre><code>{'action': 'dry_run',
+ 'tag': 'call_contract',
+ 'payload' :{
+      'contract': 'ct_9sRA9AVE4BYTAkh5RNfJYmwQe1NZ4MErasQLXZkFWG43TPBqa',
+      'abi_version': 1,
+      'amount': 0,
+      'call_data': 'cb_1111111111111111111111111111111yC4CoPDhKfwheTUFxWaEmAud5DzXdDtnFd3Pdr7SkLrw9ze6ZF21i8tR8VyUz4zLwTwBhFi3dCvp4fSTk38mdQ2ov8GPqznR3G83irbxNjrHkfS9nQDcRnFEZ17EfeXqBgB5Q6k6H3JLjPns3ZGECU3rf9gzbbFmwxJbMFsjK2vhxRBmpXoaq4RUqAEu5KZ8xfuCHG17vJn33UmvtayzkJvYTUYQcprT2'
+    },
+}
+</code></pre>
+
+<p>The <code>payload</code> is an mirror image of the <a href="#trigger-a-contract-call-update">call contract
+update</a>, the only difference being that the
+dry-run does not impact the state and it does not need signing. The call is
+executed in the channel's state but it does not impact the state whatsoever.
+It uses as an environment the latest channel's state and the current top of
+the blockchain as seen by the node.</p>
+<p>A response to this call looks like</p>
+<pre><code>{'action': 'dry_run',
+ 'tag': 'call_contract'
+ 'payload': {
+    'channel_id': 'ch_t6X88VVTiXwRzdpW1UMkgqihsoJu7aTswUaw5grrqUd3NWg1m',
+    'data': {
+        'caller_id': 'ak_2PYxWHAsK2jYaca2EQBiJwZrgxJf6AzebE96ZVe2NwGtjaCdvs',
+        'caller_nonce': 8,
+        'contract_id': 'ct_2GPzqsJ7quu1xqnYBedwvn7SQ3DEaQf1BKNyf5ZpAB7yZ4uWAk',
+        'gas_price': 1,
+        'gas_used': 192,
+        'height': 8,
+        'log': [],
+        'return_type': 'ok',
+        'return_value': 'cb_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACr8s/aY'
+        }
+  }
+}
+</code></pre>
+
+<h4 id="get-contract-calls">Get contract calls</h4>
+<p>Each participant persists contract call results locally. It is not required of
+both participants to share the same list of contract calls as this does not
+impact consesus bethween them. Any participant can prune his local set of
+calls in order to free some memory. In order to inspect the result value of a
+contract call, a participant sends a WebSocket message</p>
+<pre><code>{'action': 'get',
+ 'tag': 'contract_call',
+ 'payload': {'caller': 'ak_Y1NRjHuoc3CGMYMvCmdHSBpJsMDR6Ra2t5zjhRcbtMeXXLpLH',
+             'contract': 'ct_2qSaJ7pe3MTdPpzS69ZdtQsVTPSoj7yyYL2KJLxKQoAAHJQdjq',
+             'round': 11
+  }
+}
+</code></pre>
+
+<p>The combination of a <code>caller</code>, <code>contract</code> and a <code>round</code> of execution determines the
+contract call. Providing an incorrect set of those results in an error response.</p>
+<p>A non-error response of this call looks like this</p>
+<pre><code>{'action': 'get',
+ 'tag': 'contract_call',
+ 'payload': {
+    'caller_address': 'ak_Y1NRjHuoc3CGMYMvCmdHSBpJsMDR6Ra2t5zjhRcbtMeXXLpLH',
+    'caller_nonce': 11,
+    'contract_address': 'ct_2qSaJ7pe3MTdPpzS69ZdtQsVTPSoj7yyYL2KJLxKQoAAHJQdjq',
+    'gas_price': 0,
+    'gas_used': 561,
+    'height': 11,
+    'return_type': 'ok',
+    'return_value': 'cb_11111111111111111111111111111113Un1fbh'
+  }
+}
+</code></pre>
+
+<p>It is worth mentioning that the gas is not consumed, because this is an off-chain contract call.
+It would be consumed if it were a on-chain one. This could happen if a call with a
+similar computation amount is to be forced on-chain.</p>
+<h4 id="pruning-contract-calls">Pruning contract calls</h4>
+<p>Contract calls are kept locally in order for the participant to be able to
+look them up. They consume memory and in order for the participant to free it -
+one can prune all messages. This cleans up all locally stored contract calls
+and those will no longer be available for fetching and inspection.</p>
+<p>In order to prune local calls, a participant sends the following WebSocket
+message:</p>
+<pre><code>{'action': 'clean_contract_calls'}
+</code></pre>
+
+<p>Once calls are pruned, the same participant receives the following message:</p>
+<pre><code>{'action': 'calls_pruned'}
+</code></pre>
+
+<h3 id="solo-closing-sequence">Solo closing sequence</h3>
+<p>At any moment in time after the channel had been opened any participant can
+initiate a solo closing. The mutual closing takes just one block
+inclusion for the effects to take place. The solo closing sequence requires a
+couple of blocks and at least 2 transaction fees to be paid. This makes the
+solo closing sequence both slower and more expensive. It is intended to be
+used when the other party is trying to cheat or is not responding for a while.
+This is called a dispute and it is taken to the chain to resolve it. Dispute
+resolution has the following steps:</p>
+<ol>
+<li>single <code>channel_solo_close</code> transaction</li>
+<li>zero or a couple of <code>channel_slash</code> transactions</li>
+<li>single <code>channel_settle</code> transaction</li>
+</ol>
+<p>The second step is not required and a <code>channel_solo_close</code> could be followed
+either by zero, one or more <code>channel_slash</code> transactions, each subsequent one
+presenting a newer state and overwriting the previous one. Those are settled by
+a <code>channel_settle</code> transaction that finally closes the channel. Let's discuss
+those in detail.</p>
+<h4 id="payload-and-proof-of-inclusion">Payload and proof of inclusion</h4>
+<p>The idea behind <code>channel_solo_close</code> and <code>channel_settle</code> is for parties to
+provide, on-chain, the latest channel internal state so that the channel can be closed.
+First comes the <code>channel_solo_close</code> that provides some off-chain state. Then a
+<code>channel_slash</code> can be posted but it is checked that it has a newer state than the
+<code>channel_solo_close</code> one. Then parties can post more <code>channel_slash</code> transactions
+but those are always checked to be containing a newer channel state than the last
+received on-chain. If one party tries to cheat by posting some old state - the other
+party can present to the chain a newer channel state and this overwrites the previous
+posted one. Thus the comparison on channel states is important. This is done
+by comparing rounds.</p>
+<p>Both <code>channel_solo_close</code> and <code>channel_slash</code> contain a <code>payload</code> field. This
+is either a binary containing a <code>channel_offchain</code> transaction or an empty
+binary.</p>
+<p>If it is a <code>channel_offchain</code> transaction - it must be co-signed by both
+participants. It also contains a <code>channel_id</code>, <code>round</code> and <code>state_hash</code>.
+The <code>channel_id</code> in combination with the correct singatures verifies that
+this off-chain transaction indeed is part of the channel off-chain state. The
+<code>round</code> represents the height of the channel's state at the time the
+transaction was co-signed by the parties. The higher the round, the newer the
+transaction is. This <code>round</code> must be greater than the last on-chain one for that channel.
+The <code>state_hash</code> is the internal channel state tree root hash
+at that <code>round</code> height.</p>
+<p>If the transaction's <code>payload</code> is empty - then the latest on-chain state for
+this channel is used. Both <code>channel_deposit</code> and <code>channel_withdraw</code>
+transactions contain a <code>round</code> and a <code>state_hash</code> and the latest received one
+overwrites the previous one. If there had been none of those, then the
+<code>channel_create</code> transaction is used: it has a <code>state_hash</code> and an implicit
+<code>round = 1</code>.</p>
+<p>Either by having a value in the <code>payload</code> or not having one, the
+<code>channel_solo_close</code> and <code>channel_slash</code> provide a channnel's <code>round</code> and a <code>state_hash</code>.
+In order to determine the order of the channel's states received - we compare
+the <code>rounds</code> and keep the state with the greatest <code>round</code>, considered to be
+the <em>newest</em> and <em>latest</em> state. They also provide the <code>state_hash</code> the
+channel's state tree had at this <code>round</code>.</p>
+<p>Both <code>channel_solo_close</code> and <code>channel_slash</code> contain a <code>poi</code> field. This is
+the proof of inclusion for participants' balances in the channel state: all
+the insignificant data in the channel's MPT (Matricia Perkel Tree) is replaced
+by corresponding hashes.
+The root hash of the PoI must be equal to the <code>state_hash</code> provided by the <code>payload</code>.
+This guarantees that the PoI indeed is a proof of inclusion for tree at this height.</p>
+<h4 id="solo-close-on-chain-transaction">Solo close on-chain transaction</h4>
+<p>The <code>channel_close_solo</code> transaction is the one that triggers the solo closing
+sequence. After it is included on-chain channel enters a <em>closing</em> state and
+any subsequent withdrawal or deposits are considered invalid. Preconditions for
+the <code>channel_close_solo</code> to be valid are:</p>
+<ul>
+<li>channel is opened on-chain</li>
+<li>channel is not in a <em>closing</em> state but not yet closed - no <code>channel_close_solo</code> has been
+  included in a block yet</li>
+</ul>
+<p>Any participant in the channel can post a <code>channel_close_solo</code> transaction. In
+the scope of this description we will call the one that posts the transaction
+<em>solo closer</em>.
+The transaction has the following structure:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel id</td>
+<td>string</td>
+<td>ID of the channel to close</td>
+</tr>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>solo closer's public key</td>
+</tr>
+<tr>
+<td>payload</td>
+<td>binary</td>
+<td>closing payload</td>
+</tr>
+<tr>
+<td>poi</td>
+<td>binary</td>
+<td>closing proof of inclusion</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>integer</td>
+<td>maximum block height to include the transaction</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>integer</td>
+<td>fee to be paid to the miner</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>integer</td>
+<td>solo closer's nonce</td>
+</tr>
+</tbody>
+</table>
+<p><code>payload</code> and <code>poi</code> are validated as <a href="#payload-and-proof-of-inclusion">described above</a></p>
+<h4 id="slash-on-chain-transaction">Slash on-chain transaction</h4>
+<p>After the channel is already in a <em>closing</em> state, both participants can provide
+a newer state via the <code>channel_slash</code> transaction. Preconditions for
+the <code>channel_slash</code> to be valid are:</p>
+<ul>
+<li>channel is opened on-chain</li>
+<li>channel is still in a <em>closing</em> state - no <code>channel_settle</code> has been
+  included in a block yet</li>
+</ul>
+<p>Any participant in the channel can post a <code>channel_slash</code> transaction. In
+the scope of this description we will call the one that posts the transaction
+<em>slasher</em>.
+The transaction has the following structure:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel id</td>
+<td>string</td>
+<td>ID of the channel to slash</td>
+</tr>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>slasher's public key</td>
+</tr>
+<tr>
+<td>payload</td>
+<td>binary</td>
+<td>slashing payload</td>
+</tr>
+<tr>
+<td>poi</td>
+<td>binary</td>
+<td>slashing proof of inclusion</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>integer</td>
+<td>maximum block height to include the transaction</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>integer</td>
+<td>fee to be paid to the miner</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>integer</td>
+<td>slasher's nonce</td>
+</tr>
+</tbody>
+</table>
+<p><code>payload</code> and <code>poi</code> are validated as <a href="#payload-and-proof-of-inclusion">described above</a></p>
+<h4 id="settle-on-chain-transaction">Settle on-chain transaction</h4>
+<p>After the <code>channel_close_solo</code> and all the <code>channel_slash</code> transactions,
+it is time to finally close the channel. One of the participants posts a
+<code>channel_settle</code> transaction that enforces closing of the channel. This
+happens according to the latest channel state that was sent on-chain. The
+<code>channel_settle</code> just finalizes the channel closing with the last received
+state, redistributes tokens to participants and closes the channel. No further
+disputes are possible after that.</p>
+<p>In order to give parties time to slash a closing channel and update its state
+with a newer one, there is a timeframe only after which the <code>channel_settle</code>
+can be posted. This is measured in blocks mined on top of the last received
+transaction for that channel (either <code>channel_close_solo</code> or <code>channel_slash</code>).
+The amount itself is prenegotiated before opening the channel and is part of
+the <code>channel_create</code> transaction - it is the value of <code>lock_period</code>. Under no
+condition a <code>channel_settle</code> can be included in a block before passing the
+<code>lock_period</code> amount of blocks on top of the last <code>channel_close_solo</code> or
+<code>channel_slash</code> transaction. Every next included <code>channel_slash</code> restarts the
+timer. It is worth noting that since those transactions must include a <code>payload</code>
+newer than the prevous on-chain one - this timer can not be postponed
+indefinitely. Preconditions for the <code>channel_settle</code> to be valid are:</p>
+<ul>
+<li>channel is opened on-chain</li>
+<li>channel is still in a <em>closing</em> state - no other <code>channel_settle</code> has been
+  included in a block yet</li>
+<li>at least <code>lock_period</code> blocks has been mined on top of the last
+  <code>channel_close_solo</code> or <code>channel_slash</code></li>
+</ul>
+<p>Any participant in the channel can post a <code>channel_settle</code> transaction. In
+the scope of this description we will call the one that posts the transaction
+<em>settler</em>.
+The transaction has the following structure:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel id</td>
+<td>string</td>
+<td>ID of the channel to settle</td>
+</tr>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>settler's public key</td>
+</tr>
+<tr>
+<td>initiator_amount_final</td>
+<td>integer</td>
+<td>initiator final amount</td>
+</tr>
+<tr>
+<td>responder_amount_final</td>
+<td>integer</td>
+<td>responder final amount</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>integer</td>
+<td>maximum block height to include the transaction</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>integer</td>
+<td>fee to be paid to the miner</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>integer</td>
+<td>settler's nonce</td>
+</tr>
+</tbody>
+</table>
+<p>The amounts are the exact amounts stored in the channel object on-chain.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../contract_api_usage/" title="Contract" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Contract
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../mining_api_usage/" title="Mining" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Mining
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      
+    
+  </body>
+</html>

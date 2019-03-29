@@ -1,0 +1,2441 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Æternity consensus protocol - æternity Documentation Hub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../site/assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="white">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#ternity-consensus-protocol" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="æternity Documentation Hub" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              æternity Documentation Hub
+            </span>
+            <span class="md-header-nav__topic">
+              Æternity consensus protocol
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="æternity Documentation Hub" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    æternity Documentation Hub
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Get Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Get Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/build-windows/" title="Build in Windows" class="md-nav__link">
+      Build in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/build/" title="Build in Ubuntu" class="md-nav__link">
+      Build in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/cuda-miner/" title="CUDA Miner" class="md-nav__link">
+      CUDA Miner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/installation-windows/" title="Installation in Windows" class="md-nav__link">
+      Installation in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/installation/" title="Installation in Ubuntu" class="md-nav__link">
+      Installation in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../æternity/docs/operation/" title="Operation" class="md-nav__link">
+      Operation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Protocol
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Protocol
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../oracles/oracle_life_cycle/" title="Life Cycle" class="md-nav__link">
+      Life Cycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../oracles/oracle_state_tree/" title="State Tree" class="md-nav__link">
+      State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../oracles/oracle_transactions" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../AENS/" title="AENS Naming System" class="md-nav__link">
+      AENS Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Smart Contracts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Smart Contracts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/contract_life_cycle/" title="Contract Life Cycle Examples" class="md-nav__link">
+      Contract Life Cycle Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-2" type="checkbox" id="nav-3-3-2">
+    
+    <label class="md-nav__link" for="nav-3-3-2">
+      Virtual Machines
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-2">
+        Virtual Machines
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/contract_vms/" title="Æternity VM" class="md-nav__link">
+      Æternity VM
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/aevm/" title="Æternity Ethereum VM" class="md-nav__link">
+      Æternity Ethereum VM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/sophia/" title="Sophia Smart Contract Language" class="md-nav__link">
+      Sophia Smart Contract Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/contract_state_tree/" title="Contract State Tree" class="md-nav__link">
+      Contract State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/contract_transactions/" title="Contract Transactions" class="md-nav__link">
+      Contract Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../channels/" title="State Channels" class="md-nav__link">
+      State Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../serializations/" title="Serialization Formats" class="md-nav__link">
+      Serialization Formats
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Expansions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Expansions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Expansions/AEXS/aex-1/" title="AEX1" class="md-nav__link">
+      AEX1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../Expansions/AEXS/aex-2/" title="AEX2" class="md-nav__link">
+      AEX2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Node Usage API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Node Usage API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/api_encoding/" title="Encoding Scheme" class="md-nav__link">
+      Encoding Scheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/account_api_usage/" title="Account Managment" class="md-nav__link">
+      Account Managment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/spend_api_usage/" title="Spending Tokens" class="md-nav__link">
+      Spending Tokens
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/oracle_api_usage/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/naming_system_api_usage/" title="Naming System" class="md-nav__link">
+      Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/contract_api_usage/" title="Contract" class="md-nav__link">
+      Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/channels_api_usage/" title="Channels" class="md-nav__link">
+      Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../node/api/mining_api_usage/" title="Mining" class="md-nav__link">
+      Mining
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Developer Tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Developer Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      SDK's
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        SDK's
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../developer-tools/sdk/sdk-go/" title="Go" class="md-nav__link">
+      Go
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../developer-tools/sdk/sdk-js/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../developer-tools/sdk/sdk-python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-2" type="checkbox" id="nav-6-2">
+    
+    <label class="md-nav__link" for="nav-6-2">
+      Frameworks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-2">
+        Frameworks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../developer-tools/frameworks/orgae/README.md" title="ForgAE" class="md-nav__link">
+      ForgAE
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Sophia Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Sophia Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/DateTime/" title="DateTime" class="md-nav__link">
+      DateTime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/List/" title="List" class="md-nav__link">
+      List
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/Ownable/" title="Ownable" class="md-nav__link">
+      Ownable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/FungibleToken/" title="FungibleToken" class="md-nav__link">
+      FungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/NonFungibleToken/" title="NonFungibleToken" class="md-nav__link">
+      NonFungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/libraries/MultisignatureWallet/" title="MultisignatureWallet" class="md-nav__link">
+      MultisignatureWallet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Sophia by Example
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Sophia by Example
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/examples/SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
+      Smart Data Provider
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/examples/SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
+      Smart Real Estate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/examples/SpendToMany/" title="Spend-to-Many" class="md-nav__link">
+      Spend-to-Many
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../aepp-sophia-examples/examples/TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
+      Tic Tac Toe
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      How-To Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        How-To Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-1" type="checkbox" id="nav-9-1">
+    
+    <label class="md-nav__link" for="nav-9-1">
+      Account
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-1">
+        Account
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/account-creation-in-ae-cli/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-2" type="checkbox" id="nav-9-2">
+    
+    <label class="md-nav__link" for="nav-9-2">
+      Middleware
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-2">
+        Middleware
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/running-your-own-ae-middleware/" title="Run Own Middleware" class="md-nav__link">
+      Run Own Middleware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-3" type="checkbox" id="nav-9-3">
+    
+    <label class="md-nav__link" for="nav-9-3">
+      Miner
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-3">
+        Miner
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-cpu-miner-on-ubuntu-1804/" title="Run CPU Miner (Ubuntu)" class="md-nav__link">
+      Run CPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-gpu-miner-on-ubuntu-1804/" title="Run GPU Miner (Ubuntu)" class="md-nav__link">
+      Run GPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-node-on-macos-mojave/" title="Run Node (MacOS)" class="md-nav__link">
+      Run Node (MacOS)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-node-on-ubuntu-1804/" title="Run Node (Ubuntu)" class="md-nav__link">
+      Run Node (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-5" type="checkbox" id="nav-9-5">
+    
+    <label class="md-nav__link" for="nav-9-5">
+      Paper Wallet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-5">
+        Paper Wallet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/create-a-paper-wallet/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-6" type="checkbox" id="nav-9-6">
+    
+    <label class="md-nav__link" for="nav-9-6">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-6">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-language-definition-for-notepad++/" title="Install Sophia Notepad++ Language Definition" class="md-nav__link">
+      Install Sophia Notepad++ Language Definition
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-7" type="checkbox" id="nav-9-7">
+    
+    <label class="md-nav__link" for="nav-9-7">
+      Testnet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-7">
+        Testnet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/run-local-testnet-with-docker/" title="Run Local Testnet (Docker)" class="md-nav__link">
+      Run Local Testnet (Docker)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/get-testnet-tokens/" title="Get Testnet Tokens" class="md-nav__link">
+      Get Testnet Tokens
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-8" type="checkbox" id="nav-9-8">
+    
+    <label class="md-nav__link" for="nav-9-8">
+      Unit Tests
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-8">
+        Unit Tests
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/how-to-write-unit-test-1/" title="How to Write Unit Test I" class="md-nav__link">
+      How to Write Unit Test I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/how-to-write-unit-test-2/" title="How to Write Unit Test II" class="md-nav__link">
+      How to Write Unit Test II
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-1" type="checkbox" id="nav-10-1">
+    
+    <label class="md-nav__link" for="nav-10-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-oracle-introduction/" title="Sophia Oracle Introduction" class="md-nav__link">
+      Sophia Oracle Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-fungible-token-contract/" title="Fungible Token Contract" class="md-nav__link">
+      Fungible Token Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-token-exchange-contract-1/" title="Token Exchange Contract I" class="md-nav__link">
+      Token Exchange Contract I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-token-exchange-contract-2/" title="Token Exchange Contract II" class="md-nav__link">
+      Token Exchange Contract II
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/sophia-token-exchange-contract-3/" title="Token Exchange Contract III" class="md-nav__link">
+      Token Exchange Contract III
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/vote-contract.md" title="Vote Contract" class="md-nav__link">
+      Vote Contract
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      State Channels
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        State Channels
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tutorials/state-channels-introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notation" title="Notation" class="md-nav__link">
+    Notation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blockchain" title="Blockchain" class="md-nav__link">
+    Blockchain
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blocks" title="Blocks" class="md-nav__link">
+    Blocks
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#genesis-block" title="Genesis block" class="md-nav__link">
+    Genesis block
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions" title="Transactions" class="md-nav__link">
+    Transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-signature" title="Transaction signature" class="md-nav__link">
+    Transaction signature
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proof-of-work" title="Proof of Work" class="md-nav__link">
+    Proof of Work
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accounts" title="Accounts" class="md-nav__link">
+    Accounts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p2p-network" title="P2P network" class="md-nav__link">
+    P2P network
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coins-and-tokens" title="Coins and tokens" class="md-nav__link">
+    Coins and tokens
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aeons" title="Aeons" class="md-nav__link">
+    Aeons
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specification" title="Specification" class="md-nav__link">
+    Specification
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto" title="Crypto" class="md-nav__link">
+    Crypto
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keys" title="Keys" class="md-nav__link">
+    Keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signatures" title="Signatures" class="md-nav__link">
+    Signatures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accounts_1" title="Accounts" class="md-nav__link">
+    Accounts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blocks_1" title="Blocks" class="md-nav__link">
+    Blocks
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-blocks" title="Key Blocks" class="md-nav__link">
+    Key Blocks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#micro-blocks" title="Micro Blocks" class="md-nav__link">
+    Micro Blocks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions_1" title="Transactions" class="md-nav__link">
+    Transactions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signed-transaction" title="Signed transaction" class="md-nav__link">
+    Signed transaction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-fields-for-transactions" title="Common fields for transactions" class="md-nav__link">
+    Common fields for transactions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spend" title="Spend" class="md-nav__link">
+    Spend
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gas" title="Gas" class="md-nav__link">
+    Gas
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proof-of-work_1" title="Proof of Work" class="md-nav__link">
+    Proof of Work
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solution-encoding-rules" title="Solution Encoding Rules" class="md-nav__link">
+    Solution Encoding Rules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#difficulty-target" title="Difficulty target" class="md-nav__link">
+    Difficulty target
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target-adjustment" title="Target adjustment" class="md-nav__link">
+    Target adjustment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aeternity/documentation-hub/edit/master/docs/protocol/consensus/consensus.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="ternity-consensus-protocol">Æternity consensus protocol</h1>
+<p>This document defines the Æternity consensus protocol.</p>
+<h2 id="introduction">Introduction</h2>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to
+be interpreted as described in <a href="https://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
+<h2 id="notation">Notation</h2>
+<ul>
+<li><code>x || y</code>, x concatenated with y</li>
+<li><code>sk &lt;- rand(1^n)</code>, sample a random n bit number</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<h3 id="blockchain">Blockchain</h3>
+<p>A blockchain is a specific instance of a distributed ledger made up from
+blocks, which are arranged  as a tree with the root of the tree being the
+<code>genesis block</code>. Each node in this tree has exactly one <code>parent</code> but can have
+multiple children. Blocks specify their parent via the <code>prev_hash</code> field in
+the block header, with the genesis block having a <code>prev_hash</code> of all <code>0</code>.</p>
+<p>At any point, the <code>block height</code> is the distance from the current valid <code>top</code>
+block to the genesis block. The genesis block has height zero.</p>
+<p>A valid block here means valid according to the consensus rules described
+below.</p>
+<p>We use temporary random leader to build the tree of blocks.</p>
+<p>In order to find the best valid chain given a tree of blocks, every node
+operator in the network sums the amount of work (see Proof of Work) done on
+each chain. The best valid chain is then the chain that has the most work
+done. Any ties here will be resolved by the time a block was received at,
+i.e. it will prefer the block it received first.</p>
+<h3 id="blocks">Blocks</h3>
+<p>This document depends on <a href="../bitcoin-ng/">Bitcoin-NG protocol</a> that describes rules for building blockchain.</p>
+<p>Bitcoin NG introduces two types of blocks:</p>
+<ol>
+<li>Key Blocks - Key Blocks carry a Public Key of a leader and Proof-of-Work
+   evidence and associated metadata</li>
+<li>Micro Blocks - Micro Blocks carry transactions confirmed by a leader and
+   associated metadata</li>
+</ol>
+<p>There may be <code>0-N</code> Micro Blocks between two Key Blocks. Micro Blocks are small and they are produced very often i.e. every three seconds.</p>
+<p>Key Blocks are generated by miners. Ten new coins are <a href="../bitcoin-ng/#rewards">introduced by each Key Block</a>.
+Micro Blocks are generated by miners who become leaders by mining Key Blocks.</p>
+<h4 id="genesis-block">Genesis block</h4>
+<p>The genesis block is special in the sense that it does not have a parent and
+contains the initial state of the Æternity blockchain. Part of initial state
+is generated from the distribution of the Æternity ERC20 token on the
+Ethereum blockchain.</p>
+<h3 id="transactions">Transactions</h3>
+<p>Æternity follows the "fat protocol" approach, which means that the protocol
+itself has many features built in, as opposed to e.g. Ethereum, which maps
+any functionality beyond basic transactions changing the state of an
+account to smart contracts.</p>
+<h3 id="transaction-signature">Transaction signature</h3>
+<p>We sign serialized transaction prefixed with the id of the network.
+See <a href="../../serializations/#binary-serialization">serialization</a> definition for details.</p>
+<pre><code>NetworkId             :: binary()
+SerializedObject      :: binary()
+Signature             :: binary()
+
+Signature = sign(NetworkId + SerializedObject)
+</code></pre>
+
+<p>Prefix defaults to <code>ae_mainnet</code> (<code>binary()</code>) and it is configurable via node config.
+The prefix is not part of a serialized transaction. We add it only for signature.
+Consider changing the id in case of forking the blockchain network,
+in order to lower danger of replay attacks.</p>
+<h3 id="proof-of-work">Proof of Work</h3>
+<p><a href="https://github.com/tromp/cuckoo">Cuckoo Cycle</a> is the algorithm used for proof of work.
+It was designed to prevent the dynamics that have developed in Bitcoin and
+similar systems, where the mining operations are dominated by special purpose
+hardware. The problem being solved is that of finding cycles in a bipartite graph.</p>
+<p>Proof of work is used for leader election, which happens via key blocks in
+Bitcoin-NG. Micro blocks do not require any proof of work.</p>
+<h3 id="accounts">Accounts</h3>
+<h3 id="p2p-network">P2P network</h3>
+<p>The peer-to-peer network is not part of the consensus and will be described in a separate document.</p>
+<h3 id="coins-and-tokens">Coins and tokens</h3>
+<h4 id="aeons">Aeons</h4>
+<p>Aeon is the main coin used in the Æternity system. We use the following denominations:</p>
+<pre><code>1
+1_000
+1_000_000
+1_000_000_000
+1_000_000_000_000
+1_000_000_000_000_000
+1_000_000_000_000_000_000 | aeon
+</code></pre>
+
+<h2 id="specification">Specification</h2>
+<h3 id="crypto">Crypto</h3>
+<p>Blake2b (256 bits digest) and ed25519</p>
+<h4 id="keys">Keys</h4>
+<p>Key generation is done according to <a href="https://tools.ietf.org/html/rfc8032#page-13">RFC8032</a>,
+note that we have 64-byte secret keys that consists of the seed concatenated
+with the public key in order to <a href="https://download.libsodium.org/doc/public-key_cryptography/public-key_signatures.html">save CPU cycles when
+signing</a>
+The public key is 32 byte.</p>
+<h4 id="signatures">Signatures</h4>
+<p>ECDSA, DER encoding (~72 bytes in size)</p>
+<h2 id="accounts_1">Accounts</h2>
+<pre><code>address: public key
+balance:
+nonce:
+</code></pre>
+
+<h3 id="blocks_1">Blocks</h3>
+<h4 id="key-blocks">Key Blocks</h4>
+<pre><code>PROTOCOL_VERSION: 1 (Roma release)
+GENESIS_VERSION: 1 (Roma release)
+</code></pre>
+
+<ul>
+<li>the timestamp of a key block MUST be smaller than <code>now() + 9m</code></li>
+<li>the timestamp of a key block MUST be bigger than:</li>
+<li>the median timestamp of the last 11 blocks (if height &gt;= 12)</li>
+<li>the timestamp of the genesis block (if height &lt;= 11)</li>
+<li>the version MUST match the <code>PROTOCOL_VERSION</code></li>
+<li>the <code>pow_evidence</code> MUST be valid</li>
+<li>MUST have <code>0 &lt;= nonce &lt;= MAX_NONCE</code></li>
+<li>txs_hash MUST be correct root hash of the merkle tree of all transactions.</li>
+<li><strong><em>TODO</em></strong>: fill in missing rules</li>
+</ul>
+<pre><code>PROTOCOL_VERSION: 2 (Minerva release)
+GENESIS_VERSION: 1 (Roma release)
+</code></pre>
+
+<ul>
+<li>an optional info field is added to the key header</li>
+<li>the presense of the info field MUST be marked by setting the info field flag to 1</li>
+<li>the absense of the info field MUST be marked by setting the info field flag to 0</li>
+<li>the info field, if present, is uninterpreted, but included in the block hash (i,e., it is under consensus).</li>
+</ul>
+<p>Header <a href="../../serializations/#key-blockheader">serialization format</a></p>
+<p>Block <a href="../../serializations/#key-block">serialization format</a></p>
+<h4 id="micro-blocks">Micro Blocks</h4>
+<pre><code>PROTOCOL_VERSION: 1
+GENESIS_VERSION: 1
+</code></pre>
+
+<ul>
+<li>the timestamp of a micro block MUST be smaller than <code>now() + 9m</code></li>
+<li>if the previous block is a micro block:</li>
+<li>the timestamp MUST be bigger than or equal to the timestamp of the previous block + 3s</li>
+<li>if the previous block is a key block:</li>
+<li>the timestamp MUST be bigger than the timestamp of the previous block</li>
+<li>the version MUST match the <code>PROTOCOL_VERSION</code></li>
+<li>the signature must be a valid signature produced by the issuer of
+  the previous key block</li>
+<li>the sum of gas of transactions in a micro block MUST be lower or equal to
+  the gas limit per micro block</li>
+<li><strong><em>TODO</em></strong>: fill in missing rules</li>
+</ul>
+<p>Header <a href="../../serializations/#micro-block-header">serialization format</a></p>
+<p>Block <a href="../../serializations/#micro-block">serialization format</a></p>
+<h3 id="transactions_1">Transactions</h3>
+<h4 id="signed-transaction">Signed transaction</h4>
+<pre><code> Fieldname       Size (bytes)
+ -------------- -----
+| data         | var |
+ -------------- -----
+| signatures   | var |
+ -------------- -----
+</code></pre>
+
+<p>MUST have valid signature from private key belonging to <code>sender</code>.</p>
+<h4 id="common-fields-for-transactions">Common fields for transactions</h4>
+<p>Each (on-chain) transaction has the following fields:
+<em> Fee. It MUST be at least the gas for the transaction multiplied by the
+  minimal gas price, which (after MINERVA hard fork height) is
+  <code>1000000</code> (</em>10^-18) aeons. (Before MINERVA hard fork height it was
+  <code>1</code> (<em>10^-18) aeons.)
+</em> Time to live (TTL).</p>
+<h4 id="spend">Spend</h4>
+<pre><code> Fieldname       Size (bytes)
+ -------------- -----
+| sender       | 32  |
+ -------------- -----
+| recipient    | 32  |
+ -------------- -----
+| amount       | 8   |
+ -------------- -----
+| fee          | 8   |
+ -------------- -----
+| nonce        | 8   |
+ -------------- -----
+</code></pre>
+
+<h4 id="gas">Gas</h4>
+<p>In order to control the size and the number of transactions in a micro block,
+each transaction has a gas. The sum of gas of all the transactions cannot
+exceed the gas limit per micro block, which is 6 000 000.</p>
+<p>The gas of a transaction is the sum of:
+<em> the base gas;
+</em> other gas components, such as gas proportional to the byte size of the
+  transaction or relative TTL, gas needed for contract execution.</p>
+<table>
+<thead>
+<tr>
+<th>Transaction</th>
+<th>Base gas</th>
+<th>Other gas components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spend</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(SpendTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Oracle register</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to oracle TTL argument <code>TTL</code> (interpreted as relative), specifically: <code>ceiling(32000 * RelativeTTL / floor(60 * 24 * 365 / key_block_interval))</code> and the byte size of the transaction, specifically: <code>byte_size(OracleRegisterTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Oracle query</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to oracle query TTL argument <code>QTTL</code> (interpreted as relative), specifically: <code>ceiling(32000 * RelativeTTL / floor(60 * 24 * 365 / key_block_interval))</code> and the byte size of the transaction, specifically: <code>byte_size(OracleQueryTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Oracle respond</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to oracle response TTL argument <code>RTTL</code> in oracle query (as found in the oracle query in the state, and interpreted as relative), specifically: <code>ceiling(32000 * RelativeTTL / floor(60 * 24 * 365 / key_block_interval))</code> and the byte size of the transaction, specifically: <code>byte_size(OracleRespondTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Oracle extend</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to oracle TTL argument <code>TTL</code> (interpreted as relative), specifically: <code>ceiling(32000 * RelativeTTL / floor(60 * 24 * 365 / key_block_interval))</code> and the byte size of the transaction, specifically: <code>byte_size(OracleExtendTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Name preclaim</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(NamePreclaimTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Name claim</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(NameClaimTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Name update</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(NameUpdateTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Name transfer</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(NameTransferTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Name revoke</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(NameRevokeTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel create</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelCreateTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel deposit</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelDepositTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel withdraw</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelWithdrawTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel settle</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelSettleTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel slash</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelSlashTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel close solo</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelCloseSoloTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel close mutual</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelCloseMutualTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel snapshot solo</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelSnapshotSoloTx) * GasPerByte</code></td>
+</tr>
+<tr>
+<td>Channel force progress</td>
+<td><code>BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ChannelForceProgressTx) * GasPerByte</code>. It may also include gas for contract execution.</td>
+</tr>
+<tr>
+<td>Channel offchain</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Contract create</td>
+<td><code>5 * BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ContractCreateTx) * GasPerByte</code>. It also includes gas for contract execution.</td>
+</tr>
+<tr>
+<td>Contract call</td>
+<td><code>30 * BaseGas</code></td>
+<td>Proportional to the byte size of the transaction, specifically: <code>byte_size(ContractCallTx) * GasPerByte</code>. It also includes gas for contract execution.</td>
+</tr>
+</tbody>
+</table>
+<p><code>BaseGas</code> is 15 000.</p>
+<p><code>GasPerByte</code> is 20.</p>
+<h3 id="proof-of-work_1">Proof of Work</h3>
+<pre><code>HIGHEST_TARGET_SCI: 0x2100ffff
+HIGHEST_TARGET_INT: 0xffff000000000000000000000000000000000000000000000000000000000000
+NONCE_BITS: 64
+MAX_NONCE: 0xffffffffffffffff
+EXPECTED_BLOCK_MINE_RATE: 60 * 3 # every 3 minutes
+RECALCULATE_DIFFICULTY_FREQUENCY: 10
+</code></pre>
+
+<p><a href="https://github.com/tromp/cuckoo">Cuckoo cycle</a> is used as the proof of work
+algorithm. Solutions take the form of arrays length <code>l</code>, where <code>l</code> is the length
+(<code>PROOFSIZE</code>) of the cycle in the bipartite graph. The size of the graph is denoted
+by <a href="https://github.com/tromp/cuckoo/blob/488c03f5dbbfdac6d2d3a7e1d0746c9a7dafc48f/src/cuckoo.h#L11"><code>the 2-log of the graph size, which is the size in bits of the node identifiers</code></a> <code>EDGEBITS</code>. The difficulty
+of a graph with <code>M</code> nodes and <code>N</code> edges is based on the ratio <code>M/N</code>, with the standard
+implementation being fixed at <code>M/N = 1/2</code>. Please refer to the <a href="https://github.com/tromp/cuckoo/blob/master/doc/cuckoo.pdf?raw=true">whitepaper</a> for more details. These indices are refered to as <code>micrononces</code>, not
+to be confused with the nonce included in the header itself.
+This graph is generated by hashing every edge <code>i in (0..N)</code> twice with a keyed hash
+function <code>h</code> (<a href="https://131002.net/siphash/">SipHash</a>). The <code>key</code> used for these operations
+is the hash of a block header plus a nonce. The first node belonging to every edge is
+given by hashing <code>h(key, index*2)</code> and the second by <code>h(key, index*2+1)</code>.</p>
+<p>Current defaults:</p>
+<pre><code>PROOFSIZE: 42
+EDGEBITS: 29
+</code></pre>
+
+<pre><code>header = version || flags || height || prev_hash || prev_key_hash || state_hash || miner || beneficiary || target || evidence || nonce || time
+           32         32       64         256            256            256         256         256          32       42*32       64       64
+</code></pre>
+
+<p>For the purpose of computing a proof of work puzzle solution, the evidence and
+nonce are set to <code>[0] * 42</code> and <code>0</code> respectively, since neither are available
+before the puzzle has been solved.</p>
+<p>When a node receives a new key block it must repeat the process, setting
+evidence and nonce to all 0, in order to be able to validate the proof of work.</p>
+<pre><code>h_header = Blake2b(header)
+</code></pre>
+
+<p>The default <code>key</code> for cuckoo is 80 bytes long. The <code>nonce</code> here is expressed
+in little-endian notation, to keep consistent with cuckoo cycle, which does
+the same. Note that both the hashed header and the nonce are base64 encoded.
+This means that the hashed header is 44 bytes long, and the nonce is 12 bytes.</p>
+<pre><code>key = h_header || nonce || 0..0
+        352        92      196
+</code></pre>
+
+<p>A valid solution MUST:</p>
+<ul>
+<li>be encoded according to the solution encoding rules</li>
+<li>form a cycle (<strong><em>TODO: make this more precise</em></strong>)</li>
+<li>only contain <code>micrononces &lt; 2^EDGEBITS - 1</code></li>
+<li>have micrononces in ascending order</li>
+<li>pass the difficulty check</li>
+</ul>
+<h4 id="solution-encoding-rules">Solution Encoding Rules</h4>
+<p>Since <code>EDGEBITS &lt; 32</code>, we can encode an edge as a 32bit integer, otherwise
+it would have to be 64 bits. Therefore a solution is currently <code>[u32; 42]</code>.</p>
+<h4 id="difficulty-target">Difficulty target</h4>
+<p>See <a href="https://github.com/tromp/cuckoo/blob/master/doc/cuckoo.pdf?raw=true">Chapter 9 of the cuckoo cycle paper</a>:</p>
+<blockquote>
+<p>For further control, a difficulty target 0 &lt; T &lt; 2^256 is introduced, and
+we impose the additional constraint that the Blake2b 256 bit digest of the
+cycle nonces in ascending order be less than T, thus reducing the success
+probability by a factor of 2^256.</p>
+</blockquote>
+<p>Thus we adopt the target notion from Bitcoin and also use the same way to
+express it.</p>
+<p>The target threshold relates to another value: the difficulty. This is
+proportional to the hardness of the PoW task:</p>
+<pre><code>difficulty = &lt;target of difficulty 1&gt; / target
+</code></pre>
+
+<p>a floating point value.</p>
+<p>Bitcoin uses <code>0x00000000FFFF0000000000000000000000000000000000000000000000000000</code>\
+as Difficulty 1 target (<code>0x1d00ffff</code> in scientific notation, see below). For
+Cuckoo Cycle we need a lighter filtering of solutions than for SHA-256 as the
+basic algorithm is much slower than a simple hash generation, so we use the
+largest possible value: <code>0xFFFF000000000000000000000000000000000000000000000000000000000000</code>
+(<code>0x2100ffff</code> in scientific notation) as difficulty 1.</p>
+<p>We store the current target threshold in the block header in scientific
+notation.
+Difficulty is used to select the winning fork of new blocks: the difficulty of a chain of blocks is the sum of the difficulty of each block.</p>
+<p>Integers represented in scientific notation:
+<code>2^24 * &lt;base-2 exponent + 3&gt; + the first 3 most significant bytes</code> (i.e.,
+the <a href="https://en.wikipedia.org/wiki/Significand">significand</a>).
+The + 3 corresponds to the length of the significand (i.e., the int value is
+<code>0.&lt;significand&gt; * 8^&lt;exponent&gt;</code>).
+https://en.bitcoin.it/wiki/Difficulty#How_is_difficulty_stored_in_blocks.3F)</p>
+<h4 id="target-adjustment">Target adjustment</h4>
+<p>Some concepts:</p>
+<pre><code>Difficulty = HIGHEST_TARGET / Target
+Rate       = Capacity / Difficulty  (blocks/ms)
+Capacity   = number of potential solutions per ms generated by miners
+
+DesiredTimeBetweenBlocks = aec_governance:expected_block_mine_rate()
+DesiredRate              = 1 / DesiredTimeBetweenBlocks
+</code></pre>
+
+<p>The basic idea of the algorithm is to estimate the current network capacity
+based on the <code>N</code> (= 17) previous blocks and use that to set the new
+target:</p>
+<pre><code>NewDifficulty = EstimatedCapacity / DesiredRate
+NewTarget     = HIGHEST_TARGET / NewDifficulty
+              = HIGHEST_TARGET * DesiredRate / EstimatedCapacity
+</code></pre>
+
+<p>We can estimate the network capacity used to mine a given block <code>i</code> as</p>
+<pre><code>EstimatedCapacity[i] = Difficulty[i] / MiningTime[i]
+MiningTime[i]        = Time[i] - Time[i - 1]
+</code></pre>
+
+<p>The estimated capacity across all <code>N</code> blocks is then the weighted (by time)
+average of the estimated capacities for each block. Note, since <code>MiningTime[i]</code>
+require <code>Time[i - 1]</code> and we do not use the genesis block timestamp in target
+adjustment we cannot start using the target estimation until block <code>N + 2 (= 19)</code>.</p>
+<pre><code>EstimatedCapacity = Sum(EstimatedCapacity[i] * MiningTime[i]) / TotalTime
+                  = Sum(Difficulty[i]) / TotalTime
+                  = Sum(HIGHEST_TARGET / Target[i]) / TotalTime
+</code></pre>
+
+<p>To get a good trade-off between response time and stability we use a variant of
+<a href="https://github.com/zawy12/difficulty-algorithms/issues/9">DigiShield</a>.
+That means we compute a tempered TotalTime (total solve time in algorithm description):</p>
+<pre><code>TotalTime'        = Sum(SolveTime[i])
+SolveTime[i]      = max(-FTL, min(6 * DesiredTimeBetweenBlocks, Time[i] - Time[i-1]))
+TemperedTotalTime = 0.75 * N * DesiredTimeBetweenBlocks + 0.2523 * TotalTime
+</code></pre>
+
+<p>Where FTL = Future Time Limit - i.e. the time a block is allowed to be
+"from the future". We use 9 minutes (540 s) i.e. 3 times the <code>DesiredTimeBetweenBlocks</code>.</p>
+<p>Now, the problem is that we can't do any floating point arithmetic (to
+ensure the calculation can be verified by other nodes), so we pick a
+reasonably big integer K (= HIGHEST_TARGET * 2^32) and compute</p>
+<pre><code>EstimatedCapacity ≈ Sum(K * HIGHEST_TARGET div Target[i]) / TotalTime / K
+TemperedTotalTime ≈ (3 * N * DesiredTimeBetweenBlocks) div 4 + (2523 * TotalTime') div 10000
+</code></pre>
+
+<p>Then</p>
+<pre><code>NewTarget = HIGHEST_TARGET * DesiredRate / EstimatedCapacity
+          ≈ HIGHEST_TARGET * DesiredRate * TotalTime * K / Sum(K * HIGHEST_TARGET div Target[i])
+          ≈ DesiredRate * TotalTime * K / Sum(K div Target[i])
+          ≈ TotalTime * K div (DesiredTimeBetweenBlocks * Sum(K div Target[i]))
+</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+    
+  </body>
+</html>
