@@ -25,3 +25,6 @@
 [submodule "tutorials"]
 	path = tutorials
 	url = git@github.com:aeternity/tutorials.git
+[submodule "api-docs"]
+	path = api-docs
+	url = git@github.com:aeternity/api-docs.git

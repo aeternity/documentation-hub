@@ -1,4 +1,4 @@
-# Overview
+# Overview of SDKs
 
 - [Go SDK](sdk-go/README.md)
 - [JavaScript SDK](sdk-js/README.md)
