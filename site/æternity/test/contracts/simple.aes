@@ -1,3 +1,0 @@
-
-contract Simple =
-  type t = int => int
