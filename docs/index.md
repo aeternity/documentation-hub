@@ -1,8 +1,10 @@
 # Welcome to the æDevHub!
+æternity's Documentation Hub is your technical guide on æternity, modeled after the “Mastering Bitcoin” book, and dedicated to dApp (æpp) developers and AE token miners. This clearly structured, and well-written documentation should help you clear the haze around æternity’s technology and the entire ecosystem. æternity’s Documentation Hub will be your guide through the seemingly complex ecosystem of æternity, providing you with the knowledge you need to participate in and master æternity.
 
-æternity's Documentation Hub will be your best technical guide on æternity as a whole based on the model of the “Mastering Bitcoin” book, mainly focused on dApp (æpp) developer and miner. It should help you to clear the haze around æternity’s technology and whole ecosystem with a clear structure and well written documentation. æternity’s Documentation Hub should become your guide through the seemingly complex ecosystem of æternity, providing the knowledge you need for participating and mastering æternity. Whether you’re building the next killer æpp, investing in a startup, or simply curious about the technology itself, it will provide all essential details to get you started and to accompany you through your personal journey till æternity.
+Whether you’re building the next killer æpp, investing in a startup, or are simply curious about the technology itself, the Documentation Hub will provide you with essential details to get you started and keep you company throughout your personal journey through æternity.
 
-If you don’t know about æternity yet, please feel free to visit [aeternity.com](https://aeternity.com/)
+If you don’t know much about æternity yet, please feel free to visit [aeternity.com](https://aeternity.com/) or have a look at this [blog page](https://blog.aeternity.com/æternity-getting-started-resources-95764450e204).
 
-If you’d like to see a specific improvement you can either submit a pull request or file an issue.
-Please follow our [contribution guidelines](https://github.com/aeternity/aeternity/blob/master/CONTRIBUTING.md).
+If you’d like to see a specific improvement, you can either submit a pull request or file an issue. Please follow our [contribution guidelines](https://github.com/aeternity/aeternity/blob/master/CONTRIBUTING.md) on how to do that.
+
+We are thrilled to have you with us!
