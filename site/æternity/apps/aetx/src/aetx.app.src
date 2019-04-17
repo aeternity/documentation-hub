@@ -1,0 +1,15 @@
+{application, aetx,
+ [{description, "An OTP library defining aetx behaviour"},
+  {vsn, {cmd, "cat ../../VERSION"}},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.

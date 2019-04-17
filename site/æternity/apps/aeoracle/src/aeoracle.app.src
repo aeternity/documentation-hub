@@ -1,0 +1,18 @@
+{application, aeoracle,
+ [{description, "AE Oracle"},
+  {vsn, {cmd, "cat ../../VERSION"}},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib,
+    lager,
+    crypto,
+    aetx,
+    sext
+   ]},
+  {env,[]},
+  {modules, []},
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
