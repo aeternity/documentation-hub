@@ -65,7 +65,7 @@ Ae({
   url: 'https://sdk-testnet.aepps.com',
   internalUrl: 'https://sdk-testnet.aepps.com',
   keypair: { secretKey: 'A_PRIV_KEY', publicKey: 'A_PUB_ADDRESS' },
-  networkId: 'aet_uat' // or any other networkId your client should connect to
+  networkId: 'ae_uat' // or any other networkId your client should connect to
 }).then(ae => {
 
   // Interacting with the blockchain client
