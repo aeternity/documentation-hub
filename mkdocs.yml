@@ -123,6 +123,3 @@ theme:
 
 repo_name: 'aeternity/documentation-hub'
 repo_url: 'https://github.com/aeternity/documentation-hub'
-branches:
-  only:
-    - gh-pages
