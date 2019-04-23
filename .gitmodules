@@ -28,6 +28,6 @@
 [submodule "aepp-middleware"]
 	path = aepp-middleware
 	url = git@github.com:aeternity/aepp-middleware.git
-[submodule "docs/developer-tools/sdks/--name"]
-	path = docs/developer-tools/sdks/--name
+[submodule "sdk-js"]
+	path = sdk-js
 	url = git@github.com:aeternity/aepp-sdk-js.git
