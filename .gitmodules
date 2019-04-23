@@ -7,9 +7,6 @@
 [submodule "Expansions"]
 	path = Expansions
 	url = git@github.com:aeternity/AEXs.git
-[submodule "sdk-js"]
-	path = sdk-js
-	url = git@github.com:aeternity/aepp-sdk-js.git
 [submodule "sdk-go"]
 	path = sdk-go
 	url = git@github.com:aeternity/aepp-sdk-go.git
@@ -31,9 +28,6 @@
 [submodule "aepp-middleware"]
 	path = aepp-middleware
 	url = git@github.com:aeternity/aepp-middleware.git
-[submodule "docs/aepp-sdk-js"]
-	path = docs/aepp-sdk-js
-	url = git@github.com:aeternity/aepp-sdk-js.git
-[submodule "aepp-sdk-js"]
-	path = aepp-sdk-js
+[submodule "docs/developer-tools/sdks/--name"]
+	path = docs/developer-tools/sdks/--name
 	url = git@github.com:aeternity/aepp-sdk-js.git
