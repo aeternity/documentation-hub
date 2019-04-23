@@ -47,6 +47,8 @@ nav:
             - Go: 'developer-tools/sdks/sdk-go/README.md'
             - JavaScript: 'developer-tools/sdks/sdk-js/README.md'
             - Python: 'developer-tools/sdks/sdk-python/README.md'
+        - Middleware:
+            - æternity Middleware: 'developer-tools/middleware/aepp-middleware/README.md'
         - Frameworks:
             - ForgAE: 'developer-tools/frameworks/forgae/README.md'
     #     - CLI Tools:

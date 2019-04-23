@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+  middleware:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8080:80"
+      - "3020:3020"
+    environment: 
+      - NODE_URL=https://roma-net.aepps.com
+      - DATABASE_URL=postgres://middleware:middleware@db/middleware
+    depends_on:
+      - db
+
+  db:
+    image: postgres:10.6
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=middleware
+      - POSTGRES_PASSWORD=middleware
+      - POSTGRES_DB=middleware
+    volumes: 
+      - ./docker/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ae-mdw-postgres-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    
+volumes:
+    ae-mdw-postgres-volume:
+      external: false
