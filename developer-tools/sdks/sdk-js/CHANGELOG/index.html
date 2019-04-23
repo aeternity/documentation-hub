@@ -1,0 +1,2310 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+    
+    
+      
+        <title>[3.0.0](https://github.com/aeternity/aepp-sdk-js/compare/2.4.0...3.0.0) (2019-04-17) - æternity Documentation Hub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../../../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../../site/assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="white">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#300-2019-04-17" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../.." title="æternity Documentation Hub" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              æternity Documentation Hub
+            </span>
+            <span class="md-header-nav__topic">
+              [3.0.0](https://github.com/aeternity/aepp-sdk-js/compare/2.4.0...3.0.0) (2019-04-17)
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../.." title="æternity Documentation Hub" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    æternity Documentation Hub
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Get Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Get Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/build-windows/" title="Build in Windows" class="md-nav__link">
+      Build in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/build/" title="Build in Ubuntu" class="md-nav__link">
+      Build in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/cuda-miner/" title="CUDA Miner" class="md-nav__link">
+      CUDA Miner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/installation-windows/" title="Installation in Windows" class="md-nav__link">
+      Installation in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/installation/" title="Installation in Ubuntu" class="md-nav__link">
+      Installation in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../æternity/docs/operation/" title="Operation" class="md-nav__link">
+      Operation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Protocol
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Protocol
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/oracles/oracle_life_cycle/" title="Life Cycle" class="md-nav__link">
+      Life Cycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/oracles/oracle_state_tree/" title="State Tree" class="md-nav__link">
+      State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/oracles/oracle_transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/AENS/" title="AENS Naming System" class="md-nav__link">
+      AENS Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Smart Contracts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Smart Contracts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/contracts/contract_life_cycle/" title="Contract Life Cycle Examples" class="md-nav__link">
+      Contract Life Cycle Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-2" type="checkbox" id="nav-3-3-2">
+    
+    <label class="md-nav__link" for="nav-3-3-2">
+      Virtual Machines
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-2">
+        Virtual Machines
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/contracts/contract_vms/" title="Æternity VM" class="md-nav__link">
+      Æternity VM
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/contracts/aevm/" title="Æternity Ethereum VM" class="md-nav__link">
+      Æternity Ethereum VM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/contracts/sophia/" title="Sophia Smart Contract Language" class="md-nav__link">
+      Sophia Smart Contract Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/contracts/contract_state_tree/" title="Contract State Tree" class="md-nav__link">
+      Contract State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/contracts/contract_transactions/" title="Contract Transactions" class="md-nav__link">
+      Contract Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/channels/" title="State Channels" class="md-nav__link">
+      State Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/serializations/" title="Serialization Formats" class="md-nav__link">
+      Serialization Formats
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Expansions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Expansions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../Expansions/AEXS/aex-1/" title="AEX1" class="md-nav__link">
+      AEX1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../Expansions/AEXS/aex-2/" title="AEX2" class="md-nav__link">
+      AEX2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Node Usage API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Node Usage API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Latest Stable Release
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Latest Stable Release
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../api-docs/README.me" title="Autogenerated æternity Node API Documentation" class="md-nav__link">
+      Autogenerated æternity Node API Documentation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/node/api/api_encoding/" title="Encoding Scheme" class="md-nav__link">
+      Encoding Scheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/node/api/account_api_usage/" title="Account Managment" class="md-nav__link">
+      Account Managment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/node/api/spend_api_usage/" title="Spending Tokens" class="md-nav__link">
+      Spending Tokens
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/node/api/oracle_api_usage/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/node/api/naming_system_api_usage/" title="Naming System" class="md-nav__link">
+      Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/node/api/contract_api_usage/" title="Contract" class="md-nav__link">
+      Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/node/api/channels_api_usage/" title="Channels" class="md-nav__link">
+      Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../protocol/node/api/mining_api_usage/" title="Mining" class="md-nav__link">
+      Mining
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Developer Tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Developer Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      SDKs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        SDKs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sdk-go/" title="Go" class="md-nav__link">
+      Go
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sdk-python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-2" type="checkbox" id="nav-6-2">
+    
+    <label class="md-nav__link" for="nav-6-2">
+      Middleware
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-2">
+        Middleware
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../middleware/aepp-middleware/" title="æternity Middleware" class="md-nav__link">
+      æternity Middleware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-3" type="checkbox" id="nav-6-3">
+    
+    <label class="md-nav__link" for="nav-6-3">
+      Frameworks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-3">
+        Frameworks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../frameworks/forgae/" title="ForgAE" class="md-nav__link">
+      ForgAE
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Sophia Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Sophia Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/DateTime/" title="DateTime" class="md-nav__link">
+      DateTime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/List/" title="List" class="md-nav__link">
+      List
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/Ownable/" title="Ownable" class="md-nav__link">
+      Ownable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/FungibleToken/" title="FungibleToken" class="md-nav__link">
+      FungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/NonFungibleToken/" title="NonFungibleToken" class="md-nav__link">
+      NonFungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/libraries/MultisignatureWallet/" title="MultisignatureWallet" class="md-nav__link">
+      MultisignatureWallet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Sophia by Example
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Sophia by Example
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/examples/SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
+      Smart Data Provider
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/examples/SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
+      Smart Real Estate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/examples/SpendToMany/" title="Spend-to-Many" class="md-nav__link">
+      Spend-to-Many
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../aepp-sophia-examples/examples/TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
+      Tic Tac Toe
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      How-To Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        How-To Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-1" type="checkbox" id="nav-9-1">
+    
+    <label class="md-nav__link" for="nav-9-1">
+      Account
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-1">
+        Account
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/account-creation-in-ae-cli/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-2" type="checkbox" id="nav-9-2">
+    
+    <label class="md-nav__link" for="nav-9-2">
+      Middleware
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-2">
+        Middleware
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/running-your-own-ae-middleware/" title="Run Own Middleware" class="md-nav__link">
+      Run Own Middleware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-3" type="checkbox" id="nav-9-3">
+    
+    <label class="md-nav__link" for="nav-9-3">
+      Miner
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-3">
+        Miner
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-cpu-miner-on-ubuntu-1804/" title="Run CPU Miner (Ubuntu)" class="md-nav__link">
+      Run CPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-gpu-miner-on-ubuntu-1804/" title="Run GPU Miner (Ubuntu)" class="md-nav__link">
+      Run GPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-node-on-macos-mojave/" title="Run Node (MacOS)" class="md-nav__link">
+      Run Node (MacOS)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-node-on-ubuntu-1804/" title="Run Node (Ubuntu)" class="md-nav__link">
+      Run Node (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-5" type="checkbox" id="nav-9-5">
+    
+    <label class="md-nav__link" for="nav-9-5">
+      Paper Wallet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-5">
+        Paper Wallet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/create-a-paper-wallet/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-6" type="checkbox" id="nav-9-6">
+    
+    <label class="md-nav__link" for="nav-9-6">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-6">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-language-definition-for-notepad++/" title="Install Sophia Notepad++ Language Definition" class="md-nav__link">
+      Install Sophia Notepad++ Language Definition
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-7" type="checkbox" id="nav-9-7">
+    
+    <label class="md-nav__link" for="nav-9-7">
+      Testnet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-7">
+        Testnet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/run-local-testnet-with-docker/" title="Run Local Testnet (Docker)" class="md-nav__link">
+      Run Local Testnet (Docker)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/get-testnet-tokens/" title="Get Testnet Tokens" class="md-nav__link">
+      Get Testnet Tokens
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-8" type="checkbox" id="nav-9-8">
+    
+    <label class="md-nav__link" for="nav-9-8">
+      Unit Tests
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-8">
+        Unit Tests
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/how-to-write-unit-test-1/" title="How to Write Unit Test I" class="md-nav__link">
+      How to Write Unit Test I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/how-to-write-unit-test-2/" title="How to Write Unit Test II" class="md-nav__link">
+      How to Write Unit Test II
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-1" type="checkbox" id="nav-10-1">
+    
+    <label class="md-nav__link" for="nav-10-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-oracle-introduction/" title="Sophia Oracle Introduction" class="md-nav__link">
+      Sophia Oracle Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-fungible-token-contract/" title="Fungible Token Contract" class="md-nav__link">
+      Fungible Token Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-token-exchange-contract-1/" title="Token Exchange Contract I" class="md-nav__link">
+      Token Exchange Contract I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-token-exchange-contract-2/" title="Token Exchange Contract II" class="md-nav__link">
+      Token Exchange Contract II
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/sophia-token-exchange-contract-3/" title="Token Exchange Contract III" class="md-nav__link">
+      Token Exchange Contract III
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/vote-contract.md" title="Vote Contract" class="md-nav__link">
+      Vote Contract
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      State Channels
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        State Channels
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../tutorials/state-channels-introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bug-fixes" title="Bug Fixes" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" title="Features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breaking-changes" title="BREAKING CHANGES" class="md-nav__link">
+    BREAKING CHANGES
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aeternity/documentation-hub/edit/master/docs/developer-tools/sdks/sdk-js/CHANGELOG.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="300-2019-04-17"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.4.0...3.0.0">3.0.0</a> (2019-04-17)</h1>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li><strong>ACI:</strong> Fix address type transformation when decoding data (<a href="https://github.com/aeternity/aepp-sdk-js/issues/335">#335</a>) (<a href="https://github.com/aeternity/aepp-sdk-js/commit/e37cdfc">e37cdfc</a>)</li>
+</ul>
+<h3 id="features">Features</h3>
+<ul>
+<li><strong>TX_BUILDER:</strong> Channel tx serializations </li>
+<li><strong>TxValidator:</strong> Add minGasPrice validation to contract transactions</li>
+<li><strong>ACI:</strong> Update due to compiler API changes (<a href="https://github.com/aeternity/aepp-sdk-js/issues/331">#331</a>) (<a href="https://github.com/aeternity/aepp-sdk-js/commit/e047f3b">e047f3b</a>)</li>
+<li><strong>Aepp:</strong> Add Compiler to Aepp rpc methods. Update example app (<a href="https://github.com/aeternity/aepp-sdk-js/issues/312">#312</a>) (<a href="https://github.com/aeternity/aepp-sdk-js/commit/9c72521">9c72521</a>)</li>
+<li><strong>State Channels:</strong> Add cleanContractCalls method (<a href="https://github.com/aeternity/aepp-sdk-js/issues/338">#338</a>) (<a href="https://github.com/aeternity/aepp-sdk-js/commit/778159a">778159a</a>)</li>
+</ul>
+<h3 id="breaking-changes">BREAKING CHANGES</h3>
+<ul>
+<li><strong>ACI</strong> Remove 2.0.0 compiler compatibility</li>
+</ul>
+<h1 id="241-2019-04-17"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.4.0...2.4.1">2.4.1</a> (2019-04-17)</h1>
+<h3 id="features_1">Features</h3>
+<ul>
+<li><strong>ACI:</strong> Add transform decoded data for 'address' type</li>
+<li><strong>AEPP:</strong> Add Compiler to Aepp rpc methods. Update example app</li>
+<li><strong>Channel:</strong> Add call contract static support</li>
+<li><strong>Channel:</strong> Add get contract state support</li>
+<li><strong>Channel:</strong> Get full channel state support</li>
+<li><strong>DOCS:</strong> Adjust ACI, Contract and Usage</li>
+</ul>
+<h3 id="bug-fixes_1">Bug Fixes</h3>
+<ul>
+<li><strong>HTTP:</strong> Handle no response in http stamp error handler</li>
+<li><strong>Crypto:</strong> Fix crypto <code>formatAddress</code></li>
+<li><strong>Crypto:</strong> Move ADDRESS_FORMAT to crypto</li>
+</ul>
+<h3 id="breaking-changes_1">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Channels:</strong></li>
+<li><code>channel.state()</code> now returns offchain state instead of last co-signed offchain transaction</li>
+<li><code>channel.update(...).state</code> has been renamed to <code>signedTx</code></li>
+<li><code>channel.withdraw(...).state</code> has been renamed to <code>signedTx</code></li>
+<li><code>channel.deposit(...).state</code> has been renamed to <code>signedTx</code></li>
+<li><code>channel.leave().state</code> has been renamed to <code>signedTx</code></li>
+<li><code>channel.createContract(...).state</code> has been renamed to <code>signedTx</code></li>
+<li><code>channel.callContract(...).state</code> has been renamed to <code>signedTx</code></li>
+</ul>
+<h1 id="240-2019-04-17"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.3.2...2.4.0">2.4.0</a> (2019-04-17)</h1>
+<h3 id="features_2">Features</h3>
+<ul>
+<li><strong>Chore:</strong> Install and configure <code>commitizen</code></li>
+<li><strong>Crypto:</strong> Add <code>formatAddress</code> function to <code>Crypto</code></li>
+<li><strong>Contract:</strong> Add Contract Compiler API stamp to <code>es/contract</code> (now using instead contract node API)</li>
+<li><strong>Utils:</strong> Add basic <code>http</code> client stamp (<code>es/utils/http</code>)</li>
+<li><strong>Contract:</strong> ACI stamp (New Contract interface base on contract ACI schema)
+    <code>const contractIns = await client.getContractInstance(contractSourceCode)
+    console.log(contract)
+     {
+       interface: String, // Contract interface source code
+       aci: String, // Contract interface json schema
+       source: String, // Contract source code
+       compiled: String, // Compiled contract code
+       deployInfo: { address: contractAddress } // Object with deploy transaction,
+       // Function
+       compile: () =&gt; this, // Compile contract,
+       deploy: (init = [], options = { skipArgsConvert: false }) =&gt; this, // Deploy contract (compile before if needed)
+       call: (fn, params = [], options = { skipArgsConvert: false, skipTransformDecoded: false, callStatic: false } =&gt; CallRersult: Object // Call contract function
+     }</code></li>
+<li>
+<p><strong>Account:</strong> Extend  <code>Account.address()</code> with <code>accountFormatter</code> now you can do
+    <code>``
+    export const ADDRESS_FORMAT = {
+      sophia: 1, // return address like</code>0xHEX_ADDRESS<code>api: 2, // return address like</code>ak_9LJ8ne9tks78hTD2Tp571f7w2MJmzQMRsiZxKCkMA2d2Sbrc4`
+    }</p>
+<p>//</p>
+<p>export { ADDRESS_FORMAT } from 'es/account'
+await account.address(format: ADDRESS_FORMAT) // default ADDRESS_FORMAT.api
+<code>``
+* **Channel:** Improve channel rpc usage
+* **Channel:** Improve channel tests and error handling
+* **Channel:** Improve state channel params handling
+* **Chain:** Add ability to get</code>account/balance<code>on specific block</code>hash/height<code>* **Universal:** Add</code>{ compilerUrl }<code>to</code>Universal, Contract, Wallet` stamp initialization</p>
+</li>
+</ul>
+<h3 id="bug-fixes_2">Bug Fixes</h3>
+<ul>
+<li><strong>Contract:</strong> decode node error coming from contract <code>call</code> and <code>callStatic</code></li>
+<li><strong>Chain:</strong> Throw native error instead of object in chain <code>chain.sendTransaction</code></li>
+<li><strong>Crypto:</strong> fix arguments parsing in <code>Crypto.sing</code></li>
+<li><strong>Crypto:</strong> Fix <code>name hash</code> function arguments parsing in <code>Crypto</code></li>
+</ul>
+<p>### BREAKING CHANGES
+ * <strong>Contract:</strong> Remove <code>ContractNodeAPI</code> stamp
+ * <strong>Contract:</strong> Change Contract stamp API
+    <code>1) Use Compiler instead of node API for encode/decode call-data and compile.
+    2) Change Contract interface:
+     - contractCallStatic (address, abi = 'sophia-address', name, { top, args = '()', call, options = {} } = {}) -&gt; (source, address, name, args = [], { top, options = {} } = {}))
+     - contractCall (code, abi, address, name, { args = '()', options = {}, call } = {}) -&gt; (source, address, name, args = [], options = {})
+     - contractDeploy (code, abi, { initState = '()', options = {} } = {}) -&gt; (code, source, initState = [], options = {})
+     - contractEncodeCall (code, abi, name, args, call) -&gt; (source, name, args) // 'source' is -&gt; Contract source code or ACI interface source</code></p>
+<h2 id="232-2019-03-04"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.3.1...2.3.2">2.3.2</a> (2019-03-04)</h2>
+<h3 id="features_3">Features</h3>
+<ul>
+<li><strong>Contract:</strong> Change default <code>gasPrice</code> from <code>1e6</code> to `1e9z</li>
+<li><strong>AEPP:</strong> Fix <code>AEPP</code> example app</li>
+<li><strong>Build:</strong> Force <code>image</code> pull before <code>builds</code></li>
+</ul>
+<h1 id="231-2019-02-22"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.3.0...2.3.1">2.3.1</a> (2019-02-22)</h1>
+<h3 id="features_4">Features</h3>
+<ul>
+<li><strong>Oracle:</strong> <code>Oracle</code> fee calculation</li>
+<li><strong>Tx:</strong> <code>getAccountNonce</code> function to <code>tx</code> stamp</li>
+<li><strong>TX_BUILDER:</strong> Change <code>FEE_BYTE_SIZE</code> from 1 to 8 bytes in <code>fee</code> calculation</li>
+<li><strong>TX_BUILDER:</strong> Improve error handling in <code>tx</code> builder</li>
+</ul>
+<h1 id="230-2019-02-22"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.3.0-next...2.3.0">2.3.0</a> (2019-02-22)</h1>
+<h3 id="features_5">Features</h3>
+<ul>
+<li><strong>Node:</strong> <code>Minerva</code> comparability</li>
+<li><strong>Utils:</strong> <code>Mnemonic</code> wallet implementation <code>es/utils/hd-wallet</code></li>
+<li><strong>Oracle:</strong> Change Channel <code>legacy</code> API to <code>JSON RPC</code></li>
+<li><strong>Oracle:</strong> Change default <code>gasPrice</code> to <code>1e6</code></li>
+<li><strong>Oracle:</strong> Change <code>minFee</code> calculation, multiply min fee by <code>1e9</code></li>
+</ul>
+<h3 id="breaking-changes_2">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Node:</strong> Change supported node version range to <code>1.4.0 &lt;= version &lt; 3.0.0</code></li>
+<li>This release contain changes from: <a href="https://github.com/aeternity/aepp-sdk-js/releases/tag/2.3.0-next">2.3.0-next</a>, <a href="https://github.com/aeternity/aepp-sdk-js/releases/tag/2.2.1-next">2.2.1-next</a>, <a href="https://github.com/aeternity/aepp-sdk-js/releases/tag/2.1.1-0.1.0-next">2.1.1-0.1.0-next</a>, <a href="https://github.com/aeternity/aepp-sdk-js/releases/tag/2.1.0">2.1.0</a></li>
+</ul>
+<h1 id="230-next-2019-02-21"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.2.1-next...2.3.0-next">2.3.0-next</a> (2019-02-21)</h1>
+<h3 id="features_6">Features</h3>
+<ul>
+<li><strong>Channel:</strong> <code>channel</code> <code>withdraw</code> and <code>deposit</code> methods</li>
+<li><strong>TX_BUILDER:</strong> Change default <code>gasPrice</code> in <code>Contract</code> stamp and <code>Tx</code> stamp to <code>1e9</code></li>
+<li><strong>TX:</strong> Fix <code>contract</code> tx <code>fee</code> calculation</li>
+<li><strong>Chain:</strong> Refactor error handling in <code>sendTransaction</code> function</li>
+<li><strong>Contract:</strong> Change default <code>gasPrice</code> to <code>1e9</code></li>
+<li><strong>TX_BUILDER:</strong> Change <code>Fee</code> byte_size to 1</li>
+</ul>
+<h1 id="221-next-2019-02-21"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.1.1-0.1.0-next...2.2.1-next">2.2.1-next</a> (2019-02-21)</h1>
+<h3 id="feature">Feature</h3>
+<ul>
+<li><strong>TX_BUILDER:</strong> Add <code>deserialization</code> schema for <code>Channel</code> transactions(<code>channelCreate</code>, <code>channelCloseMutual</code>, <code>channelDeposit</code>, <code>channelWithdraw</code>, <code>channelSettle</code>) </li>
+<li><strong>Chain:</strong> Add <code>rawTx</code> and <code>verifyTx</code> to error from poll function(when you wait for transaction will mined)</li>
+<li><strong>Chore:</strong> Depend on <code>bip39</code> from npm instead of git repo</li>
+<li><strong>Channel:</strong> Change Channel <code>legacy</code> API to <code>JSON RPC</code></li>
+<li><strong>TX_BUILDER:</strong> Change <code>minFee</code> calculation, multiply min fee by 10^9</li>
+</ul>
+<h1 id="211-010-next-2019-02-21"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.1.0...2.1.1-0.1.0-next">2.1.1-0.1.0-next</a> (2019-02-21)</h1>
+<h3 id="bug-fixes_3">Bug Fixes</h3>
+<ul>
+<li><strong>Chore:</strong> Fix linter errors</li>
+</ul>
+<h1 id="210-2019-02-21"><a href="https://github.com/aeternity/aepp-sdk-js/compare/2.0.0...2.1.0">2.1.0</a> (2019-02-21)</h1>
+<h3 id="features_7">Features</h3>
+<ul>
+<li><strong>Node:</strong> <code>Minerva</code> comparability</li>
+<li><strong>Utils:</strong> Add <code>Mnemonic</code> wallet implementation <code>es/utils/hd-wallet</code></li>
+</ul>
+<h3 id="breaking-changes_3">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Node:</strong> Change supported node version range to <code>1.4.0 &lt;= version &lt; 3.0.0</code></li>
+</ul>
+<h1 id="200-2019-02-21"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.3.2...2.0.0">2.0.0</a> (2019-02-21)</h1>
+<h3 id="features_8">Features</h3>
+<ul>
+<li><strong>TX_BUILDER:</strong> Add <code>unpackedTx</code>, <code>txType</code> and <code>signature</code> to <code>validate</code> transaction function</li>
+<li><strong>Contract:</strong> Add <code>top</code> param to contract <code>static call(dry-run)</code></li>
+<li><strong>Contract:</strong> Add errors handling for <code>dry-run</code></li>
+<li><strong>Docs:</strong> Add <code>keystore</code> docs</li>
+<li><strong>Ae:</strong> Add <code>verify</code> options to <code>send</code> function which verify tx before broadcasting and throw error if tx is invalid</li>
+<li><strong>Rpc:</strong> Add <code>dryRun</code> to <code>RPC</code> methods</li>
+<li><strong>Rpc:</strong> Add <code>Oracle</code> transaction creation to <code>Aepp</code> rpc</li>
+<li><strong>Docs:</strong> Add <code>tx builder</code> docs</li>
+<li><strong>Docs:</strong> Add doc's for <code>utils/bytes</code> and tx builder <code>schema</code></li>
+<li><strong>TX_BUILDER:</strong> refactor <code>calculateFee</code> function in <code>TxBuilder</code>(use BigNumber)</li>
+<li><strong>TX_BUILDER:</strong> Extend response of <code>Oracle</code>, <code>Aens</code>, <code>Contrat</code> with <code>rawTx</code></li>
+<li><strong>Ae:</strong> Change response of <code>send</code> function now it's and object with transaction data(hash, rawTxHash, ...)</li>
+<li><strong>Chain:</strong> Move <code>Contract</code> and <code>Oracle</code> API wrapper's to <code>Chain</code> stamp</li>
+<li><strong>Chore:</strong> Rename <code>epoch</code> in <code>CHANGELOG</code>, <code>README</code>, <code>HACKING</code></li>
+</ul>
+<h3 id="bug-fixes_4">Bug Fixes</h3>
+<ul>
+<li><strong>Rpc:</strong> <code>RpcServer</code>: Avoid storing of <code>window</code> in <code>instance</code> properties</li>
+<li><strong>Chain:</strong> Disable <code>balance formatting</code> by default</li>
+<li><strong>Chain:</strong> Move <code>verification of transaction</code> to <code>chain</code> stamp</li>
+<li><strong>Node:</strong> Retrieve <code>node</code> version from <code>/api</code></li>
+<li><strong>Chore:</strong> Fix unpack tx example in <code>bin/aecrypto.js</code></li>
+<li><strong>Chore:</strong> Remove unused function's from <code>crypto.js</code></li>
+</ul>
+<h3 id="breaking-changes_4">BREAKING CHANGES</h3>
+<ul>
+<li><strong>TX:</strong> Remove old transaction builder <code>es/tx/js.js</code> (Please use <code>es/tx/builder</code> instead)</li>
+<li><strong>Chore:</strong> Rename <code>es/epoch.js</code> to <code>es/node.js</code></li>
+<li><strong>Chore:</strong> Rename <code>Oracle</code>, <code>Contract</code>, <code>Chain</code> API wrapper files from <code>epoch</code> to <code>node</code></li>
+<li><strong>Chore:</strong> Rename <code>Contract</code> api wrapper method's</li>
+</ul>
+<h2 id="132-2019-02-01"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.3.1...1.3.2">1.3.2</a> (2019-02-01)</h2>
+<h3 id="features_9">Features</h3>
+<ul>
+<li><strong>Ae:</strong> Add <code>destroyInstance</code> function to <code>Ae</code> stamp which remove all listeners for RPC event's</li>
+<li><strong>Docs:</strong> Add docs for <code>TransactionValidator</code> and <code>TxBuilder</code> stamp's</li>
+<li><strong>Build:</strong> Add <code>TxBuilderHelper</code> to bundle</li>
+<li><strong>Chore:</strong> Contract call static now using <code>dry-run</code> API</li>
+<li><strong>Test:</strong> Improve test's for Transaction verification</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li><strong>Docs:</strong> Adjust doc's for <code>Contract</code> and <code>Aens</code> stamp's</li>
+<li><strong>Chore:</strong> Fix decoding of address from contract call</li>
+</ul>
+<h2 id="131-2019-01-29"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.3.0...1.3.1">1.3.1</a> (2019-01-29)</h2>
+<h3 id="features_10">Features</h3>
+<ul>
+<li><strong>Build:</strong> Remove KeyStore from bundle due to build issue(for now you can export it only using tree-shaking <code>import * as Keystore from '@aeternity/aepp-sdk/utils/keystore'</code>)</li>
+</ul>
+<h1 id="130-2019-01-29"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.2.1...1.3.0">1.3.0</a> (2019-01-29)</h1>
+<h3 id="features_11">Features</h3>
+<ul>
+<li><strong>Channel:</strong> Add support for State Channels</li>
+<li><strong>TX_BUILDER:</strong> New transaction builder going through schema(build, unpack)</li>
+<li><strong>TX_VALIDATOR:</strong> Add new stamp <code>TransactionValidator</code> which can verify your transaction</li>
+<li><strong>Chore:</strong> Rename epoch to aeternity node(docker configs, some docs)</li>
+<li><strong>Tx:</strong> Use new tx builder in TX stamp</li>
+<li><strong>Contract:</strong> Set default values for amount and deposit to 0 for <code>contract</code> transaction</li>
+<li><strong>Rpc:</strong> Improve RPC server</li>
+</ul>
+<h3 id="notes-and-known-issues">Notes and known Issues</h3>
+<ul>
+<li>Old transaction builder <code>es/tx/js.js</code> will be removed in next major release.</li>
+</ul>
+<h2 id="121-2018-12-21"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.1.2...1.2.1">1.2.1</a> (2018-12-21)</h2>
+<h3 id="features_12">Features</h3>
+<ul>
+<li><strong>Chain:</strong> amount formatter</li>
+<li><strong>Chain:</strong> amount format balance <code>client.balance('AK_PUBLICKEY', { format: true })</code></li>
+<li><strong>Aepp:</strong> Oracle and Contracts API to Aepp stamp</li>
+<li><strong>Chore:</strong> Use <code>prepare</code> instead of <code>postinstall-build</code> (thanks @davidyuk)</li>
+<li><strong>Docs:</strong> Refreshed Docs: README.md + docs/usage.md</li>
+</ul>
+<h3 id="bug-fixes_5">Bug Fixes</h3>
+<ul>
+<li><strong>Chr:</strong> Fix Import RLP package (thanks @davidyuk)</li>
+<li><strong>Rpc:</strong> Fix for NetworkId propagation and override</li>
+<li><strong>Tx:</strong> TxJS is not a stamp anymore, and instead: it exports helper functions</li>
+</ul>
+<h3 id="breaking-changes_5">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Tx:</strong> TxJs stamp (not a stamp anymore)</li>
+<li><strong>Chain:</strong> balance now answer a formatted string composed of <code>AMOUNT + ' ' + unit</code> (eg. <code>10 exa</code> for 10 AE)</li>
+</ul>
+<h3 id="notes-and-known-issues_1">Notes and known Issues</h3>
+<ul>
+<li><strong>Chore:</strong> <code>10 exa</code> should be <code>10 ae</code></li>
+<li><strong>Chain:</strong> format shouldn't be a flag, but a request for <code>unit</code> eg. <code>{ format:</code>ae<code>}</code></li>
+</ul>
+<h2 id="112-2018-12-15"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.1.1...1.1.2">1.1.2</a> (2018-12-15)</h2>
+<h3 id="feature_1">Feature</h3>
+<ul>
+<li><strong>Chore:</strong> isAddressValid check</li>
+<li><strong>Tx:</strong> Tx Fee formulas</li>
+</ul>
+<h3 id="bug-fixes_6">Bug Fixes</h3>
+<ul>
+<li><strong>Rpc:</strong> Fixed networkId propagation (and overriding on init of Flavors)</li>
+<li><strong>Crypto:</strong> Fixed encodeBase58Check by feeding Buffered input</li>
+</ul>
+<h3 id="breaking-changes_6">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Chore:</strong> Compatibility with Node &gt;= 1.0.0 and &lt;= 1.1.0</li>
+</ul>
+<h2 id="111-2018-12-11"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.1.0...1.1.1">1.1.1</a> (2018-12-11)</h2>
+<h3 id="features_13">Features</h3>
+<ul>
+<li><strong>Rpc:</strong> Added a command to remove images after CI testing</li>
+</ul>
+<h3 id="bug-fixes_7">Bug Fixes</h3>
+<ul>
+<li><strong>Rpc:</strong> Fix Testing</li>
+<li><strong>Rpc:</strong> Fixed Oracle error for Wallet flavor</li>
+</ul>
+<h1 id="110-2018-12-11"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.0.1...1.1.0">1.1.0</a> (2018-12-11)</h1>
+<h3 id="features_14">Features</h3>
+<ul>
+<li><strong>Oracle:</strong> Oracles functionality and flavor</li>
+<li><strong>Aepp:</strong> Simple example of aepp-in-aepp (see <code>/examples</code> folder)</li>
+</ul>
+<h3 id="bug-fixes_8">Bug Fixes</h3>
+<ul>
+<li><strong>Tx:</strong> Fixed issue with big numbers and <code>TX</code></li>
+</ul>
+<h2 id="101-2018-11-30"><a href="https://github.com/aeternity/aepp-sdk-js/compare/1.0.0...1.0.1">1.0.1</a> (2018-11-30)</h2>
+<h3 id="features_15">Features</h3>
+<ul>
+<li><strong>Node:</strong> ability to support Node range(s) using semver package (see https://www.npmjs.com/package/semver#ranges)</li>
+</ul>
+<h3 id="breaking-changes_7">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Node:</strong> Support for Node &gt;= 1.0.0 and &lt; 2.0.0</li>
+</ul>
+<h2 id="100-2018-11-30"><a href="https://github.com/aeternity/aepp-sdk-js/compare/0.25.0-0.1.1...1.0.0">1.0.0</a> (2018-11-30)</h2>
+<h3 id="features_16">Features</h3>
+<ul>
+<li><strong>Contract:</strong> Contract native Transactions</li>
+</ul>
+<h3 id="bug-fixes_9">Bug Fixes</h3>
+<ul>
+<li><strong>BigNumber:</strong> Rolled back to bignumbers.js for easier fix with axios.get/post</li>
+</ul>
+<h3 id="breaking-changes_8">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Node:</strong> Support for Node &lt; 1.0.0</li>
+<li><strong>Build:</strong> New NETWORK_ID (also used in docker/sdk.env for CI tests)</li>
+<li><strong>Protocol:</strong> Encoding of transaction (and other objects) <a href="https://github.com/aeternity/protocol/blob/master/node/api/api_encoding.md">changed from base58check to base64check</a></li>
+</ul>
+<h3 id="notes-and-known-issues_2">Notes and known Issues</h3>
+<ul>
+<li><strong>Channel:</strong> State Channels have been excluded for problems with CI, will be included in next release</li>
+</ul>
+<h2 id="0250-011-2018-11-30"><a href="https://github.com/aeternity/aepp-sdk-js/compare/0.25.0-0.1.0...0.25.0-0.1.1">0.25.0-0.1.1</a> (2018-11-30)</h2>
+<h3 id="notes-and-known-issues_3">Notes and known Issues</h3>
+<ul>
+<li><strong>Chore:</strong> See [0.25.0-0.1.0]</li>
+</ul>
+<h2 id="0250-010-2018-11-30"><a href="https://github.com/aeternity/aepp-sdk-js/compare/0.25.0-0.1.0-next...0.25.0-0.1.0">0.25.0-0.1.0</a> (2018-11-30)</h2>
+<h3 id="features_17">Features</h3>
+<ul>
+<li><strong>Utils</strong> Parsing of <code>fee</code> using <code>bignum.js</code></li>
+<li><strong>Account</strong> Add <code>networkId</code> as param to <code>Account</code> flavor(default: <code>ae_mainnet</code>)</li>
+<li><strong>Tx</strong> Implement native build of <code>AENS</code> transaction.</li>
+<li><strong>Keystore</strong> Update keystore for new <a href="https://www.pivotaltracker.com/n/projects/2124891/stories/155155204">requirements</a></li>
+</ul>
+<h3 id="breaking-changes_9">BREAKING CHANGES</h3>
+<ul>
+<li><strong>CLI</strong> <a href="https://github.com/aeternity/aecli-js">AE CLI</a> and <a href="https://github.com/aeternity/aeproject">AE PROJECT CLI</a> moved to separate repos and packages</li>
+<li><strong>Node</strong> Support for &lt; 0.25.0</li>
+</ul>
+<h2 id="0250-010-next-2018-11-30"><a href="https://github.com/aeternity/aepp-sdk-js/compare/0.24.0-0.2.0...0.25.0-0.1.0-next">0.25.0-0.1.0-next</a> (2018-11-30)</h2>
+<h3 id="features_18">Features</h3>
+<ul>
+<li><strong>Contract</strong> Contract type checked call (Ability to call contract using contract address)</li>
+<li><strong>Contract</strong> Use ES methods instead of Ramda, where possible</li>
+</ul>
+<h3 id="bug-fixes_10">Bug Fixes</h3>
+<ul>
+<li><strong>Contract</strong> Fixed keystore by adding a salt param for derivedKey function</li>
+</ul>
+<h3 id="breaking-changes_10">Breaking Changes</h3>
+<ul>
+<li><strong>Contract</strong> Support for &lt; 0.25.0</li>
+<li><strong>Contract</strong> Aens use domain <code>.test</code> instead of <code>.aet</code> (see <a href="https://github.com/aeternity/aepp-sdk-js/commit/9c252f937f7ea501c4aaacbbef53c4c1833e48e4#diff-8ef3b328d008ef3dbb72a0bca42eba37L24">here</a>)</li>
+<li><strong>Contract</strong> Use NETWORK_ID for signing (see <a href="https://github.com/aeternity/aepp-sdk-js/commit/9c252f937f7ea501c4aaacbbef53c4c1833e48e4#diff-ffb275ebb09085c85c59f140998199e0R28">here</a>)</li>
+</ul>
+<h1 id="0240-020-2018-10-30"><a href="https://github.com/aeternity/aepp-sdk-js/compare/v0.24.0-0.1.0...v0.24.0-0.2.0">0.24.0-0.2.0</a> (2018-10-30)</h1>
+<h3 id="features_19">Features</h3>
+<ul>
+<li><strong>Rpc</strong> RPC Client improvements</li>
+<li><strong>Rpc</strong> <code>onContract</code> Guard</li>
+<li><strong>CLI</strong>  born</li>
+<li><strong>CLI</strong> <code>Host</code> parameter became <code>Url</code>. (<code>-u</code> for hostname, <code>-U</code> for internal)</li>
+<li><strong>CLI</strong> New keystore following these specifications: https://www.pivotaltracker.com/n/projects/2124891/stories/155155204</li>
+</ul>
+<h3 id="breaking-changes_11">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Chore</strong> The <code>Cli</code> flavor is now <code>Universal</code></li>
+<li><strong>Chore</strong> the keypair keys changed from <code>{ pub, priv }</code> to <code>{ publicKey, secretKey }</code> for consistency with other systems using them (eg. AirGap and <a href="https://github.com/aeternity/hd-wallet-js">HD Wallet</a>)</li>
+</ul>
+<h3 id="notes-and-known-issues_4">Notes and known Issues</h3>
+<ul>
+<li><strong>Chore</strong> CLI and AE PROJECT CLI will move to a separate package</li>
+</ul>
+<h1 id="0240-010-2018-10-23"><a href="https://github.com/aeternity/aepp-sdk-js/compare/0.22.0-0.1.0-beta.1...v0.24.0-0.1.0">0.24.0-0.1.0</a> (2018-10-23)</h1>
+<h3 id="features_20">Features</h3>
+<ul>
+<li><strong>Node</strong> Full support of <a href="https://github.com/aeternity/aeternity/releases/tag/v0.24.0">Node-0.24.0</a></li>
+<li><strong>CLI</strong>  Develop <code>decode base58</code> address command in <code>crypto</code> module</li>
+<li><strong>CLI</strong> Add <code>nonce</code> param to all tx command's</li>
+<li><strong>CLI</strong> Add <code>gas</code> param to <code>deploy</code> and <code>call</code> commands</li>
+<li><strong>Tx</strong> Add ability to create <code>spend</code> transaction natively</li>
+<li><strong>Keystore</strong> Implement <code>ethereum keystore</code> using <code>AES-126-CTR</code> and <code>SCRYPT</code> as key derivation function</li>
+<li><strong>CLI</strong> Change <code>--privateKey</code> to <code>flag</code> on <code>ACCOUNT ADDRESS</code> command</li>
+<li><strong>Build</strong> Change <code>node version</code> in <code>Dockerfile</code></li>
+<li><strong>Node</strong> API endpoints to meet new Node specifications</li>
+<li><strong>Chore</strong> Update <code>docco</code> config and change <code>rename</code> package to <code>recursive-rename</code></li>
+<li><strong>Docs</strong> Improved documentation</li>
+</ul>
+<h3 id="breaking-changes_12">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Node</strong> Support for &lt; 0.24.0</li>
+<li><strong>Keystore</strong> <code>ethereum keystore</code> usage will be removed in the next release</li>
+<li><strong>CLI</strong> CLI will move to a separate package</li>
+</ul>
+<h1 id="0220-010-beta1-2018-10-02"><a href="https://github.com/aeternity/aepp-sdk-js/compare/v0.18.0-0.1.1...0.22.0-0.1.0-beta.1">0.22.0-0.1.0-beta.1</a> (2018-10-02)</h1>
+<h3 id="features_21">Features</h3>
+<ul>
+<li><strong>CLI</strong> Add <strong>CLI</strong> implementation</li>
+<li><strong>Crypto</strong> nameId function for commitment hash calculations</li>
+<li><strong>Node</strong> API endpoints to meet new Node specifications</li>
+<li><strong>Tx</strong> Add Nonce calculation on SDK side</li>
+<li><strong>Contract</strong> Add check for MAX_GAS in call and deploy contract</li>
+<li><strong>Chore</strong> change hash prefix separator from $ to _</li>
+<li><strong>Chore</strong> Add keywords ('SDK', 'CLI') to package.json</li>
+<li><strong>CLI</strong> Link aecli to <code>./bin/aecli.js</code> in package.json (After "npm link" you can use CLI globally)</li>
+<li><strong>Aens</strong> Wait until pre-claim transaction block was mined before send claim transaction</li>
+<li><strong>Build</strong> Updated <code>webpack</code>, <code>webpack-cli</code> and added new dev deps accordingly</li>
+<li><strong>Node</strong> Add Node Compatibility Check</li>
+</ul>
+<h3 id="bug-fixes_11">Bug Fixes</h3>
+<ul>
+<li><strong>Crypto</strong> Fixes commitment hash calculations in naming system, to be <code>Hash(nameId(name) + name_salt)</code> instead of <code>Hash(Hash(name + name_salt))</code>.</li>
+</ul>
+<h3 id="breaking-changes_13">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Node</strong> Support for &lt; 0.22.0</li>
+</ul>
+<h1 id="0180-011-2018-07-31"><a href="https://github.com/aeternity/aepp-sdk-js/compare/v0.18.0-0.1.0...v0.18.0-0.1.1">0.18.0-0.1.1</a> (2018-07-31)</h1>
+<h3 id="features_22">Features</h3>
+<ul>
+<li><strong>Docs</strong> Lots of new documentation (prose and API)</li>
+<li><strong>Docs</strong> Fancy badges to README</li>
+<li><strong>Build</strong> Transitive dev dependencies for standard-loader not covered by pnpm</li>
+<li><strong>Build</strong> CI Dockerfile to include pnpm</li>
+<li><strong>Docs</strong> Fancy-shmancy diagram in README</li>
+<li><strong>Docs</strong>Generated documentation files since they are linked in static docs</li>
+<li><strong>Build</strong> Switch from Yarn to pnpm for building</li>
+<li><strong>Docs</strong> Structure of documentation</li>
+<li><strong>Docs</strong> Generate Markdown from Docco</li>
+</ul>
+<h1 id="0180-010-2018-07-24"><a href="https://github.com/aeternity/aepp-sdk-js/compare/v0.15.0-0.1.0...v0.18.0-0.1.0">0.18.0-0.1.0</a> (2018-07-24)</h1>
+<h3 id="features_23">Features</h3>
+<ul>
+<li><strong>Node</strong> Support for Node 0.18.0 (changed endpoints)</li>
+<li><strong>RPC</strong> Wallet/Aepp RPC support</li>
+<li><strong>Contract</strong> Contract call result decoding support</li>
+<li><strong>Docs</strong> Per-module API documentation (Markdown based on JSDoc)</li>
+<li><strong>Docs</strong> More API documentation (still incomplete)</li>
+<li><strong>Build</strong> SDK entrypoint factories (in <code>/es/ae/universal.js</code>)</li>
+<li><strong>Build</strong> Module load path (src -&gt; es)</li>
+<li><strong>Chore</strong> Lower mining rate (5s) in docker-compose</li>
+</ul>
+<h3 id="bug-fixes_12">Bug Fixes</h3>
+<ul>
+<li><strong>Crypto</strong> Symmetric key encryption/decryption</li>
+</ul>
+<h3 id="breaking-changes_14">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Node</strong> Support for &lt; 0.18.0 (changed endpoints)</li>
+</ul>
+<h1 id="0150-010-2018-06-12"><a href="https://github.com/aeternity/aepp-sdk-js/compare/v0.14.0-0.1.0...v0.15.0-0.1.0">0.15.0-0.1.0</a> (2018-06-12)</h1>
+<h3 id="features_24">Features</h3>
+<ul>
+<li><strong>Node</strong> Legacy Swagger file loading</li>
+<li><strong>Node</strong> Compatibility with &lt; 0.15.0</li>
+</ul>
+<h3 id="bug-fixes_13">Bug Fixes</h3>
+<ul>
+<li><strong>Contract</strong> Contract unit state initialization</li>
+<li><strong>Node</strong> Missing required parameter for name transfers (workaround for
+  <a href="https://www.pivotaltracker.com/n/projects/2124891">Swagger file bug</a>)</li>
+</ul>
+<h1 id="0140-010-2018-06-11"><a href="https://github.com/aeternity/aepp-sdk-js/compare/v0.13.0-0.1.1...v0.14.0-0.1.0">0.14.0-0.1.0</a> (2018-06-11)</h1>
+<h3 id="features_25">Features</h3>
+<ul>
+<li><strong>API</strong> New, opinionated top-level API</li>
+<li><strong>API</strong> Rest of legacy API now uses new API as well</li>
+<li><strong>API</strong> Generated API now encapsulated in <code>api</code> object</li>
+<li><strong>API</strong> Automatic case conversion for remote parameter names</li>
+<li><strong>API</strong> Remaining tests to use new API</li>
+<li><strong>API</strong> Adapted new method of obtaining transaction hash, breaks compatibility (see
+  below)</li>
+</ul>
+<h3 id="bug-fixes_14">Bug Fixes</h3>
+<ul>
+<li><strong>API</strong> [GH-49]: Handle existing path components correctly</li>
+</ul>
+<h3 id="breaking-changes_15">BREAKING CHANGES</h3>
+<ul>
+<li><strong>API</strong> Remove Oracle API (for the time being)</li>
+<li><strong>API</strong> Remove Legacy API and tests</li>
+<li><strong>API</strong> Remove Compatibility with older versions of Node which provide the transaction hash
+  the old way</li>
+</ul>
+<h1 id="0130-011-2018-05-24"><a href="https://github.com/aeternity/aepp-sdk-js/compare/v0.13.0-0.1.0...v0.13.0-0.1.1">0.13.0-0.1.1</a> (2018-05-24)</h1>
+<h3 id="features_26">Features</h3>
+<ul>
+<li><strong>Node</strong> Switch to curve ed25519 (from secp256k1) to align with Node protocol changes</li>
+<li><strong>Node</strong> Generate basic API directly from Swagger files, also validate input data</li>
+<li><strong>Build</strong> Compiled library now self-contained with all dependencies</li>
+<li><strong>Build</strong> Use Webpack 4 based cross-platform (Node/Web) compilation</li>
+<li><strong>Docs</strong> Package description now reads <code>SDK for the æternity blockchain</code></li>
+<li><strong>Chore</strong> Authors are now taken from <code>AUTHORS</code> instead of <code>package.json</code></li>
+<li><strong>Docs</strong> Moved code examples from README to separate file in docs</li>
+</ul>
+<h3 id="breaking-changes_16">BREAKING CHANGES</h3>
+<ul>
+<li><strong>Node</strong> Defunct scripts; will be brought back later</li>
+</ul>
+<h3 id="bug-fixes_15">Bug Fixes</h3>
+<ul>
+<li><strong>Chore</strong> More consistent code examples</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/application.dc02f8ce.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      
+    
+  </body>
+</html>

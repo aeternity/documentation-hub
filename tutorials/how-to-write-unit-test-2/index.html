@@ -1,0 +1,2277 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+    
+    
+      
+        <title>How to Write Unit Test II - æternity Documentation Hub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../site/assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="white">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#tutorial-how-to-write-unit-tests-for-sophia-smart-contracts-part-2" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="æternity Documentation Hub" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              æternity Documentation Hub
+            </span>
+            <span class="md-header-nav__topic">
+              How to Write Unit Test II
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="æternity Documentation Hub" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    æternity Documentation Hub
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Get Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        Get Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/build-windows/" title="Build in Windows" class="md-nav__link">
+      Build in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/build/" title="Build in Ubuntu" class="md-nav__link">
+      Build in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/cuda-miner/" title="CUDA Miner" class="md-nav__link">
+      CUDA Miner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/installation-windows/" title="Installation in Windows" class="md-nav__link">
+      Installation in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/installation/" title="Installation in Ubuntu" class="md-nav__link">
+      Installation in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../æternity/docs/operation/" title="Operation" class="md-nav__link">
+      Operation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Protocol
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Protocol
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/oracles/oracle_life_cycle/" title="Life Cycle" class="md-nav__link">
+      Life Cycle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/oracles/oracle_state_tree/" title="State Tree" class="md-nav__link">
+      State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/oracles/oracle_transactions/" title="Transactions" class="md-nav__link">
+      Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/AENS/" title="AENS Naming System" class="md-nav__link">
+      AENS Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Smart Contracts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Smart Contracts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/contract_life_cycle/" title="Contract Life Cycle Examples" class="md-nav__link">
+      Contract Life Cycle Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-2" type="checkbox" id="nav-3-3-2">
+    
+    <label class="md-nav__link" for="nav-3-3-2">
+      Virtual Machines
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-2">
+        Virtual Machines
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/contract_vms/" title="Æternity VM" class="md-nav__link">
+      Æternity VM
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/aevm/" title="Æternity Ethereum VM" class="md-nav__link">
+      Æternity Ethereum VM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/sophia/" title="Sophia Smart Contract Language" class="md-nav__link">
+      Sophia Smart Contract Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/contract_state_tree/" title="Contract State Tree" class="md-nav__link">
+      Contract State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/contracts/contract_transactions/" title="Contract Transactions" class="md-nav__link">
+      Contract Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/channels/" title="State Channels" class="md-nav__link">
+      State Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/serializations/" title="Serialization Formats" class="md-nav__link">
+      Serialization Formats
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Expansions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Expansions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Expansions/AEXS/aex-1/" title="AEX1" class="md-nav__link">
+      AEX1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Expansions/AEXS/aex-2/" title="AEX2" class="md-nav__link">
+      AEX2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Node Usage API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Node Usage API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Latest Stable Release
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Latest Stable Release
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-docs/README.me" title="Autogenerated æternity Node API Documentation" class="md-nav__link">
+      Autogenerated æternity Node API Documentation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/api_encoding/" title="Encoding Scheme" class="md-nav__link">
+      Encoding Scheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/account_api_usage/" title="Account Managment" class="md-nav__link">
+      Account Managment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/spend_api_usage/" title="Spending Tokens" class="md-nav__link">
+      Spending Tokens
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/oracle_api_usage/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/naming_system_api_usage/" title="Naming System" class="md-nav__link">
+      Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/contract_api_usage/" title="Contract" class="md-nav__link">
+      Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/channels_api_usage/" title="Channels" class="md-nav__link">
+      Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol/node/api/mining_api_usage/" title="Mining" class="md-nav__link">
+      Mining
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Developer Tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Developer Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-1" type="checkbox" id="nav-6-1">
+    
+    <label class="md-nav__link" for="nav-6-1">
+      SDKs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-1">
+        SDKs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer-tools/sdks/sdk-go/" title="Go" class="md-nav__link">
+      Go
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer-tools/sdks/sdk-js/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer-tools/sdks/sdk-python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-2" type="checkbox" id="nav-6-2">
+    
+    <label class="md-nav__link" for="nav-6-2">
+      Middleware
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-2">
+        Middleware
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer-tools/middleware/aepp-middleware/" title="æternity Middleware" class="md-nav__link">
+      æternity Middleware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6-3" type="checkbox" id="nav-6-3">
+    
+    <label class="md-nav__link" for="nav-6-3">
+      Frameworks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-6-3">
+        Frameworks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../developer-tools/frameworks/forgae/" title="ForgAE" class="md-nav__link">
+      ForgAE
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Sophia Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Sophia Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/DateTime/" title="DateTime" class="md-nav__link">
+      DateTime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/List/" title="List" class="md-nav__link">
+      List
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/Ownable/" title="Ownable" class="md-nav__link">
+      Ownable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/FungibleToken/" title="FungibleToken" class="md-nav__link">
+      FungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/NonFungibleToken/" title="NonFungibleToken" class="md-nav__link">
+      NonFungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/libraries/MultisignatureWallet/" title="MultisignatureWallet" class="md-nav__link">
+      MultisignatureWallet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Sophia by Example
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Sophia by Example
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/examples/SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
+      Smart Data Provider
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/examples/SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
+      Smart Real Estate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/examples/SpendToMany/" title="Spend-to-Many" class="md-nav__link">
+      Spend-to-Many
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../aepp-sophia-examples/examples/TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
+      Tic Tac Toe
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      How-To Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        How-To Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-1" type="checkbox" id="nav-9-1">
+    
+    <label class="md-nav__link" for="nav-9-1">
+      Account
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-1">
+        Account
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../account-creation-in-ae-cli/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-2" type="checkbox" id="nav-9-2">
+    
+    <label class="md-nav__link" for="nav-9-2">
+      Middleware
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-2">
+        Middleware
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../running-your-own-ae-middleware/" title="Run Own Middleware" class="md-nav__link">
+      Run Own Middleware
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-3" type="checkbox" id="nav-9-3">
+    
+    <label class="md-nav__link" for="nav-9-3">
+      Miner
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-3">
+        Miner
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-cpu-miner-on-ubuntu-1804/" title="Run CPU Miner (Ubuntu)" class="md-nav__link">
+      Run CPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-gpu-miner-on-ubuntu-1804/" title="Run GPU Miner (Ubuntu)" class="md-nav__link">
+      Run GPU Miner (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-node-on-macos-mojave/" title="Run Node (MacOS)" class="md-nav__link">
+      Run Node (MacOS)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-node-on-ubuntu-1804/" title="Run Node (Ubuntu)" class="md-nav__link">
+      Run Node (Ubuntu)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-5" type="checkbox" id="nav-9-5">
+    
+    <label class="md-nav__link" for="nav-9-5">
+      Paper Wallet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-5">
+        Paper Wallet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../create-a-paper-wallet/" title="Create (in æ CLI)" class="md-nav__link">
+      Create (in æ CLI)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-6" type="checkbox" id="nav-9-6">
+    
+    <label class="md-nav__link" for="nav-9-6">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-6">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-language-definition-for-notepad++/" title="Install Sophia Notepad++ Language Definition" class="md-nav__link">
+      Install Sophia Notepad++ Language Definition
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-7" type="checkbox" id="nav-9-7">
+    
+    <label class="md-nav__link" for="nav-9-7">
+      Testnet
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-7">
+        Testnet
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../run-local-testnet-with-docker/" title="Run Local Testnet (Docker)" class="md-nav__link">
+      Run Local Testnet (Docker)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../get-testnet-tokens/" title="Get Testnet Tokens" class="md-nav__link">
+      Get Testnet Tokens
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-8" type="checkbox" id="nav-9-8" checked>
+    
+    <label class="md-nav__link" for="nav-9-8">
+      Unit Tests
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-8">
+        Unit Tests
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../how-to-write-unit-test-1/" title="How to Write Unit Test I" class="md-nav__link">
+      How to Write Unit Test I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        How to Write Unit Test II
+      </label>
+    
+    <a href="./" title="How to Write Unit Test II" class="md-nav__link md-nav__link--active">
+      How to Write Unit Test II
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" title="Tutorial Overview" class="md-nav__link">
+    Tutorial Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content" title="Content" class="md-nav__link">
+    Content
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fungible-token-contract-unit-tests" title="Fungible token contract - unit tests" class="md-nav__link">
+    Fungible token contract - unit tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exchange-contract-unit-tests" title="Exchange contract - unit tests" class="md-nav__link">
+    Exchange contract - unit tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executing-tests" title="Executing Tests" class="md-nav__link">
+    Executing Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" title="Conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-1" type="checkbox" id="nav-10-1">
+    
+    <label class="md-nav__link" for="nav-10-1">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-1">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-oracle-introduction/" title="Sophia Oracle Introduction" class="md-nav__link">
+      Sophia Oracle Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-2" type="checkbox" id="nav-10-2">
+    
+    <label class="md-nav__link" for="nav-10-2">
+      Sophia
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-2">
+        Sophia
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-fungible-token-contract/" title="Fungible Token Contract" class="md-nav__link">
+      Fungible Token Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-token-exchange-contract-1/" title="Token Exchange Contract I" class="md-nav__link">
+      Token Exchange Contract I
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-token-exchange-contract-2/" title="Token Exchange Contract II" class="md-nav__link">
+      Token Exchange Contract II
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sophia-token-exchange-contract-3/" title="Token Exchange Contract III" class="md-nav__link">
+      Token Exchange Contract III
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vote-contract.md" title="Vote Contract" class="md-nav__link">
+      Vote Contract
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10-3" type="checkbox" id="nav-10-3">
+    
+    <label class="md-nav__link" for="nav-10-3">
+      State Channels
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-10-3">
+        State Channels
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../state-channels-introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial-overview" title="Tutorial Overview" class="md-nav__link">
+    Tutorial Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content" title="Content" class="md-nav__link">
+    Content
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fungible-token-contract-unit-tests" title="Fungible token contract - unit tests" class="md-nav__link">
+    Fungible token contract - unit tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exchange-contract-unit-tests" title="Exchange contract - unit tests" class="md-nav__link">
+    Exchange contract - unit tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#executing-tests" title="Executing Tests" class="md-nav__link">
+    Executing Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" title="Conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aeternity/documentation-hub/edit/master/docs/tutorials/how-to-write-unit-test-2.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="tutorial-how-to-write-unit-tests-for-sophia-smart-contracts-part-2">TUTORIAL: How to write Unit tests for Sophia smart contracts - Part 2</h1>
+<h2 id="tutorial-overview">Tutorial Overview</h2>
+<p>There are two main testing strategies in software testing: positive testing and negative testing.</p>
+<p>Positive testing determines that your application works as expected. If an error is encountered during positive testing, the test fails. This strategy is shown in the <a href="https://github.com/aeternity/tutorials/blob/master/how-to-write-unit-test-1.md">first part</a> of the tutorial.</p>
+<p>Negative testing ensures that your application can gracefully handle invalid input or unexpected user behavior. For example, if a user tries to execute a contract function with invalid parameters, the correct behavior in this case would be to throw an exception. The purpose of negative testing is to detect such situations and prevent the <em>aeproject</em> from crashing. Also, negative testing helps you improve the quality of your application and find its weak points.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before we go any further, please make sure you have followed the <a href="https://github.com/aeternity/tutorials/blob/master/how-to-write-unit-test-1.md">first part</a> of <em>How to write Unit tests for Sophia smart contracts</em>.</p>
+<h2 id="content">Content</h2>
+<p>This tutorial, will show you how to write tests for the negative test cases for <code>FungibleToken.aes</code> and <code>ExchangeContract.aes</code> contracts.</p>
+<h2 id="fungible-token-contract-unit-tests">Fungible token contract - unit tests</h2>
+<p>We will add the negative tests to the <code>fungibleToken.js</code> created in the first part.
+Below is the list of our negative test cases:
+- trying to mint a fungible tokens to an invalid account;
+- trying to burn an invalid amount of fungible tokens;
+- trying to transfer a tokens between accounts without approval;</p>
+<p>Please add the below code snippet in the <code>fungibleToken.js</code> as the last <em>describe</em> section:</p>
+<pre><code>        describe('Contract functionality', () =&gt; {
+            beforeEach(async () =&gt; {
+                const mintPromise = deployedContract.call('mint', {
+                    args: `(${config.pubKeyHex}, 1000)`,
+                    options: {
+                        ttl: config.ttl
+                    },
+                    abi: &quot;sophia&quot;
+                });
+                assert.isFulfilled(mintPromise, &quot;Couldn't mint token&quot;);
+                await mintPromise;
+            });
+            describe('Mint', () =&gt; {
+                it('should not mint to invalid address', async () =&gt; {
+                    const invalidAddressPromise = deployedContract.call('mint', {
+                        args: `(#0, 123)`,
+                        options: {
+                            ttl: config.ttl
+                        }
+                    });
+
+                    await assert.isRejected(invalidAddressPromise, 'Invocation failed');
+                });
+            });
+
+            describe('Burn', async () =&gt; {
+                it('shouldn`t burn invalid amount of tokens', async () =&gt; {
+                    const burnAmount = 10000;
+
+                    const invalidAmountPromise = deployedContract.call('burn', {
+                        args: `(${burnAmount})`,
+                        options: {
+                            ttl: config.ttl
+                        }
+                    });
+
+                    await assert.isRejected(invalidAmountPromise, 'Invocation failed');
+                });
+            });
+
+            describe('Transfer', async () =&gt; {
+                it('shouldn`t transfer token without approve', async () =&gt; {
+                    //Arrange
+                    const expectedBalanceOfNotOwner = 0;
+                    const expectedBalanceOfOwner = 1000;
+                    const transferAmount = 123;
+
+                    const transferFromPromise = deployedContract.call('transfer_from', {
+                        args: `(${config.notOwnerPubKeyHex}, ${config.pubKeyHex}, ${transferAmount})`,
+                        options: {
+                            ttl: config.ttl
+                        }
+                    });
+
+                    await assert.isRejected(transferFromPromise, 'Invocation failed');
+
+                    const balanceOfNotOwnerPromise = deployedContract.call('balance_of', {
+                        args: `(${config.notOwnerPubKeyHex})`,
+                        options: {
+                            ttl: config.ttl
+                        }
+                    });
+                    assert.isFulfilled(balanceOfNotOwnerPromise, 'Could not call balance_of');
+                    const balanceOfNotOwnerResult = await balanceOfNotOwnerPromise;
+
+                    const balanceOwnerPromise = deployedContract.call('balance_of', {
+                        args: `(${config.pubKeyHex})`,
+                        options: {
+                            ttl: config.ttl
+                        }
+                    });
+                    assert.isFulfilled(balanceOwnerPromise, 'Could not call balanceOf');
+                    const balanceOfOwnerResult = await balanceOwnerPromise;
+
+                    //Assert
+                    const decodedBalanceOfNotOwnerResult = await balanceOfNotOwnerResult.decode(&quot;int&quot;);
+                    const decodedBalanceOfOwnerResult = await balanceOfOwnerResult.decode(&quot;int&quot;);
+
+                    assert.equal(decodedBalanceOfNotOwnerResult.value, expectedBalanceOfNotOwner);
+                    assert.equal(decodedBalanceOfOwnerResult.value, expectedBalanceOfOwner);
+                })
+            });
+
+        })
+</code></pre>
+
+<h2 id="exchange-contract-unit-tests">Exchange contract - unit tests</h2>
+<p>The negative test will cover the case where one user is trying to call the <code>exchange</code> function without previously approved tokens(receivingToken) from caller to еxchange contract.
+We will add two additional <em>describe</em> section in our <code>exchangeContract.js</code>. The first one will execute the deployment procedure, but will skip the post deployment <em>approve</em> step. The other will try to execute exchange function and will check the balance of the two involved accounts. The balances should remain unchanged.
+Here is the code described above:</p>
+<pre><code>    describe('Deploy contract - without approval', () =&gt; {
+
+        it('deploying successfully', async () =&gt; {
+            //Arrange
+            const compiledFungibleTokenContract = await firstClient.contractCompile(fungibleTokenSource, {});
+            const compiledExchangeContract = await firstClient.contractCompile(exchangeContractSource, {});
+
+            //Receiving token
+            const receivingTokenPromise = compiledFungibleTokenContract.deploy({
+                options: {
+                    ttl: config.ttl
+                },
+                abi: &quot;sophia&quot;
+            });
+            assert.isFulfilled(receivingTokenPromise, 'Could not deploy the receiving token');
+
+            //Assert
+            deployedReceivingTokenContract = await receivingTokenPromise;
+            receivingTokenAddress = `0x${Crypto.decodeBase58Check(Crypto.assertedType(deployedReceivingTokenContract.address, 'ct')).toString('hex')}`;
+            assert.equal(config.ownerKeyPair.publicKey, deployedReceivingTokenContract.owner);
+
+            //Sending token
+            const sendingTokenPromise = compiledFungibleTokenContract.deploy({
+                options: {
+                    ttl: config.ttl
+                },
+                abi: &quot;sophia&quot;
+            });
+            assert.isFulfilled(sendingTokenPromise, 'Could not deploy the receiving token');
+
+            //Assert
+            deployedSendingTokenContract = await sendingTokenPromise;
+            sendingTokenAddress = `0x${Crypto.decodeBase58Check(Crypto.assertedType(deployedSendingTokenContract.address, 'ct')).toString('hex')}`;
+            assert.equal(config.ownerKeyPair.publicKey, deployedSendingTokenContract.owner);
+
+            //Exchange contract
+            const exchangeContractPromise = compiledExchangeContract.deploy({
+                initState: `(${receivingTokenAddress}, ${sendingTokenAddress}, ${rate})`,
+                options: {
+                    ttl: config.ttl
+                },
+                abi: &quot;sophia&quot;
+            });
+            assert.isFulfilled(exchangeContractPromise, 'Could not deploy the receiving token');
+
+            //Assert
+            deployedExchangeContract = await exchangeContractPromise;
+            exchangeContractAddress = `0x${Crypto.decodeBase58Check(Crypto.assertedType(deployedExchangeContract.address, 'ct')).toString('hex')}`;
+            assert.equal(config.ownerKeyPair.publicKey, deployedExchangeContract.owner);
+        });
+
+        it('post deployment steps', async () =&gt; {
+            // mint receiving tokens to caller account
+            const mintReceivingPromise = deployedReceivingTokenContract.call('mint', {
+                args: `(${config.pubKeyHex}, ${callerAccountInitialReceivingTokens})`,
+                options: {
+                    ttl: config.ttl
+                },
+                abi: &quot;sophia&quot;
+            });
+            assert.isFulfilled(mintReceivingPromise, &quot;Couldn't mint token&quot;);
+            await mintReceivingPromise;
+
+            // check caller account receiving token balance
+            const balanceOfCallerPromise = deployedReceivingTokenContract.call('balanceOf', {
+                args: `(${config.pubKeyHex})`,
+                options: {
+                    ttl: config.ttl
+                }
+            });
+            assert.isFulfilled(balanceOfCallerPromise, 'Could not call balanceOf');
+            const balanceOfCallerResult = await balanceOfCallerPromise;
+
+            //Assert
+            const decodedBalanceOfCallerResult = await balanceOfCallerResult.decode(&quot;int&quot;);
+            assert.equal(decodedBalanceOfCallerResult.value, callerAccountInitialReceivingTokens);
+
+            // mint sending tokens to ExchangeContract
+            const mintSendingPromise = deployedSendingTokenContract.call('mint', {
+                args: `(${exchangeContractAddress}, ${exchangeContractInitialSendingTokens})`,
+                options: {
+                    ttl: config.ttl
+                },
+                abi: &quot;sophia&quot;
+            });
+            assert.isFulfilled(mintSendingPromise, &quot;Couldn't mint token&quot;);
+            await mintSendingPromise;
+
+            // check caller account receiving token balance
+            const balanceOfExchangeContractPromise = deployedSendingTokenContract.call('balanceOf', {
+                args: `(${exchangeContractAddress})`,
+                options: {
+                    ttl: config.ttl
+                }
+            });
+            assert.isFulfilled(balanceOfExchangeContractPromise, 'Could not call balanceOf');
+            const balanceOfResult = await balanceOfExchangeContractPromise;
+
+            //Assert
+            const decodedBalanceOfResult = await balanceOfResult.decode(&quot;int&quot;);
+            assert.equal(decodedBalanceOfResult.value, exchangeContractInitialSendingTokens);
+
+            // check ExchangeContract receiving token allowance
+            const allowanceOfExchangeContractPromise = deployedReceivingTokenContract.call('allowance', {
+                args: `(${config.pubKeyHex}, ${exchangeContractAddress})`,
+                options: {
+                    ttl: config.ttl
+                }
+            });
+            assert.isFulfilled(allowanceOfExchangeContractPromise, 'Could not call balanceOf');
+            const allowanceOfResult = await allowanceOfExchangeContractPromise;
+
+            //Assert
+            const decodedAllowanceOfResult = await allowanceOfResult.decode(&quot;int&quot;);
+            assert.equal(decodedAllowanceOfResult.value, 0);
+        })
+
+    });
+
+    describe('Exchange function - negative case', () =&gt; {
+        it('shouldn\'t exchange receiving/sending tokens successfully', async () =&gt; {
+            const receivingTokenExchangeAmount = 5;
+            const receivingTokenExpectedAmount = 100;
+            const sendingTokenExpectedAmount = 0;
+
+            const exchangePromise = deployedExchangeContract.call('exchange', {
+                args: `(${receivingTokenExchangeAmount})`,
+                options: {
+                    gas: config.gas,
+                    ttl: config.ttl
+                }
+            });
+            await assert.isRejected(exchangePromise, 'Invalid tx');
+
+            // check caller account receiving token balance
+            const balanceOfReceivingPromise = deployedReceivingTokenContract.call('balanceOf', {
+                args: `(${config.pubKeyHex})`,
+                options: {
+                    ttl: config.ttl
+                }
+            });
+            assert.isFulfilled(balanceOfReceivingPromise, 'Could not call balanceOf');
+            const balanceOfReceivingResult = await balanceOfReceivingPromise;
+
+            //Assert
+            const decodedBalanceOfReceivingResult = await balanceOfReceivingResult.decode(&quot;int&quot;);
+            assert.equal(decodedBalanceOfReceivingResult.value, receivingTokenExpectedAmount);
+
+            // check caller account sending token balance
+            const balanceOfSendingPromise = deployedSendingTokenContract.call('balanceOf', {
+                args: `(${config.pubKeyHex})`,
+                options: {
+                    ttl: config.ttl
+                }
+            });
+            assert.isFulfilled(balanceOfSendingPromise, 'Could not call balanceOf');
+            const balanceOfSendingResult = await balanceOfSendingPromise;
+
+            //Assert
+            const decodedBalanceOfSendingResult = await balanceOfSendingResult.decode(&quot;int&quot;);
+            assert.equal(decodedBalanceOfSendingResult.value, sendingTokenExpectedAmount);
+        });
+    });
+</code></pre>
+
+<h2 id="executing-tests">Executing Tests</h2>
+<p>We added the negative tests, which improves the testing coverage of our contracts. The expected output should look like this:</p>
+<pre><code>===== Starting Tests =====
+
+  Exchange contract
+    Deploy contract
+      ✓ deploying successfully (5774ms)
+      ✓ post deployment steps (26446ms)
+    Exchange function
+      ✓ should exchange receiving/sending tokens successfully (10730ms)
+    Deploy contract - without approval
+      ✓ deploying successfully (10697ms)
+      ✓ post deployment steps (21141ms)
+    Exchange function - negative case
+      ✓ shouldn't exchange receiving/sending tokens successfully (10548ms)
+
+  Fungible token
+    Deploy contract
+      ✓ deploying successfully (5354ms)
+    Interact with contract - positive cases
+      Contract functionality
+        Mint
+          ✓ should mint 1000 token successfully (5228ms)
+        Burn
+          ✓ should burn token successfully (10482ms)
+          ✓ should decrease total supply on burn (15614ms)
+        Transfer
+          ✓ should transfer token successfully (10694ms)
+        Allowance
+          ✓ should increase allowance successfully (5711ms)
+          ✓ should decrease allowance successfully (15762ms)
+    Interact with contract - negative cases
+      Contract functionality
+        Mint
+          ✓ should not mint to invalid address (274ms)
+        Burn
+          ✓ shouldn`t burn invalid amount of tokens (209ms)
+        Transfer
+          ✓ shouldn`t transfer token without approve (5800ms)
+
+
+  16 passing (4m) 
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Using the negative and positive testing approaches together allows us to test our applications with any possible scenarios and can help us make our application more stable and reliable.</p>
+<p>The æternity team will keep this tutorial updated with news. If you encounter any problems please contract us through the <a href="https://forum.aeternity.com/c/development">æternity dev Forum category</a>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../how-to-write-unit-test-1/" title="How to Write Unit Test I" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                How to Write Unit Test I
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../sophia-oracle-introduction/" title="Sophia Oracle Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Sophia Oracle Introduction
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+    
+  </body>
+</html>
