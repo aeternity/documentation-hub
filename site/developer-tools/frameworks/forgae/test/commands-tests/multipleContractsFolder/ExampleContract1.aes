@@ -1,0 +1,4 @@
+contract ExampleContract1 =
+  type state = ()
+  public function main(x : int) = x
+  public function main1(x : string) : string = x
