@@ -31,3 +31,6 @@
 [submodule "sdk-js"]
 	path = sdk-js
 	url = git@github.com:aeternity/aepp-sdk-js.git
+[submodule "aepp-base"]
+	path = aepp-base
+	url = git@github.com:aeternity/aepp-base.git

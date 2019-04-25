@@ -42,6 +42,7 @@ nav:
         - Contract: 'protocol/node/api/contract_api_usage.md'
         - Channels: 'protocol/node/api/channels_api_usage.md'
         - Mining: 'protocol/node/api/mining_api_usage.md'
+    - Base Aepp: 'aepp-base/README.md'
     - Developer Tools:
         - SDKs:
             - Go: 'developer-tools/sdks/sdk-go/README.md'
