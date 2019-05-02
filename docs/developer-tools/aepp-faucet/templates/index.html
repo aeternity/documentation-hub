@@ -1,0 +1,68 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Faucet Aepp</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="h-screen flex content-center flex-wrap">
+
+    <div class="container mx-auto py-8">
+      <h1 class="text-center">
+        🚰 <br/>Faucet Aepp
+      </h1>
+      <h5 class="text-center">{{ node }}</h5>
+      <form id="faucetForm" class="mt-8">
+        <input class="border rounded-l-lg appearance-none w-2/3 py-2 px-4 text-grey-darker h-12 float-left font-mono
+                      lg:px-6" type="text" id="recipientAddress" placeholder="ak_YOUrPubl1ckeyh4sHh3r3">
+        <input class="rounded-r-lg w-1/3 bg-purple text-white py-2 px-4  h-12
+                      lg:px-6" type="submit" id="btnTopUp" value="Top up!"></input>
+      </form>
+
+      <div id="result" class="w-full shadow bg-grey-lightest mr-auto mt-8 border p-4 rounded-lg overflow-hidden hidden
+                              lg:w-2/3">
+    </div>
+
+
+  <script type="text/javascript">
+    document.querySelector("#faucetForm").addEventListener("submit", (event)=> {
+      event.preventDefault()
+      var account = document.querySelector("#recipientAddress").value
+      var resultEl = document.querySelector("#result")
+      showResult(resultEl)
+      document.querySelector("#result").innerHTML = '<div class="flex flex-col"><img src="https://loading.io/spinners/infinity/index.infinity-rotate-cycle-loader.svg" class="inline-block"><div class="font-mono inline-block text-center mt-4">Adding {{ amount }} AET to:<br><strong class="mt-4 inline-block text-xs">' + account + '</strong></div></div></div>'
+      axios.post("/account/" + account)
+        .then(function (response) {
+          var linkToExplorer = '<strong>Added {{ amount }} AET!</strong><br>'
+          linkToExplorer = linkToExplorer + '<br>Current Balance: ' + response.data.balance + '<br>'
+          linkToExplorer = linkToExplorer + '<br>Transaction: <a class="text-purple font-mono text-xs" href="{{explorer_url}}/#/tx/' + response.data.tx_hash + '" target="_blank">' + response.data.tx_hash + '</a><br>'
+          linkToExplorer = linkToExplorer + '<br>Account: <a class="text-purple font-mono text-xs" href="{{explorer_url}}/#/account/' + account + '" target="_blank">' + account + '</a>'
+          resultEl.innerHTML = linkToExplorer
+        })
+        .catch(function (error) {
+          var errorString = 'Something went wrong.<br>'
+          errorString = errorString + ' ' + error.response.data.message + '<br>'
+          resultEl.innerHTML = errorString
+          console.log(error);
+        })
+    });
+    var showResult = function(resultEl){
+      var className = 'hidden'
+      if (resultEl.classList) {
+        resultEl.classList.remove('hidden', 'lg:hidden')
+      } else {
+        resultEl.className = resultEl.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
+      }
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+</body>
+
+</html>
+

@@ -28,3 +28,6 @@
 [submodule "api-docs"]
 	path = api-docs
 	url = git@github.com:aeternity/api-docs.git
+[submodule "aepp-faucet"]
+	path = aepp-faucet
+	url = git@github.com:aeternity/aepp-faucet.git
