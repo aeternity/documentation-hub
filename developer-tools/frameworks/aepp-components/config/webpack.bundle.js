@@ -1,0 +1,57 @@
+/**
+ * Core Modules
+ */
+const path = require('path')
+
+/**
+ * Importing Webpack related libraries
+ * @type {webpack}
+ */
+const merge = require('webpack-merge')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+
+/**
+ * Exporting Webpack all config object
+ */
+module.exports = merge(require('./webpack.config.js'), {
+  entry: {
+    'aepp.global': './src/styles/index.scss',
+    'aepp.fallback': './src/styles/fallback/index.scss',
+    'aepp.fonts': './src/styles/fonts.scss',
+    'aepp.components': './src/index.js'
+  },
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    library: '@aeternity/aepp-components',
+    umdNamedDefine: true
+  },
+  plugins: [
+    // Bundle Analyzer
+    new BundleAnalyzerPlugin({ analyzerMode: 'static', openAnalyzer: false }),
+    // Extract CSS
+    new ExtractTextPlugin({
+      filename: '[name].css',
+      disable: false,
+      allChunks: true
+    })
+  ]
+})
+
+if (process.env.NODE_ENV === 'production') {
+  // Source Maps
+  module.exports.devtool = false;
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    // https://github.com/johnagan/clean-webpack-plugin
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '..'),
+      exclude: [],
+      verbose: true,
+      dry: false
+    })
+  ])
+}
