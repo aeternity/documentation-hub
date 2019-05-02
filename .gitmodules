@@ -34,3 +34,6 @@
 [submodule "aepp-contracts"]
 	path = aepp-contracts
 	url = git@github.com:aeternity/aepp-contracts.git
+[submodule "aepp-components"]
+	path = aepp-components
+	url = git@github.com:aeternity/aepp-components.git

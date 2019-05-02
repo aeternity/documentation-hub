@@ -51,6 +51,7 @@ nav:
         - Token Faucet: 'developer-tools/aepp-faucet/README.md'
         - Frameworks:
             - ForgAE: 'developer-tools/frameworks/forgae/README.md'
+            - Components: 'developer-tools/frameworks/aepp-components/README.md'
         - Contract Editor: 'developer-tools/aepp-contracts/README.md'
     #     - CLI Tools:
     #         - JavaScript
