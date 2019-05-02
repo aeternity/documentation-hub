@@ -1,6 +1,7 @@
 site_name: æternity Documentation Hub
 nav:
     - Introduction: 'index.md'
+    - Quick Glossary: 'quick_glossary.md'
     - Node:
         - Introduction: 'æternity/README.md'
         - Get Started:
