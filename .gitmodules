@@ -37,3 +37,6 @@
 [submodule "aepp-components"]
 	path = aepp-components
 	url = git@github.com:aeternity/aepp-components.git
+[submodule "aepp-middleware"]
+	path = aepp-middleware
+	url = git@github.com:aeternity/aepp-middleware.git
