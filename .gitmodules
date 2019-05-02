@@ -31,3 +31,6 @@
 [submodule "aepp-faucet"]
 	path = aepp-faucet
 	url = git@github.com:aeternity/aepp-faucet.git
+[submodule "aepp-contracts"]
+	path = aepp-contracts
+	url = git@github.com:aeternity/aepp-contracts.git
