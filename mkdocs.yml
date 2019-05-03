@@ -52,18 +52,14 @@ nav:
         - Token Faucet: 'developer-tools/aepp-faucet/README.md'
         - Frameworks:
             - ForgAE: 'developer-tools/frameworks/forgae/README.md'
-            - Components: 'developer-tools/frameworks/aepp-components/README.md'
+            - æpp Components: 'developer-tools/frameworks/aepp-components/README.md'
         - Contract Editor: 'developer-tools/aepp-contracts/README.md'
     #     - CLI Tools:
     #         - JavaScript
     #         - Stratum:
     #            - Library
     #         - Websocket
-    #     - Middleware:
-    #     - Frameworks:
-    #         - ForgAE
-    #         - æpp Components
-    #     - Online Test Tools:
+    #    - Online Test Tools:
     #         - Smart Contract Editor
     #         - Blockchain Explorer
     #         - Faucet
@@ -95,8 +91,13 @@ nav:
             - Run Node (Ubuntu): 'tutorials/run-node-on-ubuntu-1804.md'
         - Paper Wallet:
             - Create (in æ CLI): 'tutorials/create-a-paper-wallet.md'
-        - Sophia:
+        - SDK:
+            - Register and Update a Name with the SDK in JavaScript: 'tutorials/naming-workflow-in-javascript-sdk.md'
+        - Smart Contract:
             - Install Sophia Notepad++ Language Definition: 'tutorials/sophia-language-definition-for-notepad++.md'
+            - Deploy a Smart Contract on æternity with forgAE: 'tutorials/smart-contract-deployment-in-forgae.md'
+            - Deploy a Smart Contract with init Parameters with forgAE: 'tutorials/deploy-with-init-params.md'
+            - Call a Deployed Contract Using the CLI: 'tutorials/smart-contract-calling-in-ae-cli.md'
         - Testnet:
             - Run Local Testnet (Docker): 'tutorials/run-local-testnet-with-docker.md'
             - Get Testnet Tokens: 'tutorials/get-testnet-tokens.md'
@@ -114,6 +115,9 @@ nav:
             - Vote Contract: 'tutorials/vote-contract.md'
         - State Channels:
             - Introduction: 'tutorials/state-channels-introduction.md'
+        - To-Do List æpp:
+            - How to Build a To-Do List æpp - Part I: 'tutorials/build-to-do-list-aepp-1.md'
+            - How to Build a To-Do List æpp - Part II: 'tutorials/build-to-do-list-aepp-2.md'
 extra_css: [site/assets/extra.css]
 theme:
   name: 'material'
