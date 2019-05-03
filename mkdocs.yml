@@ -114,11 +114,6 @@ nav:
             - Vote Contract: 'tutorials/vote-contract.md'
         - State Channels:
             - Introduction: 'tutorials/state-channels-introduction.md'
-    - Links to Online Tools:
-        - Blockchain Explorer: 'https://explorer.aepps.com/'
-        - Contract Editor: 'https://testnet.contracts.aepps.com/'
-        - Token Faucet: 'https://testnet.faucet.aepps.com/'
-        - Goggles: 'https://goggles.aepps.com/'
 extra_css: [site/assets/extra.css]
 theme:
   name: 'material'
