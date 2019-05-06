@@ -29,6 +29,8 @@ nav:
             - Contract Transactions: 'protocol/contracts/contract_transactions.md'
         - State Channels: 'protocol/channels/README.md'
         - Serialization Formats: 'protocol/serializations.md'
+    - Aetmodel: 'aetmodel/README.md'
+        - Threat Model: 'aetmodel/ThreatModel.md'
     - Expansions:
         - AEX1: 'Expansions/AEXS/aex-1.md'
         - AEX2: 'Expansions/AEXS/aex-2.md'

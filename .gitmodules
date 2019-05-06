@@ -40,3 +40,6 @@
 [submodule "aepp-middleware"]
 	path = aepp-middleware
 	url = git@github.com:aeternity/aepp-middleware.git
+[submodule "aetmodel"]
+	path = aetmodel
+	url = git@github.com:aeternity/aetmodel.git
