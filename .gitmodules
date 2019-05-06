@@ -43,3 +43,6 @@
 [submodule "aetmodel"]
 	path = aetmodel
 	url = git@github.com:aeternity/aetmodel.git
+[submodule "aepp-hybrid-voting"]
+	path = aepp-hybrid-voting
+	url = git@github.com:aeternity/aepp-hybrid-voting.git
