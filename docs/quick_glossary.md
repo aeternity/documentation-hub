@@ -59,7 +59,7 @@ A program that executes on the æternity computing infrastructure.
 ### *Testnet*
 Short for "test network", a network used to simulate the behavior of the main æternity network.
 
-### *Transcaction*
+### *Transaction*
 Data committed to the æternity Blockchain signed by an originating account, targeting a specific address. The transaction contains metadata such as the gas limit for that transaction.
 
 ### *Wallet*
