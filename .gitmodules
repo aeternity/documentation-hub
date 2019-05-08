@@ -46,3 +46,6 @@
 [submodule "aepp-sdk-elixir"]
 	path = aepp-sdk-elixir
 	url = git@github.com:aeternity/aepp-sdk-elixir.git
+[submodule "aesophia"]
+	path = aesophia
+	url = git@github.com:aeternity/aesophia.git

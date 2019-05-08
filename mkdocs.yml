@@ -68,6 +68,8 @@ nav:
     #         - Faucet
     #            - Token Faucet
     #            - æpp Faucet
+    - Sophia Compiler:
+        - aesophia: 'aesophia/README.md'
     - Sophia Libraries:
         - DateTime: 'aepp-sophia-examples/libraries/DateTime/README.md'
         - List: 'aepp-sophia-examples/libraries/List/README.md'

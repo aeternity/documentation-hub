@@ -1,0 +1,20 @@
+{application, aesophia,
+ [{description, "Contract Language for aeternity"},
+  {vsn, "2.1.0"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib,
+    jsx,
+    syntax_tools,
+    getopt,
+    aebytecode
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
+
