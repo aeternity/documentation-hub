@@ -9,9 +9,7 @@ If you’d like to see a specific improvement, you can either submit a pull requ
 
 We are thrilled to have you with us!
 
-------
-
-#### Link Collection of æternity's Online Tools
+## Link Collection of æternity's Online Tools
 
 [Blockchain Explorer](https://testnet.explorer.aepps.com/#/)
 
