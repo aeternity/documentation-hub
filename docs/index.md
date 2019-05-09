@@ -19,3 +19,13 @@ We are thrilled to have you with us!
 [Token Faucet](https://testnet.faucet.aepps.com/)
 
 [Playground](https://testing.playground.aepps.com/)
+
+
+## æpps
+----
+
+[Base æpp](https://base.aepps.com/#/)
+
+[Naming Example](https://aeternity.com/aepp-naming-example/)
+
+[Hybrid Voting](http://aeternity.com/aepp-hybrid-voting/)
