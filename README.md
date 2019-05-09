@@ -5,5 +5,12 @@ This Documentation Hub will be your best technical guide on æternity as a whole
 
 If you don’t know about æternity yet, please feel free to visit [aeternity.com](www.aeternity.com)
 
-If you’d like to see a specific improvement you can either submit a pull request or file an issue. 
+If you’d like to see a specific improvement you can either submit a pull request or file an issue.
 Please follow our [contribution guidelines](https://github.com/aeternity/aeternity/blob/master/CONTRIBUTING.md).
+
+
+### Link Collection of æternity's Online Tools
+
+#### [æternity explorer](https://testnet.explorer.aepps.com/#/)
+#### [Contract Editor](https://testnet.contracts.aepps.com/)
+#### [Token Faucet](https://testnet.faucet.aepps.com/)
