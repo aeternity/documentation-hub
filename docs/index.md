@@ -11,9 +11,9 @@ We are thrilled to have you with us!
 
 ------
 
-## Link Collection of æternity's Online Tools
+### Link Collection of æternity's Online Tools
 
-### [Blockchain Explorer](https://testnet.explorer.aepps.com/#/)
-### [Contract Editor](https://testnet.contracts.aepps.com/)
-### [Token Faucet](https://testnet.faucet.aepps.com/)
-### [Playground](https://testing.playground.aepps.com/)
+**[Blockchain Explorer](https://testnet.explorer.aepps.com/#/)**
+**[Contract Editor](https://testnet.contracts.aepps.com/)**
+**[Token Faucet](https://testnet.faucet.aepps.com/)**
+**[Playground](https://testing.playground.aepps.com/)**
