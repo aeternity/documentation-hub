@@ -1,4 +1,4 @@
-# Welcome to æternity's Documentation Hub
+# Welcome to æternity
 æternity's Documentation Hub is your technical guide on æternity, modeled after the “Mastering Bitcoin” book, and dedicated to dApp (æpp) developers and AE token miners. This clearly structured, and well-written documentation should help you clear the haze around æternity’s technology and the entire ecosystem. æternity’s Documentation Hub will be your guide through the seemingly complex ecosystem of æternity, providing you with the knowledge you need to participate in and master æternity.
 
 Whether you’re building the next killer æpp, investing in a startup, or are simply curious about the technology itself, the Documentation Hub will provide you with essential details to get you started and keep you company throughout your personal journey through æternity.
