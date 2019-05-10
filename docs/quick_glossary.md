@@ -1,4 +1,4 @@
-Quick Glossary Proposal
+Quick Glossary 
 =====
 This quick glossary contains many of the terms used in relation to aeternity.
 
