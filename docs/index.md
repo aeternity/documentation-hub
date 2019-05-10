@@ -26,6 +26,10 @@ We are thrilled to have you with us!
 
 [Base æpp](https://base.aepps.com/#/)
 
+[Token Migration](https://token-migration.aepps.com/#/)
+
 [Naming Example](https://aeternity.com/aepp-naming-example/)
 
 [Hybrid Voting](http://aeternity.com/aepp-hybrid-voting/)
+
+[The Drone Graffiti æpp](https://aepp.dronegraffiti.com/)
