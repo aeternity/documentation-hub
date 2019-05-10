@@ -21,7 +21,7 @@ A collection of required information (a block header) about the comprised transa
 In æternity, a sequence of blocks validated by the proof-of-work system, each linking to its predecessor all the way to the genesis block. This varies from the Bitcoin protocol in that it does not have a block size limit; it instead uses varying gas limits.
 
 ### *DAO*
-Decentralized Autonomous Organization. A company or other organization that operates without hierachical management. Also may refer to a contract names "The DAO" launched on April 30, 2016, which was then hacked in June 2016; this ultimately motivated a hard fork (codenamed DAO) at block #1,192,000, which reversed the hacked DAO contract and caused Ethereum and Ethereum Classic to split into two competing systems.
+Decentralized Autonomous Organization. A company or other organization that operates without hierarchical management. Also may refer to a contract names "The DAO" launched on April 30, 2016, which was then hacked in June 2016; this ultimately motivated a hard fork (codenamed DAO) at block #1,192,000, which reversed the hacked DAO contract and caused Ethereum and Ethereum Classic to split into two competing systems.
 
 ### *Faucet*
 A service that dispenses funds in the form of free test ættos that can be used on a testnet.
@@ -33,7 +33,7 @@ A change in protocol causing the creation of an alternative chain, or a temporal
 A virtual fuel used in Ethereum to execute smart contracts. The aesophia uses accounting mechanism to measure the consumption of gas and limit the consumption of computing resources.
 
 ### *Gas limit*
-The maximum amount of gas a tranction or block may consume.
+The maximum amount of gas a transaction or block may consume.
 
 ### *Genesis block*
 The first block in a blockchain, used to initialize a particular network and its cryptocurrency.
