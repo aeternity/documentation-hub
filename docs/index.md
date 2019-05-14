@@ -9,7 +9,7 @@ If you’d like to see a specific improvement, you can either submit a pull requ
 
 We are thrilled to have you with us!
 
-## Online Tools
+## Official Tools
 ----
 
 [Blockchain Explorer](https://testnet.explorer.aepps.com/#/)
@@ -23,7 +23,7 @@ We are thrilled to have you with us!
 [Goggles](https://goggles.aepps.com/)
 
 
-## æpps
+## Official æpps
 ----
 
 [Base æpp](https://base.aepps.com/#/)
@@ -35,3 +35,9 @@ We are thrilled to have you with us!
 [Naming Example](https://aeternity.com/aepp-naming-example/)
 
 [The Drone Graffiti æpp](https://aepp.dronegraffiti.com/)
+
+
+## Community Tools
+----
+
+[AEKnow Explorer](https://www.aeknow.org/)
