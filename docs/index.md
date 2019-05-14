@@ -28,10 +28,10 @@ We are thrilled to have you with us!
 
 [Base æpp](https://base.aepps.com/#/)
 
-[Token Migration](https://token-migration.aepps.com/#/)
+[Hybrid Voting](http://aeternity.com/aepp-hybrid-voting/)
 
 [Naming Example](https://aeternity.com/aepp-naming-example/)
 
-[Hybrid Voting](http://aeternity.com/aepp-hybrid-voting/)
+[Token Migration](https://token-migration.aepps.com/#/)
 
 [The Drone Graffiti æpp](https://aepp.dronegraffiti.com/)
