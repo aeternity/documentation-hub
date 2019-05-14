@@ -20,6 +20,8 @@ We are thrilled to have you with us!
 
 [Playground](https://testing.playground.aepps.com/)
 
+[Goggles](https://goggles.aepps.com/)
+
 
 ## æpps
 ----
