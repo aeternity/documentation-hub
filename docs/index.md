@@ -43,3 +43,9 @@ We are thrilled to have you with us!
 ----
 
 [AEKnow Explorer](https://www.aeknow.org/)
+
+
+## Community Projects
+----
+
+[AE News](https://aenews.io/)
