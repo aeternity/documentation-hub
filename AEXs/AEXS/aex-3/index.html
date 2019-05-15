@@ -2206,7 +2206,7 @@ Created: 2019-04-03
 <p><code>secret_type</code> specifies the type of the encrypted data. This is restricted to <code>ed25519</code> at this point.</p>
 </li>
 <li><code>symmetric_alg</code> specifies the algorithm used for symmetric encryption of the secret. This should be authenticated encryption and the only option is <code>xsalsa20-poly1305</code> currently.</li>
-<li>The <code>ciphertext</code> is the output of <code>symmectric_alg</code> , i.e. the output of libsodiums <code>crypto_secretbox_easy</code>, which is <code>MAC + CIPHER</code>.</li>
+<li>The <code>ciphertext</code> is the output of <code>symmectric_alg</code> , i.e. the output of libsodiums <code>crypto_secretbox_easy</code>, which is <code>MAC + CIPHER</code> with an upper-limit of <code>512 bytes</code>.</li>
 <li><code>cipher_params</code> params used for successful decryption of the ciphertext</li>
 <li><code>kdf</code> specifies the methods used for key derivation.</li>
 <li><code>kdf_params</code> are the params used by the <code>kdf</code></li>
