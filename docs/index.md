@@ -46,6 +46,8 @@ We are thrilled to have you with us!
 
 [AEKnow Explorer](https://www.aeknow.org/)
 
+[AEMonitor](https://aemonitor.mobycrypt.com/core)
+
 
 ## Community Projects
 ----
