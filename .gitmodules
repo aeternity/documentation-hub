@@ -49,3 +49,12 @@
 [submodule "AEXs"]
 	path = AEXs
 	url = git@github.com:aeternity/AEXs.git
+[submodule "airgap-coin-lib"]
+	path = airgap-coin-lib
+	url = git@github.com:airgap-it/airgap-coin-lib.git
+[submodule "airgap-wallet"]
+	path = airgap-wallet
+	url = git@github.com:airgap-it/airgap-wallet.git
+[submodule "airgap-vault"]
+	path = airgap-vault
+	url = git@github.com:airgap-it/airgap-vault.git

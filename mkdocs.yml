@@ -59,6 +59,10 @@ nav:
             - ForgAE: 'developer-tools/frameworks/forgae/README.md'
             - æpp Components: 'developer-tools/frameworks/aepp-components/README.md'
         - Contract Editor: 'developer-tools/aepp-contracts/README.md'
+        - AirGap:
+            - AirGap Coin Library: 'developer-tools/airgap/airgap-coin-lib/docs/README.md'
+            - AirGap Vault: 'developer-tools/airgap/airgap-vault/README.md'
+            - AirGap Wallet: 'developer-tools/airgap/airgap-wallet/README.md'
     #     - CLI Tools:
     #         - JavaScript
     #         - Stratum:

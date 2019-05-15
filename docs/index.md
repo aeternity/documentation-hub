@@ -26,6 +26,8 @@ We are thrilled to have you with us!
 ## Official æpps
 ----
 
+[AirGap](https://airgap.it/)
+
 [Base æpp](https://base.aepps.com/#/)
 
 [Hybrid Voting](http://aeternity.com/aepp-hybrid-voting/)
