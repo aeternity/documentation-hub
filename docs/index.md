@@ -30,6 +30,8 @@ We are thrilled to have you with us!
 
 [Base æpp](https://base.aepps.com/#/)
 
+[Ledger Nano S](https://github.com/aeternity/ledger-app)
+
 [Hybrid Voting](http://aeternity.com/aepp-hybrid-voting/)
 
 [Token Migration](https://token-migration.aepps.com/#/)
