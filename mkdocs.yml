@@ -33,7 +33,7 @@ nav:
         - Threat Model: 'aetmodel/ThreatModel.md'
     - AEXs:
         - AEX1: 'AEXs/AEXS/aex-1.md'
-        - AEX2: 'AEXS/AEXS/aex-2.md'
+        - AEX2: 'AEXs/AEXS/aex-2.md'
         - AEX3: 'AEXs/AEXS/aex-3.md'
         - AEX4: 'AEXs/AEXS/aex-4.md'
     - Node Usage API:
