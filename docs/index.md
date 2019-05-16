@@ -48,6 +48,10 @@ We are thrilled to have you with us!
 
 [AEMonitor](https://aemonitor.mobycrypt.com/core)
 
+[Node.js/MongoDB Middleware](https://github.com/kryztoval/aepp-middleware-mn)
+
+[Aeternity Blockchain Explorer](https://ae.criesca.net:3011/explorer/dashboard.html) & [API Endpoint](https://ae.criesca.net:3011/api)
+
 
 ## Community Projects
 ----
