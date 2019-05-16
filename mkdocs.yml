@@ -53,6 +53,7 @@ nav:
             - JavaScript: 'developer-tools/sdks/sdk-js/README.md'
             - Python: 'developer-tools/sdks/sdk-python/README.md'
             - Elixir: 'developer-tools/sdks/aepp-sdk-elixir/README.md'
+            - Java (community-built): 'developer-tools/sdks/aepp-sdk-java/README.md'
         - Middleware: 'developer-tools/aepp-middleware/README.md'
         - Token Faucet: 'developer-tools/aepp-faucet/README.md'
         - Frameworks:
