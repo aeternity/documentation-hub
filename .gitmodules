@@ -55,9 +55,9 @@
 [submodule "airgap-vault"]
 	path = airgap-vault
 	url = git@github.com:airgap-it/airgap-vault.git
-[submodule "AEXs"]
-	path = AEXs
-	url = git@github.com:aeternity/AEXs.git
 [submodule "aepp-sdk-java"]
 	path = aepp-sdk-java
 	url = git@github.com:kryptokrauts/aepp-sdk-java.git
+[submodule "AEXs"]
+	path = AEXs
+	url = git@github.com:aeternity/AEXs.git
