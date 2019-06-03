@@ -50,7 +50,9 @@ nav:
         - Channels: 'protocol/node/api/channels_api_usage.md'
         - Mining: 'protocol/node/api/mining_api_usage.md'
     - Developer Tools:
-        - SDKs:
+        - Contract Development Kit:
+            - forgAE: 'developer-tools/cdk/forgae/README.md'
+        - Software Development Kits:
             - Go: 'developer-tools/sdks/sdk-go/README.md'
             - JavaScript: 'developer-tools/sdks/sdk-js/README.md'
             - Python: 'developer-tools/sdks/sdk-python/README.md'
@@ -59,7 +61,6 @@ nav:
         - Middleware: 'developer-tools/aepp-middleware/README.md'
         - Token Faucet: 'developer-tools/aepp-faucet/README.md'
         - Frameworks:
-            - ForgAE: 'developer-tools/frameworks/forgae/README.md'
             - æpp Components: 'developer-tools/frameworks/aepp-components/README.md'
         - Contract Editor: 'developer-tools/aepp-contracts/README.md'
         - AirGap:

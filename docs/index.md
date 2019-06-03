@@ -9,21 +9,7 @@ If you’d like to see a specific improvement, you can either submit a pull requ
 
 We are thrilled to have you with us!
 
-## Official Tools
-----
-
-[Blockchain Explorer](https://testnet.explorer.aepps.com/#/)
-
-[Contract Editor](https://testnet.contracts.aepps.com/)
-
-[Token Faucet](https://testnet.faucet.aepps.com/)
-
-[Playground](https://testing.playground.aepps.com/)
-
-[Goggles](https://goggles.aepps.com/)
-
-
-## Official æpps
+## æpps
 ----
 
 [AirGap](https://airgap.it/)
@@ -41,8 +27,18 @@ We are thrilled to have you with us!
 [The Drone Graffiti æpp](https://aepp.dronegraffiti.com/)
 
 
-## Community Tools
+## Tools
 ----
+
+[Blockchain Explorer](https://testnet.explorer.aepps.com/#/)
+
+[Contract Editor](https://testnet.contracts.aepps.com/)
+
+[Token Faucet](https://testnet.faucet.aepps.com/)
+
+[Playground](https://testing.playground.aepps.com/)
+
+[Goggles](https://goggles.aepps.com/)
 
 [AEKnow Explorer](https://www.aeknow.org/)
 

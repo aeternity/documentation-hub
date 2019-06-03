@@ -1,4 +1,4 @@
-# Overview of SDKs
+# Overview of Software Development Kits
 
 - [Go SDK](sdk-go/README.md)
 - [JavaScript SDK](sdk-js/README.md)
