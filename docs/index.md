@@ -24,7 +24,7 @@ We are thrilled to have you with us!
 
 [Naming Example](https://aeternity.com/aepp-naming-example/)
 
-[The Drone Graffiti æpp](https://aepp.dronegraffiti.com/)
+[Aeternity Graffiti æpp](https://graffiti.aeternity.com/)
 
 
 ## Tools
