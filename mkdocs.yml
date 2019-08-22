@@ -51,7 +51,7 @@ nav:
         - Mining: 'protocol/node/api/mining_api_usage.md'
     - Developer Tools:
         - Contract Development Kit:
-            - forgAE: 'developer-tools/cdk/forgae/README.md'
+            - forgAE: 'developer-tools/frameworks/forgae/README.md'
         - Software Development Kits:
             - Go: 'developer-tools/sdks/sdk-go/README.md'
             - JavaScript: 'developer-tools/sdks/sdk-js/README.md'

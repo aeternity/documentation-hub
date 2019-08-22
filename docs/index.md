@@ -32,6 +32,8 @@ We are thrilled to have you with us!
 
 [Blockchain Explorer](https://testnet.explorer.aepps.com/#/)
 
+[FireEditor](http://fireeditor.nikitafuchs.de/)
+
 [Contract Editor](https://testnet.contracts.aepps.com/)
 
 [Token Faucet](https://testnet.faucet.aepps.com/)
