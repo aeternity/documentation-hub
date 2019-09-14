@@ -92,10 +92,12 @@ nav:
         - MultisignatureWallet: 'aepp-sophia-examples/libraries/MultisignatureWallet/README.md'
     - Sophia by Example:
         #- CryptoHamster: 'aepp-sophia-examples/examples/CryptoHamster/README.md'
-        - Smart Data Provider: 'aepp-sophia-examples/examples/SmartDataProvider/README.md'
-        - Smart Real Estate: 'aepp-sophia-examples/examples/SmartRealEstate/README.md'
+        - SmartShop: 'aepp-sophia-examples/examples/SmartShop/README.md'
+        - Crypto Hamster: 'aepp-sophia-examples/examples/CryptoHamster/README.md'
+        - SmartRealEstate: 'aepp-sophia-examples/examples/SmartRealEstate/README.md'
+        - Data Provider: 'aepp-sophia-examples/examples/SmartDataProvider/README.md'
         - Spend-to-Many: 'aepp-sophia-examples/examples/SpendToMany/README.md'
-        - Tic Tac Toe: 'aepp-sophia-examples/examples/TicTacToe/README.md'
+        - TicTacToe: 'aepp-sophia-examples/examples/TicTacToe/README.md'
     - How-To Guides:
         - Account:
             - Create (in æ CLI): 'tutorials/account-creation-in-ae-cli.md'

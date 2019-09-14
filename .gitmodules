@@ -7,9 +7,6 @@
 [submodule "sdk-python"]
 	path = sdk-python
 	url = git@github.com:aeternity/aepp-sdk-python.git
-[submodule "aepp-sophia-examples"]
-	path = aepp-sophia-examples
-	url = git@github.com:aeternity/aepp-sophia-examples.git
 [submodule "tutorials"]
 	path = tutorials
 	url = git@github.com:aeternity/tutorials.git
@@ -61,3 +58,6 @@
 [submodule "aepp-aeproject-js"]
 	path = aepp-aeproject-js
 	url = git@github.com:aeternity/aepp-aeproject-js.git
+[submodule "aepp-sophia-examples"]
+	path = aepp-sophia-examples
+	url = git@github.com:aeternity/aepp-sophia-examples.git
