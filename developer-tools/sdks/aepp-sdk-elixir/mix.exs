@@ -3,10 +3,14 @@ defmodule AeppSdkElixir.MixProject do
 
   def project do
     [
-      apps_path: "apps",
+      app: :aepp_sdk_elixir,
+      version: "0.1.0",
       start_permanent: Mix.env() == :prod,
+      description: description(),
+      package: package(),
       deps: deps(),
       aliases: aliases(),
+      elixir: "~> 1.9",
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
@@ -29,7 +33,27 @@ defmodule AeppSdkElixir.MixProject do
       {:aesophia,
        git: "https://github.com/aeternity/aesophia.git",
        manager: :rebar,
-       ref: "ef761a4c579e2d457a36aa8e377db4364e875b8f"}
+       ref: "8c3b675b0ddd1fb04d98ef3b86dbe431d699ac6e"},
+      {:enoise,
+       git: "https://github.com/aeternity/enoise.git",
+       manager: :rebar,
+       ref: "c06bbae07d5a6711e60254e45e57e37e270b961d"},
+      {:distillery, "~> 2.0"},
+      {:enacl,
+       github: "aeternity/enacl", ref: "26180f42c0b3a450905d2efd8bc7fd5fd9cece75", override: true},
+      {:tesla, "~> 1.2.1"},
+      {:poison, "~> 3.0.0"},
+      {:ranch, github: "ninenines/ranch", tag: "1.4.0"},
+      {:hackney, "~> 1.15"}
+    ]
+  end
+
+  defp description(), do: "Elixir SDK targeting the Æternity node implementation."
+
+  defp package() do
+    [
+      licenses: ["ISC License"],
+      links: %{"GitHub" => "https://github.com/aeternity/aepp-sdk-elixir"}
     ]
   end
 
@@ -62,12 +86,13 @@ defmodule AeppSdkElixir.MixProject do
            "-jar",
            "./#{get_file_name(:generator)}.jar",
            "generate",
+           "--skip-validate-spec",
            "-i",
            "./#{get_file_name(:specification)}.yaml",
            "-g",
            "elixir",
            "-o",
-           "./apps/aeternity_node/"
+           "./lib/aeternity_node/"
          ]},
         {"mix", ["format"]},
         {"rm", ["-f", "#{get_file_name(:generator)}.jar"]},

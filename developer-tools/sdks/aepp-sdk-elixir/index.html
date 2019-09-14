@@ -1102,8 +1102,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-usage" title="Example usage" class="md-nav__link">
-    Example usage
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -1125,8 +1125,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../aepp-sdk-java/" title="Java (community-built)" class="md-nav__link">
-      Java (community-built)
+    <a href="../aepp-sdk-java/" title="Java" class="md-nav__link">
+      Java
     </a>
   </li>
 
@@ -2172,8 +2172,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-usage" title="Example usage" class="md-nav__link">
-    Example usage
+  <a href="#usage" title="Usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -2203,37 +2203,14 @@
 <p>Ensure that you have <a href="https://elixir-lang.org/install.html">Elixir</a> and <a href="https://www.gnu.org/software/wget/">wget</a> installed.</p>
 <h2 id="setup-the-project">Setup the project</h2>
 <pre><code>git clone https://github.com/aeternity/aepp-sdk-elixir
-mix build_api v1.0.0-elixir v2.2.0
+mix build_api v1.2.0-elixir v4.2.1
 </code></pre>
 
 <p>Where:
- - <code>v1.0.0-elixir</code> - OpenAPI client <a href="https://github.com/aeternity/openapi-generator/tree/elixir-adjustment#openapi-generator">generator</a> <a href="https://github.com/aeternity/openapi-generator/releases">release</a> version.
- - <code>v2.2.0</code> - Aeternity node API <a href="https://github.com/aeternity/aeternity/blob/v2.2.0/config/swagger.yaml">specification file</a>.</p>
-<h2 id="example-usage">Example usage</h2>
-<p>Functions that make requests to a node require a client as their first parameter. A client is defined like so:</p>
-<pre><code class="elixir">Core.Client.new(
-  %{
-    public: &quot;ak_aNC4vAk5RDQdDpWdReL9ou37fBvGVYoGDah6cL1GTva3WV3JU&quot;,
-    secret:
-      &quot;e647a7711a2ec9476033984e2805c0631730f402eae62bf23675084fd02034bc4bc297d3b621b99a229c3f9a3c0db1ce98573fc5d7098be2603357ba53340e2f&quot;
-  }, # keypair
-  &quot;ae_uat&quot;, # network ID
-  &quot;http://localhost:3013/v2&quot;, # external URL
-  &quot;http://localhost:3113/v2&quot; # internal URL
-)
-</code></pre>
-
-<p><strong>Deploy a smart contract:</strong></p>
-<pre><code class="elixir">iex&gt; keypair = Utils.Keys.generate_keypair()
-iex&gt; network_id = &quot;ae_uat&quot;
-iex&gt; url = &quot;https://sdk-testnet.aepps.com/v2&quot;
-iex&gt; internal_url = &quot;https://sdk-testnet.aepps.com/v2&quot;
-iex&gt; client = Core.Client.new(keypair, network_id, url, internal_url)
-iex&gt; source_code = &quot;contract Number =\n  record state = { number : int }\n  function init(x : int) =\n    { number = x }\n  function add_to_number(x : int) = state.number + x&quot;
-iex&gt; init_args = [&quot;42&quot;]
-iex&gt; Core.Contract.deploy(client, source_code, init_args)
-{:ok, &quot;ct_2sZ43ScybbzKkd4iFMuLJw7uQib1dpUB8VDi9pLkALV5BpXXNR&quot;}
-</code></pre>
+ - <code>v1.2.0-elixir</code> - OpenAPI client <a href="https://github.com/aeternity/openapi-generator/tree/elixir-adjustment#openapi-generator">generator</a> <a href="https://github.com/aeternity/openapi-generator/releases">release</a> version.
+ - <code>v4.2.1</code> - Aeternity node API <a href="https://github.com/aeternity/aeternity/blob/v4.2.1/config/swagger.yaml">specification file</a>.</p>
+<h2 id="usage">Usage</h2>
+<p>An installation and usage guide can be found <a href="https://github.com/aeternity/aepp-sdk-elixir/tree/master/examples/usage.md">here</a>.</p>
                 
                   
                 
@@ -2269,13 +2246,13 @@ iex&gt; Core.Contract.deploy(client, source_code, init_args)
           </a>
         
         
-          <a href="../aepp-sdk-java/" title="Java (community-built)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../aepp-sdk-java/" title="Java" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Java (community-built)
+                Java
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
