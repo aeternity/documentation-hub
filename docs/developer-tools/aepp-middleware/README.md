@@ -2,15 +2,75 @@
 
 ## Overview
 
-This is a caching layer for æternity. It reads the chain and records key- and micro-blocks, and transactions in a PostgreSQL database.
+The middleware is a caching and reporting layer which sits in front of the nodesof the [aeternity blockchain](https://www.aeternity.com). Its purpose is to respond to queries faster than the node can do, and to support queries that for reasons of efficiency the node cannot or will not support itself.
 
-## How to use
+On startup, the middleware reads the entirety of the blockchain, and stores a denormalized version of the data in a PostgreSQL database.
 
-- Install a postgresql DB somewhere. Works with versions >= 9.5, at least.
-- as the admin user, execute `scripts/prepare-db.sql` which will create the DB and user
-- copy 'Rocket.example.toml' to 'Rocket.toml'
+## Features
+
+### Caching
+
+The middleware answers a set of queries (listed below) on behalf of the node. Everything it doesn't itself answer it will forward to the node to handle. The goal here is to answer more quickly than the node, without sacrificing correctness.
+
+### Aggregation
+
+A set of queries will list, for example, all transactions for a given account, all which transfer from one user to another, all between certain block heights, and so on
+
+### Contracts
+
+The middleware unpacks and stores all contract calls for which it has the bytecode, with the function called and the arguments. In the near future we will also store the return type and value. You can see all contract calls for a given contract.
+
+### State channels
+
+You can see all active state channels, and for a given state channel, all of the related on-chain transactions
+
+### Names
+
+You can see all names registered, and also which names refer to a given address (reverse lookup).
+
+### Oracles
+
+You can see all active oracles. In the near future we will create an endpoint which lists all questions and responses from an oracle
+
+### Websocket
+
+(see below for more information).
+
+The middleware permits you to subscribe to events via a websocket, and receive updates when the chain state changes. Currently you can subscribe to key blocks, micro blocks, and soon to all events involving a particular on-chain object (contract, account, ...).
+
+## How to use the middleware
+
+### Use ours!
+
+There is a hosted middleware for the æternity mainnet at http://mdw.aepps.com/, and one for the testnet at https://testnet.mdw.aepps.com.
+
+### Install your own
+
+- Install a postgresql DB somewhere. Version 11.2 or greater are supported.
+- as the postgresql admin user, execute `scripts/prepare-db.sql` which will create the DB and user
+- copy 'Rocket.example.toml' to 'Rocket.toml' and edit as you see fit
 - copy `.env.example` to `.env`
 - if you want to use a different DB name, edit `scripts/prepare-db.sql`, `.env` and `Rocket.toml`
+
+### Run via Docker
+
+This setup runs node, compiler, postgres and middleware together.
+
+- Install Docker and Docker Compose.
+- Update `docker/aeternity.yaml` as per your requirement.
+- Copy `.env.example` to `.env` and if required, edit the node and compiler version.
+- From the project root run, run `docker-compose up`
+
+### Tips and tricks
+
+You can run several instances of the middleware simultaneously, with different options. A sensible way of doing this would be one or more using the `-s` option to serve clients, and one (and only one) with the `-p` option, populating the database.
+
+If you don't want to interrupt service, want to update the database with new features, and can live with short-term (possible) inconsistencies, use the `-H` option with the whole chain to force a reload, but serve from the old version soon.
+
+**DON'T USE `diesel migration run`!
+**
+
+We now update migrations automatically on application start--and the command `diesel migration run` overwrites important files.
 
 ## How to build
 
@@ -22,25 +82,29 @@ then
 
 `cargo build`
 
-and to install the database
+The middleware will automatically set up its DB on initialization, and run migrations after an update, if they are necessary.
 
-```
-cargo install diesel_cli
-diesel database reset
-```
-
-NB: The diesel framework causes many many compiler warnings. It can be good to suppress them with
-`export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback"`so that you can see what's actually going on.
+On Ubuntu 18 and 19 the following packages are needed: `libpq-dev`, `libssl-dev` and `zlib1g-dev`. YMMV depending on whether you've e.g. gcc installed.
 
 ## How to run
 
+### Development mode
+
 `cargo run -- ` + flags below
 
+### Release mode
+
 ```
-FLAGS:
+cargo build --release # make a release build--this will take a long long time
+./target/release/mdw # + flags below
+```
+
+### Flags
+```
         --help        Prints help information
-    -H, --heights     Adds or replaces a set of heights, or ranges of heights, separated by
-    		      commas to the database.
+    -H, --heights     Adds or replaces a set of heights, or ranges of heights separated by
+    		      commas to the database. i.e. -H1,3-4,6,100-200
+    -d, --daemonize   If set, the middleware will daemonize on startup
     -p, --populate    Populate DB
     -s, --server      Start server
     -v, --verify      Check the DB against the chain
@@ -52,23 +116,35 @@ FLAGS:
 
 `NODE_URL` - the URL of the æternity node
 `AESOPHIA_URL` - if present, the middleware will attempt to use this to decode contract calls, storing the function called, and its parameters
+`PID_FILE` - if present, and the `-d` option is set, the middleware stores its pid in this file
+`LOG_DIR` - if present, this directory is used for logs, otherwise stdout is used
+`DATABASE_URL` - PostgreSQL connection URL
+`STATUS_MAX_BLOCK_AGE`
 
 ## Supported queries
 ```
 GET /middleware/channels/active
 GET /middleware/channels/transactions/address/<address>
+GET /middleware/compilers
 GET /middleware/contracts/all
 GET /middleware/contracts/calls/address/<address>
 GET /middleware/contracts/transactions/address/<address>
+POST /middleware/contracts/verify
+GET /middleware/generations/<from>/<to>?<limit>&<page>
+GET /middleware/height/at/<millis_since_epoch>
+GET /middleware/names/<name>
+GET /middleware/names?<limit>&<page>
 GET /middleware/names/active?<limit>&<page>
-GET /middleware/oracles/all?<limit>&<page>
+GET /middleware/names/reverse/<account>?<limit>&<page>
+GET /middleware/oracles/list?<limit>&<page>
+GET /middleware/oracles/<oracle_id>?<limit>&<page>
 GET /middleware/reward/height/<height>
 GET /middleware/size/current
 GET /middleware/size/height/<height>
+GET /middleware/status
 GET /middleware/transactions/account/<account>/count
 GET /middleware/transactions/account/<sender>/to/<receiver>
 GET /middleware/transactions/account/<account>?<limit>&<page>
-GET /middleware/transactions/<hash>
 GET /middleware/transactions/interval/<from>/<to>?<limit>&<page>
 GET /middleware/transactions/rate/<from>/<to>
 
@@ -80,6 +156,7 @@ GET /v2/key-blocks/height/<height>
 GET /v2/micro-blocks/hash/<hash>/header
 GET /v2/micro-blocks/hash/<hash>/transactions
 GET /v2/micro-blocks/hash/<hash>/transactions/count
+GET /v2/transactions/<hash>
 ```
 
 ## Websocket support
@@ -102,6 +179,11 @@ Message format:
 - micro_blocks
 - transactions
 - tx_update
+- object, which takes a further field, 'target'--see below
+
+### Object subscriptions
+
+You may subscribe to any æternity object type, and be sent all transactions which reference the object. There is an example of this below.
 
 ### Returned data
 
@@ -111,6 +193,11 @@ Subscriptions return the array of subscriptions (possibly empty):
 ["key_blocks"]
 {"op":"subscribe", "payload": "micro_blocks"}
 ["key_blocks","micro_blocks"]
+{"op":"unsubscribe", "payload": "micro_blocks"}
+["key_blocks"]
+{"op":"subscribe", "payload": "object", "target": "ak_2eid5UDLCVxNvqL95p9UtHmHQKbiFQahRfoo839DeQuBo8A3Qc"}
+["key_blocks","micro_blocks", "ak_nv5B93FPzRHrGNmMdTDfGdd5xGZvep3MVSpJqzcQmMp59bBCv"]
+
 ```
 
 Actual chain data is wrapped in a JSON structure identifying the subscription to which it relates:

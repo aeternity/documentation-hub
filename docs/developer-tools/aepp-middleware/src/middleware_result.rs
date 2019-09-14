@@ -29,7 +29,7 @@ impl std::error::Error for MiddlewareError {
     fn description(&self) -> &str {
         &self.details
     }
-    fn cause(&self) -> Option<&Error> {
+    fn cause(&self) -> Option<&dyn Error> {
         // Generic error, underlying cause isn't tracked.
         None
     }
@@ -47,8 +47,8 @@ impl From<r2d2::Error> for MiddlewareError {
     }
 }
 
-impl From<Box<std::error::Error>> for MiddlewareError {
-    fn from(err: Box<std::error::Error>) -> Self {
+impl From<Box<dyn std::error::Error>> for MiddlewareError {
+    fn from(err: Box<dyn std::error::Error>) -> Self {
         MiddlewareError::new(&err.to_string())
     }
 }
@@ -141,4 +141,21 @@ impl std::convert::From<bigdecimal::ParseBigDecimalError> for MiddlewareError {
     }
 }
 
+impl std::convert::From<std::env::VarError> for MiddlewareError {
+    fn from(err: std::env::VarError) -> Self {
+        MiddlewareError::new(&err.to_string())
+    }
+}
+
+impl std::convert::From<reqwest::header::InvalidHeaderValue> for MiddlewareError {
+    fn from(err: reqwest::header::InvalidHeaderValue) -> Self {
+        MiddlewareError::new(&err.to_string())
+    }
+}
+
+impl std::convert::From<base64::DecodeError> for MiddlewareError {
+    fn from(err: base64::DecodeError) -> Self {
+        MiddlewareError::new(&err.to_string())
+    }
+}
 pub type MiddlewareResult<T> = Result<T, MiddlewareError>;

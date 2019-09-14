@@ -1,6 +1,4 @@
 Makefile
 build
-diesel.toml
-migrations
 test
 target/**
