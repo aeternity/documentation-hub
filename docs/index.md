@@ -51,7 +51,7 @@ We are thrilled to have you with us!
 [Aeternity Blockchain Explorer](https://ae.criesca.net:3011/explorer/dashboard.html) & [API Endpoint](https://ae.criesca.net:3011/api)
 
 
-## Community Projects
+## Other Projects
 ----
 
 [AE News](https://aenews.io/)
