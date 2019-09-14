@@ -34,9 +34,6 @@
 [submodule "aetmodel"]
 	path = aetmodel
 	url = git@github.com:aeternity/aetmodel.git
-[submodule "aepp-sdk-elixir"]
-	path = aepp-sdk-elixir
-	url = git@github.com:aeternity/aepp-sdk-elixir.git
 [submodule "aesophia"]
 	path = aesophia
 	url = git@github.com:aeternity/aesophia.git
@@ -61,3 +58,6 @@
 [submodule "aepp-sdk-go"]
 	path = aepp-sdk-go
 	url = git@github.com:aeternity/aepp-sdk-go.git
+[submodule "aepp-sdk-elixir"]
+	path = aepp-sdk-elixir
+	url = git@github.com:aeternity/aepp-sdk-elixir
