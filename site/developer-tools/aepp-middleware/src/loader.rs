@@ -7,18 +7,70 @@ use diesel::sql_query;
 use diesel::Connection;
 use diesel::ExpressionMethods;
 use diesel::RunQueryDsl;
+use dotenv::dotenv;
 use middleware_result::MiddlewareResult;
 use middleware_result::*;
 use models::*;
 use node::*;
+use r2d2::Pool;
+use r2d2_diesel::ConnectionManager;
+use r2d2_postgres::PostgresConnectionManager;
 use serde_json;
-
-use std::slice::SliceConcatExt;
+use std::env;
 use std::sync::mpsc;
 use std::sync::mpsc::{Receiver, Sender};
+use std::sync::Arc;
 use std::thread;
-use PGCONNECTION;
-use SQLCONNECTION;
+use websocket::Candidate;
+
+lazy_static! {
+    pub static ref PGCONNECTION: Arc<Pool<ConnectionManager<PgConnection>>> = {
+        dotenv().ok(); // Grabbing ENV vars
+        let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+        let manager = ConnectionManager::<PgConnection>::new(database_url);
+        let pool = r2d2::Pool::builder()
+            .max_size(20) // only used for emergencies...
+            .build(manager)
+            .expect("Failed to create pool.");
+        Arc::new(pool)
+    };
+}
+
+lazy_static! {
+    pub static ref SQLCONNECTION: Arc<Pool<PostgresConnectionManager>> = {
+        dotenv().ok(); // Grabbing ENV vars
+        let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+        let manager = PostgresConnectionManager::new
+            (database_url, r2d2_postgres::TlsMode::None).unwrap();
+        let pool = r2d2::Pool::builder()
+            .max_size(3) // only used for emergencies...
+            .build(manager)
+            .expect("Failed to create pool.");
+        Arc::new(pool)
+    };
+}
+
+#[derive(PartialEq)]
+pub enum ParanoiaLevel {
+    Normal,
+    High,
+}
+
+lazy_static! {
+    pub static ref PARANOIA_LEVEL: ParanoiaLevel = {
+        let paranoia_level = env::var("PARANOIA_LEVEL");
+        match paranoia_level {
+            Ok(x) => {
+                if x.eq(&String::from("high")) {
+                    ParanoiaLevel::High
+                } else {
+                    ParanoiaLevel::Normal
+                }
+            }
+            _ => ParanoiaLevel::Normal,
+        }
+    };
+}
 
 use super::websocket;
 
@@ -66,6 +118,10 @@ pub fn queue(
     Ok(())
 }
 
+pub fn queue_length() -> usize {
+    TX_QUEUE.len()
+}
+
 /*
 * You may notice the use of '_tx' as a variable name in this file,
 * rather than the more natural 'tx'. This is because the macros which
@@ -85,121 +141,121 @@ impl BlockLoader {
     }
 
     pub fn start_fork_detection(node: &Node, _tx: &std::sync::mpsc::Sender<i64>) {
-        let settings = [(1, 10), (11, 50), (51, 500)];
-        for setting in settings.iter() {
-            let _tx = _tx.clone();
+        debug!("Entering fork detection");
+        let _tx = _tx.clone();
+        let node = node.clone();
+        thread::spawn(move || loop {
             let node = node.clone();
-            let start = setting.0;
-            let end = setting.1;
-            thread::spawn(move || loop {
-                let node = node.clone();
-                let _tx = _tx.clone();
-                let handle = thread::spawn(move || {
-                    match BlockLoader::detect_forks(&node, start, end, &_tx) {
-                        Ok(x) => {
-                            if x {
-                                info!("Fork detected");
-                            }
-                        }
-                        Err(x) => error!("Error in fork detection {}", x),
-                    }
-                });
-                match handle.join() {
-                    Ok(_) => {
-                        error!("Thread exited, respawning");
-                        continue;
-                    }
-                    Err(_) => {
-                        error!("Error creating fork detection thread, exiting");
-                        break;
-                    }
-                };
+            let _tx = _tx.clone();
+            let handle = thread::spawn(move || match BlockLoader::detect_forks(&node, &_tx) {
+                Ok(_) => {}
+                Err(x) => error!("Error in fork detection {}", x),
             });
-        }
+            match handle.join() {
+                Ok(_) => {
+                    error!("Thread exited, respawning");
+                    continue;
+                }
+                Err(_) => {
+                    error!("Error creating fork detection thread, exiting");
+                    break;
+                }
+            }
+        });
     }
 
-    /*
-     * We walk backward through the chain loading generations from the
-     * DB, and requesting them from the chain. We pause 1 second
-     * between each check, and only check 500 blocks (~1 day)
-     * back. For each pair of blocks we compare them using their eq()
-     * mehods. If false we delete the block from the DB (which
-     * cascades to delete the microblocks and transactions), and put
-     * the height onto the load queue.
-     *
-     * TODO: disassociate the TXs from the micro-blocks and keep them
-     * for reporting purposes.
-     */
-    pub fn detect_forks(
+    pub fn inner_detect_forks(
         node: &Node,
-        from: i64,
-        to: i64,
         _tx: &std::sync::mpsc::Sender<i64>,
     ) -> MiddlewareResult<bool> {
         let conn = PGCONNECTION.get()?;
-        let mut fork_detected = false;
-        let mut _height = KeyBlock::top_height(&conn)? - from;
-        let mut stop_height = _height - to;
+        let mut fork_was_detected = false;
+        let chain_length = KeyBlock::top_height(&conn)?;
+        let mut current_height = chain_length;
+        let mut blocks_since_last_fork = 0;
         loop {
-            // first time through fork_detected will be false, on subsequent trips it will have the value
-            // of the last iteration. Putting it here so we can just continue when we find a fork, to save
-            // time.
-            if fork_detected {
-                info!("In fork: invalidating block at height {}", _height);
-                BlockLoader::invalidate_block_at_height(_height, &conn, &_tx)?;
-                fork_detected = false;
-            } else {
-                debug!("Block checks out at height {}", _height);
-                thread::sleep(std::time::Duration::new(2, 0));
-            }
-
-            _height -= 1;
-
-            if _height <= stop_height {
-                _height = KeyBlock::top_height(&conn)?;
-                stop_height = _height - to;
-                debug!(
-                    "Resetting fork detection loop: now from {} to {}",
-                    _height, stop_height
-                );
-            }
-
-            let jg: JsonGeneration = match JsonGeneration::get_generation_at_height(
+            let mut in_fork = false;
+            let gen_from_db: JsonGeneration = match JsonGeneration::get_generation_at_height(
                 &*SQLCONNECTION.get()?,
                 &conn,
-                _height,
+                current_height,
             ) {
                 Some(x) => x,
                 None => {
-                    error!("Couldn't load generation {} from DB", _height);
-                    fork_detected = true;
-                    continue;
+                    error!("Couldn't load generation {} from DB", current_height);
+                    break;
                 }
             };
 
             let gen_from_server: JsonGeneration =
-                serde_json::from_value(node.get_generation_at_height(_height)?)?;
-            if !jg.eq(&gen_from_server) {
-                debug!("Generations don't match at height {}", _height);
-                fork_detected = true;
-                continue;
+                serde_json::from_value(node.get_generation_at_height(current_height)?)?;
+            if !gen_from_db.eq(&gen_from_server) {
+                debug!("Generations don't match at height {}", current_height);
+                fork_was_detected = true;
+                in_fork = true;
             }
 
-            for i in 0..jg.micro_blocks.len() {
-                let differences = BlockLoader::compare_micro_blocks(
-                    &node,
-                    &conn,
-                    _height,
-                    jg.micro_blocks[i].clone(),
-                    jg.micro_blocks[i].clone(),
-                )?;
-                if differences.len() != 0 {
-                    info!("Microblocks differ: {:?}", differences);
-                    fork_detected = true;
+            if !in_fork {
+                for i in 0..gen_from_db.micro_blocks.len() {
+                    match BlockLoader::compare_micro_blocks(
+                        &node,
+                        &conn,
+                        current_height,
+                        gen_from_db.micro_blocks[i].clone(),
+                        gen_from_db.micro_blocks[i].clone(),
+                    ) {
+                        Ok(differences) => {
+                            if differences.len() != 0 {
+                                info!("Microblocks differ: {:?}", differences);
+                                fork_was_detected = true;
+                                in_fork = true;
+                            }
+                        }
+                        Err(e) => {
+                            error!("Error in comparison of micro blocks");
+                            fork_was_detected = true;
+                            in_fork = true;
+                        }
+                    }
                 }
             }
+
+            if !in_fork {
+                blocks_since_last_fork += 1;
+                if blocks_since_last_fork >= 5 {
+                    debug!("No fork found. Exiting loop");
+                    break;
+                }
+            } else {
+                blocks_since_last_fork = 0;
+                BlockLoader::invalidate_block_at_height(current_height, &conn, &_tx)?;
+                info!(
+                    "{} detected at height {} with chain length {}\n\
+                     db generation: {:?}\n\
+                     chain generation: {:?}\n",
+                    if current_height == chain_length {
+                        "Fork"
+                    } else {
+                        "Micro Fork"
+                    },
+                    current_height,
+                    chain_length,
+                    gen_from_db,
+                    gen_from_server
+                );
+            }
+            current_height -= 1;
+            thread::sleep(std::time::Duration::new(blocks_since_last_fork + 1, 0));
         }
-        Ok(fork_detected)
+        Ok(fork_was_detected)
+    }
+
+    pub fn detect_forks(node: &Node, _tx: &std::sync::mpsc::Sender<i64>) -> MiddlewareResult<()> {
+        loop {
+            BlockLoader::inner_detect_forks(node, _tx)?;
+            thread::sleep(std::time::Duration::new(5, 0));
+        }
+        Ok(())
     }
 
     /*
@@ -351,12 +407,26 @@ impl BlockLoader {
         let ib: InsertableKeyBlock =
             InsertableKeyBlock::from_json_key_block(&generation.key_block)?;
         let key_block_id = ib.save(&connection)? as i32;
-        websocket::broadcast_ws(WsPayload::key_blocks, &json!(&generation.key_block))?; //broadcast key_block
+        websocket::broadcast_ws(&Candidate {
+            payload: WsPayload::object,
+            data: serde_json::to_value(&generation.key_block)?,
+        })?;
+        websocket::broadcast_ws(&Candidate {
+            payload: WsPayload::key_blocks,
+            data: serde_json::to_value(&generation.key_block)?,
+        })?; //broadcast key_block
         for mb_hash in &generation.micro_blocks {
             let mut mb: InsertableMicroBlock =
                 serde_json::from_value(self.node.get_micro_block_by_hash(&mb_hash)?)?;
             mb.key_block_id = Some(key_block_id);
-            websocket::broadcast_ws(WsPayload::micro_blocks, &json!(&mb))?; //broadcast micro_block
+            websocket::broadcast_ws(&Candidate {
+                payload: WsPayload::object,
+                data: serde_json::to_value(&mb)?,
+            })?;
+            websocket::broadcast_ws(&Candidate {
+                payload: WsPayload::micro_blocks,
+                data: serde_json::to_value(&mb)?,
+            })?;
             let _micro_block_id = mb.save(&connection)? as i32;
             let trans: JsonTransactionList =
                 serde_json::from_value(self.node.get_transaction_list_by_micro_block(&mb_hash)?)?;
@@ -397,13 +467,14 @@ impl BlockLoader {
         } else if transaction.is_channel_creation() {
             InsertableChannelIdentifier::from_tx(tx_id, &transaction)?.save(&connection)?;
         } else if transaction.is_name_transaction() {
-            Self::handle_name_transaction(connection, transaction)?;
+            Self::handle_name_transaction(connection, tx_id, transaction)?;
         }
         Ok(())
     }
 
     pub fn handle_name_transaction(
         connection: &PgConnection,
+        tx_id: i32,
         transaction: &JsonTransaction,
     ) -> MiddlewareResult<()> {
         debug!("Name tx: {:?}", transaction);
@@ -411,7 +482,7 @@ impl BlockLoader {
             match ttype {
                 "NameClaimTx" => {
                     debug!("NameClaimTx: {:?}", transaction);
-                    if let Some(name) = InsertableName::new_from_transaction(transaction) {
+                    if let Some(name) = InsertableName::new_from_transaction(tx_id, transaction) {
                         name.save(connection)?;
                     }
                 }
@@ -465,6 +536,10 @@ impl BlockLoader {
             &trans.hash
         );
         debug!("{}", sql);
+        websocket::broadcast_ws(&Candidate {
+            payload: WsPayload::object,
+            data: serde_json::to_value(trans)?,
+        })?;
         let mut results: Vec<Transaction> = sql_query(sql).get_results(conn)?;
         match results.pop() {
             Some(x) => {
@@ -472,18 +547,32 @@ impl BlockLoader {
                 diesel::update(&x)
                     .set(micro_block_id.eq(_micro_block_id))
                     .execute(conn)?;
-                websocket::broadcast_ws(WsPayload::tx_update, &json!(&x))?; //broadcast updated transaction
+                websocket::broadcast_ws(&Candidate {
+                    payload: WsPayload::tx_update,
+                    data: serde_json::to_value(&x)?,
+                })?; //broadcast updated transaction
                 Ok(x.id)
             }
             None => {
                 debug!("Inserting transaction with hash {}", &trans.hash);
                 let _tx_type: String = from_json(&serde_json::to_string(&trans.tx["type"])?);
-                let _tx: InsertableTransaction = InsertableTransaction::from_json_transaction(
+                let _tx: InsertableTransaction = match InsertableTransaction::from_json_transaction(
                     &trans,
                     _tx_type,
                     _micro_block_id,
-                )?;
-                websocket::broadcast_ws(WsPayload::transactions, &json!(&trans))?; //broadcast updated transaction
+                ) {
+                    Ok(x) => x,
+                    Err(e) => match *PARANOIA_LEVEL {
+                        ParanoiaLevel::High => {
+                            panic!("Error loading blocks, and paranoia level is high: {:?}", e)
+                        }
+                        _ => return Err(MiddlewareError::from(e)),
+                    },
+                };
+                websocket::broadcast_ws(&Candidate {
+                    payload: WsPayload::transactions,
+                    data: serde_json::to_value(trans)?,
+                })?; //broadcast updated transaction
                 _tx.save(conn)
             }
         }
@@ -529,22 +618,27 @@ impl BlockLoader {
      * - micro blocks
      * - transactions
      */
-    pub fn verify(&self) -> MiddlewareResult<i64> {
+    pub fn verify_all(&self) -> MiddlewareResult<i64> {
         let top_chain = self.node.latest_key_block()?["height"].as_i64()?;
         let mut _verified: i64 = 0;
         let conn = PGCONNECTION.get()?;
         let top_db = KeyBlock::top_height(&conn)?;
         let top_max = std::cmp::max(top_chain, top_db);
-        let mut i = top_max;
+        let mut _height = top_max;
         loop {
-            if self.compare_chain_and_db(i, &conn)? {
-                println!("Height {} OK", i);
-            } else {
-                println!("Height {} not OK", i);
-            }
-            i -= 1;
+            self.verify_height(_height);
+            _height -= 1;
             _verified += 1;
         }
+    }
+
+    pub fn verify_height(&self, _height: i64) -> MiddlewareResult<()>{
+        let conn = PGCONNECTION.get()?;
+        match self.compare_chain_and_db(_height, &conn) {
+            Ok(_val) => println!("Height {} OK {}", _height, _val),
+            Err(e) => println!("Height {} not OK: {}", _height, match e.to_string().lines().next() { Some(x) => x, None => "", }),
+        }
+        Ok(())
     }
 
     pub fn compare_chain_and_db(
@@ -604,14 +698,15 @@ impl BlockLoader {
         let mut chain_mb_hashes = chain_gen["micro_blocks"].as_array()?.clone();
         chain_mb_hashes.sort_by(|a, b| a.as_str().unwrap().cmp(b.as_str().unwrap()));
         if db_mb_hashes.len() != chain_mb_hashes.len() {
-            debug!(
+            let err = format!(
                 "{} Microblock array size differs: {} chain vs {} db",
                 block_db.height,
                 chain_mb_hashes.len(),
                 block_db.hash.len()
             );
+            debug!("{}", err);
+            return Err(MiddlewareError::new(&err));
         } else {
-            let mut all_good = true;
             for i in 0..db_mb_hashes.len() {
                 let chain_mb_hash = String::from(chain_mb_hashes[i].as_str()?);
                 let db_mb_hash = db_mb_hashes[i].clone();
@@ -623,14 +718,13 @@ impl BlockLoader {
                     chain_mb_hash,
                 )?;
                 if differences.len() != 0 {
-                    debug!("Transactions differ: {:?}", differences);
-                    all_good = false;
+                    let err = format!("Transactions differ: {:?}", differences);
+                    debug!("{}", err);
+                    return Err(MiddlewareError::new(&err));
                 }
             }
-            if all_good {
-                debug!("{} OK", block_db.height);
-            }
         }
+        debug!("{} OK", block_db.height);
         Ok(block_db.height)
     }
 

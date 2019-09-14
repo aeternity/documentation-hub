@@ -30,13 +30,14 @@ table! {
         #[sql_name="time_"]
         time -> Int8,
         version -> Int4,
+        info -> Varchar,
     }
 }
 
 table! {
     micro_blocks (id) {
         id -> Int4,
-        key_block_id -> Nullable<Int4>,
+        key_block_id -> Int4,
         hash -> Varchar,
         pof_hash -> Varchar,
         prev_hash -> Varchar,
@@ -55,10 +56,12 @@ table! {
         id -> Int4,
         name -> Varchar,
         name_hash -> Varchar,
+        tx_hash -> Varchar,
         created_at_height -> Int8,
         owner -> Varchar,
         expires_at -> Int8,
         pointers -> Nullable<Jsonb>,
+        transaction_id -> Int4,
     }
 }
 
@@ -78,12 +81,13 @@ table! {
         block_height -> Int4,
         block_hash -> Varchar,
         hash -> Varchar,
-        signatures -> Text,
+        signatures -> Nullable<Text>,
         tx_type -> Varchar,
         tx -> Jsonb,
         fee -> Numeric,
         size -> Int4,
         valid -> Bool,
+        encoded_tx -> Nullable<Varchar>,
     }
 }
 
@@ -94,6 +98,8 @@ table! {
         contract_id -> Varchar,
         caller_id -> Varchar,
         arguments -> Jsonb,
+        callinfo -> Nullable<Jsonb>,
+        result -> Nullable<Jsonb>,
     }
 }
 
@@ -101,6 +107,7 @@ joinable!(channel_identifiers -> transactions (transaction_id));
 joinable!(contract_calls -> transactions (transaction_id));
 joinable!(contract_identifiers -> transactions (transaction_id));
 joinable!(micro_blocks -> key_blocks (key_block_id));
+joinable!(names -> transactions (transaction_id));
 joinable!(oracle_queries -> transactions (transaction_id));
 joinable!(transactions -> micro_blocks (micro_block_id));
 

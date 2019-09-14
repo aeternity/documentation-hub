@@ -1,0 +1,23 @@
+[Unit]
+Description=Middleware mainnet http service
+After=postgresql.service
+
+[Service]
+User=aeternity
+Group=aeternity
+Type=simple
+Environment=STATUS_MAX_BLOCK_AGE=1200
+Environment=PID_FILE=/var/run/aeternity/mdw-http.pid
+Environment=LOG_DIR=/var/log/aeternity/mdw-http
+Environment=WEBSOCKET_ADDRESS=0.0.0.0:3020
+Environment=ROCKET_PORT=8000
+Environment=RUST_LOG=aepp_middleware
+Environment=AESOPHIA_URL=http://localhost:3080
+Environment=NODE_URL=http://localhost:3013
+Environment=RUST_BACKTRACE=full
+Environment=DATABASE_URL=postgres://middleware:middleware@localhost/middleware
+ExecStart=/usr/local/mdw/bin/mdw -s
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

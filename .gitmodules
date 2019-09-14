@@ -46,9 +46,6 @@
 [submodule "aepp-sdk-java"]
 	path = aepp-sdk-java
 	url = git@github.com:kryptokrauts/aepp-sdk-java.git
-[submodule "AEXs"]
-	path = AEXs
-	url = git@github.com:aeternity/AEXs.git
 [submodule "aepp-sdk-js"]
 	path = aepp-sdk-js
 	url = git@github.com:aeternity/aepp-sdk-js.git
@@ -61,3 +58,6 @@
 [submodule "aepp-middleware"]
 	path = aepp-middleware
 	url = git@github.com:aeternity/aepp-middleware.git
+[submodule "AEXs"]
+	path = AEXs
+	url = git@github.com:aeternity/AEXs.git

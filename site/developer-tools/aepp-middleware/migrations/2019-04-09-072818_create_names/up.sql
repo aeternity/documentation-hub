@@ -8,7 +8,7 @@ CREATE TABLE names (
        expires_at BIGINT NOT NULL,
        pointers JSONB NULL);
 
-DELETE FROM transactions WHERE tx_type in ('NameClaimTx', 'NameRevokeTx', 'NameTransferTx', 'NameUpdateTx');
+DELETE FROM key_blocks where height in (select block_height from transactions WHERE tx_type in ('NameClaimTx', 'NameRevokeTx', 'NameTransferTx', 'NameUpdateTx'));
 
 CREATE INDEX names_name_hash_index ON names(name_hash);
 CREATE INDEX names_pointers_index ON names(pointers);

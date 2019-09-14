@@ -37,6 +37,9 @@ nav:
         - AEX3: 'AEXs/AEXS/aex-3.md'
         - AEX4: 'AEXs/AEXS/aex-4.md'
         - AEX5: 'AEXs/AEXS/aex-5.md'
+        - AEX7: 'AEXs/AEXS/aex-7.md'
+        - AEX9: 'AEXs/AEXS/aex-9.md'
+        - AEX10: 'AEXs/AEXS/aex-10.md'
         - AEX-Draft: 'AEXs/AEXS/aex-draft_data_serialization.md'
     - Node Usage API:
         - Latest Stable Release:
