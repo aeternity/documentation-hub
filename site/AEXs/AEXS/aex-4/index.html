@@ -829,6 +829,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example_2" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -865,6 +872,42 @@
   <li class="md-nav__item">
     <a href="../aex-5/" title="AEX5" class="md-nav__link">
       AEX5
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../aex-7/" title="AEX7" class="md-nav__link">
+      AEX7
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../aex-9/" title="AEX9" class="md-nav__link">
+      AEX9
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../aex-10/" title="AEX10" class="md-nav__link">
+      AEX10
     </a>
   </li>
 
@@ -2253,6 +2296,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example_2" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2305,7 +2355,7 @@ Created: 2019-04-03
 <h2 id="motivation">Motivation</h2>
 <p>URI based deep linking enables websites or applications to interact with native applications registered to listen for aeternity URI scheme and trigger wallet actions like open wallet accounts directly from third-party applications.</p>
 <p>This also enables users to sign transaction using desktop or mobile based wallets without the need to copy or remember long addresses.
-This is especially beneficial for mobile wallet users as they can simply click on the wallet deeplink to open the wallet app from the vendor app, confirm the transaction and return back to the vendor app through the callback url.</p>
+This is especially beneficial for mobile wallet users as they can simply click on the wallet deep link to open the wallet app from the vendor app, confirm the transaction and return back to the vendor app through the callback url.</p>
 <h2 id="specification">Specification</h2>
 <h3 id="uri-scheme">URI Scheme</h3>
 <ul>
@@ -2329,14 +2379,30 @@ This is especially beneficial for mobile wallet users as they can simply click o
 </li>
 <li>
 <p>Payment</p>
-<p>URI: <code>aeternity:&lt;receiver_address&gt;/&lt;amount&gt;/&lt;vendor_identifier&gt;?callback=&lt;url&gt;&amp;txId=&lt;transaction_id&gt;</code></p>
+<p>URI: <code>aeternity:&lt;receiver_address&gt;/&lt;amount&gt;/&lt;vendor_identifier&gt;?callback=&lt;url&gt;</code></p>
 <p>This URI scheme enables vendors to generate direct payment request URIs to user wallet.</p>
 <ol>
 <li>Vendor generates a address for receiving payment.</li>
-<li>Creates the URI substituting <code>receiver_address</code> with newly created address, <code>amount</code> with amount requested, <code>vendor_identifier</code> with a human readable identifier that can be used to correctly identifiy vendor and requested payment, and <code>url</code> with a callback URL that accepts a transaction id under <code>txId</code> query param.</li>
+<li>Creates the URI substituting <code>receiver_address</code> with newly created address, <code>amount</code> with amount requested, <code>vendor_identifier</code> with a human readable identifier that can be used to correctly identify vendor and requested payment, and <code>url</code> with a callback URL that accepts a transaction id under <code>txId</code> query param.</li>
 </ol>
 <h4 id="example_1">Example</h4>
-<p><code>aeternity:ak_2gUJrd11cy65yqZ7mg1ULUG4kZ5r6v6vNqVtmA8HqUGKCf6kNf/125.12/myaeshop-ref9834?callback=https://myaeshop.com/verify?txId=th_rox6XyzqDBTopoTYQNJux49jnLVd39QhxDSvYoQ5he9SAGupz</code></p>
+<p><code>aeternity:ak_2gUJrd11cy65yqZ7mg1ULUG4kZ5r6v6vNqVtmA8HqUGKCf6kNf/125.12/myaeshop-ref9834?callback=https://myaeshop.com/verify</code></p>
+</li>
+<li>
+<p>Sign and Broadcast</p>
+<p>URI: <code>aeternity:&lt;transaction&gt;/&lt;network_id&gt;/&lt;label&gt;?return=&lt;txId/tx&gt;&amp;callback=&lt;url&gt;</code></p>
+<p>This URI scheme enables users to sign (and broadcast) the transaction using deep linking enabled user wallet.</p>
+<ol>
+<li>The user generates the transaction to be signed</li>
+<li>Creates the URI substituting <code>transaction</code> and <code>network_id</code> with their respective value, <code>label</code> a human-readable text regarding the transaction and provides the query param <code>return</code> which indicates the return value type in the callback URL. It can contain only two possible values of string type:<ul>
+<li><code>txId</code>: which indicates that the wallet needs to broadcast the transaction and return the transaction id</li>
+<li><code>tx</code>: means that the callback URL expects a signed transaction back.</li>
+</ul>
+</li>
+<li>And at last, substitutes the query param <code>url</code> which contains a callback URL that accepts a transaction id under <code>txId</code> query param and signed transaction output under <code>tx</code> query param.</li>
+</ol>
+<h4 id="example_2">Example</h4>
+<p><code>aeternity:tx_+E0MAaEBK4bq9XiZ/0QVdOa8Hs9V18v6dGZYIa8XXNYFpQh6yq6hAR8To7CL8AFABmKmi2nYdfeAPOxMCGR/btXYTHiXvVCjCoJOIAADgFcJyZ8=/ae_uat/sample_tx?return=tx&amp;callback=https://myaeshop.com/verify</code></p>
 </li>
 </ol>
 <h2 id="reference">Reference</h2>

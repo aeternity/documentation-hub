@@ -53,8 +53,8 @@ nav:
         - Channels: 'protocol/node/api/channels_api_usage.md'
         - Mining: 'protocol/node/api/mining_api_usage.md'
     - Developer Tools:
-        - Contract Development Kit:
-            - forgAE: 'developer-tools/frameworks/forgae/README.md'
+        - æternity Framework:
+            - AEproject: 'developer-tools/æternity-frameworks/aepp-aeproject-js/README.md'
         - Software Development Kits:
             - Go: 'developer-tools/sdks/aepp-sdk-go/README.md'
             - JavaScript: 'developer-tools/sdks/aepp-sdk-js/README.md'

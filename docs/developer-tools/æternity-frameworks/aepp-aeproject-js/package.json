@@ -1,0 +1,35 @@
+{
+  "name": "aeproject-monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "mocha ./test/**/*.js --timeout 0 --exit",
+    "link": "lerna bootstrap && cd packages/aeproject-cli && yarn link",
+    "develop": "lerna bootstrap && cd packages/aeproject-cli && yarn link && cd .. && cd aeproject-config && npm install && yarn link && cd .. && cd aeproject-logger && npm install && yarn link && cd .. && cd aeproject-utils && npm install && yarn link && cd .. && cd aeproject-lib && npm install && yarn link && yarn link aeproject-config && yarn link aeproject-logger && yarn link aeproject-utils",
+    "unlink": "cd packages/aeproject-cli && yarn unlink && cd .. && cd aeproject-lib && yarn unlink && yarn unlink aeproject-config && yarn unlink aeproject-utils && yarn unlink aeproject-logger && cd .. && cd aeproject-config && yarn unlink && cd .. && cd aeproject-logger && yarn unlink && cd .. && cd aeproject-utils && yarn unlink"
+  },
+  "dependencies": {
+    "esm": "^3.0.77",
+    "fs-extra": "^7.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^1.7.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-files": "^1.4.0",
+    "docker-cli-js": "^2.5.1",
+    "eslint": "^5.15.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "lerna": "^3.14.1",
+    "mocha": "^5.0.0",
+    "promisify-child-process": "^2.1.2",
+    "shelljs": "^0.8.2",
+    "sinon": "^7.1.1",
+    "typescript": "^3.5.2",
+    "yarn": "^1.13.0"
+  }
+}
