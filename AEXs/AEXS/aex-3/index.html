@@ -789,6 +789,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#secret-types" title="Secret types" class="md-nav__link">
+    Secret types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example" title="Example" class="md-nav__link">
     Example
   </a>
@@ -838,6 +845,42 @@
   <li class="md-nav__item">
     <a href="../aex-5/" title="AEX5" class="md-nav__link">
       AEX5
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../aex-7/" title="AEX7" class="md-nav__link">
+      AEX7
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../aex-9/" title="AEX9" class="md-nav__link">
+      AEX9
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../aex-10/" title="AEX10" class="md-nav__link">
+      AEX10
     </a>
   </li>
 
@@ -2198,6 +2241,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#secret-types" title="Secret types" class="md-nav__link">
+    Secret types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example" title="Example" class="md-nav__link">
     Example
   </a>
@@ -2253,18 +2303,20 @@ Created: 2019-04-03
 <p>The secret storage specification, although is being currently used for secret-key storage, should not be limited to it and should be used as a standard way of storing secret text/plain text (esp. user related or user-owned) in an encrypted format.</p>
 <p>Having a standard way for encryption and storage of data enables</p>
 <ul>
-<li><code>Interoperability</code>, not only between æternity and æpps but also between the æpps.</li>
-<li><code>Easy migration</code> from an aeternity-supported <code>wallet</code> to another.</li>
+<li>Interoperability, not only between æternity and æpps but also between the æpps.</li>
+<li>Easy migration from an aeternity-supported <code>wallet</code> to another.</li>
 </ul>
 <h2 id="specification">Specification</h2>
 <ul>
-<li>The <code>data</code> should always be stored in a <code>.json</code> file.</li>
+<li>The data should always be stored in a <code>.json</code> file.</li>
 <li>
 <p>Each file should have a minimum of 1 JSON object with the following <code>required</code> fields</p>
 </li>
 <li>
-<p><code>secret_type</code> specifies the type of the encrypted data. This is restricted to <code>ed25519</code> at this point.</p>
+<p><code>secret_type</code> specifies the type of the encrypted data.</p>
 </li>
+<li>(optional) <code>secret_format</code> specifies the format of the encrypted data,
+    if not specified then a consumer should assume raw bytes</li>
 <li><code>symmetric_alg</code> specifies the algorithm used for symmetric encryption of the secret. This should be authenticated encryption and the only option is <code>xsalsa20-poly1305</code> currently.</li>
 <li>The <code>ciphertext</code> is the output of <code>symmectric_alg</code> , i.e. the output of libsodiums <code>crypto_secretbox_easy</code>, which is <code>MAC + CIPHER</code> with an upper-limit of <code>512 bytes</code>.</li>
 <li><code>cipher_params</code> params used for successful decryption of the ciphertext</li>
@@ -2278,10 +2330,20 @@ Created: 2019-04-03
 <p>Each JSON Object can also have an optional <code>name</code> field, which can be a human-readable name for the secret.</p>
 </li>
 </ul>
+<h3 id="secret-types">Secret types</h3>
+<p>Specifying an appropriate <code>secret_type</code> helps consumers to decide the proper way
+of handling the decrypted data without having to store additional metadata.</p>
+<p>The following <code>secret_type</code> values have been proposed:</p>
+<ul>
+<li><code>ed25519-bip39-mnemonic</code></li>
+<li><code>ed25519-slip0010-masterkey</code></li>
+</ul>
+<p>This list should be expanded with adoption.</p>
+<p>It is not advised to use this format as a store for arbitrary binary data.</p>
 <h3 id="example">Example</h3>
 <pre><code class="json">{
   &quot;crypto&quot;: {
-    &quot;secret_type&quot;: &quot;ed25519&quot;,
+    &quot;secret_type&quot;: &quot;ed25519-slip0010-masterkey&quot;,
     &quot;symmetric_alg&quot;: &quot;xsalsa20-poly1305&quot;,
     &quot;ciphertext&quot;:&quot;66891af8a59e83f0c600435a0681413644588f296240ab922ee357fa5ffa857f2709f8753b2b70d35625203adc6bf6e8&quot;,
     &quot;cipher_params&quot;: {
@@ -2302,7 +2364,9 @@ Created: 2019-04-03
 </code></pre>
 
 <h2 id="reference">Reference</h2>
-<p>https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition</p>
+<ul>
+<li>https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition</li>
+</ul>
                 
                   
                 
