@@ -53,7 +53,7 @@ nav:
         - Contract Development Kit:
             - forgAE: 'developer-tools/frameworks/forgae/README.md'
         - Software Development Kits:
-            - Go: 'developer-tools/sdks/sdk-go/README.md'
+            - Go: 'developer-tools/sdks/aepp-sdk-go/README.md'
             - JavaScript: 'developer-tools/sdks/aepp-sdk-js/README.md'
             - Python: 'developer-tools/sdks/sdk-python/README.md'
             - Elixir: 'developer-tools/sdks/aepp-sdk-elixir/README.md'
