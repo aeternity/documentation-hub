@@ -54,7 +54,7 @@ nav:
             - forgAE: 'developer-tools/frameworks/forgae/README.md'
         - Software Development Kits:
             - Go: 'developer-tools/sdks/sdk-go/README.md'
-            - JavaScript: 'developer-tools/sdks/sdk-js/README.md'
+            - JavaScript: 'developer-tools/sdks/aepp-sdk-js/README.md'
             - Python: 'developer-tools/sdks/sdk-python/README.md'
             - Elixir: 'developer-tools/sdks/aepp-sdk-elixir/README.md'
             - Java (community-built): 'developer-tools/sdks/aepp-sdk-java/README.md'
