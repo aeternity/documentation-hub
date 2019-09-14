@@ -1457,8 +1457,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../examples/SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
-      Smart Data Provider
+    <a href="../../examples/SmartShop/" title="SmartShop" class="md-nav__link">
+      SmartShop
     </a>
   </li>
 
@@ -1469,8 +1469,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../../examples/SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
-      Smart Real Estate
+    <a href="../../examples/CryptoHamster/" title="Crypto Hamster" class="md-nav__link">
+      Crypto Hamster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../examples/SmartRealEstate/" title="SmartRealEstate" class="md-nav__link">
+      SmartRealEstate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../examples/SmartDataProvider/" title="Data Provider" class="md-nav__link">
+      Data Provider
     </a>
   </li>
 
@@ -1493,8 +1517,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../examples/TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
-      Tic Tac Toe
+    <a href="../../examples/TicTacToe/" title="TicTacToe" class="md-nav__link">
+      TicTacToe
     </a>
   </li>
 
@@ -2221,138 +2245,115 @@
 <p>Fungible token is a technical standard used for smart contracts on the blockchain for implementing tokens. Fungible token defines a common list of rules for tokens to follow within the larger ecosystem, allowing developers to accurately predict interaction between tokens. These rules include how the tokens are transferred between addresses and how data within each token is accessed. Fungible tokens are interchangeable, divisible, and identical tokens that are useful as money.</p>
 <h2 id="how-it-works">How it works?</h2>
 <p>Upon deployment, the token sets its owner - the Call.caller (deployer). The owner has special privilege - the ability to create (mint) new tokens. When token is created it is associated with a user - the <code>account</code> parameter.
-The token owner can act upon their tokens in various ways. They can set transfer it, allow it to be transfered on his/her behalf or completely destroy it.</p>
+The token owner can act upon their tokens in various ways. They can set transfer it, allow it to be transferred on his/her behalf or completely destroy it.</p>
 <p>In addition, the smart contract keeps track of important statistical data - who owns a given token, how many tokens given user possess and how many tokens are there in general.</p>
 <h2 id="methods-description">Methods description</h2>
 <pre><code>record state = {
-     _owner            : address, 
-     _totalSupply      : int,
-     _balances         : map(address, int),
-     _allowed          : map((address,address), int)}
+     owner            : address, 
+     total_supply      : int,
+     balances         : map(address, int),
+     allowed          : map((address,address), int)}
 </code></pre>
 
 <p>Тhe state describes the state variables, which must be set when initializing the smart contract, and can be changed  afterwards.</p>
 <pre><code>   public stateful function init() = {
-     _owner = Call.caller,
-     _totalSupply = 0,
-     _balances = {},
-     _allowed = {}}
+     owner = Call.caller,
+     total_supply = 0,
+     balances = {},
+     allowed = {}}
 </code></pre>
 
 <p>The <strong>init</strong> function is called once, when the contract is deployed, and only the owner of the contract is set to the address that deploys the smart contract.</p>
-<pre><code>   public function totalSupply() : int = state._totalSupply
+<pre><code>   public function total_supply() : int = state.total_supply
 </code></pre>
 
 <p>Function which returns the total supply of this Fungible tokens</p>
-<pre><code>   public function balanceOf(who: address) : int = lookupByAddress(who, state._balances, 0)
+<pre><code>   public function balance_of(who: address) : int = Map.lookup_default(who, state.map_balances, 0)
 </code></pre>
 
 <p>Returns the token balance of the address that is passed as an argument</p>
-<pre><code>   public function allowance(owner: address, spender: address) : int = 
-     switch(Map.lookup((owner, spender), state._allowed))
-        None    =&gt; 0
-        Some(x) =&gt; x
+<pre><code>  public function allowance(owner: address, spender: address) : int = 
+    Map.lookup_default((owner, spender), state.map_allowed, 0)
  ```
 The **allowance** function returns the amount of tokens approved by the owner that can be spend by the spender.
 
 </code></pre>
 
-<p>public stateful function transfer(to: address, value: int) : bool =
-     _transfer(Call.caller, to, value)</p>
+<p>public stateful function transfer(to: address, value: int) =
+    transfer'(Call.caller, to, value)</p>
 <pre><code>
 The **transfer** function transfers the value passed as an argument, to the to address also passed as an argument from the owner’s wallet.
 
 </code></pre>
 
-<p>public stateful function approve(spender: address, value: int) : bool = 
-     require(value &gt; 0, "Value is sub zero")
-     require(spender != #0, "Invalid spender address")</p>
-<pre><code> put(state{_allowed[(Call.caller, spender)] = value})
-
- true
+<p>public stateful function approve(spender: address, value: int) = 
+    require(value &gt; 0, "Value is sub zero")
+    require(spender != #0, "Invalid spender address")</p>
+<pre><code>put(state{map_allowed[(Call.caller,spender)] = value})
 </code></pre>
 <pre><code>
 In the approve function, the owner approves that the **spender** can spend the **value** of tokens. 
 
 </code></pre>
 
-<p>private stateful function _transfer(from: address, to: address, value: int) : bool =
-     require(value &gt; 0, "Value is sub zero")
-     require(value =&lt; balanceOf(from), "Not enough balance")
-     require(to != #0, "Invalid address")</p>
-<pre><code> put(state{
-   _balances[from] = sub(balanceOf(from), value),
-   _balances[to] = add(balanceOf(to), value)})
-
- true
+<p>private stateful function transfer'(from: address, to: address, value: int) =
+    require(value &gt; 0, "Value is sub zero")
+    require(value =&lt; balance_of(from), "Not enough balance")
+    require(to != #0, "Invalid address")</p>
+<pre><code>put(state{
+  map_balances[from] = balance_of(from) - value,
+  map_balances[to] = balance_of(to) + value })
 </code></pre>
 <pre><code>
 Internal function that is called from the **transfer** function. It’s purpose is to change the values of the state variables and actually make the transfer of tokens between accounts.
 
 </code></pre>
 
-<p>public stateful function transferFrom(from: address, to: address, value: int) : bool =
-     require(state._allowed[(from, Call.caller)] &gt;= value, "Value is bigger than allowed")</p>
-<pre><code> put(state{_allowed[(from, Call.caller)] = sub(state._allowed[(from, Call.caller)], value)})
- _transfer(from, to, value)
-
- true
+<p>public stateful function transfer_from(from: address, to: address, value: int) =
+    require(Map.lookup_default((from, Call.caller), state.map_allowed, 0) &gt;= value, "Value is bigger than allowed")</p>
+<pre><code>put(state{map_allowed[(from, Call.caller)] = Map.lookup_default((from, Call.caller), state.map_allowed, 0) - value}) 
+transfer'(from, to, value)
 </code></pre>
-<pre><code>**TransferFrom** function transfers tokens between two accounts.  The accounts that will send tokens must have the value in tokens approved, the allowance of the account must be greater than the value. The balance too.
+<pre><code>**transfer_from** function transfers tokens between two accounts.  The accounts that will send tokens must have the value in tokens approved, the allowance of the account must be greater than the value. The balance too.
 
 </code></pre>
 
-<p>public stateful function increaseAllowance(spender: address, addedValue: int) : bool =
-     require(spender != #0, "Invalid address")
-     put(state{_allowed[(Call.caller, spender)] = add(state._allowed[(Call.caller,spender)], addedValue)})</p>
-<pre><code> true
-</code></pre>
-<p>public stateful function decreaseAllowance(spender: address, subtractedValue: int) : bool =
-     require(spender != #0, "Invalid address")
-     put(state{_allowed[(Call.caller,spender)] = sub(state._allowed[(Call.caller,spender)], subtractedValue)})</p>
-<pre><code> true
-</code></pre>
+<p>public stateful function increase_allowance(spender: address, added_value: int) =
+    require(spender != #0, "Invalid address")
+    put(state{map_allowed[(Call.caller, spender)] = state.map_allowed[(Call.caller,spender)] + added_value})</p>
+<p>public stateful function decrease_allowance(spender: address, subtracted_value: int) =
+    require(spender != #0, "Invalid address")
+    put(state{map_allowed[(Call.caller,spender)] = state.map_allowed[(Call.caller,spender)] - subtracted_value})</p>
 <pre><code>The two functions are used to **increase** and **decrease** the allowance, respectively, of a given wallet with the given value.
 
 </code></pre>
 
-<p>public stateful function mint(account: address, value: int) : bool =
-     onlyOwner()
-     require(account != #0, "Invalid address")</p>
-<pre><code> put(state{_totalSupply = add(state._totalSupply, value),
-       _balances[account] = add(balanceOf(account), value)})
-
- true
+<p>public stateful function mint(account: address, value: int) =
+    only_owner()
+    require(account != #0, "Invalid address")</p>
+<pre><code>put(state{total_supply = state.total_supply + value,
+      map_balances[account] = balance_of(account) + value})
 </code></pre>
 <pre><code>
 The **mint** function is used to create tokens and **increase** the balance of a given user wallet.
 
 </code></pre>
 
-<p>public stateful function burn(value: int) : bool =
-     require(balanceOf(Call.caller) &gt;= value, "Burned amount is less than account balance")</p>
-<pre><code> put(state{_totalSupply = sub(state._totalSupply, value),
-       _balances[Call.caller] = sub(balanceOf(Call.caller), value)})
-
- true
+<p>public stateful function burn(value: int) =
+    require(balance_of(Call.caller) &gt;= value, "Burned amount is less than account balance")</p>
+<pre><code>put(state{total_supply = state.total_supply - value,
+      map_balances[Call.caller] = balance_of(Call.caller) - value})
 </code></pre>
 <pre><code>The **burn** function is the opposite of the mint, it is used to **decrease** the token balance of a user, and destroy the tokens.
 
-The following functions, are helpers. There are **math** functions for easy calculations, error handling functions like **require**,  and the **onlyOwner**, that demands that only the owner of the contract can call specific functions of a smart contract.
+The following functions, are helpers. There are error handling functions like **require**,  and the **only_owner**, that demands that only the owner of the contract can call specific functions of a smart contract.
 </code></pre>
 
-<p>private function add(_a : int, _b : int) : int =
-     let c : int = _a + _b
-     require(c &gt;= _a, "Error")
-     c</p>
-<p>private function sub(_a : int, _b : int) : int =
-     require(_b =&lt; _a, "Error")
-     _a - _b</p>
-<p>private function require(b : bool, err : string) =
-     if(!b) 
-       abort(err)</p>
-<p>private function onlyOwner() =
-       require(Call.caller == state._owner, "Only owner can mint!") 
+<p>private function require(expression : bool, error : string) =
+    if(!expression) 
+      abort(error)</p>
+<p>private function only_owner() =
+      require(Call.caller == state.owner, "Only owner can mint!")
 ```</p>
                 
                   

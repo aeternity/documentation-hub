@@ -36,7 +36,7 @@
     
     
       
-        <title>æternity Documentation Hub</title>
+        <title>Crypto Hamster - æternity Documentation Hub</title>
       
     
     
@@ -104,6 +104,10 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
+      <a href="#crypto-hamsters-example" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -125,7 +129,7 @@
               æternity Documentation Hub
             </span>
             <span class="md-header-nav__topic">
-              Home
+              Crypto Hamster
             </span>
           
         </div>
@@ -1385,10 +1389,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11" checked>
     
     <label class="md-nav__link" for="nav-11">
       Sophia by Example
@@ -1406,8 +1412,77 @@
 
 
   <li class="md-nav__item">
-    <a href="../SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
-      Smart Data Provider
+    <a href="../SmartShop/" title="SmartShop" class="md-nav__link">
+      SmartShop
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Crypto Hamster
+      </label>
+    
+    <a href="./" title="Crypto Hamster" class="md-nav__link md-nav__link--active">
+      Crypto Hamster
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" title="How it works?" class="md-nav__link">
+    How it works?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods-description" title="Methods description" class="md-nav__link">
+    Methods description
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../SmartRealEstate/" title="SmartRealEstate" class="md-nav__link">
+      SmartRealEstate
     </a>
   </li>
 
@@ -1418,8 +1493,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
-      Smart Real Estate
+    <a href="../SmartDataProvider/" title="Data Provider" class="md-nav__link">
+      Data Provider
     </a>
   </li>
 
@@ -1442,8 +1517,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
-      Tic Tac Toe
+    <a href="../TicTacToe/" title="TicTacToe" class="md-nav__link">
+      TicTacToe
     </a>
   </li>
 
@@ -2120,6 +2195,44 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" title="How it works?" class="md-nav__link">
+    How it works?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods-description" title="Methods description" class="md-nav__link">
+    Methods description
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -2128,9 +2241,16 @@
                   <a href="https://github.com/aeternity/documentation-hub/edit/master/docs/aepp-sophia-examples/examples/CryptoHamster/README.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Home</h1>
-                
-                <p>crypto hamsters …</p>
+                <h1 id="crypto-hamsters-example">Crypto Hamsters example</h1>
+<p>Just a smart contract example</p>
+<h2 id="how-it-works">How it works?</h2>
+<p>You can create your own hamster, it is unique by name and dna.</p>
+<h2 id="methods-description">Methods description</h2>
+<ul>
+<li><code>entrypoint create_hamster(hamster_name: string)</code> - create a crypto hamster by passed name</li>
+<li><code>entrypoint name_exists(name: string)</code> - can check if hamster with that name exists</li>
+<li><code>entrypoint get_hamster_dna(name: string)</code> - get hamster's dna</li>
+</ul>
                 
                   
                 
@@ -2147,6 +2267,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../SmartShop/" title="SmartShop" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                SmartShop
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../SmartRealEstate/" title="SmartRealEstate" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                SmartRealEstate
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
