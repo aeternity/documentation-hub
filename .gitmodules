@@ -61,3 +61,6 @@
 [submodule "AEXs"]
 	path = AEXs
 	url = git@github.com:aeternity/AEXs.git
+[submodule "aepp-sdk-js"]
+	path = aepp-sdk-js
+	url = git@github.com:aeternity/aepp-sdk-js.git
