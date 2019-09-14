@@ -1,14 +1,17 @@
 use diesel::sql_query;
 
 use coinbase::coinbase;
+use compiler::*;
 use models::*;
 use node::Node;
 
 use chrono::prelude::*;
 use diesel::RunQueryDsl;
+use loader::PGCONNECTION;
+use loader::SQLCONNECTION;
 use regex::Regex;
 use rocket;
-use rocket::http::{Method, Status};
+use rocket::http::{Header, Method, Status};
 use rocket::response::Response;
 use rocket::State;
 use rocket_contrib::json::*;
@@ -19,17 +22,13 @@ use serde_json;
 use std::io::Cursor;
 use std::path::PathBuf;
 
-use SQLCONNECTION;
-
-use PGCONNECTION;
-
 pub struct MiddlewareServer {
     pub node: Node,
     pub dest_url: String, // address to forward to
     pub port: u16,        // port to listen on
 }
 
-// SQL santitizing method to prevent injection attacks.
+// SQL sanitizing method to prevent injection attacks.
 fn sanitize(s: &String) -> String {
     s.replace("'", "\\'")
 }
@@ -51,10 +50,18 @@ fn check_object(s: &str) -> () {
  */
 #[get("/<path..>", rank = 6)]
 fn node_get_handler(state: State<MiddlewareServer>, path: PathBuf) -> Response {
-    let http_response = state
+    let http_response = match state
         .node
         .get_naked(&String::from("/v2/"), &String::from(path.to_str().unwrap()))
-        .unwrap();
+    {
+        Ok(x) => x,
+        Err(e) => {
+            info!("error response:\n{}", e.to_string());
+            return Response::build()
+                .status(Status::new(500, "An error occurred"))
+                .finalize();
+        }
+    };
     debug!("http_response is {:?}", http_response);
     let mut response = Response::build();
     if let Some(status) = http_response.status {
@@ -157,19 +164,19 @@ fn current_key_block(_state: State<MiddlewareServer>) -> Json<JsonValue> {
 }
 
 #[get("/key-blocks/height/<height>", rank = 1)]
-fn key_block_at_height(state: State<MiddlewareServer>, height: i64) -> Json<String> {
+fn key_block_at_height(state: State<MiddlewareServer>, height: i64) -> Json<JsonValue> {
     let key_block = match KeyBlock::load_at_height(&PGCONNECTION.get().unwrap(), height) {
         Some(x) => x,
         None => {
             info!("Generation not found at height {}", height);
             return Json(
-                serde_json::to_string(&state.node.get_generation_at_height(height).unwrap())
-                    .unwrap(),
+                serde_json::from_str(&serde_json::to_string(&state.node.get_generation_at_height(height).unwrap())
+                    .unwrap()).unwrap(),
             );
         }
     };
     info!("Serving key block {} from DB", height);
-    Json(serde_json::to_string(&JsonKeyBlock::from_key_block(&key_block)).unwrap())
+    Json(serde_json::from_str(&serde_json::to_string(&JsonKeyBlock::from_key_block(&key_block)).unwrap()).unwrap())
 }
 
 #[catch(400)]
@@ -211,7 +218,6 @@ fn transaction_at_hash(
     let mut path = std::path::PathBuf::new();
     path.push(format!("transactions/{}", hash));
     let mut response = node_get_handler(state, path);
-    println!("{:?}", response);
     if response.status() == Status::Ok {
         let body = response.body_string().unwrap();
         let jt: JsonTransaction = serde_json::from_str(&body).unwrap();
@@ -360,20 +366,25 @@ fn current_count(_state: State<MiddlewareServer>) -> Json<JsonValue> {
 /*
  * Gets count of transactions for an account
  */
-#[get("/transactions/account/<account>/count")]
+#[get("/transactions/account/<account>/count?<txtype>")]
 fn transaction_count_for_account(
     _state: State<MiddlewareServer>,
     account: String,
+    txtype: Option<String>,
 ) -> Json<JsonValue> {
     check_object(&account);
     let s_acc = sanitize(&account);
+    let txtype_sql: String = match txtype {
+        Some(txtype) => format!(" '{}') and tx_type ilike '{}' ", s_acc, sanitize(&txtype)),
+        _ => format!(" '{}') ", s_acc),
+    };
     let sql = format!(
-        "select count(1) from transactions where \
+        "select count(1) from transactions where ( \
          tx->>'sender_id'='{}' or \
          tx->>'account_id' = '{}' or \
          tx->>'recipient_id'='{}' or \
-         tx->>'owner_id' = '{}' ",
-        s_acc, s_acc, s_acc, s_acc
+         tx->>'owner_id' = {} ",
+        s_acc, s_acc, s_acc, txtype_sql
     );
     debug!("{}", sql);
     let rows = SQLCONNECTION.get().unwrap().query(&sql, &[]).unwrap();
@@ -404,26 +415,48 @@ fn offset_limit(limit: Option<i32>, page: Option<i32>) -> (String, String) {
 /*
  * Gets all transactions for an account
  */
-#[get("/transactions/account/<account>?<limit>&<page>")]
+#[get("/transactions/account/<account>?<limit>&<page>&<txtype>")]
 fn transactions_for_account(
     _state: State<MiddlewareServer>,
     account: String,
     limit: Option<i32>,
     page: Option<i32>,
+    txtype: Option<String>,
 ) -> Json<Vec<JsonValue>> {
     check_object(&account);
     let s_acc = sanitize(&account);
     let (offset_sql, limit_sql) = offset_limit(limit, page);
+    let txtype_sql: String = match txtype {
+        Some(txtype) => format!(" '{}') and tx_type ilike '{}' ", s_acc, sanitize(&txtype)),
+        _ => format!(" '{}') ", s_acc),
+    };
     let sql = format!(
         "SELECT m.time_, t.* FROM transactions t, micro_blocks m WHERE \
          m.id = t.micro_block_id AND \
          (t.tx->>'sender_id'='{}' OR \
          t.tx->>'account_id' = '{}' OR \
-         t.tx->>'recipient_id'='{}' or \
-         t.tx->>'owner_id' = '{}' )\
-         order by id desc \
+         t.tx->>'ga_id' = '{}' OR \
+         t.tx->>'caller_id' = '{}' OR \
+         t.tx->>'recipient_id'='{}' OR \
+         t.tx->>'initiator_id'='{}' OR \
+         t.tx->>'responder_id'='{}' OR \
+         t.tx->>'from_id'='{}' OR \
+         t.tx->>'to_id'='{}' OR \
+         t.tx->>'owner_id' = {}\
+         order by m.time_ desc \
          limit {} offset {} ",
-        s_acc, s_acc, s_acc, s_acc, limit_sql, offset_sql
+        s_acc,
+        s_acc,
+        s_acc,
+        s_acc,
+        s_acc,
+        s_acc,
+        s_acc,
+        s_acc,
+        s_acc,
+        txtype_sql,
+        limit_sql,
+        offset_sql
     );
     info!("{}", sql);
 
@@ -433,9 +466,12 @@ fn transactions_for_account(
         let block_height: i32 = row.get(3);
         let block_hash: String = row.get(4);
         let hash: String = row.get(5);
-        let sig: String = row.get(6);
-        let signatures: Vec<String> = sig.split(' ').map(|s| s.to_string()).collect();
-        let tx: serde_json::Value = row.get(8);
+        let sig: Option<String> = row.get(6);
+        let signatures = Transaction::deserialize_signatures(&sig);
+        let tx: serde_json::Value = match row.get_opt(12).unwrap().unwrap() {
+            Some(encoded_tx) => Transaction::decode_tx(&encoded_tx),
+            _ => row.get(8),
+        };
         results.push(json!({
             "time" : time,
             "block_height": block_height,
@@ -484,23 +520,23 @@ fn transactions_for_account_to_account(
 /*
  * Gets transactions between blocks
  */
-#[get("/transactions/interval/<from>/<to>?<limit>&<page>")]
+#[get("/transactions/interval/<from>/<to>?<limit>&<page>&<txtype>")]
 fn transactions_for_interval(
     _state: State<MiddlewareServer>,
     from: i64,
     to: i64,
     limit: Option<i32>,
     page: Option<i32>,
+    txtype: Option<String>,
 ) -> Json<JsonTransactionList> {
     let (offset_sql, limit_sql) = offset_limit(limit, page);
+    let txtype_sql: String = match txtype {
+        Some(txtype) => format!(" {}  and tx_type ilike '{}' ", to, sanitize(&txtype)),
+        _ => to.to_string(),
+    };
     let sql = format!(
-        "select t.* from transactions t, micro_blocks m, key_blocks k where \
-         t.micro_block_id=m.id and \
-         m.key_block_id=k.id and \
-         k.height >={} and k.height <= {} \
-         order by k.height desc, t.id desc \
-         limit {} offset {} ",
-        from, to, limit_sql, offset_sql
+        "select t.* from transactions t where t.block_height >= {} and t.block_height <= {} order by t.block_height desc, t.id desc limit {} offset {}",
+        from, txtype_sql, limit_sql, offset_sql
     );
     let transactions: Vec<Transaction> =
         sql_query(sql).load(&*PGCONNECTION.get().unwrap()).unwrap();
@@ -538,7 +574,7 @@ fn transactions_for_contract_address(
          t.tx_type='ContractCallTx' and \
          t.tx->>'contract_id' = '{}' or \
          t.id in (select transaction_id from contract_identifiers where \
-         contract_identifier='{}')",
+         contract_identifier='{}') ORDER by t.block_height ASC",
         sanitize(&address),
         sanitize(&address)
     );
@@ -560,8 +596,8 @@ fn calls_for_contract_address(
     address: String,
 ) -> Json<Vec<JsonValue>> {
     check_object(&address);
-    let sql = "SELECT contract_id, caller_id, arguments FROM \
-               contract_calls WHERE \
+    let sql = "SELECT t.hash, contract_id, caller_id, arguments, callinfo, result FROM \
+               contract_calls c join transactions t on t.id=c.transaction_id WHERE \
                contract_id = $1";
     let mut calls = Vec::new();
     for row in &SQLCONNECTION
@@ -570,13 +606,19 @@ fn calls_for_contract_address(
         .query(&sql, &[&address])
         .unwrap()
     {
-        let contract_id: String = row.get(0);
-        let caller_id: String = row.get(1);
-        let arguments: serde_json::Value = row.get(2);
+        let transaction_id: String = row.get(0);
+        let contract_id: String = row.get(1);
+        let caller_id: String = row.get(2);
+        let arguments: serde_json::Value = row.get(3);
+        let callinfo: serde_json::Value = row.get(4);
+        let result: serde_json::Value = row.get(5);
         calls.push(json!({
+            "transaction_id": transaction_id,
             "contract_id": contract_id,
             "caller_id": caller_id,
             "arguments": arguments,
+            "callinfo": callinfo,
+            "result": result,
         }));
     }
     Json(calls)
@@ -597,7 +639,7 @@ fn generations_by_range(
          k.prev_hash, k.prev_key_hash, k.state_hash, k.target, k.time_, k.\"version\", \
          m.hash, m.pof_hash, m.prev_hash, m.prev_key_hash, m.signature, \
          m.state_hash, m.time_, m.txs_hash, m.\"version\", \
-         t.block_hash, t.block_height, t.hash, t.signatures, t.tx \
+         t.block_hash, t.block_height, t.hash, t.signatures, t.tx, t.encoded_tx \
          from key_blocks k left join micro_blocks m on k.id = m.key_block_id \
          left join transactions t on m.id = t.micro_block_id \
          where k.height >={} and k.height <={} \
@@ -611,13 +653,17 @@ fn generations_by_range(
         let mut transaction = json!({"block_hash": ""});
         let mut micro_block = json!({"prev_key_hash":""});
         let mut key_block = json!({"height": ""});
-        // check if tx is avaiable for a given row
+        // check if tx is available for a given row
         if let Some(val) = row.get(21) {
             let block_hash: String = val;
             let block_height: i32 = row.get(22);
             let hash: String = row.get(23);
-            let signatures: String = row.get(24);
-            let tx_: serde_json::Value = row.get(25);
+            let sig: Option<String> = row.get(24);
+            let signatures = Transaction::deserialize_signatures(&sig);
+            let tx_: serde_json::Value = match row.get_opt(26).unwrap().unwrap() {
+                Some(encoded_tx) => Transaction::decode_tx(&encoded_tx),
+                _ => row.get(25),
+            };
             transaction = json!({
                 "block_hash": block_hash,
                 "block_height": block_height,
@@ -759,13 +805,20 @@ fn active_channels(_state: State<MiddlewareServer>) -> Json<Vec<String>> {
     )
 }
 
-#[get("/contracts/all")]
-fn all_contracts(_state: State<MiddlewareServer>) -> Json<Vec<JsonValue>> {
-    let sql = "SELECT ci.contract_identifier, t.hash, t.block_height \
-               FROM contract_identifiers ci, transactions t WHERE \
-               ci.transaction_id=t.id \
-               ORDER BY block_height DESC"
-        .to_string();
+#[get("/contracts/all?<limit>&<page>")]
+fn all_contracts(
+    _state: State<MiddlewareServer>,
+    limit: Option<i32>,
+    page: Option<i32>,
+) -> Json<Vec<JsonValue>> {
+    let (offset_sql, limit_sql) = offset_limit(limit, page);
+    let sql = format!(
+        "SELECT ci.contract_identifier, t.hash, t.block_height \
+         FROM contract_identifiers ci, transactions t WHERE \
+         ci.transaction_id=t.id \
+         ORDER BY block_height DESC LIMIT {} OFFSET {}",
+        limit_sql, offset_sql
+    );
     Json(
         SQLCONNECTION
             .get()
@@ -787,31 +840,86 @@ fn all_contracts(_state: State<MiddlewareServer>) -> Json<Vec<JsonValue>> {
     )
 }
 
-#[get("/oracles/all?<limit>&<page>")]
-fn oracle_requests_responses(
+#[get("/oracles/list?<limit>&<page>")]
+fn oracles_all(
     _state: State<MiddlewareServer>,
     limit: Option<i32>,
     page: Option<i32>,
 ) -> JsonValue {
     let (offset_sql, limit_sql) = offset_limit(limit, page);
     let sql = format!(
-        "select oq.query_id, t1.tx, t2.tx from \
-         oracle_queries oq \
+        "SELECT REPLACE(tx->>'account_id', 'ak_', 'ok_'), hash, block_height, \
+         CASE WHEN tx->'oracle_ttl'->>'type' = 'delta' THEN block_height + (tx->'oracle_ttl'->'value')::text::integer ELSE 0 END, \
+         tx FROM transactions \
+         WHERE tx_type='OracleRegisterTx' \
+         ORDER BY block_height DESC \
+         LIMIT {} OFFSET {}",
+        limit_sql, offset_sql,
+    );
+    debug!("{}", sql);
+    let mut res: Vec<JsonValue> = vec![];
+    for row in &SQLCONNECTION.get().unwrap().query(&sql, &[]).unwrap() {
+        let oracle_id: String = row.get(0);
+        let hash: String = row.get(1);
+        let block_height: i32 = row.get(2);
+        let expires_at: i32 = row.get(3);
+        let tx: serde_json::Value = row.get(4);
+        res.push(json!({
+            "oracle_id": oracle_id,
+            "transaction_hash": hash,
+            "block_height": block_height,
+            "expires_at": expires_at,
+               "tx": tx,
+        }));
+    }
+    json!(res)
+}
+
+#[get("/oracles/<hash>?<limit>&<page>")]
+fn oracle_requests_responses(
+    _state: State<MiddlewareServer>,
+    hash: String,
+    limit: Option<i32>,
+    page: Option<i32>,
+) -> JsonValue {
+    let (offset_sql, limit_sql) = offset_limit(limit, page);
+    let sql = format!(
+        "select oq.query_id, t1.tx, t2.tx, t1.hash, t2.hash, \
+         m1.time_, m2.time_ from oracle_queries oq \
          join transactions t1 on oq.transaction_id=t1.id \
+         inner join micro_blocks m1 on t1.micro_block_id = m1.id \
          left outer join transactions t2 on t2.tx->>'query_id' = oq.query_id \
+         inner join micro_blocks m2 on t2.micro_block_id = m2.id \
+         where oq.oracle_id='{}' \
          limit {} offset {} ",
-        limit_sql, offset_sql
+        hash, limit_sql, offset_sql
     );
     let mut res: Vec<JsonValue> = vec![];
     for row in &SQLCONNECTION.get().unwrap().query(&sql, &[]).unwrap() {
         let query_id: String = row.get(0);
-        let request: serde_json::Value = row.get(1);
-        let response: Option<serde_json::Value> = row.get(2);
-        res.push(json!({
+        let mut request: serde_json::Value = row.get(1);
+        let request_hash: String = row.get(3);
+        let request_timestamp: i64 = row.get(5);
+        request["hash"] = serde_json::to_value(&request_hash).unwrap();
+        request["timestamp"] = serde_json::to_value(&request_timestamp).unwrap();
+        let data: Option<serde_json::Value> = row.get(2);
+        let response = match data {
+            Some(x) => {
+                let mut response_value = x.clone();
+                let response_hash: String = row.get(4);
+                let response_timestamp: i64 = row.get(6);
+                response_value["timestamp"] = serde_json::to_value(&response_timestamp).unwrap();
+                response_value["hash"] = serde_json::to_value(&response_hash).unwrap();
+                response_value
+            }
+            _ => serde_json::json!(null),
+        };
+        let result_set = json!({
             "query_id": query_id,
             "request": json!(request),
             "response": json!(response),
-        }));
+        });
+        res.push(result_set);
     }
     json!(res)
 }
@@ -821,6 +929,7 @@ fn reward_at_height(_state: State<MiddlewareServer>, height: i64) -> JsonValue {
     let coinbase: Decimal = (coinbase(height) as u64).into();
     let last_reward = KeyBlock::fees(&SQLCONNECTION.get().unwrap(), (height - 1) as i32);
     let this_reward = KeyBlock::fees(&SQLCONNECTION.get().unwrap(), height as i32);
+    let key_block = KeyBlock::load_at_height(&PGCONNECTION.get().unwrap(), height).unwrap();
     let four: Decimal = 4.into();
     let six: Decimal = 6.into();
     let ten: Decimal = 10.into();
@@ -828,29 +937,83 @@ fn reward_at_height(_state: State<MiddlewareServer>, height: i64) -> JsonValue {
     json!({
         "height": height,
         "coinbase": coinbase,
+        "beneficiary": key_block.beneficiary,
         "fees": total_reward,
         "total": coinbase + total_reward,
     })
 }
 
-#[get("/names/active?<limit>&<page>")]
+#[get("/names/active?<limit>&<page>&<owner>")]
 fn active_names(
     _state: State<MiddlewareServer>,
     limit: Option<i32>,
     page: Option<i32>,
+    owner: Option<String>,
 ) -> Json<Vec<Name>> {
     let connection = PGCONNECTION.get().unwrap();
     let (offset_sql, limit_sql) = offset_limit(limit, page);
-    let sql = format!(
-        "select * from \
-         names where \
-         expires_at <= {} \
-         limit {} offset {} ",
-        KeyBlock::top_height(&*connection).unwrap(),
-        limit_sql,
-        offset_sql
-    );
+    let sql: String = match owner {
+        Some(owner) => format!(
+            "select * from \
+             names where \
+             expires_at >= {} and \
+             owner = '{}' \
+             order by expires_at desc \
+             limit {} offset {} ",
+            KeyBlock::top_height(&*connection).unwrap(),
+            sanitize(&owner),
+            limit_sql,
+            offset_sql
+        ),
+        _ => format!(
+            "select * from \
+             names where \
+             expires_at >= {} \
+             order by created_at_height desc \
+             limit {} offset {} ",
+            KeyBlock::top_height(&*connection).unwrap(),
+            limit_sql,
+            offset_sql
+        ),
+    };
     let names: Vec<Name> = sql_query(sql).load(&*PGCONNECTION.get().unwrap()).unwrap();
+    Json(names)
+}
+
+#[get("/names?<limit>&<page>&<owner>")]
+fn all_names(
+    _state: State<MiddlewareServer>,
+    limit: Option<i32>,
+    page: Option<i32>,
+    owner: Option<String>,
+) -> Json<Vec<Name>> {
+    let (offset_sql, limit_sql) = offset_limit(limit, page);
+    let sql: String = match owner {
+        Some(owner) => format!(
+            "select * from names \
+             where owner = '{}' \
+             order by expires_at desc \
+             limit {} offset {} ",
+            sanitize(&owner),
+            limit_sql,
+            offset_sql
+        ),
+        _ => format!(
+            "select * from names \
+             order by created_at_height desc \
+             limit {} offset {} ",
+            limit_sql, offset_sql
+        ),
+    };
+    let names: Vec<Name> = sql_query(sql).load(&*PGCONNECTION.get().unwrap()).unwrap();
+    Json(names)
+}
+
+#[get("/names/<query>")]
+fn search_names(_state: State<MiddlewareServer>, query: String) -> Json<Vec<Name>> {
+    let connection = PGCONNECTION.get().unwrap();
+    let _name_query = format!("%{}%", query);
+    let names = Name::find_by_name(&connection, &_name_query).unwrap();
     Json(names)
 }
 
@@ -880,6 +1043,101 @@ fn reverse_names(
     Json(names)
 }
 
+/**
+ * Gets the chain height at a specific point in time
+ */
+#[get("/height/at/<millis_since_epoch>")]
+fn height_at_epoch(
+    _state: State<MiddlewareServer>,
+    millis_since_epoch: i64,
+) -> Result<Json<JsonValue>, Status> {
+    match KeyBlock::height_at_epoch(&PGCONNECTION.get().unwrap(), millis_since_epoch).unwrap() {
+        Some(x) => Ok(Json(json!({
+            "height": x,
+        }))),
+        None => Err(rocket::http::Status::new(404, "Not found")),
+    }
+}
+
+#[get("/status")]
+fn status(_state: State<MiddlewareServer>) -> Response {
+    let _height = KeyBlock::top_height(&PGCONNECTION.get().unwrap()).unwrap();
+    let version = env!("CARGO_PKG_VERSION");
+    let top_key_block = KeyBlock::load_at_height(&PGCONNECTION.get().unwrap(), _height).unwrap();
+    let utc: DateTime<Utc> = Utc::now();
+    let seconds_since_last_block = (utc.timestamp_millis() - top_key_block.time) / 1000;
+    let max_seconds: i64 = std::env::var("STATUS_MAX_BLOCK_AGE")
+        .unwrap_or("900".into())
+        .parse::<i64>()
+        .unwrap();
+    let queue_length = crate::loader::queue_length();
+    let max_queue_length: i64 = std::env::var("STATUS_MAX_QUEUE_LENGTH")
+        .unwrap_or("2".into())
+        .parse::<i64>()
+        .unwrap();
+    let ok: bool = true
+        && (queue_length as i64 <= max_queue_length)
+        && (seconds_since_last_block < max_seconds);
+    let mut response = Response::build();
+    response.status(Status::from_code(if ok { 200 } else { 503 }).unwrap());
+    response.header(Header::new("content-type", "application/json"));
+    response.sized_body(Cursor::new(
+        json!({
+            "queue_length": queue_length,
+            "seconds_since_last_block": seconds_since_last_block,
+            "OK": ok,
+            "version": version,
+        })
+        .to_string(),
+    ));
+    response.finalize()
+}
+
+#[get("/api")]
+fn swagger() -> JsonValue {
+    let swagger_str = include_str!("../swagger/swagger.json");
+    serde_json::from_str(swagger_str).unwrap()
+}
+
+#[get("/compilers")]
+pub fn get_available_compilers() -> JsonValue {
+    match supported_compiler_versions().unwrap() {
+        Some(val) => json!({ "compilers": val }),
+        _ => json!({
+            "error": "no compiler available"
+        }),
+    }
+}
+
+#[post("/contracts/verify", format = "application/json", data = "<body>")]
+pub fn verify_contract(
+    _state: State<MiddlewareServer>,
+    body: Json<ContractVerification>,
+) -> JsonValue {
+    if !validate_compiler(body.compiler.clone()) {
+        return json!({
+            "error": "invalid compiler version"
+        });
+    }
+    match get_contract_bytecode(&body.contract_id).unwrap() {
+        Some(create_bytecode) => {
+            match compile_contract(body.source.clone(), body.compiler.clone()).unwrap() {
+                Some(compiled_bytecode) => {
+                    json!({
+                            "verified": (create_bytecode == compiled_bytecode)
+                    })
+                }
+                _ => json!({
+                    "error": "unable to compile the contract"
+                }),
+            }
+        }
+        _ => json!({
+            "error": "contract not found"
+        }),
+    }
+}
+
 impl MiddlewareServer {
     pub fn start(self) {
         let allowed_origins = AllowedOrigins::all();
@@ -897,15 +1155,22 @@ impl MiddlewareServer {
             .register(catchers![error400, error404])
             .mount("/middleware", routes![active_channels])
             .mount("/middleware", routes![active_names])
+            .mount("/middleware", routes![all_names])
             .mount("/middleware", routes![all_contracts])
             .mount("/middleware", routes![calls_for_contract_address])
+            .mount("/middleware", routes![get_available_compilers])
             .mount("/middleware", routes![current_count])
             .mount("/middleware", routes![current_size])
             .mount("/middleware", routes![generations_by_range])
+            .mount("/middleware", routes![height_at_epoch])
+            .mount("/middleware", routes![oracles_all])
             .mount("/middleware", routes![oracle_requests_responses])
             .mount("/middleware", routes![reverse_names])
             .mount("/middleware", routes![reward_at_height])
+            .mount("/middleware", routes![search_names])
             .mount("/middleware", routes![size])
+            .mount("/middleware", routes![status])
+            .mount("/middleware", routes![swagger])
             .mount("/middleware", routes![transaction_rate])
             .mount("/middleware", routes![transactions_for_account])
             .mount("/middleware", routes![transactions_for_account_to_account])
@@ -913,6 +1178,7 @@ impl MiddlewareServer {
             .mount("/middleware", routes![transaction_count_for_account])
             .mount("/middleware", routes![transactions_for_channel_address])
             .mount("/middleware", routes![transactions_for_contract_address])
+            .mount("/middleware", routes![verify_contract])
             .mount("/v2", routes![current_generation])
             .mount("/v2", routes![current_key_block])
             .mount("/v2", routes![generation_at_height])

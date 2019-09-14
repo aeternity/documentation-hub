@@ -7,12 +7,12 @@ use std::collections::HashMap;
 use std::io::Read;
 use std::str;
 
+use loader::SQLCONNECTION;
 use middleware_result::MiddlewareError;
 use middleware_result::MiddlewareResult;
 use models::InsertableMicroBlock;
 use models::JsonKeyBlock;
 use models::JsonTransaction;
-use SQLCONNECTION;
 
 #[derive(Debug)]
 pub struct HttpResponse {
@@ -82,6 +82,13 @@ impl Node {
         self.get(&String::from("key-blocks/current"))
     }
 
+    pub fn transaction_info(
+        &self,
+        transaction_hash: &String,
+    ) -> MiddlewareResult<serde_json::Value> {
+        self.get(&format!("transactions/{}/info", transaction_hash))
+    }
+
     pub fn get(&self, operation: &String) -> MiddlewareResult<serde_json::Value> {
         debug!("Fetching {}", operation);
         let http_response = self.get_naked(&String::from("/v2/"), operation)?;
@@ -116,14 +123,7 @@ impl Node {
             transfer.perform()?;
         }
         http_response.body = Some(String::from(std::str::from_utf8(&response)?));
-        if http_response.status != Some("200".to_string()) {
-            Err(MiddlewareError::new(&format!(
-                "Non-200 response received, error is {}, body:\n{}",
-                http_response.status?, http_response.body?
-            )))
-        } else {
-            Ok(http_response)
-        }
+        Ok(http_response)
     }
 
     pub fn post_naked(

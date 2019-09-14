@@ -7,25 +7,45 @@ services:
     ports:
       - "8080:80"
       - "3020:3020"
-    environment: 
-      - NODE_URL=https://roma-net.aepps.com
+    entrypoint: ./docker/wait-for-it.sh node:3013 -- ./aepp-middleware -p -s -w
+    environment:
+      - NODE_URL=node:3013
+      - AESOPHIA_URL=compiler:3080
       - DATABASE_URL=postgres://middleware:middleware@db/middleware
+    volumes:
+      - ${PWD}/docker/wait-for-it.sh:/app/docker/wait-for-it.sh
     depends_on:
       - db
+      - node
+      - compiler
+
+  node:
+    image: aeternity/aeternity:${NODE_TAG}
+    hostname: node
+    expose: [3013, 3113, 3014]
+    environment:
+      AETERNITY_CONFIG: /home/aeterinty/aeternity.yaml
+    volumes:
+      - ${PWD}/docker/aeternity.yaml:/home/aeterinty/aeternity.yaml
+      - node_db:/home/aeterinty/node/data/mnesia
 
   db:
-    image: postgres:10.6
+    image: postgres:11
     restart: unless-stopped
     environment:
       - POSTGRES_USER=middleware
       - POSTGRES_PASSWORD=middleware
       - POSTGRES_DB=middleware
     volumes: 
-      - ./docker/schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - ae-mdw-postgres-volume:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    expose: [5432]
+
+  compiler:
+    image: aeternity/aesophia_http:${COMPILER_TAG}
+    hostname: compiler
+    expose: [3080]
     
 volumes:
     ae-mdw-postgres-volume:
       external: false
+    node_db:

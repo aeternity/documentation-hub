@@ -19,7 +19,6 @@ use diesel::sql_query;
 extern crate serde_json;
 use bigdecimal;
 use bigdecimal::ToPrimitive;
-use reqwest::header::{HeaderMap, HeaderValue, CONTENT_TYPE};
 use rust_decimal::Decimal;
 use serde_json::Number;
 use std::collections::HashMap;
@@ -27,12 +26,17 @@ use std::fmt;
 use std::str::FromStr;
 
 use middleware_result::{MiddlewareError, MiddlewareResult};
+use node::Node;
 
-use SQLCONNECTION;
+use loader::SQLCONNECTION;
 
-#[derive(Queryable, QueryableByName, Hash, PartialEq, Eq)]
+#[derive(
+    Associations, Deserialize, Identifiable, Queryable, QueryableByName, Hash, PartialEq, Eq,
+)]
 #[table_name = "key_blocks"]
+#[has_many(micro_blocks)]
 pub struct KeyBlock {
+    #[sql_type = "diesel::sql_types::Int4"]
     pub id: i32,
     pub hash: String,
     pub height: i64,
@@ -46,6 +50,7 @@ pub struct KeyBlock {
     pub target: i64,
     pub time: i64,
     pub version: i32,
+    pub info: String,
 }
 
 impl KeyBlock {
@@ -58,6 +63,7 @@ impl KeyBlock {
             id: -1, // TODO
             hash: jb.hash.clone(),
             height: jb.height,
+            info: jb.info.to_owned(),
             miner: jb.miner.clone(),
             nonce: bigdecimal::BigDecimal::from(n),
             beneficiary: jb.beneficiary.clone(),
@@ -74,6 +80,21 @@ impl KeyBlock {
     pub fn top_height(conn: &PgConnection) -> MiddlewareResult<i64> {
         let _height: Option<i64> = key_blocks.select(diesel::dsl::max(height)).first(conn)?;
         Ok(_height?)
+    }
+
+    /**
+     * return the height that has time >= of the epoch input value
+     */
+    pub fn height_at_epoch(_conn: &PgConnection, epoch: i64) -> MiddlewareResult<Option<i64>> {
+        let rows = SQLCONNECTION.get()?.query(
+            "SELECT MIN(height) FROM key_blocks WHERE time_ >= $1",
+            &[&epoch],
+        )?;
+        if rows.len() == 0 {
+            Ok(None)
+        } else {
+            Ok(rows.get(0).get(0))
+        }
     }
 
     pub fn load_at_height(conn: &PgConnection, _height: i64) -> Option<KeyBlock> {
@@ -127,6 +148,7 @@ impl KeyBlock {
 pub struct InsertableKeyBlock {
     pub hash: String,
     pub height: i64,
+    pub info: String,
     pub miner: String,
     pub nonce: bigdecimal::BigDecimal,
     pub beneficiary: String,
@@ -169,6 +191,7 @@ impl InsertableKeyBlock {
             target: jb.target.clone(),
             time: jb.time,
             version: jb.version,
+            info: jb.info.to_owned(),
         })
     }
 }
@@ -185,6 +208,7 @@ for these missing methods.
 pub struct JsonKeyBlock {
     pub hash: String,
     pub height: i64,
+    pub info: String,
     pub miner: String,
     pub beneficiary: String,
     #[serde(default = "zero")]
@@ -202,8 +226,9 @@ pub struct JsonKeyBlock {
 impl JsonKeyBlock {
     pub fn eq(&self, other: &JsonKeyBlock) -> bool {
         (self.hash.eq(&other.hash) &&
-                self.height == other.height &&
-                self.miner.eq(&other.miner) &&
+         self.height == other.height &&
+         self.miner.eq(&other.miner) &&
+         self.info.eq(&other.info) &&
                 self.beneficiary.eq(&other.beneficiary) &&
 //                self.nonce == other.nonce && // These don't compare well. TODO -- fix
                 self.pow.len() == other.pow.len() && // TODO <-- fix
@@ -224,6 +249,7 @@ impl JsonKeyBlock {
         JsonKeyBlock {
             hash: kb.hash.clone(),
             height: kb.height,
+            info: kb.info.to_owned(),
             miner: kb.miner.clone(),
             beneficiary: kb.beneficiary.clone(),
             nonce: serde_json::Number::from_f64(kb.nonce.to_f64().unwrap()).unwrap(),
@@ -246,14 +272,15 @@ fn zero_vec_i32() -> Vec<i32> {
     vec![0]
 }
 
-#[derive(Identifiable, Associations, Queryable, QueryableByName)]
-#[belongs_to(KeyBlock)]
+#[derive(
+    Deserialize, Associations, Identifiable, Queryable, QueryableByName, Hash, Eq, PartialEq,
+)]
 #[table_name = "micro_blocks"]
+#[belongs_to(KeyBlock)]
+#[has_many(transactions)]
 pub struct MicroBlock {
     pub id: i32,
-    #[sql_type = "diesel::sql_types::Int4"]
-    #[column_name = "key_block_id"]
-    pub key_block: Option<KeyBlock>,
+    pub key_block_id: i32,
     pub hash: String,
     pub pof_hash: String,
     pub prev_hash: String,
@@ -381,18 +408,22 @@ impl JsonGeneration {
     }
 }
 
-#[derive(Queryable, QueryableByName, Identifiable, Serialize, Deserialize)]
+#[derive(Queryable, QueryableByName, Identifiable, Serialize, Deserialize, Associations, Clone)]
 #[table_name = "transactions"]
+#[belongs_to(MicroBlock)]
 pub struct Transaction {
     pub id: i32,
     pub micro_block_id: Option<i32>,
     pub block_height: i32,
     pub block_hash: String,
     pub hash: String,
-    pub signatures: String,
+    pub signatures: Option<String>,
+    pub tx_type: String,
+    pub tx: serde_json::Value,
     pub fee: bigdecimal::BigDecimal,
     pub size: i32,
-    pub tx: serde_json::Value,
+    pub valid: bool,
+    pub encoded_tx: Option<String>,
 }
 
 #[derive(Serialize)]
@@ -406,25 +437,20 @@ impl Transaction {
     pub fn load_at_hash(conn: &PgConnection, _hash: &String) -> Option<Transaction> {
         let sql = format!("select * from transactions where hash='{}'", _hash);
         let mut _transactions: Vec<Transaction> = sql_query(sql).load(conn).unwrap();
-        /*
-        let mut _transactions = match transactions::table
-            .filter(hash.eq(_hash))
-            .limit(1)
-            .load::<Transaction>(conn) {
-                Ok(x) => x,
-                Err(y) => {
-                    error!("Error loading key block: {:?}", y);
-                    return None;
-                },
-            };
-         */
-        Some(_transactions.pop()?)
+        match _transactions.pop() {
+            Some(tx) => Some(Transaction::check_encoded(&tx)),
+            _ => None,
+        }
     }
 
     pub fn load_for_micro_block(conn: &PgConnection, mb_hash: &String) -> Option<Vec<Transaction>> {
         let sql = format!("select t.* from transactions t, micro_blocks mb where t.micro_block_id = mb.id and mb.hash='{}'", mb_hash);
-        let mut _transactions: Vec<Transaction> = sql_query(sql).load(conn).unwrap();
-        Some(_transactions)
+        let _transactions: Vec<Transaction> = sql_query(sql).load(conn).unwrap();
+        let txs = _transactions
+            .iter()
+            .map(Transaction::check_encoded)
+            .collect();
+        Some(txs)
     }
 
     pub fn rate(
@@ -447,6 +473,32 @@ impl Transaction {
         }
         Ok(v)
     }
+
+    pub fn check_encoded(transaction: &Transaction) -> Transaction {
+        match &transaction.encoded_tx {
+            Some(encoded_tx) => {
+                let mut tx = transaction.clone();
+                tx.tx = Transaction::decode_tx(encoded_tx);
+                tx
+            }
+            _ => transaction.clone(),
+        }
+    }
+
+    pub fn decode_tx(encoded_tx: &String) -> serde_json::Value {
+        serde_json::from_str(&String::from_utf8(base64::decode(&encoded_tx).unwrap()).unwrap())
+            .unwrap()
+    }
+
+    pub fn deserialize_signatures(sig: &Option<String>) -> Option<Vec<String>> {
+        match sig {
+            Some(result) => {
+                let signatures: Vec<String> = result.split(' ').map(|s| s.to_string()).collect();
+                Some(signatures)
+            }
+            _ => None,
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -454,23 +506,20 @@ pub struct JsonTransaction {
     pub block_height: i32,
     pub block_hash: String,
     pub hash: String,
-    pub signatures: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signatures: Option<Vec<String>>,
     pub tx: serde_json::Value,
 }
 
 impl JsonTransaction {
     pub fn from_transaction(t: &Transaction) -> JsonTransaction {
-        let mut signatures: Vec<String> = vec![];
-        let _s = t.signatures.split(" ");
-        for s in _s {
-            signatures.push(String::from(s));
-        }
+        let signatures = Transaction::deserialize_signatures(&t.signatures);
         JsonTransaction {
             block_height: t.block_height,
             block_hash: t.block_hash.clone(),
             hash: t.hash.clone(),
             signatures,
-            tx: t.tx.clone(),
+            tx: Transaction::check_encoded(t).tx,
         }
     }
 
@@ -513,11 +562,12 @@ pub struct InsertableTransaction {
     pub block_height: i32,
     pub block_hash: String,
     pub hash: String,
-    pub signatures: String,
+    pub signatures: Option<String>,
     pub tx_type: String,
     pub fee: bigdecimal::BigDecimal,
     pub size: i32,
     pub tx: serde_json::Value,
+    pub encoded_tx: Option<String>,
 }
 
 impl InsertableTransaction {
@@ -536,18 +586,27 @@ impl InsertableTransaction {
         tx_type: String,
         micro_block_id: Option<i32>,
     ) -> MiddlewareResult<InsertableTransaction> {
-        let mut signatures = String::new();
-        for i in 0..jt.signatures.len() {
-            if i > 0 {
-                signatures.push_str(" ");
+        let signatures = match &jt.signatures {
+            Some(sig) => {
+                let mut sig_str = String::new();
+                for i in 0..sig.len() {
+                    if i > 0 {
+                        sig_str.push_str(" ");
+                    }
+                    sig_str.push_str(&sig[i].clone());
+                }
+                Some(sig_str)
             }
-            signatures.push_str(&jt.signatures[i].clone());
-        }
+            _ => None,
+        };
 
         let fee_number: serde_json::Number =
             serde::de::Deserialize::deserialize(jt.tx["fee"].to_owned())?;
         let fee_str = fee_number.to_string();
-        let fee = bigdecimal::BigDecimal::from_str(&fee_str)?;
+        let fee = bigdecimal::BigDecimal::from_str(&fee_str)?.with_scale(0);
+        let cleaned_tx = InsertableTransaction::clean_tx_string(&jt.tx.to_string());
+        let encoded_tx = Some(base64::encode(&jt.tx.to_string()));
+        // the above with_scale(0) seems to suppress a weird bug, should not be necessary
         Ok(InsertableTransaction {
             micro_block_id,
             block_height: jt.block_height,
@@ -557,8 +616,13 @@ impl InsertableTransaction {
             tx_type,
             fee,
             size: jt.tx.to_string().len() as i32,
-            tx,
+            tx: serde_json::from_str(&cleaned_tx)?,
+            encoded_tx,
         })
+    }
+
+    pub fn clean_tx_string(tx_str: &str) -> String {
+        tx_str.replace("\\u0000", "")
     }
 }
 
@@ -590,7 +654,7 @@ pub fn count_at_height(
     Ok(None)
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub enum WsOp {
     subscribe,
     unsubscribe,
@@ -598,10 +662,11 @@ pub enum WsOp {
 
 #[derive(Serialize, Deserialize, Clone, Eq, PartialEq, Hash, Debug)]
 pub enum WsPayload {
-    key_blocks,
-    micro_blocks,
-    transactions,
-    tx_update,
+    key_blocks = 0,
+    micro_blocks = 1,
+    transactions = 2,
+    tx_update = 3,
+    object,
 }
 
 impl fmt::Display for WsPayload {
@@ -616,6 +681,8 @@ pub struct WsMessage {
     pub op: Option<WsOp>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub payload: Option<WsPayload>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target: Option<String>,
 }
 
 #[derive(Insertable)]
@@ -729,45 +796,58 @@ impl InsertableChannelIdentifier {
 pub struct InsertableName {
     pub name: String,
     pub name_hash: String,
+    pub tx_hash: String,
     pub created_at_height: i64,
     pub owner: String,
     pub expires_at: i64,
     pub pointers: Option<serde_json::Value>,
+    pub transaction_id: i32,
 }
 
 impl InsertableName {
+    pub const NAME_CLAIM_MAX_EXPIRATION: i64 = 50000;
+
     pub fn new(
         _name: &String,
         _name_hash: &String,
+        _tx_hash: &String,
         _created_at_height: i64,
         _owner: &str,
         _expires_at: i64,
+        _transaction_id: i32,
     ) -> Self {
         InsertableName {
             name: _name.to_string(),
             name_hash: _name_hash.to_string(),
+            tx_hash: _tx_hash.to_string(),
             created_at_height: _created_at_height,
             owner: _owner.to_string(),
             expires_at: _expires_at,
             pointers: None,
+            transaction_id: _transaction_id,
         }
     }
 
-    pub fn new_from_transaction(transaction: &JsonTransaction) -> Option<Self> {
+    pub fn new_from_transaction(tx_id: i32, transaction: &JsonTransaction) -> Option<Self> {
         let ttype = transaction.tx["type"].as_str()?;
         if ttype != "NameClaimTx" {
             return None;
         }
         let _name = transaction.tx["name"].as_str()?;
         let _name_hash = super::hashing::get_name_id(&_name).unwrap(); // TODO
+        let _tx_hash = transaction.hash.clone();
         let _account_id = transaction.tx["account_id"].as_str()?;
-        let _expires_at = transaction.tx["ttl"].as_i64()? + transaction.block_height as i64;
+        let _expires_at =
+            InsertableName::NAME_CLAIM_MAX_EXPIRATION + transaction.block_height as i64;
+
         Some(InsertableName::new(
             &_name.to_string(),
             &_name_hash,
+            &_tx_hash,
             transaction.block_height as i64,
             &_account_id,
             _expires_at,
+            tx_id,
         ))
     }
 
@@ -786,13 +866,17 @@ impl InsertableName {
 #[derive(AsChangeset, Identifiable, Queryable, QueryableByName, Deserialize, Serialize)]
 #[table_name = "names"]
 pub struct Name {
+    #[serde(skip_serializing)]
     pub id: i32,
     pub name: String,
     pub name_hash: String,
+    pub tx_hash: String,
     pub created_at_height: i64,
     pub owner: String,
     pub expires_at: i64,
     pub pointers: Option<serde_json::Value>,
+    #[serde(skip_serializing)]
+    pub transaction_id: i32,
 }
 
 impl Name {
@@ -819,6 +903,29 @@ impl Name {
             Err(e) => Err(MiddlewareError::new(&e.to_string())),
         }
     }
+    pub fn find_by_name(connection: &PgConnection, query: &str) -> MiddlewareResult<Vec<Self>> {
+        use schema::names::dsl::*;
+        let result = names
+            .filter(name.like(query))
+            .then_order_by(expires_at.desc())
+            .load::<Self>(connection);
+        match result {
+            Ok(x) => Ok(x),
+            Err(e) => Err(MiddlewareError::new(&e.to_string())),
+        }
+    }
+}
+
+#[derive(Queryable, QueryableByName)]
+#[table_name = "contract_calls"]
+pub struct ContractCall {
+    pub id: i32,
+    pub transaction_id: i32,
+    pub contract_id: String,
+    pub caller_id: String,
+    pub arguments: serde_json::Value,
+    pub callinfo: Option<serde_json::Value>,
+    pub result: Option<serde_json::Value>,
 }
 
 #[derive(Insertable)]
@@ -828,13 +935,21 @@ pub struct InsertableContractCall {
     pub contract_id: String,
     pub caller_id: String,
     pub arguments: serde_json::Value,
+    pub callinfo: Option<serde_json::Value>,
+    pub result: Option<serde_json::Value>,
 }
 
 impl InsertableContractCall {
+    /**
+     * This function fills in the InsertableContractCall from values returned by the
+     * node and standalone compiler.
+     *
+     * TODO: refactor, massively.
+     */
     pub fn request(
         url: &str,
         source: &JsonTransaction,
-        transaction_id: i32,
+        _transaction_id: i32,
     ) -> MiddlewareResult<Option<Self>> {
         match source.tx["type"].as_str() {
             Some(x) => {
@@ -869,17 +984,56 @@ impl InsertableContractCall {
         };
         debug!("Params: {:?}", params);
         let client = reqwest::Client::new();
-        let mut headers = HeaderMap::new();
-        headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
-        let mut result = client.post(&full_url).json(&params).send()?;
-        let output = result.text()?;
-        debug!("Return from aesophia: {}", output);
-        let result = serde_json::from_str(&output)?;
+        let arguments: serde_json::Value = match client.post(&full_url).json(&params).send() {
+            Ok(mut data) => {
+                let output = data.text().unwrap();
+                serde_json::from_str(&output)?
+            }
+            Err(err) => {
+                debug!("Error occurred while decoding call data: {:?}", err);
+                serde_json::from_str("{}")?
+            }
+        };
+        // TODO -- clean up this hacky shit
+        let node = Node::new(std::env::var("NODE_URL")?);
+        // ^^^^^ should be safe here, but this needs to be fixed ASAP
+        let callinfo = node.transaction_info(&source.hash)?["call_info"].to_owned();
+        debug!("callinfo: {:?}", callinfo.to_string());
+        debug!("arguments: {:?}", arguments);
+
+        /* let mut call_result = None;
+        if (callinfo["return_type"].as_str()? == "ok") {
+            params.remove(&"calldata".to_string())?;
+            params.insert(
+                "function".to_string(),
+                String::from(arguments["function"].as_str()?),
+            );
+            params.insert(
+                "return".to_string(),
+                String::from(callinfo["return_value"].as_str()?),
+            );
+            debug!("returndata input: {:?}", params);
+            call_result = match client
+                .post(&format!("{}/decode-returndata/bytecode", url))
+                .json(&params)
+                .send() {
+                    Ok(mut response) => {
+                        debug!("Result decode response {:?} ", response);
+                        Some(serde_json::from_str(&response.text()?)?)
+                    },
+                    Err(err) => {
+                        debug!("Error occurred while decoding call result: {:?}", err);
+                        None
+                    },
+                }
+        } */
         Ok(Some(Self {
-            transaction_id,
+            transaction_id: _transaction_id,
             contract_id: contract_id.to_string(),
             caller_id: caller_id.to_string(),
-            arguments: result,
+            arguments,
+            callinfo: Some(callinfo),
+            result: None,
         }))
     }
 
@@ -893,4 +1047,11 @@ impl InsertableContractCall {
             .unwrap();
         Ok(generated_ids[0])
     }
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct ContractVerification {
+    pub contract_id: String,
+    pub source: String,
+    pub compiler: String,
 }

@@ -62,8 +62,8 @@ pub fn gen_contract_id(owner_id: &String, nonce: i64) -> String {
 fn blake2bdigest(v: &Vec<u8>) -> Vec<u8> {
     let mut hasher = VarBlake2b::new(32).unwrap();
     hasher.input(v);
-    let hash = hasher.vec_result();
-    hash
+
+    hasher.vec_result()
 }
 
 pub fn gen_oracle_query_id(sender_id: &String, nonce: i64, recipient_id: &String) -> String {
@@ -115,7 +115,6 @@ pub fn get_name_hash(name: &str) -> Vec<u8> {
     let mut split: Vec<&[u8]> = name.split('.').rev().map(|s| s.as_bytes()).collect();
     loop {
         if let Some(part) = split.pop() {
-            println!("{}", String::from_utf8(part.to_vec()).unwrap());
             let mut hasher = VarBlake2b::new(32).unwrap();
             hasher.input(part);
             let hashed = hasher.vec_result();
