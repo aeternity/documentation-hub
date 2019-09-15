@@ -36,7 +36,7 @@
     
     
       
-        <title>Introduction - æternity Documentation Hub</title>
+        <title>Configuration - æternity Documentation Hub</title>
       
     
     
@@ -129,7 +129,7 @@
               æternity Documentation Hub
             </span>
             <span class="md-header-nav__topic">
-              Introduction
+              Configuration
             </span>
           
         </div>
@@ -261,10 +261,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
     <label class="md-nav__link" for="nav-3">
       Node
@@ -282,7 +284,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../æternity/README.md" title="Introduction" class="md-nav__link">
+    <a href="../../" title="Introduction" class="md-nav__link">
       Introduction
     </a>
   </li>
@@ -292,10 +294,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" checked>
     
     <label class="md-nav__link" for="nav-3-2">
       Get Started
@@ -313,7 +317,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../æternity/docs/build-windows.md" title="Build in Windows" class="md-nav__link">
+    <a href="../build-windows/" title="Build in Windows" class="md-nav__link">
       Build in Windows
     </a>
   </li>
@@ -325,7 +329,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../æternity/docs/build.md" title="Build in Ubuntu" class="md-nav__link">
+    <a href="../build/" title="Build in Ubuntu" class="md-nav__link">
       Build in Ubuntu
     </a>
   </li>
@@ -335,11 +339,217 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../../æternity/docs/configuration.md" title="Configuration" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Configuration
+      </label>
+    
+    <a href="./" title="Configuration" class="md-nav__link md-nav__link--active">
       Configuration
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-provided-configuration" title="User-provided configuration" class="md-nav__link">
+    User-provided configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-name-and-location" title="File name and location" class="md-nav__link">
+    File name and location
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" title="Validation" class="md-nav__link">
+    Validation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notable-parameters" title="Notable parameters" class="md-nav__link">
+    Notable parameters
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#peer-to-peer-network" title="Peer-to-peer network" class="md-nav__link">
+    Peer-to-peer network
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firewalls" title="Firewalls" class="md-nav__link">
+    Firewalls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat" title="NAT" class="md-nav__link">
+    NAT
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-nat" title="Advanced NAT" class="md-nav__link">
+    Advanced NAT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upnpnat-pmp" title="UPnP/NAT-PMP" class="md-nav__link">
+    UPnP/NAT-PMP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port-check" title="Port Check" class="md-nav__link">
+    Port Check
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channels" title="Channels" class="md-nav__link">
+    Channels
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#channels-websocket-client-setup" title="Channels' WebSocket client setup" class="md-nav__link">
+    Channels' WebSocket client setup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-id" title="Network ID" class="md-nav__link">
+    Network ID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peers" title="Peers" class="md-nav__link">
+    Peers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miner-configuration" title="Miner configuration" class="md-nav__link">
+    Miner configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#combining-different-miners" title="Combining different miners" class="md-nav__link">
+    Combining different miners
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beneficiary-account" title="Beneficiary account" class="md-nav__link">
+    Beneficiary account
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-beneficiary-account-for-testing-purposes-only" title="Generating a beneficiary account for testing purposes only" class="md-nav__link">
+    Generating a beneficiary account for testing purposes only
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -349,7 +559,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../æternity/docs/cuda-miner.md" title="CUDA Miner" class="md-nav__link">
+    <a href="../cuda-miner/" title="CUDA Miner" class="md-nav__link">
       CUDA Miner
     </a>
   </li>
@@ -361,7 +571,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../æternity/docs/docker.md" title="Docker" class="md-nav__link">
+    <a href="../docker/" title="Docker" class="md-nav__link">
       Docker
     </a>
   </li>
@@ -373,7 +583,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../æternity/docs/installation-windows.md" title="Installation in Windows" class="md-nav__link">
+    <a href="../installation-windows/" title="Installation in Windows" class="md-nav__link">
       Installation in Windows
     </a>
   </li>
@@ -385,7 +595,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../æternity/docs/installation.md" title="Installation in Ubuntu" class="md-nav__link">
+    <a href="../installation/" title="Installation in Ubuntu" class="md-nav__link">
       Installation in Ubuntu
     </a>
   </li>
@@ -397,7 +607,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../æternity/docs/operation.md" title="Operation" class="md-nav__link">
+    <a href="../operation/" title="Operation" class="md-nav__link">
       Operation
     </a>
   </li>
@@ -2572,6 +2782,41 @@ bin/aeternity check_config aeternity.yaml
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../build/" title="Build in Ubuntu" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Build in Ubuntu
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../cuda-miner/" title="CUDA Miner" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                CUDA Miner
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
