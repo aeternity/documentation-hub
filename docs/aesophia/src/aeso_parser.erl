@@ -6,29 +6,45 @@
 
 -export([string/1,
          string/2,
+         string/3,
+         hash_include/2,
          type/1]).
 
 -include("aeso_parse_lib.hrl").
+-import(aeso_parse_lib, [current_file/0, set_current_file/1]).
 
--type parse_result() :: {ok, aeso_syntax:ast()}
-                      | {error, {aeso_parse_lib:pos(), atom(), term()}}
-                      | {error, {aeso_parse_lib:pos(), atom()}}.
+-type parse_result() :: aeso_syntax:ast() | none().
+
+-type include_hash() :: {string(), binary()}.
 
 -spec string(string()) -> parse_result().
 string(String) ->
-    string(String, []).
+    string(String, sets:new(), []).
 
 -spec string(string(), aeso_compiler:options()) -> parse_result().
 string(String, Opts) ->
+    case lists:keyfind(src_file, 1, Opts) of
+        {src_file, File} -> string(String, sets:add_element(File, sets:new()), Opts);
+        false -> string(String, sets:new(), Opts)
+    end.
+
+-spec string(string(), sets:set(include_hash()), aeso_compiler:options()) -> parse_result().
+string(String, Included, Opts) ->
     case parse_and_scan(file(), String, Opts) of
         {ok, AST} ->
-            expand_includes(AST, Opts);
-        Err = {error, _} ->
-            Err
+            case expand_includes(AST, Included, Opts) of
+                {ok, AST1}   -> AST1;
+                {error, Err} -> parse_error(Err)
+            end;
+        {error, Err} ->
+            parse_error(Err)
     end.
 
 type(String) ->
-    parse_and_scan(type(), String, []).
+    case parse_and_scan(type(), String, []) of
+        {ok, AST}    -> {ok, AST};
+        {error, Err} -> {error, [mk_error(Err)]}
+    end.
 
 parse_and_scan(P, S, Opts) ->
     set_current_file(proplists:get_value(src_file, Opts, no_file)),
@@ -36,6 +52,28 @@ parse_and_scan(P, S, Opts) ->
         {ok, Tokens} -> aeso_parse_lib:parse(P, Tokens);
         Error        -> Error
     end.
+
+-dialyzer({nowarn_function, parse_error/1}).
+parse_error(Err) ->
+    aeso_errors:throw(mk_error(Err)).
+
+mk_p_err(Pos, Msg) ->
+    aeso_errors:new(parse_error, mk_pos(Pos), lists:flatten(Msg)).
+
+mk_error({Pos, ScanE}) when ScanE == scan_error; ScanE == scan_error_no_state ->
+    mk_p_err(Pos, "Scan error\n");
+mk_error({Pos, parse_error, Err}) ->
+    Msg = io_lib:format("~s\n", [Err]),
+    mk_p_err(Pos, Msg);
+mk_error({Pos, ambiguous_parse, As}) ->
+    Msg = io_lib:format("Ambiguous parse result: ~p\n", [As]),
+    mk_p_err(Pos, Msg);
+mk_error({Pos, include_error, File}) ->
+    Msg = io_lib:format("Couldn't find include file '~s'\n", [File]),
+    mk_p_err(Pos, Msg).
+
+mk_pos({Line, Col})       -> aeso_errors:pos(Line, Col);
+mk_pos({File, Line, Col}) -> aeso_errors:pos(File, Line, Col).
 
 %% -- Parsing rules ----------------------------------------------------------
 
@@ -46,8 +84,9 @@ decl() ->
     choice(
       %% Contract declaration
     [ ?RULE(keyword(contract),  con(), tok('='), maybe_block(decl()), {contract, _1, _2, _4})
+    , ?RULE(token(payable),     keyword(contract), con(), tok('='), maybe_block(decl()), add_modifiers([_1], {contract, _2, _3, _5}))
     , ?RULE(keyword(namespace), con(), tok('='), maybe_block(decl()), {namespace, _1, _2, _4})
-    , ?RULE(keyword(include),   str(), {include, _2})
+    , ?RULE(keyword(include),   str(), {include, get_ann(_1), _2})
 
       %% Type declarations  TODO: format annotation for "type bla" vs "type bla()"
     , ?RULE(keyword(type),     id(),                                          {type_decl, _1, _2, []})
@@ -60,13 +99,22 @@ decl() ->
     , ?RULE(keyword(datatype), id(), type_vars(), tok('='), typedef(variant), {type_def, _1, _2, _3, _5})
 
       %% Function declarations
-    , ?RULE(modifiers(), keyword(function), id(), tok(':'), type(), add_modifiers(_1, {fun_decl, _2, _3, _5}))
-    , ?RULE(modifiers(), keyword(function), fundef(),               add_modifiers(_1, set_pos(get_pos(_2), _3)))
-    , ?RULE(keyword('let'),    valdef(),                            set_pos(get_pos(_1), _2))
+    , ?RULE(modifiers(), fun_or_entry(), id(), tok(':'), type(), add_modifiers(_1, _2, {fun_decl, get_ann(_2), _3, _5}))
+    , ?RULE(modifiers(), fun_or_entry(), fundef(),               add_modifiers(_1, _2, set_pos(get_pos(get_ann(_2)), _3)))
+    , ?RULE(keyword('let'),    valdef(),                         set_pos(get_pos(_1), _2))
     ])).
 
+fun_or_entry() ->
+    choice([?RULE(keyword(function), {function, _1}),
+            ?RULE(keyword(entrypoint), {entrypoint, _1})]).
+
 modifiers() ->
-    many(choice([token(stateful), token(public), token(private), token(internal)])).
+    many(choice([token(stateful), token(payable), token(private), token(public)])).
+
+add_modifiers(Mods, Entry = {entrypoint, _}, Node) ->
+    add_modifiers(Mods ++ [Entry], Node);
+add_modifiers(Mods, {function, _}, Node) ->
+    add_modifiers(Mods, Node).
 
 add_modifiers([], Node) -> Node;
 add_modifiers(Mods = [Tok | _], Node) ->
@@ -87,7 +135,7 @@ constructors() ->
     sep1(constructor(), tok('|')).
 
 constructor() ->    %% TODO: format for Con() vs Con
-    choice(?RULE(con(),              {constr_t, get_ann(_1), _1, []}),
+    choice(?RULE(con(),             {constr_t, get_ann(_1), _1, []}),
            ?RULE(con(), con_args(), {constr_t, get_ann(_1), _1, _2})).
 
 con_args()   -> paren_list(con_arg()).
@@ -99,9 +147,7 @@ con_arg()    -> choice(type(), ?RULE(keyword(indexed), type(), set_ann(indexed, 
 %% -- Let declarations -------------------------------------------------------
 
 letdecl() ->
-    choice(
-        ?RULE(keyword('let'), letdef(),                             set_pos(get_pos(_1), _2)),
-        ?RULE(keyword('let'), tok(rec), sep1(letdef(), tok('and')), {letrec, _1, _3})).
+    ?RULE(keyword('let'), letdef(), set_pos(get_pos(_1), _2)).
 
 letdef() -> choice(valdef(), fundef()).
 
@@ -131,9 +177,10 @@ type() -> ?LAZY_P(type100()).
 type100() -> type200().
 
 type200() ->
-    ?RULE(many({fun_domain(), keyword('=>')}), type300(), fun_t(_1, _2)).
+    ?RULE(many({type300(), keyword('=>')}), type300(), fun_t(_1, _2)).
 
-type300() -> type400().
+type300() ->
+    ?RULE(sep1(type400(), tok('*')), tuple_t(get_ann(lists:nth(1, _1)), _1)).
 
 type400() ->
     choice(
@@ -148,11 +195,17 @@ type400() ->
 
 typeAtom() ->
     ?LAZY_P(choice(
-    [ id(), token(con), token(qcon), token(qid), tvar()
-    , ?RULE(keyword('('), comma_sep(type()), tok(')'), tuple_t(_1, _2))
+    [ parens(type())
+    , args_t()
+    , id(), token(con), token(qcon), token(qid), tvar()
     ])).
 
-fun_domain() -> ?RULE(?LAZY_P(type300()), fun_domain(_1)).
+args_t() ->
+    ?LAZY_P(choice(
+    [ ?RULE(tok('('), tok(')'), {args_t, get_ann(_1), []})
+      %% Singleton case handled separately
+    , ?RULE(tok('('), type(), tok(','), sep1(type(), tok(',')), tok(')'), {args_t, get_ann(_1), [_2|_4]})
+    ])).
 
 %% -- Statements -------------------------------------------------------------
 
@@ -213,12 +266,26 @@ exprAtom() ->
         , ?RULE(token(hex), set_ann(format, hex, setelement(1, _1, int)))
         , {bool, keyword(true), true}
         , {bool, keyword(false), false}
-        , ?RULE(brace_list(?LAZY_P(field_assignment())), record(_1))
+        , ?LET_P(Fs, brace_list(?LAZY_P(field_assignment())), record(Fs))
         , {list, [], bracket_list(Expr)}
+        , ?RULE(keyword('['), Expr, token('|'), comma_sep(comprehension_exp()), tok(']'), list_comp_e(_1, _2, _4))
         , ?RULE(tok('['), Expr, binop('..'), Expr, tok(']'), _3(_2, _4))
         , ?RULE(keyword('('), comma_sep(Expr), tok(')'), tuple_e(_1, _2))
         ])
     end).
+
+comprehension_exp() ->
+    ?LAZY_P(choice(
+      [ comprehension_bind()
+      , letdecl()
+      , comprehension_if()
+      ])).
+
+comprehension_if() ->
+    ?RULE(keyword('if'), parens(expr()), {comprehension_if, _1, _2}).
+
+comprehension_bind() ->
+    ?RULE(id(), tok('<-'), expr(), {comprehension_bind, _1, _3}).
 
 arg_expr() ->
     ?LAZY_P(
@@ -245,7 +312,7 @@ map_key(Key, {ok, {_, Val}}) -> {map_key, Key, Val}.
 
 elim(E, [])                              -> E;
 elim(E, [{proj, Ann, P} | Es])           -> elim({proj, Ann, E, P}, Es);
-elim(E, [{app, Ann, Args} | Es])         -> elim({app, Ann, E, Args}, Es);
+elim(E, [{app, _Ann, Args} | Es])        -> elim({app, aeso_syntax:get_ann(E), E, Args}, Es);
 elim(E, [{rec_upd, Ann, Flds} | Es])     -> elim(record_update(Ann, E, Flds), Es);
 elim(E, [{map_get, Ann, Key} | Es])      -> elim({map_get, Ann, E, Key}, Es);
 elim(E, [{map_get, Ann, Key, Val} | Es]) -> elim({map_get, Ann, E, Key, Val}, Es).
@@ -256,14 +323,20 @@ record_update(Ann, E, Flds) ->
 record([]) -> {map, [], []};
 record(Fs) ->
     case record_or_map(Fs) of
-        record -> {record, get_ann(hd(Fs)), Fs};
+        record ->
+            Fld = fun({field, _, [_], _} = F) -> F;
+                     ({field, Ann, LV, Id, _}) ->
+                         bad_expr_err("Cannot use '@' in record construction", infix({lvalue, Ann, LV}, {'@', Ann}, Id));
+                     ({field, Ann, LV, _}) ->
+                         bad_expr_err("Cannot use nested fields or keys in record construction", {lvalue, Ann, LV}) end,
+            {record, get_ann(hd(Fs)), lists:map(Fld, Fs)};
         map    ->
             Ann = get_ann(hd(Fs ++ [{empty, []}])), %% TODO: source location for empty maps
             KV = fun({field, _, [{map_get, _, Key}], Val}) -> {Key, Val};
-                    ({field, _, LV, Id, _}) ->
-                        bad_expr_err("Cannot use '@' in map construction", infix(LV, {op, Ann, '@'}, Id));
-                    ({field, _, LV, _}) ->
-                        bad_expr_err("Cannot use nested fields or keys in map construction", LV) end,
+                    ({field, FAnn, LV, Id, _}) ->
+                        bad_expr_err("Cannot use '@' in map construction", infix({lvalue, FAnn, LV}, {'@', Ann}, Id));
+                    ({field, FAnn, LV, _}) ->
+                        bad_expr_err("Cannot use nested fields or keys in map construction", {lvalue, FAnn, LV}) end,
             {map, Ann, lists:map(KV, Fs)}
     end.
 
@@ -379,12 +452,6 @@ bracket_list(P) -> brackets(comma_sep(P)).
 -spec pos_ann(ann_line(), ann_col()) -> ann().
 pos_ann(Line, Col) -> [{file, current_file()}, {line, Line}, {col, Col}].
 
-current_file() ->
-    get('$current_file').
-
-set_current_file(File) ->
-    put('$current_file', File).
-
 ann_pos(Ann) ->
     {proplists:get_value(file, Ann),
      proplists:get_value(line, Ann),
@@ -454,15 +521,14 @@ tuple_t(_Ann, [Type]) -> Type;  %% Not a tuple
 tuple_t(Ann, Types)   -> {tuple_t, Ann, Types}.
 
 fun_t(Domains, Type) ->
-    lists:foldr(fun({Dom, Ann}, T) -> {fun_t, Ann, [], Dom, T} end,
+    lists:foldr(fun({{args_t, _, Dom}, Ann}, T) -> {fun_t, Ann, [], Dom, T};
+                    ({Dom, Ann}, T)             -> {fun_t, Ann, [], [Dom], T} end,
                 Type, Domains).
 
 tuple_e(_Ann, [Expr]) -> Expr;  %% Not a tuple
 tuple_e(Ann, Exprs)   -> {tuple, Ann, Exprs}.
 
-%% TODO: not nice
-fun_domain({tuple_t, _, Args}) -> Args;
-fun_domain(T)                  -> [T].
+list_comp_e(Ann, Expr, Binds) -> {list_comp, Ann, Expr, Binds}.
 
 -spec parse_pattern(aeso_syntax:expr()) -> aeso_parse_lib:parser(aeso_syntax:pat()).
 parse_pattern({app, Ann, Con = {'::', _}, Es}) ->
@@ -488,42 +554,48 @@ parse_pattern(E) -> bad_expr_err("Not a valid pattern", E).
 parse_field_pattern({field, Ann, F, E}) ->
     {field, Ann, F, parse_pattern(E)}.
 
-return_error({no_file, L, C}, Err) ->
-    fail(io_lib:format("~p:~p:\n~s", [L, C, Err]));
-return_error({F, L, C}, Err) ->
-    fail(io_lib:format("In ~s at ~p:~p:\n~s", [F, L, C, Err])).
-
--spec ret_doc_err(ann(), prettypr:document()) -> no_return().
+-spec ret_doc_err(ann(), prettypr:document()) -> aeso_parse_lib:parser(none()).
 ret_doc_err(Ann, Doc) ->
-    return_error(ann_pos(Ann), prettypr:format(Doc)).
+    fail(ann_pos(Ann), prettypr:format(Doc)).
 
--spec bad_expr_err(string(), aeso_syntax:expr()) -> no_return().
+-spec bad_expr_err(string(), aeso_syntax:expr()) -> aeso_parse_lib:parser(none()).
 bad_expr_err(Reason, E) ->
   ret_doc_err(get_ann(E),
               prettypr:sep([prettypr:text(Reason ++ ":"),
                             prettypr:nest(2, aeso_pretty:expr(E))])).
 
 %% -- Helper functions -------------------------------------------------------
-expand_includes(AST, Opts) ->
-    expand_includes(AST, [], Opts).
 
-expand_includes([], Acc, _Opts) ->
+expand_includes(AST, Included, Opts) ->
+    Ann  = [{origin, system}],
+    AST1 = [ {include, Ann, {string, Ann, File}}
+             || File <- lists:usort(auto_imports(AST)) ] ++ AST,
+    expand_includes(AST1, Included, [], Opts).
+
+expand_includes([], _Included, Acc, _Opts) ->
     {ok, lists:reverse(Acc)};
-expand_includes([{include, S = {string, _, File}} | AST], Acc, Opts) ->
-    case read_file(File, Opts) of
-        {ok, Bin} ->
-            Opts1 = lists:keystore(src_file, 1, Opts, {src_file, File}),
-            case string(binary_to_list(Bin), Opts1) of
-                {ok, AST1} ->
-                    expand_includes(AST1 ++ AST, Acc, Opts);
-                Err = {error, _} ->
-                    Err
+expand_includes([{include, Ann, {string, _SAnn, File}} | AST], Included, Acc, Opts) ->
+    case get_include_code(File, Ann, Opts) of
+        {ok, Code} ->
+            Hashed = hash_include(File, Code),
+            case sets:is_element(Hashed, Included) of
+                false ->
+                    Opts1 = lists:keystore(src_file, 1, Opts, {src_file, File}),
+                    Included1 = sets:add_element(Hashed, Included),
+                    case parse_and_scan(file(), Code, Opts1) of
+                        {ok, AST1} ->
+                            expand_includes(AST1 ++ AST, Included1, Acc, Opts);
+                        Err = {error, _} ->
+                            Err
+                    end;
+                true ->
+                    expand_includes(AST, Included, Acc, Opts)
             end;
-        {error, _} ->
-            {error, {get_pos(S), include_error, File}}
+        Err = {error, _} ->
+            Err
     end;
-expand_includes([E | AST], Acc, Opts) ->
-    expand_includes(AST, [E | Acc], Opts).
+expand_includes([E | AST], Included, Acc, Opts) ->
+    expand_includes(AST, Included, [E | Acc], Opts).
 
 read_file(File, Opts) ->
     case proplists:get_value(include, Opts, {explicit_files, #{}}) of
@@ -538,3 +610,31 @@ read_file(File, Opts) ->
             end
     end.
 
+stdlib_options() ->
+    [{include, {file_system, [aeso_stdlib:stdlib_include_path()]}}].
+
+get_include_code(File, Ann, Opts) ->
+    case {read_file(File, Opts), read_file(File, stdlib_options())} of
+        {{ok, _}, {ok,_ }} ->
+            fail(ann_pos(Ann), "Illegal redefinition of standard library " ++ File);
+        {_, {ok, Bin}} ->
+            {ok, binary_to_list(Bin)};
+        {{ok, Bin}, _} ->
+            {ok, binary_to_list(Bin)};
+        {_, _} ->
+            {error, {ann_pos(Ann), include_error, File}}
+    end.
+
+-spec hash_include(string() | binary(), string()) -> include_hash().
+hash_include(File, Code) when is_binary(File) ->
+    hash_include(binary_to_list(File), Code);
+hash_include(File, Code) when is_list(File) ->
+    {filename:basename(File), crypto:hash(sha256, Code)}.
+
+auto_imports({comprehension_bind, _, _}) -> [<<"ListInternal.aes">>];
+auto_imports({'..', _})                  -> [<<"ListInternal.aes">>];
+auto_imports(L) when is_list(L) ->
+    lists:flatmap(fun auto_imports/1, L);
+auto_imports(T) when is_tuple(T) ->
+    auto_imports(tuple_to_list(T));
+auto_imports(_) -> [].

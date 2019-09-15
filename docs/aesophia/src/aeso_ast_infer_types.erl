@@ -12,7 +12,7 @@
 
 -module(aeso_ast_infer_types).
 
--export([infer/1, infer/2, infer_constant/1, unfold_types_in_type/3]).
+-export([infer/1, infer/2, unfold_types_in_type/3]).
 
 -type utype() :: {fun_t, aeso_syntax:ann(), named_args_t(), [utype()], utype()}
                | {app_t, aeso_syntax:ann(), utype(), [utype()]}
@@ -35,6 +35,8 @@
 
 -type why_record() :: aeso_syntax:field(aeso_syntax:expr())
                     | {proj, aeso_syntax:ann(), aeso_syntax:expr(), aeso_syntax:id()}.
+
+-type pos() :: aeso_errors:pos().
 
 -record(named_argument_constraint,
     {args :: named_args_t(),
@@ -79,11 +81,13 @@
 -type type() :: aeso_syntax:type().
 -type name() :: string().
 -type qname() :: [string()].
--type typesig() :: {type_sig, aeso_syntax:ann(), [aeso_syntax:named_arg_t()], [type()], type()}.
+-type typesig() :: {type_sig, aeso_syntax:ann(), type_constraints(), [aeso_syntax:named_arg_t()], [type()], type()}.
+
+-type type_constraints() :: none | bytes_concat | bytes_split.
 
 -type fun_info()  :: {aeso_syntax:ann(), typesig() | type()}.
 -type type_info() :: {aeso_syntax:ann(), typedef()}.
--type var_info()  :: {aeso_syntax:ann(), type()}.
+-type var_info()  :: {aeso_syntax:ann(), utype()}.
 
 -type fun_env()  :: [{name(), fun_info()}].
 -type type_env() :: [{name(), type_info()}].
@@ -104,6 +108,9 @@
     , fields     = #{}                :: #{ name() => [field_info()] }    %% fields are global
     , namespace  = []                 :: qname()
     , in_pattern = false              :: boolean()
+    , stateful   = false              :: boolean()
+    , current_function = none         :: none | aeso_syntax:id()
+    , what       = top                :: top | namespace | contract
     }).
 
 -type env() :: #env{}.
@@ -133,11 +140,15 @@ on_current_scope(Env = #env{ namespace = NS, scopes = Scopes }, Fun) ->
     Scope = maps:get(NS, Scopes),
     Env#env{ scopes = Scopes#{ NS => Fun(Scope) } }.
 
--spec bind_var(aeso_syntax:id(), type(), env()) -> env().
+-spec on_scopes(env(), fun((scope()) -> scope())) -> env().
+on_scopes(Env = #env{ scopes = Scopes }, Fun) ->
+    Env#env{ scopes = maps:map(fun(_, Scope) -> Fun(Scope) end, Scopes) }.
+
+-spec bind_var(aeso_syntax:id(), utype(), env()) -> env().
 bind_var({id, Ann, X}, T, Env) ->
     Env#env{ vars = [{X, {Ann, T}} | Env#env.vars] }.
 
--spec bind_vars([{aeso_syntax:id(), type()}], env()) -> env().
+-spec bind_vars([{aeso_syntax:id(), utype()}], env()) -> env().
 bind_vars([], Env) -> Env;
 bind_vars([{X, T} | Vars], Env) ->
     bind_vars(Vars, bind_var(X, T, Env)).
@@ -150,13 +161,13 @@ bind_tvars(Xs, Env) ->
 check_tvar(#env{ typevars = TVars}, T = {tvar, _, X}) ->
     case TVars == unrestricted orelse lists:member(X, TVars) of
         true  -> ok;
-        false -> type_error({unbound_type_variable, T})
+        false -> type_error({unbound_type, T})
     end,
     T.
 
 -spec bind_fun(name(), type() | typesig(), env()) -> env().
 bind_fun(X, Type, Env) ->
-    case lookup_name(Env, [X]) of
+    case lookup_env(Env, term, [], [X]) of
         false -> force_bind_fun(X, Type, Env);
         {_QId, {Ann1, _}} ->
             type_error({duplicate_definition, X, [Ann1, aeso_syntax:get_ann(Type)]}),
@@ -165,9 +176,14 @@ bind_fun(X, Type, Env) ->
 
 -spec force_bind_fun(name(), type() | typesig(), env()) -> env().
 force_bind_fun(X, Type, Env) ->
-    Ann = aeso_syntax:get_ann(Type),
+    Ann    = aeso_syntax:get_ann(Type),
+    NoCode = get_option(no_code, false),
+    Entry = case X == "init" andalso Env#env.what == contract andalso not NoCode of
+                true  -> {reserved_init, Ann, Type};
+                false -> {Ann, Type}
+            end,
     on_current_scope(Env, fun(Scope = #scope{ funs = Funs }) ->
-                            Scope#scope{ funs = [{X, {Ann, Type}} | Funs] }
+                            Scope#scope{ funs = [{X, Entry} | Funs] }
                           end).
 
 -spec bind_funs([{name(), type() | typesig()}], env()) -> env().
@@ -191,18 +207,18 @@ bind_state(Env) ->
             {S, _} -> {qid, Ann, S};
             false  -> Unit
         end,
-    Event =
-        case lookup_type(Env, {id, Ann, "event"}) of
-            {E, _} -> {qid, Ann, E};
-            false  -> {id, Ann, "event"}    %% will cause type error if used(?)
-        end,
     Env1 = bind_funs([{"state", State},
-                      {"put", {fun_t, Ann, [], [State], Unit}}], Env),
+                      {"put", {type_sig, [stateful | Ann], none, [], [State], Unit}}], Env),
 
-    %% We bind Chain.event in a local 'Chain' namespace.
-    pop_scope(
-      bind_fun("event", {fun_t, Ann, [], [Event], Unit},
-      push_scope(namespace, {con, Ann, "Chain"}, Env1))).
+    case lookup_type(Env, {id, Ann, "event"}) of
+        {E, _} ->
+            %% We bind Chain.event in a local 'Chain' namespace.
+            Event = {qid, Ann, E},
+            pop_scope(
+              bind_fun("event", {fun_t, Ann, [], [Event], Unit},
+              push_scope(namespace, {con, Ann, "Chain"}, Env1)));
+        false  -> Env1
+    end.
 
 -spec bind_field(name(), field_info(), env()) -> env().
 bind_field(X, Info, Env = #env{ fields = Fields }) ->
@@ -247,34 +263,32 @@ possible_scopes(#env{ namespace = Current}, Name) ->
     Qual = lists:droplast(Name),
     [ lists:sublist(Current, I) ++ Qual || I <- lists:seq(0, length(Current)) ].
 
--spec lookup_name(env(), qname()) -> false | {qname(), fun_info()}.
-lookup_name(Env, Name) ->
-    lookup_env(Env, term, Name).
-
 -spec lookup_type(env(), type_id()) -> false | {qname(), type_info()}.
 lookup_type(Env, Id) ->
-    lookup_env(Env, type, qname(Id)).
+    lookup_env(Env, type, aeso_syntax:get_ann(Id), qname(Id)).
 
--spec lookup_env(env(), term, qname()) -> false | {qname(), fun_info()};
-                (env(), type, qname()) -> false | {qname(), type_info()}.
-lookup_env(Env, Kind, Name) ->
+-spec lookup_env(env(), term, aeso_syntax:ann(), qname()) -> false | {qname(), fun_info()};
+                (env(), type, aeso_syntax:ann(), qname()) -> false | {qname(), type_info()}.
+lookup_env(Env, Kind, Ann, Name) ->
     Var = case Name of
             [X] when Kind == term -> proplists:get_value(X, Env#env.vars, false);
             _                     -> false
           end,
     case Var of
-        {Ann, Type} -> {Name, {Ann, Type}};
+        {Ann1, Type} -> {Name, {Ann1, Type}};
         false ->
             Names = [ Qual ++ [lists:last(Name)] || Qual <- possible_scopes(Env, Name) ],
-            case [ Res || QName <- Names, Res <- [lookup_env1(Env, Kind, QName)], Res /= false] of
+            case [ Res || QName <- Names, Res <- [lookup_env1(Env, Kind, Ann, QName)], Res /= false] of
                 []    -> false;
                 [Res] -> Res;
-                Many  -> type_error({ambiguous_name, [{qid, Ann, Q} || {Q, {Ann, _}} <- Many]})
+                Many  ->
+                    type_error({ambiguous_name, [{qid, A, Q} || {Q, {A, _}} <- Many]}),
+                    false
             end
     end.
 
--spec lookup_env1(env(), type | term, qname()) -> false | {qname(), fun_info()}.
-lookup_env1(#env{ namespace = Current, scopes = Scopes }, Kind, QName) ->
+-spec lookup_env1(env(), type | term, aeso_syntax:ann(), qname()) -> false | {qname(), fun_info()}.
+lookup_env1(#env{ namespace = Current, scopes = Scopes }, Kind, Ann, QName) ->
     Qual = lists:droplast(QName),
     Name = lists:last(QName),
     AllowPrivate = lists:prefix(Qual, Current),
@@ -289,9 +303,12 @@ lookup_env1(#env{ namespace = Current, scopes = Scopes }, Kind, QName) ->
             %% Look up the unqualified name
             case proplists:get_value(Name, Defs, false) of
                 false -> false;
-                {Ann, _} = E ->
+                {reserved_init, Ann1, Type} ->
+                    type_error({cannot_call_init_function, Ann}),
+                    {QName, {Ann1, Type}};  %% Return the type to avoid an extra not-in-scope error
+                {Ann1, _} = E ->
                     %% Check that it's not private (or we can see private funs)
-                    case not is_private(Ann) orelse AllowPrivate of
+                    case not is_private(Ann1) orelse AllowPrivate of
                         true  -> {QName, E};
                         false -> false
                     end
@@ -355,13 +372,17 @@ global_env() ->
     Option  = fun(T) -> {app_t, Ann, {id, Ann, "option"}, [T]} end,
     Map     = fun(A, B) -> {app_t, Ann, {id, Ann, "map"}, [A, B]} end,
     Pair    = fun(A, B) -> {tuple_t, Ann, [A, B]} end,
-    Fun     = fun(Ts, T) -> {type_sig, Ann, [], Ts, T} end,
+    FunC    = fun(C, Ts, T) -> {type_sig, Ann, C, [], Ts, T} end,
+    Fun     = fun(Ts, T) -> FunC(none, Ts, T) end,
     Fun1    = fun(S, T) -> Fun([S], T) end,
-    TVar    = fun(X) -> {tvar, Ann, "'" ++ X} end,
+    %% Lambda    = fun(Ts, T) -> {fun_t, Ann, [], Ts, T} end,
+    %% Lambda1   = fun(S, T) -> Lambda([S], T) end,
+    StateFun  = fun(Ts, T) -> {type_sig, [stateful|Ann], none, [], Ts, T} end,
+    TVar      = fun(X) -> {tvar, Ann, "'" ++ X} end,
     SignId    = {id, Ann, "signature"},
     SignDef   = {bytes, Ann, <<0:64/unit:8>>},
     Signature = {named_arg_t, Ann, SignId, SignId, {typed, Ann, SignDef, SignId}},
-    SignFun   = fun(Ts, T) -> {type_sig, Ann, [Signature], Ts, T} end,
+    SignFun   = fun(Ts, T) -> {type_sig, [stateful|Ann], none, [Signature], Ts, T} end,
     TTL       = {qid, Ann, ["Chain", "ttl"]},
     Fee       = Int,
     [A, Q, R, K, V] = lists:map(TVar, ["a", "q", "r", "k", "v"]),
@@ -377,9 +398,11 @@ global_env() ->
                      {"RelativeTTL", Fun1(Int, TTL)},
                      {"FixedTTL",    Fun1(Int, TTL)},
                      %% Abort
-                     {"abort", Fun1(String, A)}])
+                     {"abort", Fun1(String, A)},
+                     {"require", Fun([Bool, String], Unit)}])
         , types = MkDefs(
                     [{"int", 0}, {"bool", 0}, {"char", 0}, {"string", 0}, {"address", 0},
+                     {"unit", {[], {alias_t, Unit}}},
                      {"hash", {[], {alias_t, Bytes(32)}}},
                      {"signature", {[], {alias_t, Bytes(64)}}},
                      {"bits", 0},
@@ -390,10 +413,10 @@ global_env() ->
     ChainScope = #scope
         { funs = MkDefs(
                      %% Spend transaction.
-                    [{"spend",        Fun([Address, Int], Unit)},
+                    [{"spend",        StateFun([Address, Int], Unit)},
                      %% Chain environment
                      {"balance",      Fun1(Address, Int)},
-                     {"block_hash",   Fun1(Int, Int)},
+                     {"block_hash",   Fun1(Int, Option(Hash))},
                      {"coinbase",     Address},
                      {"timestamp",    Int},
                      {"block_height", Int},
@@ -404,7 +427,7 @@ global_env() ->
     ContractScope = #scope
         { funs = MkDefs(
                     [{"address", Address},
-                     %% {"owner",   Int},    %% Not in EVM
+                     {"creator", Address},
                      {"balance", Int}]) },
 
     CallScope = #scope
@@ -420,19 +443,21 @@ global_env() ->
         { funs = MkDefs(
                     [{"register",     SignFun([Address, Fee, TTL], Oracle(Q, R))},
                      {"query_fee",    Fun([Oracle(Q, R)], Fee)},
-                     {"query",        Fun([Oracle(Q, R), Q, Fee, TTL, TTL], Query(Q, R))},
+                     {"query",        StateFun([Oracle(Q, R), Q, Fee, TTL, TTL], Query(Q, R))},
                      {"get_question", Fun([Oracle(Q, R), Query(Q, R)], Q)},
                      {"respond",      SignFun([Oracle(Q, R), Query(Q, R), R], Unit)},
                      {"extend",       SignFun([Oracle(Q, R), TTL], Unit)},
-                     {"get_answer",   Fun([Oracle(Q, R), Query(Q, R)], option_t(Ann, R))}]) },
+                     {"get_answer",   Fun([Oracle(Q, R), Query(Q, R)], option_t(Ann, R))},
+                     {"check",        Fun([Oracle(Q, R)], Bool)},
+                     {"check_query",  Fun([Oracle(Q,R), Query(Q, R)], Bool)}]) },
 
     AENSScope = #scope
         { funs = MkDefs(
                      [{"resolve",  Fun([String, String], option_t(Ann, A))},
                       {"preclaim", SignFun([Address, Hash], Unit)},
-                      {"claim",    SignFun([Address, String, Int], Unit)},
-                      {"transfer", SignFun([Address, Address, Hash], Unit)},
-                      {"revoke",   SignFun([Address, Hash], Unit)}]) },
+                      {"claim",    SignFun([Address, String, Int, Int], Unit)},
+                      {"transfer", SignFun([Address, Address, String], Unit)},
+                      {"revoke",   SignFun([Address, String], Unit)}]) },
 
     MapScope = #scope
         { funs = MkDefs(
@@ -447,8 +472,10 @@ global_env() ->
     %% Crypto/Curve operations
     CryptoScope = #scope
         { funs = MkDefs(
-                     [{"ecverify", Fun([Hash, Address, SignId], Bool)},
-                      {"ecverify_secp256k1", Fun([Hash, Bytes(64), Bytes(64)], Bool)},
+                     [{"verify_sig",           Fun([Hash, Address, SignId], Bool)},
+                      {"verify_sig_secp256k1", Fun([Hash, Bytes(64), SignId], Bool)},
+                      {"ecverify_secp256k1",   Fun([Hash, Bytes(20), Bytes(65)], Bool)},
+                      {"ecrecover_secp256k1",  Fun([Hash, Bytes(65)], Option(Bytes(20)))},
                       {"sha3",     Fun1(A, Hash)},
                       {"sha256",   Fun1(A, Hash)},
                       {"blake2b",  Fun1(A, Hash)}]) },
@@ -480,9 +507,21 @@ global_env() ->
                       {"none",         Bits},
                       {"all",          Bits}]) },
 
+    %% Bytes
+    BytesScope = #scope
+        { funs = MkDefs(
+                   [{"to_int", Fun1(Bytes(any), Int)},
+                    {"to_str", Fun1(Bytes(any), String)},
+                    {"concat", FunC(bytes_concat, [Bytes(any), Bytes(any)], Bytes(any))},
+                    {"split",  FunC(bytes_split, [Bytes(any)], Pair(Bytes(any), Bytes(any)))}
+                   ]) },
+
     %% Conversion
     IntScope     = #scope{ funs = MkDefs([{"to_str", Fun1(Int,     String)}]) },
-    AddressScope = #scope{ funs = MkDefs([{"to_str", Fun1(Address, String)}]) },
+    AddressScope = #scope{ funs = MkDefs([{"to_str", Fun1(Address, String)},
+                                          {"is_oracle", Fun1(Address, Bool)},
+                                          {"is_contract", Fun1(Address, Bool)},
+                                          {"is_payable", Fun1(Address, Bool)}]) },
 
     #env{ scopes =
             #{ []           => TopScope
@@ -496,6 +535,7 @@ global_env() ->
              , ["Crypto"]   => CryptoScope
              , ["String"]   => StringScope
              , ["Bits"]     => BitsScope
+             , ["Bytes"]    => BytesScope
              , ["Int"]      => IntScope
              , ["Address"]  => AddressScope
              } }.
@@ -503,46 +543,55 @@ global_env() ->
 option_t(As, T) -> {app_t, As, {id, As, "option"}, [T]}.
 map_t(As, K, V) -> {app_t, As, {id, As, "map"}, [K, V]}.
 
--spec infer(aeso_syntax:ast()) -> aeso_syntax:ast().
+-spec infer(aeso_syntax:ast()) -> aeso_syntax:ast() | {env(), aeso_syntax:ast()}.
 infer(Contracts) ->
     infer(Contracts, []).
 
--type option() :: return_env.
+-type option() :: return_env | dont_unfold | no_code | term().
 
 -spec init_env(list(option())) -> env().
 init_env(_Options) -> global_env().
 
--spec infer(aeso_syntax:ast(), list(option())) -> aeso_syntax:ast() | {env(), aeso_syntax:ast()}.
+-spec infer(aeso_syntax:ast(), list(option())) ->
+    aeso_syntax:ast() | {env(), aeso_syntax:ast()}.
 infer(Contracts, Options) ->
     ets_init(), %% Init the ETS table state
     try
         Env = init_env(Options),
         create_options(Options),
         ets_new(type_vars, [set]),
-        {Env1, Decls} = infer1(Env, Contracts, []),
+        check_modifiers(Env, Contracts),
+        {Env1, Decls} = infer1(Env, Contracts, [], Options),
+        {Env2, Decls2} =
+            case proplists:get_value(dont_unfold, Options, false) of
+                true  -> {Env1, Decls};
+                false -> E = on_scopes(Env1, fun(Scope) -> unfold_record_types(Env1, Scope) end),
+                         {E, unfold_record_types(E, Decls)}
+            end,
         case proplists:get_value(return_env, Options, false) of
-            false -> Decls;
-            true  -> {Env1, Decls}
+            false -> Decls2;
+            true  -> {Env2, Decls2}
         end
     after
         clean_up_ets()
     end.
 
--spec infer1(env(), [aeso_syntax:decl()], [aeso_syntax:decl()]) -> {env(), [aeso_syntax:decl()]}.
-infer1(Env, [], Acc) -> {Env, lists:reverse(Acc)};
-infer1(Env, [{contract, Ann, ConName, Code} | Rest], Acc) ->
+-spec infer1(env(), [aeso_syntax:decl()], [aeso_syntax:decl()], list(option())) ->
+    {env(), [aeso_syntax:decl()]}.
+infer1(Env, [], Acc, _Options) -> {Env, lists:reverse(Acc)};
+infer1(Env, [{contract, Ann, ConName, Code} | Rest], Acc, Options) ->
     %% do type inference on each contract independently.
     check_scope_name_clash(Env, contract, ConName),
-    {Env1, Code1} = infer_contract_top(push_scope(contract, ConName, Env), contract, Code),
+    {Env1, Code1} = infer_contract_top(push_scope(contract, ConName, Env), contract, Code, Options),
     Contract1 = {contract, Ann, ConName, Code1},
     Env2 = pop_scope(Env1),
     Env3 = bind_contract(Contract1, Env2),
-    infer1(Env3, Rest, [Contract1 | Acc]);
-infer1(Env, [{namespace, Ann, Name, Code} | Rest], Acc) ->
+    infer1(Env3, Rest, [Contract1 | Acc], Options);
+infer1(Env, [{namespace, Ann, Name, Code} | Rest], Acc, Options) ->
     check_scope_name_clash(Env, namespace, Name),
-    {Env1, Code1} = infer_contract_top(push_scope(namespace, Name, Env), namespace, Code),
+    {Env1, Code1} = infer_contract_top(push_scope(namespace, Name, Env), namespace, Code, Options),
     Namespace1 = {namespace, Ann, Name, Code1},
-    infer1(pop_scope(Env1), Rest, [Namespace1 | Acc]).
+    infer1(pop_scope(Env1), Rest, [Namespace1 | Acc], Options).
 
 check_scope_name_clash(Env, Kind, Name) ->
     case get_scope(Env, qname(Name)) of
@@ -553,25 +602,17 @@ check_scope_name_clash(Env, Kind, Name) ->
             destroy_and_report_type_errors(Env)
     end.
 
--spec infer_contract_top(env(), contract | namespace, [aeso_syntax:decl()]) -> {env(), [aeso_syntax:decl()]}.
-infer_contract_top(Env, Kind, Defs0) ->
+-spec infer_contract_top(env(), contract | namespace, [aeso_syntax:decl()], list(option())) ->
+    {env(), [aeso_syntax:decl()]}.
+infer_contract_top(Env, Kind, Defs0, _Options) ->
     Defs = desugar(Defs0),
-    {Env1, Defs1} = infer_contract(Env, Kind, Defs),
-    Env2  = on_current_scope(Env1, fun(Scope) -> unfold_record_types(Env1, Scope) end),
-    Defs2 = unfold_record_types(Env2, Defs1),
-    {Env2, Defs2}.
-
-%% TODO: revisit
-infer_constant({letval, Attrs,_Pattern, Type, E}) ->
-    ets_init(), %% Init the ETS table state
-    {typed, _, _, PatType} =
-        infer_expr(global_env(), {typed, Attrs, E, arg_type(Type)}),
-    instantiate(PatType).
+    infer_contract(Env, Kind, Defs).
 
 %% infer_contract takes a proplist mapping global names to types, and
 %% a list of definitions.
 -spec infer_contract(env(), contract | namespace, [aeso_syntax:decl()]) -> {env(), [aeso_syntax:decl()]}.
-infer_contract(Env, What, Defs) ->
+infer_contract(Env0, What, Defs) ->
+    Env  = Env0#env{ what = What },
     Kind = fun({type_def, _, _, _, _})  -> type;
               ({letfun, _, _, _, _, _}) -> function;
               ({fun_decl, _, _, _})     -> prototype;
@@ -598,15 +639,17 @@ infer_contract(Env, What, Defs) ->
     SCCs      = aeso_utils:scc(DepGraph),
     %% io:format("Dependency sorted functions:\n  ~p\n", [SCCs]),
     {Env4, Defs1} = check_sccs(Env3, FunMap, SCCs, []),
+    %% Check that `init` doesn't read or write the state
+    check_state_dependencies(Env4, Defs1),
     destroy_and_report_type_errors(Env4),
     {Env4, TypeDefs ++ Decls ++ Defs1}.
 
 -spec check_typedefs(env(), [aeso_syntax:decl()]) -> {env(), [aeso_syntax:decl()]}.
-check_typedefs(Env, Defs) ->
+check_typedefs(Env = #env{ namespace = Ns }, Defs) ->
     create_type_errors(),
     GetName  = fun({type_def, _, {id, _, Name}, _, _}) -> Name end,
     TypeMap  = maps:from_list([ {GetName(Def), Def} || Def <- Defs ]),
-    DepGraph = maps:map(fun(_, Def) -> aeso_syntax_utils:used_types(Def) end, TypeMap),
+    DepGraph = maps:map(fun(_, Def) -> aeso_syntax_utils:used_types(Ns, Def) end, TypeMap),
     SCCs     = aeso_utils:scc(DepGraph),
     {Env1, Defs1} = check_typedef_sccs(Env, TypeMap, SCCs, []),
     destroy_and_report_type_errors(Env),
@@ -632,7 +675,7 @@ check_typedef_sccs(Env, TypeMap, [{acyclic, Name} | SCCs], Acc) ->
                     check_typedef_sccs(Env2, TypeMap, SCCs, Acc1);
                 {variant_t, Cons} ->
                     Target   = check_type(Env1, app_t(Ann, D, Xs)),
-                    ConType  = fun([]) -> Target; (Args) -> {type_sig, Ann, [], Args, Target} end,
+                    ConType  = fun([]) -> Target; (Args) -> {type_sig, Ann, none, [], Args, Target} end,
                     ConTypes = [ begin
                                     {constr_t, _, {con, _, Con}, Args} = ConDef,
                                     {Con, ConType(Args)}
@@ -658,6 +701,44 @@ check_typedef(Env, {variant_t, Cons}) ->
 
 check_unexpected(Xs) ->
     [ type_error(X) || X <- Xs ].
+
+check_modifiers(Env, Contracts) ->
+    create_type_errors(),
+    [ case C of
+          {contract, _, Con, Decls}  ->
+              check_modifiers1(contract, Decls),
+              case {lists:keymember(letfun, 1, Decls),
+                    [ D || D <- Decls, aeso_syntax:get_ann(entrypoint, D, false) ]} of
+                  {true, []} -> type_error({contract_has_no_entrypoints, Con});
+                  _          -> ok
+              end;
+          {namespace, _, _, Decls} -> check_modifiers1(namespace, Decls);
+          Decl -> type_error({bad_top_level_decl, Decl})
+      end || C <- Contracts ],
+    destroy_and_report_type_errors(Env).
+
+-spec check_modifiers1(contract | namespace, [aeso_syntax:decl()] | aeso_syntax:decl()) -> ok.
+check_modifiers1(What, Decls) when is_list(Decls) ->
+    _ = [ check_modifiers1(What, Decl) || Decl <- Decls ],
+    ok;
+check_modifiers1(What, Decl) when element(1, Decl) == letfun; element(1, Decl) == fun_decl ->
+    Public     = aeso_syntax:get_ann(public,     Decl, false),
+    Private    = aeso_syntax:get_ann(private,    Decl, false),
+    Payable    = aeso_syntax:get_ann(payable,    Decl, false),
+    Entrypoint = aeso_syntax:get_ann(entrypoint, Decl, false),
+    FunDecl    = element(1, Decl) == fun_decl,
+    {id, _, Name} = element(3, Decl),
+    IsInit     = Name == "init" andalso What == contract,
+    _ = [ type_error({proto_must_be_entrypoint, Decl})    || FunDecl, Private orelse not Entrypoint, What == contract ],
+    _ = [ type_error({proto_in_namespace, Decl})          || FunDecl, What == namespace ],
+    _ = [ type_error({init_must_be_an_entrypoint, Decl})  || not Entrypoint, IsInit ],
+    _ = [ type_error({init_must_not_be_payable, Decl})    || Payable, IsInit ],
+    _ = [ type_error({public_modifier_in_contract, Decl}) || Public, not Private, not Entrypoint, What == contract ],
+    _ = [ type_error({entrypoint_in_namespace, Decl})     || Entrypoint, What == namespace ],
+    _ = [ type_error({private_entrypoint, Decl})          || Private, Entrypoint ],
+    _ = [ type_error({private_and_public, Decl})          || Private, Public ],
+    ok;
+check_modifiers1(_, _) -> ok.
 
 -spec check_type(env(), aeso_syntax:type()) -> aeso_syntax:type().
 check_type(Env, T) ->
@@ -700,7 +781,10 @@ check_type(Env, Type = {fun_t, Ann, NamedArgs, Args, Ret}, Arity) ->
     {fun_t, Ann, NamedArgs1, Args1, Ret1};
 check_type(_Env, Type = {uvar, _, _}, Arity) ->
     ensure_base_type(Type, Arity),
-    Type.
+    Type;
+check_type(_Env, {args_t, Ann, Ts}, _) ->
+    type_error({new_tuple_syntax, Ann, Ts}),
+    {tuple_t, Ann, Ts}.
 
 ensure_base_type(Type, Arity) ->
     [ type_error({wrong_type_arguments, Type, Arity, 0}) || Arity /= 0 ],
@@ -729,43 +813,43 @@ check_event(Env, "event", Ann, Def) ->
 check_event(_Env, _Name, _Ann, Def) -> Def.
 
 check_event_con(Env, {constr_t, Ann, Con, Args}) ->
-    IsIndexed  = fun(T) -> case aeso_syntax:get_ann(indexed, T, false) of
-                               true  -> indexed;
-                               false -> notindexed
-                           end end,
+    IsIndexed  = fun(T) ->
+                     T1 = unfold_types_in_type(Env, T),
+                     %% `indexed` is optional but if used it has to be correctly used
+                     case {is_word_type(T1), is_string_type(T1), aeso_syntax:get_ann(indexed, T, false)} of
+                         {true, _, _}        -> indexed;
+                         {false, true, true} -> type_error({indexed_type_must_be_word, T, T1});
+                         {false, true, _}    -> notindexed;
+                         {false, false, _}   -> type_error({event_arg_type_word_or_string, T, T1}), error
+                     end
+                 end,
     Indices    = lists:map(IsIndexed, Args),
     Indexed    = [ T || T <- Args, IsIndexed(T) == indexed ],
     NonIndexed = Args -- Indexed,
-    [ check_event_arg_type(Env, Ix, Type) || {Ix, Type} <- lists:zip(Indices, Args) ],
     [ type_error({event_0_to_3_indexed_values, Con}) || length(Indexed) > 3 ],
     [ type_error({event_0_to_1_string_values, Con}) || length(NonIndexed) > 1 ],
     {constr_t, [{indices, Indices} | Ann], Con, Args}.
-
-check_event_arg_type(Env, Ix, Type0) ->
-    Type = unfold_types_in_type(Env, Type0),
-    case Ix of
-        indexed    -> [ type_error({indexed_type_must_be_word, Type0, Type})   || not is_word_type(Type) ];
-        notindexed -> [ type_error({payload_type_must_be_string, Type0, Type}) || not is_string_type(Type) ]
-    end.
 
 %% Not so nice.
 is_word_type({id, _, Name}) ->
     lists:member(Name, ["int", "address", "hash", "bits", "bool"]);
 is_word_type({app_t, _, {id, _, Name}, [_, _]}) ->
     lists:member(Name, ["oracle", "oracle_query"]);
+is_word_type({bytes_t, _, N}) -> N =< 32;
 is_word_type({con, _, _}) -> true;
 is_word_type({qcon, _, _}) -> true;
 is_word_type(_) -> false.
 
 is_string_type({id, _, "string"}) -> true;
+is_string_type({bytes_t, _, N}) -> N > 32;
 is_string_type(_) -> false.
 
 -spec check_constructor_overlap(env(), aeso_syntax:con(), type()) -> ok | no_return().
-check_constructor_overlap(Env, Con = {con, _, Name}, NewType) ->
-    case lookup_name(Env, Name) of
+check_constructor_overlap(Env, Con = {con, Ann, Name}, NewType) ->
+    case lookup_env(Env, term, Ann, Name) of
         false -> ok;
         {_, {Ann, Type}} ->
-            OldType = case Type of {type_sig, _, _, _, T} -> T;
+            OldType = case Type of {type_sig, _, _, _, _, T} -> T;
                                    _ -> Type end,
             OldCon  = {con, Ann, Name},
             type_error({repeated_constructor, [{OldCon, OldType}, {Con, NewType}]})
@@ -794,7 +878,7 @@ check_sccs(Env = #env{}, Funs, [{acyclic, X} | SCCs], Acc) ->
     end;
 check_sccs(Env = #env{}, Funs, [{cyclic, Xs} | SCCs], Acc) ->
     Defs = [ maps:get(X, Funs) || X <- Xs ],
-    {TypeSigs, {letrec, _, Defs1}} = infer_letrec(Env, {letrec, [], Defs}),
+    {TypeSigs, Defs1} = infer_letrec(Env, Defs),
     Env1 = bind_funs(TypeSigs, Env),
     check_sccs(Env1, Funs, SCCs, Defs1 ++ Acc).
 
@@ -807,16 +891,15 @@ check_reserved_entrypoints(Funs) ->
 -spec check_fundecl(env(), aeso_syntax:decl()) -> {{name(), typesig()}, aeso_syntax:decl()}.
 check_fundecl(Env, {fun_decl, Ann, Id = {id, _, Name}, Type = {fun_t, _, _, _, _}}) ->
     Type1 = {fun_t, _, Named, Args, Ret} = check_type(Env, Type),
-    {{Name, {type_sig, Ann, Named, Args, Ret}}, {fun_decl, Ann, Id, Type1}};
+    {{Name, {type_sig, Ann, none, Named, Args, Ret}}, {fun_decl, Ann, Id, Type1}};
 check_fundecl(Env, {fun_decl, Ann, Id = {id, _, Name}, Type}) ->
     type_error({fundecl_must_have_funtype, Ann, Id, Type}),
-    {{Name, {type_sig, Ann, [], [], Type}}, check_type(Env, Type)}.
+    {{Name, {type_sig, Ann, none, [], [], Type}}, check_type(Env, Type)}.
 
 infer_nonrec(Env, LetFun) ->
     create_constraints(),
     NewLetFun = infer_letfun(Env, LetFun),
     check_special_funs(Env, NewLetFun),
-    solve_constraints(Env),
     destroy_and_report_unsolved_constraints(Env),
     Result = {TypeSig, _} = instantiate(NewLetFun),
     print_typesig(TypeSig),
@@ -824,7 +907,7 @@ infer_nonrec(Env, LetFun) ->
 
 %% Currenty only the init function.
 check_special_funs(Env, {{"init", Type}, _}) ->
-    {type_sig, Ann, _Named, _Args, Res} = Type,
+    {type_sig, Ann, _Constr, _Named, _Args, Res} = Type,
     State =
         %% We might have implicit (no) state.
         case lookup_type(Env, {id, [], "state"}) of
@@ -834,9 +917,10 @@ check_special_funs(Env, {{"init", Type}, _}) ->
     unify(Env, Res, State, {checking_init_type, Ann});
 check_special_funs(_, _) -> ok.
 
-typesig_to_fun_t({type_sig, Ann, Named, Args, Res}) -> {fun_t, Ann, Named, Args, Res}.
+typesig_to_fun_t({type_sig, Ann, _Constr, Named, Args, Res}) ->
+    {fun_t, Ann, Named, Args, Res}.
 
-infer_letrec(Env, {letrec, Attrs, Defs}) ->
+infer_letrec(Env, Defs) ->
     create_constraints(),
     Funs = [{Name, fresh_uvar(A)}
                  || {letfun, _, {id, A, Name}, _, _, _} <- Defs],
@@ -856,27 +940,40 @@ infer_letrec(Env, {letrec, Attrs, Defs}) ->
     TypeSigs = instantiate([Sig || {Sig, _} <- Inferred]),
     NewDefs  = instantiate([D || {_, D} <- Inferred]),
     [print_typesig(S) || S <- TypeSigs],
-    {TypeSigs, {letrec, Attrs, NewDefs}}.
+    {TypeSigs, NewDefs}.
 
-infer_letfun(Env, {letfun, Attrib, {id, NameAttrib, Name}, Args, What, Body}) ->
-    ArgTypes  = [{ArgName, check_type(Env, arg_type(T))} || {arg, _, ArgName, T} <- Args],
-    ExpectedType = check_type(Env, arg_type(What)),
+infer_letfun(Env0, {letfun, Attrib, Fun = {id, NameAttrib, Name}, Args, What, Body}) ->
+    Env = Env0#env{ stateful = aeso_syntax:get_ann(stateful, Attrib, false),
+                    current_function = Fun },
+    check_unique_arg_names(Fun, Args),
+    ArgTypes  = [{ArgName, check_type(Env, arg_type(ArgAnn, T))} || {arg, ArgAnn, ArgName, T} <- Args],
+    ExpectedType = check_type(Env, arg_type(NameAttrib, What)),
     NewBody={typed, _, _, ResultType} = check_expr(bind_vars(ArgTypes, Env), Body, ExpectedType),
     NewArgs = [{arg, A1, {id, A2, ArgName}, T}
                || {{_, T}, {arg, A1, {id, A2, ArgName}, _}} <- lists:zip(ArgTypes, Args)],
     NamedArgs = [],
-    TypeSig = {type_sig, Attrib, NamedArgs, [T || {arg, _, _, T} <- NewArgs], ResultType},
+    TypeSig = {type_sig, Attrib, none, NamedArgs, [T || {arg, _, _, T} <- NewArgs], ResultType},
     {{Name, TypeSig},
      {letfun, Attrib, {id, NameAttrib, Name}, NewArgs, ResultType, NewBody}}.
+
+check_unique_arg_names(Fun, Args) ->
+    Name = fun({arg, _, {id, _, X}, _}) -> X end,
+    Names = lists:map(Name, Args),
+    Dups = lists:usort(Names -- lists:usort(Names)),
+    [ type_error({repeated_arg, Fun, Arg}) || Arg <- Dups ],
+    ok.
 
 print_typesig({Name, TypeSig}) ->
     ?PRINT_TYPES("Inferred ~s : ~s\n", [Name, pp(TypeSig)]).
 
-arg_type({id, Attrs, "_"}) ->
-    fresh_uvar(Attrs);
-arg_type({app_t, Attrs, Name, Args}) ->
-    {app_t, Attrs, Name, [arg_type(T) || T <- Args]};
-arg_type(T) ->
+arg_type(ArgAnn, {id, Ann, "_"}) ->
+    case aeso_syntax:get_ann(origin, Ann, user) of
+        system -> fresh_uvar(ArgAnn);
+        user   -> fresh_uvar(Ann)
+    end;
+arg_type(ArgAnn, {app_t, Attrs, Name, Args}) ->
+    {app_t, Attrs, Name, [arg_type(ArgAnn, T) || T <- Args]};
+arg_type(_, T) ->
     T.
 
 app_t(_Ann, Name, [])  -> Name;
@@ -886,18 +983,74 @@ lookup_name(Env, As, Name) ->
     lookup_name(Env, As, Name, []).
 
 lookup_name(Env, As, Id, Options) ->
-    case lookup_name(Env, qname(Id)) of
+    case lookup_env(Env, term, As, qname(Id)) of
         false ->
             type_error({unbound_variable, Id}),
             {Id, fresh_uvar(As)};
         {QId, {_, Ty}} ->
             Freshen = proplists:get_value(freshen, Options, false),
+            check_stateful(Env, Id, Ty),
             Ty1 = case Ty of
-                    {type_sig, _, _, _, _} -> freshen_type(typesig_to_fun_t(Ty));
-                    _ when Freshen         -> freshen_type(Ty);
-                    _                      -> Ty
+                    {type_sig, _, _, _, _, _} -> freshen_type_sig(As, Ty);
+                    _ when Freshen            -> freshen_type(As, Ty);
+                    _                         -> Ty
                   end,
             {set_qname(QId, Id), Ty1}
+    end.
+
+check_stateful(#env{ stateful = false, current_function = Fun }, Id, Type = {type_sig, _, _, _, _, _}) ->
+    case aeso_syntax:get_ann(stateful, Type, false) of
+        false -> ok;
+        true  ->
+            type_error({stateful_not_allowed, Id, Fun})
+    end;
+check_stateful(_Env, _Id, _Type) -> ok.
+
+%% Hack: don't allow passing the 'value' named arg if not stateful. This only
+%% works since the user can't create functions with named arguments.
+check_stateful_named_arg(#env{ stateful = false, current_function = Fun }, {id, _, "value"}, Default) ->
+    case Default of
+        {int, _, 0} -> ok;
+        _           -> type_error({value_arg_not_allowed, Default, Fun})
+    end;
+check_stateful_named_arg(_, _, _) -> ok.
+
+%% Check that `init` doesn't read or write the state
+check_state_dependencies(Env, Defs) ->
+    Top       = Env#env.namespace,
+    GetState  = Top ++ ["state"],
+    SetState  = Top ++ ["put"],
+    Init      = Top ++ ["init"],
+    UsedNames = fun(X) -> [{Xs, Ann} || {{term, Xs}, Ann} <- aeso_syntax_utils:used(X)] end,
+    Funs      = [ {Top ++ [Name], Fun} || Fun = {letfun, _, {id, _, Name}, _Args, _Type, _Body} <- Defs ],
+    Deps      = maps:from_list([{Name, UsedNames(Def)} || {Name, Def} <- Funs]),
+    case maps:get(Init, Deps, false) of
+        false -> ok;    %% No init, so nothing to check
+        _     ->
+            [ type_error({init_depends_on_state, state, Chain})
+              || Chain <- get_call_chains(Deps, Init, GetState) ],
+            [ type_error({init_depends_on_state, put, Chain})
+              || Chain <- get_call_chains(Deps, Init, SetState) ],
+            ok
+    end.
+
+%% Compute all paths (not sharing intermediate nodes) from Start to Stop in Graph.
+get_call_chains(Graph, Start, Stop) ->
+    get_call_chains(Graph, #{}, queue:from_list([{Start, [], []}]), Stop, []).
+
+get_call_chains(Graph, Visited, Queue, Stop, Acc) ->
+    case queue:out(Queue) of
+        {empty, _} -> lists:reverse(Acc);
+        {{value, {Stop, Ann, Path}}, Queue1} ->
+            get_call_chains(Graph, Visited, Queue1, Stop, [lists:reverse([{Stop, Ann} | Path]) | Acc]);
+        {{value, {Node, Ann, Path}}, Queue1} ->
+            case maps:is_key(Node, Visited) of
+                true  -> get_call_chains(Graph, Visited, Queue1, Stop, Acc);
+                false ->
+                    Calls = maps:get(Node, Graph, []),
+                    NewQ  = queue:from_list([{New, Ann1, [{Node, Ann} | Path]} || {New, Ann1} <- Calls]),
+                    get_call_chains(Graph, Visited#{Node => true}, queue:join(Queue1, NewQ), Stop, Acc)
+            end
     end.
 
 check_expr(Env, Expr, Type) ->
@@ -946,13 +1099,63 @@ infer_expr(Env, {list, As, Elems}) ->
     ElemType = fresh_uvar(As),
     NewElems = [check_expr(Env, X, ElemType) || X <- Elems],
     {typed, As, {list, As, NewElems}, {app_t, As, {id, As, "list"}, [ElemType]}};
+infer_expr(Env, {list_comp, As, Yield, []}) ->
+    {typed, _, TypedYield, Type} = infer_expr(Env, Yield),
+    {typed, As, {list_comp, As, TypedYield, []}, {app_t, As, {id, As, "list"}, [Type]}};
+infer_expr(Env, {list_comp, As, Yield, [{comprehension_bind, Arg, BExpr}|Rest]}) ->
+    BindVarType = fresh_uvar(As),
+    TypedBind = {typed, As2, _, TypeBExpr} = infer_expr(Env, BExpr),
+    unify( Env
+         , TypeBExpr
+         , {app_t, As, {id, As, "list"}, [BindVarType]}
+         , {list_comp, TypedBind, TypeBExpr, {app_t, As2, {id, As, "list"}, [BindVarType]}}),
+    NewE = bind_var(Arg, BindVarType, Env),
+    {typed, _, {list_comp, _, TypedYield, TypedRest}, ResType} =
+        infer_expr(NewE, {list_comp, As, Yield, Rest}),
+    { typed
+    , As
+    , {list_comp, As, TypedYield, [{comprehension_bind, {typed, Arg, BindVarType}, TypedBind}|TypedRest]}
+    , ResType};
+infer_expr(Env, {list_comp, AttrsL, Yield, [{comprehension_if, AttrsIF, Cond}|Rest]}) ->
+    NewCond = check_expr(Env, Cond, {id, AttrsIF, "bool"}),
+    {typed, _, {list_comp, _, TypedYield, TypedRest}, ResType} =
+        infer_expr(Env, {list_comp, AttrsL, Yield, Rest}),
+    { typed
+    , AttrsL
+    , {list_comp, AttrsL, TypedYield, [{comprehension_if, AttrsIF, NewCond}|TypedRest]}
+    , ResType};
+infer_expr(Env, {list_comp, AsLC, Yield, [{letval, AsLV, Pattern, Type, E}|Rest]}) ->
+    NewE = {typed, _, _, PatType} = infer_expr(Env, {typed, AsLV, E, arg_type(AsLV, Type)}),
+    BlockType = fresh_uvar(AsLV),
+    {'case', _, NewPattern, NewRest} =
+        infer_case( Env
+                  , AsLC
+                  , Pattern
+                  , PatType
+                  , {list_comp, AsLC, Yield, Rest}
+                  , BlockType),
+    {typed, _, {list_comp, _, TypedYield, TypedRest}, ResType} = NewRest,
+    { typed
+    , AsLC
+    , {list_comp, AsLC, TypedYield, [{letval, AsLV, NewPattern, Type, NewE}|TypedRest]}
+    , ResType
+    };
+infer_expr(Env, {list_comp, AsLC, Yield, [Def={letfun, AsLF, _, _, _, _}|Rest]}) ->
+    {{Name, TypeSig}, LetFun} = infer_letfun(Env, Def),
+    FunT = typesig_to_fun_t(TypeSig),
+    NewE = bind_var({id, AsLF, Name}, FunT, Env),
+    {typed, _, {list_comp, _, TypedYield, TypedRest}, ResType} =
+        infer_expr(NewE, {list_comp, AsLC, Yield, Rest}),
+    { typed
+    , AsLC
+    , {list_comp, AsLC, TypedYield, [LetFun|TypedRest]}
+    , ResType
+    };
 infer_expr(Env, {typed, As, Body, Type}) ->
     Type1 = check_type(Env, Type),
     {typed, _, NewBody, NewType} = check_expr(Env, Body, Type1),
     {typed, As, NewBody, NewType};
 infer_expr(Env, {app, Ann, Fun, Args0}) ->
-    %% TODO: fix parser to give proper annotation for normal applications!
-    FunAnn     = aeso_syntax:get_ann(Fun),
     NamedArgs  = [ Arg || Arg = {named_arg, _, _, _} <- Args0 ],
     Args       = Args0 -- NamedArgs,
     case aeso_syntax:get_ann(format, Ann) of
@@ -961,15 +1164,15 @@ infer_expr(Env, {app, Ann, Fun, Args0}) ->
         prefix ->
             infer_op(Env, Ann, Fun, Args, fun infer_prefix/1);
         _ ->
-            NamedArgsVar = fresh_uvar(FunAnn),
+            NamedArgsVar = fresh_uvar(Ann),
             NamedArgs1 = [ infer_named_arg(Env, NamedArgsVar, Arg) || Arg <- NamedArgs ],
             %% TODO: named args constraints
             NewFun={typed, _, _, FunType} = infer_expr(Env, Fun),
             NewArgs = [infer_expr(Env, A) || A <- Args],
             ArgTypes = [T || {typed, _, _, T} <- NewArgs],
-            ResultType = fresh_uvar(FunAnn),
+            ResultType = fresh_uvar(Ann),
             unify(Env, FunType, {fun_t, [], NamedArgsVar, ArgTypes, ResultType}, {infer_app, Fun, Args, FunType, ArgTypes}),
-            {typed, FunAnn, {app, Ann, NewFun, NamedArgs1 ++ NewArgs}, dereference(ResultType)}
+            {typed, Ann, {app, Ann, NewFun, NamedArgs1 ++ NewArgs}, dereference(ResultType)}
     end;
 infer_expr(Env, {'if', Attrs, Cond, Then, Else}) ->
     NewCond = check_expr(Env, Cond, {id, Attrs, "bool"}),
@@ -1056,10 +1259,17 @@ infer_expr(Env, {lam, Attrs, Args, Body}) ->
     {'case', _, {typed, _, {tuple, _, NewArgPatterns}, _}, NewBody} =
         infer_case(Env, Attrs, {tuple, Attrs, ArgPatterns}, {tuple_t, Attrs, ArgTypes}, Body, ResultType),
     NewArgs = [{arg, As, NewPat, NewT} || {typed, As, NewPat, NewT} <- NewArgPatterns],
-    {typed, Attrs, {lam, Attrs, NewArgs, NewBody}, {fun_t, Attrs, [], ArgTypes, ResultType}}.
+    {typed, Attrs, {lam, Attrs, NewArgs, NewBody}, {fun_t, Attrs, [], ArgTypes, ResultType}};
+infer_expr(Env, Let = {letval, Attrs, _, _, _}) ->
+    type_error({missing_body_for_let, Attrs}),
+    infer_expr(Env, {block, Attrs, [Let, abort_expr(Attrs, "missing body")]});
+infer_expr(Env, Let = {letfun, Attrs, _, _, _, _}) ->
+    type_error({missing_body_for_let, Attrs}),
+    infer_expr(Env, {block, Attrs, [Let, abort_expr(Attrs, "missing body")]}).
 
 infer_named_arg(Env, NamedArgs, {named_arg, Ann, Id, E}) ->
     CheckedExpr = {typed, _, _, ArgType} = infer_expr(Env, E),
+    check_stateful_named_arg(Env, Id, E),
     add_named_argument_constraint(
         #named_argument_constraint{
             args = NamedArgs,
@@ -1129,19 +1339,18 @@ infer_case(Env, Attrs, Pattern, ExprType, Branch, SwitchType) ->
 %% NewStmts = infer_block(Env, Attrs, Stmts, BlockType)
 infer_block(_Env, Attrs, [], BlockType) ->
     error({impossible, empty_block, Attrs, BlockType});
-infer_block(Env, Attrs, [Def={letfun, _, _, _, _, _}|Rest], BlockType) ->
-    NewDef = infer_letfun(Env, Def),
-    [NewDef|infer_block(Env, Attrs, Rest, BlockType)];
-infer_block(Env, Attrs, [Def={letrec, _, _}|Rest], BlockType) ->
-    NewDef = infer_letrec(Env, Def),
-    [NewDef|infer_block(Env, Attrs, Rest, BlockType)];
+infer_block(Env, _, [E], BlockType) ->
+    [check_expr(Env, E, BlockType)];
+infer_block(Env, Attrs, [Def={letfun, Ann, _, _, _, _}|Rest], BlockType) ->
+    {{Name, TypeSig}, LetFun} = infer_letfun(Env, Def),
+    FunT = typesig_to_fun_t(TypeSig),
+    NewE = bind_var({id, Ann, Name}, FunT, Env),
+    [LetFun|infer_block(NewE, Attrs, Rest, BlockType)];
 infer_block(Env, _, [{letval, Attrs, Pattern, Type, E}|Rest], BlockType) ->
-    NewE = {typed, _, _, PatType} = infer_expr(Env, {typed, Attrs, E, arg_type(Type)}),
+    NewE = {typed, _, _, PatType} = infer_expr(Env, {typed, Attrs, E, arg_type(aeso_syntax:get_ann(Pattern), Type)}),
     {'case', _, NewPattern, {typed, _, {block, _, NewRest}, _}} =
         infer_case(Env, Attrs, Pattern, PatType, {block, Attrs, Rest}, BlockType),
     [{letval, Attrs, NewPattern, Type, NewE}|NewRest];
-infer_block(Env, _, [E], BlockType) ->
-    [check_expr(Env, E, BlockType)];
 infer_block(Env, Attrs, [E|Rest], BlockType) ->
     [infer_expr(Env, E)|infer_block(Env, Attrs, Rest, BlockType)].
 
@@ -1161,6 +1370,9 @@ infer_infix({RelOp, As})
     T = fresh_uvar(As),     %% allow any type here, check in ast_to_icode that we have comparison for it
     Bool = {id, As, "bool"},
     {fun_t, As, [], [T, T], Bool};
+infer_infix({'..', As}) ->
+    Int = {id, As, "int"},
+    {fun_t, As, [], [Int, Int], {app_t, As, {id, As, "list"}, [Int]}};
 infer_infix({'::', As}) ->
     ElemType = fresh_uvar(As),
     ListType = {app_t, As, {id, As, "list"}, [ElemType]},
@@ -1176,6 +1388,9 @@ infer_prefix({'!',As}) ->
 infer_prefix({IntOp,As}) when IntOp =:= '-' ->
     Int = {id, As, "int"},
     {fun_t, As, [], [Int], Int}.
+
+abort_expr(Ann, Str) ->
+    {app, Ann, {id, Ann, "abort"}, [{string, Ann, Str}]}.
 
 free_vars({int, _, _}) ->
     [];
@@ -1271,14 +1486,15 @@ when_option(Opt, Do) ->
 
 create_constraints() ->
     create_named_argument_constraints(),
+    create_bytes_constraints(),
     create_field_constraints().
 
-solve_constraints(Env) ->
-    solve_named_argument_constraints(Env),
-    solve_field_constraints(Env).
-
 destroy_and_report_unsolved_constraints(Env) ->
+    solve_named_argument_constraints(Env),
+    solve_bytes_constraints(Env),
+    solve_field_constraints(Env),
     destroy_and_report_unsolved_field_constraints(Env),
+    destroy_and_report_unsolved_bytes_constraints(Env),
     destroy_and_report_unsolved_named_argument_constraints(Env).
 
 %% -- Named argument constraints --
@@ -1326,6 +1542,69 @@ destroy_and_report_unsolved_named_argument_constraints(Env) ->
     [ type_error({unsolved_named_argument_constraint, C}) || C <- Unsolved ],
     destroy_named_argument_constraints(),
     ok.
+
+%% -- Bytes constraints --
+
+-type byte_constraint() :: {is_bytes, utype()}
+                         | {add_bytes, aeso_syntax:ann(), concat | split, utype(), utype(), utype()}.
+
+create_bytes_constraints() ->
+    ets_new(bytes_constraints, [bag]).
+
+get_bytes_constraints() ->
+    ets_tab2list(bytes_constraints).
+
+-spec add_bytes_constraint(byte_constraint()) -> true.
+add_bytes_constraint(Constraint) ->
+    ets_insert(bytes_constraints, Constraint).
+
+solve_bytes_constraints(Env) ->
+    [ solve_bytes_constraint(Env, C) || C <- get_bytes_constraints() ],
+    ok.
+
+solve_bytes_constraint(_Env, {is_bytes, _}) -> ok;
+solve_bytes_constraint(Env, {add_bytes, Ann, _, A0, B0, C0}) ->
+    A = unfold_types_in_type(Env, dereference(A0)),
+    B = unfold_types_in_type(Env, dereference(B0)),
+    C = unfold_types_in_type(Env, dereference(C0)),
+    case {A, B, C} of
+        {{bytes_t, _, M}, {bytes_t, _, N}, _} -> unify(Env, {bytes_t, Ann, M + N}, C, {at, Ann});
+        {{bytes_t, _, M}, _, {bytes_t, _, R}} when R >= M -> unify(Env, {bytes_t, Ann, R - M}, B, {at, Ann});
+        {_, {bytes_t, _, N}, {bytes_t, _, R}} when R >= N -> unify(Env, {bytes_t, Ann, R - N}, A, {at, Ann});
+        _ -> ok
+    end.
+
+destroy_bytes_constraints() ->
+    ets_delete(bytes_constraints).
+
+destroy_and_report_unsolved_bytes_constraints(Env) ->
+    Constraints     = get_bytes_constraints(),
+    InAddConstraint = [ T || {add_bytes, _, _, A, B, C} <- Constraints,
+                             T <- [A, B, C],
+                             element(1, T) /= bytes_t ],
+    %% Skip is_bytes constraints for types that occur in add_bytes constraints
+    %% (no need to generate error messages for both is_bytes and add_bytes).
+    Skip = fun({is_bytes, T}) -> lists:member(T, InAddConstraint);
+              (_) -> false end,
+    [ check_bytes_constraint(Env, C) || C <- Constraints, not Skip(C) ],
+    destroy_bytes_constraints().
+
+check_bytes_constraint(Env, {is_bytes, Type}) ->
+    Type1 = unfold_types_in_type(Env, instantiate(Type)),
+    case Type1 of
+        {bytes_t, _, _} -> ok;
+        _               ->
+            type_error({unknown_byte_length, Type})
+    end;
+check_bytes_constraint(Env, {add_bytes, Ann, Fun, A0, B0, C0}) ->
+    A = unfold_types_in_type(Env, instantiate(A0)),
+    B = unfold_types_in_type(Env, instantiate(B0)),
+    C = unfold_types_in_type(Env, instantiate(C0)),
+    case {A, B, C} of
+        {{bytes_t, _, _M}, {bytes_t, _, _N}, {bytes_t, _, _R}} ->
+            ok; %% If all are solved we checked M + N == R in solve_bytes_constraint.
+        _ -> type_error({unsolved_bytes_constraint, Ann, Fun, A, B, C})
+    end.
 
 %% -- Field constraints --
 
@@ -1468,7 +1747,7 @@ solve_known_record_types(Env, Constraints) ->
                              C
                      end;
                 _ ->
-                    type_error({not_a_record_type, RecId, When}),
+                    type_error({not_a_record_type, RecType, When}),
                     not_solved
              end
          end
@@ -1562,8 +1841,8 @@ unfold_types(Env, {typed, Attr, E, Type}, Options) ->
     {typed, Attr, unfold_types(Env, E, Options), unfold_types_in_type(Env, Type, Options)};
 unfold_types(Env, {arg, Attr, Id, Type}, Options) ->
     {arg, Attr, Id, unfold_types_in_type(Env, Type, Options)};
-unfold_types(Env, {type_sig, Ann, NamedArgs, Args, Ret}, Options) ->
-    {type_sig, Ann,
+unfold_types(Env, {type_sig, Ann, Constr, NamedArgs, Args, Ret}, Options) ->
+    {type_sig, Ann, Constr,
                unfold_types_in_type(Env, NamedArgs, Options),
                unfold_types_in_type(Env, Args, Options),
                unfold_types_in_type(Env, Ret, Options)};
@@ -1583,6 +1862,10 @@ unfold_types(_Env, X, _Options) ->
 unfold_types_in_type(Env, T) ->
     unfold_types_in_type(Env, T, []).
 
+unfold_types_in_type(Env, {app_t, Ann, Id = {id, _, "map"}, Args = [KeyType0, _]}, Options) ->
+    Args1 = [KeyType, _] = unfold_types_in_type(Env, Args, Options),
+    [ type_error({map_in_map_key, KeyType0}) || has_maps(KeyType) ],
+    {app_t, Ann, Id, Args1};
 unfold_types_in_type(Env, {app_t, Ann, Id, Args}, Options) when ?is_type_id(Id) ->
     UnfoldRecords  = proplists:get_value(unfold_record_types, Options, false),
     UnfoldVariants = proplists:get_value(unfold_variant_types, Options, false),
@@ -1630,6 +1913,13 @@ unfold_types_in_type(Env, [H|T], Options) ->
 unfold_types_in_type(_Env, X, _Options) ->
     X.
 
+has_maps({app_t, _, {id, _, "map"}, _}) ->
+    true;
+has_maps(L) when is_list(L) ->
+    lists:any(fun has_maps/1, L);
+has_maps(T) when is_tuple(T) ->
+    has_maps(tuple_to_list(T));
+has_maps(_) -> false.
 
 subst_tvars(Env, Type) ->
     subst_tvars1([{V, T} || {{tvar, _, V}, T} <- Env], Type).
@@ -1736,10 +2026,16 @@ occurs_check1(R, {tuple_t, _, Ts}) ->
     occurs_check(R, Ts);
 occurs_check1(R, {named_arg_t, _, _, T, _}) ->
     occurs_check(R, T);
+occurs_check1(R, {record_t, Fields}) ->
+    occurs_check(R, Fields);
+occurs_check1(R, {field_t, _, _, T}) ->
+    occurs_check(R, T);
 occurs_check1(R, [H | T]) ->
     occurs_check(R, H) orelse occurs_check(R, T);
 occurs_check1(_, []) -> false.
 
+fresh_uvar([{origin, system}]) ->
+    error(oh_no_you_dont);
 fresh_uvar(Attrs) ->
     {uvar, Attrs, make_ref()}.
 
@@ -1749,27 +2045,43 @@ create_freshen_tvars() ->
 destroy_freshen_tvars() ->
     ets_delete(freshen_tvars).
 
-freshen_type(Type) ->
+freshen_type(Ann, Type) ->
     create_freshen_tvars(),
-    Type1 = freshen(Type),
+    Type1 = freshen(Ann, Type),
     destroy_freshen_tvars(),
     Type1.
 
-freshen({tvar, As, Name}) ->
+freshen(Type) ->
+    freshen(aeso_syntax:get_ann(Type), Type).
+
+freshen(Ann, {tvar, _, Name}) ->
     NewT = case ets_lookup(freshen_tvars, Name) of
-               [] ->
-                   fresh_uvar(As);
-               [{Name, T}] ->
-                   T
+               []          -> fresh_uvar(Ann);
+               [{Name, T}] -> T
            end,
     ets_insert(freshen_tvars, {Name, NewT}),
     NewT;
-freshen(T) when is_tuple(T) ->
-    list_to_tuple(freshen(tuple_to_list(T)));
-freshen([A|B]) ->
-    [freshen(A)|freshen(B)];
-freshen(X) ->
+freshen(Ann, {bytes_t, _, any}) ->
+    X = fresh_uvar(Ann),
+    add_bytes_constraint({is_bytes, X}),
+    X;
+freshen(Ann, T) when is_tuple(T) ->
+    list_to_tuple(freshen(Ann, tuple_to_list(T)));
+freshen(Ann, [A | B]) ->
+    [freshen(Ann, A) | freshen(Ann, B)];
+freshen(_, X) ->
     X.
+
+freshen_type_sig(Ann, TypeSig = {type_sig, _, Constr, _, _, _}) ->
+    FunT = freshen_type(Ann, typesig_to_fun_t(TypeSig)),
+    apply_typesig_constraint(Ann, Constr, FunT),
+    FunT.
+
+apply_typesig_constraint(_Ann, none, _FunT) -> ok;
+apply_typesig_constraint(Ann, bytes_concat, {fun_t, _, [], [A, B], C}) ->
+    add_bytes_constraint({add_bytes, Ann, concat, A, B, C});
+apply_typesig_constraint(Ann, bytes_split, {fun_t, _, [], [C], {tuple_t, _, [A, B]}}) ->
+    add_bytes_constraint({add_bytes, Ann, split, A, B, C}).
 
 %% Dereferences all uvars and replaces the uninstantiated ones with a
 %% succession of tvars.
@@ -1777,8 +2089,8 @@ instantiate(E) ->
     instantiate1(dereference(E)).
 
 instantiate1({uvar, Attr, R}) ->
-    Next = proplists:get_value(next, ets_lookup(type_vars, next), 1),
-    TVar = {tvar, Attr, "'" ++ integer_to_list(Next)},
+    Next = proplists:get_value(next, ets_lookup(type_vars, next), 0),
+    TVar = {tvar, Attr, "'" ++ integer_to_tvar(Next)},
     ets_insert(type_vars, [{next, Next + 1}, {R, TVar}]),
     TVar;
 instantiate1({fun_t, Ann, Named, Args, Ret}) ->
@@ -1798,6 +2110,12 @@ instantiate1([A|B]) ->
 instantiate1(X) ->
     X.
 
+integer_to_tvar(X) when X < 26 ->
+    [$a + X];
+integer_to_tvar(X) ->
+    [integer_to_tvar(X div 26)] ++ [$a + (X rem 26)].
+
+
 %% Save unification failures for error messages.
 
 cannot_unify(A, B, When) ->
@@ -1810,12 +2128,11 @@ create_type_errors() ->
     ets_new(type_errors, [bag]).
 
 destroy_and_report_type_errors(Env) ->
-    Errors   = ets_tab2list(type_errors),
-    %% io:format("Type errors now: ~p\n", [Errors]),
-    PPErrors = [ pp_error(unqualify(Env, Err)) || Err <- Errors ],
+    Errors0 = lists:reverse(ets_tab2list(type_errors)),
+    %% io:format("Type errors now: ~p\n", [Errors0]),
     ets_delete(type_errors),
-    Errors /= [] andalso
-        error({type_errors, [lists:flatten(Err) || Err <- PPErrors]}).
+    Errors  = [ mk_error(unqualify(Env, Err)) || Err <- Errors0 ],
+    aeso_errors:throw(Errors).  %% No-op if Errors == []
 
 %% Strip current namespace from error message for nicer printing.
 unqualify(#env{ namespace = NS }, {qid, Ann, Xs}) ->
@@ -1834,197 +2151,355 @@ unqualify1(NS, Xs) ->
     catch _:_ -> Xs
     end.
 
-pp_error({cannot_unify, A, B, When}) ->
-    io_lib:format("Cannot unify ~s\n"
-                  "         and ~s\n"
-                  "~s", [pp(instantiate(A)), pp(instantiate(B)), pp_when(When)]);
-pp_error({unbound_variable, Id}) ->
-    io_lib:format("Unbound variable ~s at ~s\n", [pp(Id), pp_loc(Id)]);
-pp_error({undefined_field, Id}) ->
-    io_lib:format("Unbound field ~s at ~s\n", [pp(Id), pp_loc(Id)]);
-pp_error({not_a_record_type, Type, Why}) ->
-    io_lib:format("~s\n~s\n", [pp_type("Not a record type: ", Type), pp_why_record(Why)]);
-pp_error({not_a_contract_type, Type, Lit}) ->
-    io_lib:format("The type ~s is not a contract type\n"
-                  "when checking that the contract literal at ~s\n~s\n"
-                  "has the type\n~s\n",
-                  [pp_type("", Type), pp_loc(Lit), pp_expr("  ", Lit), pp_type("  ", Type)]);
-pp_error({non_linear_pattern, Pattern, Nonlinear}) ->
-    Plural = [ $s || length(Nonlinear) > 1 ],
-    io_lib:format("Repeated name~s ~s in pattern\n~s (at ~s)\n",
-                  [Plural, string:join(Nonlinear, ", "), pp_expr("  ", Pattern), pp_loc(Pattern)]);
-pp_error({ambiguous_record, Fields = [{_, First} | _], Candidates}) ->
-    S = [ "s" || length(Fields) > 1 ],
-    io_lib:format("Ambiguous record type with field~s ~s (at ~s) could be one of\n~s",
-                  [S, string:join([ pp(F) || {_, F} <- Fields ], ", "),
-                   pp_loc(First),
-                   [ ["  - ", pp(C), " (at ", pp_loc(C), ")\n"] || C <- Candidates ]]);
-pp_error({missing_field, Field, Rec}) ->
-    io_lib:format("Record type ~s does not have field ~s (at ~s)\n", [pp(Rec), pp(Field), pp_loc(Field)]);
-pp_error({missing_fields, Ann, RecType, Fields}) ->
-    Many = length(Fields) > 1,
-    S    = [ "s" || Many ],
-    Are  = if Many -> "are"; true -> "is" end,
-    io_lib:format("The field~s ~s ~s missing when constructing an element of type ~s (at ~s)\n",
-                  [S, string:join(Fields, ", "), Are, pp(RecType), pp_loc(Ann)]);
-pp_error({no_records_with_all_fields, Fields = [{_, First} | _]}) ->
-    S = [ "s" || length(Fields) > 1 ],
-    io_lib:format("No record type with field~s ~s (at ~s)\n",
-                  [S, string:join([ pp(F) || {_, F} <- Fields ], ", "),
-                   pp_loc(First)]);
-pp_error({recursive_types_not_implemented, Types}) ->
-    S = if length(Types) > 1 -> "s are mutually";
-           true              -> " is" end,
-    io_lib:format("The following type~s recursive, which is not yet supported:\n~s",
-                    [S, [io_lib:format("  - ~s (at ~s)\n", [pp(T), pp_loc(T)]) || T <- Types]]);
-pp_error({event_must_be_variant_type, Where}) ->
-    io_lib:format("The event type must be a variant type (at ~s)\n", [pp_loc(Where)]);
-pp_error({indexed_type_must_be_word, Type, Type}) ->
-    io_lib:format("The indexed type ~s (at ~s) is not a word type\n",
-                    [pp_type("", Type), pp_loc(Type)]);
-pp_error({indexed_type_must_be_word, Type, Type1}) ->
-    io_lib:format("The indexed type ~s (at ~s) equals ~s which is not a word type\n",
-                    [pp_type("", Type), pp_loc(Type), pp_type("", Type1)]);
-pp_error({payload_type_must_be_string, Type, Type}) ->
-    io_lib:format("The payload type ~s (at ~s) should be string\n",
-                    [pp_type("", Type), pp_loc(Type)]);
-pp_error({payload_type_must_be_string, Type, Type1}) ->
-    io_lib:format("The payload type ~s (at ~s) equals ~s but it should be string\n",
-                    [pp_type("", Type), pp_loc(Type), pp_type("", Type1)]);
-pp_error({event_0_to_3_indexed_values, Constr}) ->
-    io_lib:format("The event constructor ~s (at ~s) has too many indexed values (max 3)\n",
-        [name(Constr), pp_loc(Constr)]);
-pp_error({event_0_to_1_string_values, Constr}) ->
-    io_lib:format("The event constructor ~s (at ~s) has too many non-indexed values (max 1)\n",
-        [name(Constr), pp_loc(Constr)]);
-pp_error({repeated_constructor, Cs}) ->
-    io_lib:format("Variant types must have distinct constructor names\n~s",
-                  [[ io_lib:format("~s  (at ~s)\n", [pp_typed("  - ", C, T), pp_loc(C)]) || {C, T} <- Cs ]]);
-pp_error({bad_named_argument, [], Name}) ->
-    io_lib:format("Named argument ~s (at ~s) supplied to function expecting no named arguments.\n",
-                  [pp(Name), pp_loc(Name)]);
-pp_error({bad_named_argument, Args, Name}) ->
-    io_lib:format("Named argument ~s (at ~s) is not one of the expected named arguments\n~s",
-                  [pp(Name), pp_loc(Name),
-                   [ io_lib:format("~s\n", [pp_typed("  - ", Arg, Type)])
-                     || {named_arg_t, _, Arg, Type, _} <- Args ]]);
-pp_error({unsolved_named_argument_constraint, #named_argument_constraint{name = Name, type = Type}}) ->
-    io_lib:format("Named argument ~s (at ~s) supplied to function with unknown named arguments.\n",
-                  [pp_typed("", Name, Type), pp_loc(Name)]);
-pp_error({reserved_entrypoint, Name, Def}) ->
-    io_lib:format("The name '~s' is reserved and cannot be used for a\ntop-level contract function (at ~s).\n",
-                  [Name, pp_loc(Def)]);
-pp_error({duplicate_definition, Name, Locs}) ->
-    io_lib:format("Duplicate definitions of ~s at\n~s",
-                  [Name, [ ["  - ", pp_loc(L), "\n"] || L <- Locs ]]);
-pp_error({duplicate_scope, Kind, Name, OtherKind, L}) ->
-    io_lib:format("The ~p ~s (at ~s) has the same name as a ~p at ~s\n",
-                  [Kind, pp(Name), pp_loc(Name), OtherKind, pp_loc(L)]);
-pp_error({include, {string, Pos, Name}}) ->
-    io_lib:format("Include of '~s' at ~s\nnot allowed, include only allowed at top level.\n",
-                  [binary_to_list(Name), pp_loc(Pos)]);
-pp_error({namespace, _Pos, {con, Pos, Name}, _Def}) ->
-    io_lib:format("Nested namespace not allowed\nNamespace '~s' at ~s not defined at top level.\n",
-                  [Name, pp_loc(Pos)]);
-pp_error(Err) ->
-    io_lib:format("Unknown error: ~p\n", [Err]).
+mk_t_err(Pos, Msg) ->
+    aeso_errors:new(type_error, Pos, lists:flatten(Msg)).
+mk_t_err(Pos, Msg, Ctxt) ->
+    aeso_errors:new(type_error, Pos, lists:flatten(Msg), lists:flatten(Ctxt)).
 
-pp_when({todo, What}) -> io_lib:format("[TODO] ~p\n", [What]);
+mk_error({cannot_unify, A, B, When}) ->
+    Msg = io_lib:format("Cannot unify ~s\n         and ~s\n",
+                        [pp(instantiate(A)), pp(instantiate(B))]),
+    {Pos, Ctxt} = pp_when(When),
+    mk_t_err(Pos, Msg, Ctxt);
+mk_error({unbound_variable, Id}) ->
+    Msg = io_lib:format("Unbound variable ~s at ~s\n", [pp(Id), pp_loc(Id)]),
+    case Id of
+        {qid, _, ["Chain", "event"]} ->
+            Cxt = "Did you forget to define the event type?",
+            mk_t_err(pos(Id), Msg, Cxt);
+        _ -> mk_t_err(pos(Id), Msg)
+    end;
+mk_error({undefined_field, Id}) ->
+    Msg = io_lib:format("Unbound field ~s at ~s\n", [pp(Id), pp_loc(Id)]),
+    mk_t_err(pos(Id), Msg);
+mk_error({not_a_record_type, Type, Why}) ->
+    Msg = io_lib:format("~s\n", [pp_type("Not a record type: ", Type)]),
+    {Pos, Ctxt} = pp_why_record(Why),
+    mk_t_err(Pos, Msg, Ctxt);
+mk_error({not_a_contract_type, Type, Lit}) ->
+    Msg = io_lib:format("The type ~s is not a contract type\n"
+                        "when checking that the contract literal at ~s\n~s\n"
+                        "has the type\n~s\n",
+                        [pp_type("", Type), pp_loc(Lit), pp_expr("  ", Lit), pp_type("  ", Type)]),
+    mk_t_err(pos(Lit), Msg);
+mk_error({non_linear_pattern, Pattern, Nonlinear}) ->
+    Msg = io_lib:format("Repeated name~s ~s in pattern\n~s (at ~s)\n",
+                        [plural("", "s", Nonlinear), string:join(Nonlinear, ", "),
+                         pp_expr("  ", Pattern), pp_loc(Pattern)]),
+    mk_t_err(pos(Pattern), Msg);
+mk_error({ambiguous_record, Fields = [{_, First} | _], Candidates}) ->
+    Msg = io_lib:format("Ambiguous record type with field~s ~s (at ~s) could be one of\n~s",
+                        [plural("", "s", Fields), string:join([ pp(F) || {_, F} <- Fields ], ", "),
+                        pp_loc(First), [ ["  - ", pp(C), " (at ", pp_loc(C), ")\n"] || C <- Candidates ]]),
+    mk_t_err(pos(First), Msg);
+mk_error({missing_field, Field, Rec}) ->
+    Msg = io_lib:format("Record type ~s does not have field ~s (at ~s)\n",
+                        [pp(Rec), pp(Field), pp_loc(Field)]),
+    mk_t_err(pos(Field), Msg);
+mk_error({missing_fields, Ann, RecType, Fields}) ->
+    Msg = io_lib:format("The field~s ~s ~s missing when constructing an element of type ~s (at ~s)\n",
+                        [plural("", "s", Fields), string:join(Fields, ", "),
+                         plural("is", "are", Fields), pp(RecType), pp_loc(Ann)]),
+    mk_t_err(pos(Ann), Msg);
+mk_error({no_records_with_all_fields, Fields = [{_, First} | _]}) ->
+    Msg = io_lib:format("No record type with field~s ~s (at ~s)\n",
+                        [plural("", "s", Fields), string:join([ pp(F) || {_, F} <- Fields ], ", "),
+                         pp_loc(First)]),
+    mk_t_err(pos(First), Msg);
+mk_error({recursive_types_not_implemented, Types}) ->
+    S = plural(" is", "s are mutually", Types),
+    Msg = io_lib:format("The following type~s recursive, which is not yet supported:\n~s",
+                        [S, [io_lib:format("  - ~s (at ~s)\n", [pp(T), pp_loc(T)]) || T <- Types]]),
+    mk_t_err(pos(hd(Types)), Msg);
+mk_error({event_must_be_variant_type, Where}) ->
+    Msg = io_lib:format("The event type must be a variant type (at ~s)\n", [pp_loc(Where)]),
+    mk_t_err(pos(Where), Msg);
+mk_error({indexed_type_must_be_word, Type, Type}) ->
+    Msg = io_lib:format("The indexed type ~s (at ~s) is not a word type\n",
+                        [pp_type("", Type), pp_loc(Type)]),
+    mk_t_err(pos(Type), Msg);
+mk_error({indexed_type_must_be_word, Type, Type1}) ->
+    Msg = io_lib:format("The indexed type ~s (at ~s) equals ~s which is not a word type\n",
+                        [pp_type("", Type), pp_loc(Type), pp_type("", Type1)]),
+    mk_t_err(pos(Type), Msg);
+mk_error({payload_type_must_be_string, Type, Type}) ->
+    Msg = io_lib:format("The payload type ~s (at ~s) should be string\n",
+                        [pp_type("", Type), pp_loc(Type)]),
+    mk_t_err(pos(Type), Msg);
+mk_error({payload_type_must_be_string, Type, Type1}) ->
+    Msg = io_lib:format("The payload type ~s (at ~s) equals ~s but it should be string\n",
+                        [pp_type("", Type), pp_loc(Type), pp_type("", Type1)]),
+    mk_t_err(pos(Type), Msg);
+mk_error({event_0_to_3_indexed_values, Constr}) ->
+    Msg = io_lib:format("The event constructor ~s (at ~s) has too many indexed values (max 3)\n",
+                        [name(Constr), pp_loc(Constr)]),
+    mk_t_err(pos(Constr), Msg);
+mk_error({event_0_to_1_string_values, Constr}) ->
+    Msg = io_lib:format("The event constructor ~s (at ~s) has too many non-indexed values (max 1)\n",
+                        [name(Constr), pp_loc(Constr)]),
+    mk_t_err(pos(Constr), Msg);
+mk_error({repeated_constructor, Cs}) ->
+    Msg = io_lib:format("Variant types must have distinct constructor names\n~s",
+                        [[ io_lib:format("~s  (at ~s)\n", [pp_typed("  - ", C, T), pp_loc(C)]) || {C, T} <- Cs ]]),
+    mk_t_err(pos(element(1, hd(Cs))), Msg);
+mk_error({bad_named_argument, [], Name}) ->
+    Msg = io_lib:format("Named argument ~s (at ~s) supplied to function expecting no named arguments.\n",
+                        [pp(Name), pp_loc(Name)]),
+    mk_t_err(pos(Name), Msg);
+mk_error({bad_named_argument, Args, Name}) ->
+    Msg = io_lib:format("Named argument ~s (at ~s) is not one of the expected named arguments\n~s",
+                        [pp(Name), pp_loc(Name),
+                        [ io_lib:format("~s\n", [pp_typed("  - ", Arg, Type)])
+                          || {named_arg_t, _, Arg, Type, _} <- Args ]]),
+    mk_t_err(pos(Name), Msg);
+mk_error({unsolved_named_argument_constraint, #named_argument_constraint{name = Name, type = Type}}) ->
+    Msg = io_lib:format("Named argument ~s (at ~s) supplied to function with unknown named arguments.\n",
+                        [pp_typed("", Name, Type), pp_loc(Name)]),
+    mk_t_err(pos(Name), Msg);
+mk_error({reserved_entrypoint, Name, Def}) ->
+    Msg = io_lib:format("The name '~s' is reserved and cannot be used for a\n"
+                        "top-level contract function (at ~s).\n", [Name, pp_loc(Def)]),
+    mk_t_err(pos(Def), Msg);
+mk_error({duplicate_definition, Name, Locs}) ->
+    Msg = io_lib:format("Duplicate definitions of ~s at\n~s",
+                        [Name, [ ["  - ", pp_loc(L), "\n"] || L <- Locs ]]),
+    mk_t_err(pos(lists:last(Locs)), Msg);
+mk_error({duplicate_scope, Kind, Name, OtherKind, L}) ->
+    Msg = io_lib:format("The ~p ~s (at ~s) has the same name as a ~p at ~s\n",
+                        [Kind, pp(Name), pp_loc(Name), OtherKind, pp_loc(L)]),
+    mk_t_err(pos(Name), Msg);
+mk_error({include, _, {string, Pos, Name}}) ->
+    Msg = io_lib:format("Include of '~s' at ~s\nnot allowed, include only allowed at top level.\n",
+                        [binary_to_list(Name), pp_loc(Pos)]),
+    mk_t_err(pos(Pos), Msg);
+mk_error({namespace, _Pos, {con, Pos, Name}, _Def}) ->
+    Msg = io_lib:format("Nested namespace not allowed\nNamespace '~s' at ~s not defined at top level.\n",
+                        [Name, pp_loc(Pos)]),
+    mk_t_err(pos(Pos), Msg);
+mk_error({repeated_arg, Fun, Arg}) ->
+    Msg = io_lib:format("Repeated argument ~s to function ~s (at ~s).\n",
+                        [Arg, pp(Fun), pp_loc(Fun)]),
+    mk_t_err(pos(Fun), Msg);
+mk_error({stateful_not_allowed, Id, Fun}) ->
+    Msg = io_lib:format("Cannot reference stateful function ~s (at ~s)\nin the definition of non-stateful function ~s.\n",
+                        [pp(Id), pp_loc(Id), pp(Fun)]),
+    mk_t_err(pos(Id), Msg);
+mk_error({value_arg_not_allowed, Value, Fun}) ->
+    Msg = io_lib:format("Cannot pass non-zero value argument ~s (at ~s)\nin the definition of non-stateful function ~s.\n",
+                        [pp_expr("", Value), pp_loc(Value), pp(Fun)]),
+    mk_t_err(pos(Value), Msg);
+mk_error({init_depends_on_state, Which, [_Init | Chain]}) ->
+    WhichCalls = fun("put") -> ""; ("state") -> ""; (_) -> ", which calls" end,
+    Msg = io_lib:format("The init function should return the initial state as its result and cannot ~s the state,\nbut it calls\n~s",
+                        [if Which == put -> "write"; true -> "read" end,
+                         [ io_lib:format("  - ~s (at ~s)~s\n", [Fun, pp_loc(Ann), WhichCalls(Fun)])
+                           || {[_, Fun], Ann} <- Chain]]),
+    mk_t_err(pos(element(2, hd(Chain))), Msg);
+mk_error({missing_body_for_let, Ann}) ->
+    Msg = io_lib:format("Let binding at ~s must be followed by an expression\n", [pp_loc(Ann)]),
+    mk_t_err(pos(Ann), Msg);
+mk_error({public_modifier_in_contract, Decl}) ->
+    Decl1 = mk_entrypoint(Decl),
+    Msg = io_lib:format("Use 'entrypoint' instead of 'function' for public function ~s (at ~s):\n~s\n",
+                        [pp_expr("", element(3, Decl)), pp_loc(Decl),
+                         prettypr:format(prettypr:nest(2, aeso_pretty:decl(Decl1)))]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({init_must_be_an_entrypoint, Decl}) ->
+    Decl1 = mk_entrypoint(Decl),
+    Msg = io_lib:format("The init function (at ~s) must be an entrypoint:\n~s\n",
+                        [pp_loc(Decl),
+                         prettypr:format(prettypr:nest(2, aeso_pretty:decl(Decl1)))]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({init_must_not_be_payable, Decl}) ->
+    Msg = io_lib:format("The init function (at ~s) cannot be payable.\n"
+                        "You don't need the 'payable' annotation to be able to attach\n"
+                        "funds to the create contract transaction.",
+                        [pp_loc(Decl)]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({proto_must_be_entrypoint, Decl}) ->
+    Decl1 = mk_entrypoint(Decl),
+    Msg = io_lib:format("Use 'entrypoint' for declaration of ~s (at ~s):\n~s\n",
+                        [pp_expr("", element(3, Decl)), pp_loc(Decl),
+                         prettypr:format(prettypr:nest(2, aeso_pretty:decl(Decl1)))]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({proto_in_namespace, Decl}) ->
+    Msg = io_lib:format("Namespaces cannot contain function prototypes (at ~s).\n",
+                        [pp_loc(Decl)]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({entrypoint_in_namespace, Decl}) ->
+    Msg = io_lib:format("Namespaces cannot contain entrypoints (at ~s). Use 'function' instead.\n",
+                        [pp_loc(Decl)]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({private_entrypoint, Decl}) ->
+    Msg = io_lib:format("The entrypoint ~s (at ~s) cannot be private. Use 'function' instead.\n",
+                        [pp_expr("", element(3, Decl)), pp_loc(Decl)]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({private_and_public, Decl}) ->
+    Msg = io_lib:format("The function ~s (at ~s) cannot be both public and private.\n",
+                        [pp_expr("", element(3, Decl)), pp_loc(Decl)]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({contract_has_no_entrypoints, Con}) ->
+    Msg = io_lib:format("The contract ~s (at ~s) has no entrypoints. Since Sophia version 3.2, public\n"
+                        "contract functions must be declared with the 'entrypoint' keyword instead of\n"
+                        "'function'.\n", [pp_expr("", Con), pp_loc(Con)]),
+    mk_t_err(pos(Con), Msg);
+mk_error({unbound_type, Type}) ->
+    Msg = io_lib:format("Unbound type ~s (at ~s).\n", [pp_type("", Type), pp_loc(Type)]),
+    mk_t_err(pos(Type), Msg);
+mk_error({new_tuple_syntax, Ann, Ts}) ->
+    Msg = io_lib:format("Invalid type\n~s  (at ~s)\nThe syntax of tuple types changed in Sophia version 4.0. Did you mean\n~s\n",
+                        [pp_type("  ", {args_t, Ann, Ts}), pp_loc(Ann), pp_type("  ", {tuple_t, Ann, Ts})]),
+    mk_t_err(pos(Ann), Msg);
+mk_error({map_in_map_key, KeyType}) ->
+    Msg = io_lib:format("Invalid key type\n~s\n", [pp_type("  ", KeyType)]),
+    Cxt = "Map keys cannot contain other maps.\n",
+    mk_t_err(pos(KeyType), Msg, Cxt);
+mk_error({cannot_call_init_function, Ann}) ->
+    Msg = "The 'init' function is called exclusively by the create contract transaction\n"
+          "and cannot be called from the contract code.\n",
+    mk_t_err(pos(Ann), Msg);
+mk_error({bad_top_level_decl, Decl}) ->
+    What = case element(1, Decl) of
+               letval -> "function or entrypoint";
+               _      -> "contract or namespace"
+           end,
+    Id = element(3, Decl),
+    Msg = io_lib:format("The definition of '~s' must appear inside a ~s.\n",
+                        [pp_expr("", Id), What]),
+    mk_t_err(pos(Decl), Msg);
+mk_error({unknown_byte_length, Type}) ->
+    Msg = io_lib:format("Cannot resolve length of byte array.\n", []),
+    mk_t_err(pos(Type), Msg);
+mk_error({unsolved_bytes_constraint, Ann, concat, A, B, C}) ->
+    Msg = io_lib:format("Failed to resolve byte array lengths in call to Bytes.concat with arguments of type\n"
+                        "~s  (at ~s)\n~s  (at ~s)\nand result type\n~s  (at ~s)\n",
+                        [pp_type("  - ", A), pp_loc(A), pp_type("  - ", B),
+                         pp_loc(B), pp_type("  - ", C), pp_loc(C)]),
+    mk_t_err(pos(Ann), Msg);
+mk_error({unsolved_bytes_constraint, Ann, split, A, B, C}) ->
+    Msg = io_lib:format("Failed to resolve byte array lengths in call to Bytes.split with argument of type\n"
+                        "~s  (at ~s)\nand result types\n~s  (at ~s)\n~s  (at ~s)\n",
+                        [ pp_type("  - ", C), pp_loc(C), pp_type("  - ", A), pp_loc(A),
+                          pp_type("  - ", B), pp_loc(B)]),
+    mk_t_err(pos(Ann), Msg);
+mk_error(Err) ->
+    Msg = io_lib:format("Unknown error: ~p\n", [Err]),
+    mk_t_err(pos(0, 0), Msg).
+
+mk_entrypoint(Decl) ->
+    Ann   = [entrypoint | lists:keydelete(public, 1,
+                          lists:keydelete(private, 1,
+                            aeso_syntax:get_ann(Decl))) -- [public, private]],
+    aeso_syntax:set_ann(Ann, Decl).
+
+pp_when({todo, What}) -> {pos(0, 0), io_lib:format("[TODO] ~p\n", [What])};
+pp_when({at, Ann}) -> {pos(Ann), io_lib:format("at ~s\n", [pp_loc(Ann)])};
 pp_when({check_typesig, Name, Inferred, Given}) ->
-    io_lib:format("when checking the definition of ~s\n"
-                  "  inferred type: ~s\n"
-                  "  given type:    ~s\n",
-        [Name, pp(instantiate(Inferred)), pp(instantiate(Given))]);
+    {pos(Given),
+     io_lib:format("when checking the definition of ~s (at ~s)\n"
+                   "  inferred type: ~s\n"
+                   "  given type:    ~s\n",
+         [Name, pp_loc(Given), pp(instantiate(Inferred)), pp(instantiate(Given))])};
 pp_when({infer_app, Fun, Args, Inferred0, ArgTypes0}) ->
     Inferred = instantiate(Inferred0),
     ArgTypes = instantiate(ArgTypes0),
-    io_lib:format("when checking the application at ~s of\n"
-                  "~s\n"
-                  "to arguments\n~s",
-                  [pp_loc(Fun),
-                   pp_typed("  ", Fun, Inferred),
-                   [ [pp_typed("  ", Arg, ArgT), "\n"]
-                      || {Arg, ArgT} <- lists:zip(Args, ArgTypes) ] ]);
+    {pos(Fun),
+     io_lib:format("when checking the application at ~s of\n"
+                   "~s\n"
+                   "to arguments\n~s",
+                   [pp_loc(Fun),
+                    pp_typed("  ", Fun, Inferred),
+                    [ [pp_typed("  ", Arg, ArgT), "\n"]
+                       || {Arg, ArgT} <- lists:zip(Args, ArgTypes) ] ])};
 pp_when({field_constraint, FieldType0, InferredType0, Fld}) ->
     FieldType    = instantiate(FieldType0),
     InferredType = instantiate(InferredType0),
-    case Fld of
-        {field, _Ann, LV, Id, E} ->
-            io_lib:format("when checking the assignment of the field\n~s (at ~s)\nto the old value ~s and the new value\n~s\n",
-                [pp_typed("  ", {lvalue, [], LV}, FieldType),
-                 pp_loc(Fld),
-                 pp(Id),
-                 pp_typed("  ", E, InferredType)]);
-        {field, _Ann, LV, E} ->
-            io_lib:format("when checking the assignment of the field\n~s (at ~s)\nto the value\n~s\n",
-                [pp_typed("  ", {lvalue, [], LV}, FieldType),
-                 pp_loc(Fld),
-                 pp_typed("  ", E, InferredType)]);
-        {proj, _Ann, _Rec, _Fld} ->
-            io_lib:format("when checking the record projection at ~s\n~s\nagainst the expected type\n~s\n",
-                [pp_loc(Fld),
-                 pp_typed("  ", Fld, FieldType),
-                 pp_type("  ", InferredType)])
-    end;
+    {pos(Fld),
+     case Fld of
+         {field, _Ann, LV, Id, E} ->
+             io_lib:format("when checking the assignment of the field\n~s (at ~s)\nto the old value ~s and the new value\n~s\n",
+                 [pp_typed("  ", {lvalue, [], LV}, FieldType),
+                  pp_loc(Fld),
+                  pp(Id),
+                  pp_typed("  ", E, InferredType)]);
+         {field, _Ann, LV, E} ->
+             io_lib:format("when checking the assignment of the field\n~s (at ~s)\nto the value\n~s\n",
+                 [pp_typed("  ", {lvalue, [], LV}, FieldType),
+                  pp_loc(Fld),
+                  pp_typed("  ", E, InferredType)]);
+         {proj, _Ann, _Rec, _Fld} ->
+             io_lib:format("when checking the record projection at ~s\n~s\nagainst the expected type\n~s\n",
+                 [pp_loc(Fld),
+                  pp_typed("  ", Fld, FieldType),
+                  pp_type("  ", InferredType)])
+     end};
 pp_when({record_constraint, RecType0, InferredType0, Fld}) ->
     RecType      = instantiate(RecType0),
     InferredType = instantiate(InferredType0),
+    {Pos, WhyRec} = pp_why_record(Fld),
     case Fld of
         {field, _Ann, _LV, _Id, _E} ->
-            io_lib:format("when checking that the record type\n~s\n~s\n"
-                          "matches the expected type\n~s\n",
-                [pp_type("  ", RecType),
-                 pp_why_record(Fld),
-                 pp_type("  ", InferredType)]);
+            {Pos,
+             io_lib:format("when checking that the record type\n~s\n~s\n"
+                           "matches the expected type\n~s\n",
+                 [pp_type("  ", RecType), WhyRec, pp_type("  ", InferredType)])};
         {field, _Ann, _LV, _E} ->
-            io_lib:format("when checking that the record type\n~s\n~s\n"
-                          "matches the expected type\n~s\n",
-                [pp_type("  ", RecType),
-                 pp_why_record(Fld),
-                 pp_type("  ", InferredType)]);
+            {Pos,
+             io_lib:format("when checking that the record type\n~s\n~s\n"
+                           "matches the expected type\n~s\n",
+                 [pp_type("  ", RecType), WhyRec, pp_type("  ", InferredType)])};
         {proj, _Ann, Rec, _FldName} ->
-            io_lib:format("when checking that the expression\n~s (at ~s)\nhas type\n~s\n~s\n",
-                [pp_typed("  ", Rec, InferredType),
-                 pp_loc(Rec),
-                 pp_type("  ", RecType),
-                 pp_why_record(Fld)])
+            {pos(Rec),
+             io_lib:format("when checking that the expression\n~s (at ~s)\nhas type\n~s\n~s\n",
+                 [pp_typed("  ", Rec, InferredType), pp_loc(Rec),
+                  pp_type("  ", RecType), WhyRec])}
     end;
 pp_when({if_branches, Then, ThenType0, Else, ElseType0}) ->
     {ThenType, ElseType} = instantiate({ThenType0, ElseType0}),
     Branches = [ {Then, ThenType} | [ {B, ElseType} || B <- if_branches(Else) ] ],
-    io_lib:format("when comparing the types of the if-branches\n"
-                  "~s", [ [ io_lib:format("~s (at ~s)\n", [pp_typed("  - ", B, BType), pp_loc(B)])
-                          || {B, BType} <- Branches ] ]);
+    {pos(element(1, hd(Branches))),
+     io_lib:format("when comparing the types of the if-branches\n"
+                   "~s", [ [ io_lib:format("~s (at ~s)\n", [pp_typed("  - ", B, BType), pp_loc(B)])
+                           || {B, BType} <- Branches ] ])};
 pp_when({case_pat, Pat, PatType0, ExprType0}) ->
     {PatType, ExprType} = instantiate({PatType0, ExprType0}),
-    io_lib:format("when checking the type of the pattern at ~s\n~s\n"
-                  "against the expected type\n~s\n",
-                  [pp_loc(Pat), pp_typed("  ", Pat, PatType),
-                   pp_type("  ", ExprType)]);
+    {pos(Pat),
+     io_lib:format("when checking the type of the pattern at ~s\n~s\n"
+                   "against the expected type\n~s\n",
+                   [pp_loc(Pat), pp_typed("  ", Pat, PatType),
+                    pp_type("  ", ExprType)])};
 pp_when({check_expr, Expr, Inferred0, Expected0}) ->
     {Inferred, Expected} = instantiate({Inferred0, Expected0}),
-    io_lib:format("when checking the type of the expression at ~s\n~s\n"
-                  "against the expected type\n~s\n",
-                  [pp_loc(Expr), pp_typed("  ", Expr, Inferred),
-                   pp_type("  ", Expected)]);
+    {pos(Expr),
+     io_lib:format("when checking the type of the expression at ~s\n~s\n"
+                   "against the expected type\n~s\n",
+                   [pp_loc(Expr), pp_typed("  ", Expr, Inferred),
+                    pp_type("  ", Expected)])};
 pp_when({checking_init_type, Ann}) ->
-    io_lib:format("when checking that 'init' returns a value of type 'state' at ~s\n",
-                  [pp_loc(Ann)]);
-pp_when(unknown) -> "".
+    {pos(Ann),
+     io_lib:format("when checking that 'init' returns a value of type 'state' at ~s\n",
+                   [pp_loc(Ann)])};
+pp_when({list_comp, BindExpr, Inferred0, Expected0}) ->
+    {Inferred, Expected} = instantiate({Inferred0, Expected0}),
+    {pos(BindExpr),
+     io_lib:format("when checking rvalue of list comprehension binding at ~s\n~s\n"
+                   "against type \n~s\n",
+                   [pp_loc(BindExpr), pp_typed("  ", BindExpr, Inferred), pp_type("  ", Expected)])};
+pp_when(unknown) -> {pos(0,0), ""}.
 
--spec pp_why_record(why_record()) -> iolist().
+-spec pp_why_record(why_record()) -> {pos(), iolist()}.
 pp_why_record(Fld = {field, _Ann, LV, _Id, _E}) ->
-    io_lib:format("arising from an assignment of the field ~s (at ~s)",
-        [pp_expr("", {lvalue, [], LV}),
-         pp_loc(Fld)]);
+    {pos(Fld),
+     io_lib:format("arising from an assignment of the field ~s (at ~s)",
+         [pp_expr("", {lvalue, [], LV}), pp_loc(Fld)])};
 pp_why_record(Fld = {field, _Ann, LV, _E}) ->
-    io_lib:format("arising from an assignment of the field ~s (at ~s)",
-        [pp_expr("", {lvalue, [], LV}),
-         pp_loc(Fld)]);
+    {pos(Fld),
+     io_lib:format("arising from an assignment of the field ~s (at ~s)",
+         [pp_expr("", {lvalue, [], LV}), pp_loc(Fld)])};
 pp_why_record({proj, _Ann, Rec, FldName}) ->
-    io_lib:format("arising from the projection of the field ~s (at ~s)",
-        [pp(FldName),
-         pp_loc(Rec)]).
+    {pos(Rec),
+     io_lib:format("arising from the projection of the field ~s (at ~s)",
+         [pp(FldName), pp_loc(Rec)])}.
 
 
 if_branches(If = {'if', Ann, _, Then, Else}) ->
@@ -2034,7 +2509,7 @@ if_branches(If = {'if', Ann, _, Then, Else}) ->
     end;
 if_branches(E) -> [E].
 
-pp_typed(Label, E, T = {type_sig, _, _, _, _}) -> pp_typed(Label, E, typesig_to_fun_t(T));
+pp_typed(Label, E, T = {type_sig, _, _, _, _, _}) -> pp_typed(Label, E, typesig_to_fun_t(T));
 pp_typed(Label, {typed, _, Expr, _}, Type) ->
     pp_typed(Label, Expr, Type);
 pp_typed(Label, Expr, Type) ->
@@ -2046,8 +2521,12 @@ pp_expr(Label, Expr) ->
 pp_type(Label, Type) ->
     prettypr:format(prettypr:beside(prettypr:text(Label), aeso_pretty:type(Type, [show_generated]))).
 
+src_file(T)      -> aeso_syntax:get_ann(file, T, no_file).
 line_number(T)   -> aeso_syntax:get_ann(line, T, 0).
 column_number(T) -> aeso_syntax:get_ann(col, T, 0).
+
+pos(T)    -> aeso_errors:pos(src_file(T), line_number(T), column_number(T)).
+pos(L, C) -> aeso_errors:pos(L, C).
 
 loc(T) ->
     {line_number(T), column_number(T)}.
@@ -2059,7 +2538,10 @@ pp_loc(T) ->
         _      -> io_lib:format("line ~p, column ~p", [Line, Col])
     end.
 
-pp(T = {type_sig, _, _, _, _}) ->
+plural(No, _Yes, [_]) -> No;
+plural(_No, Yes, _)   -> Yes.
+
+pp(T = {type_sig, _, _, _, _, _}) ->
     pp(typesig_to_fun_t(T));
 pp([]) ->
     "";
@@ -2080,8 +2562,11 @@ pp({uvar, _, Ref}) ->
     ["?u" | integer_to_list(erlang:phash2(Ref, 16384)) ];
 pp({tvar, _, Name}) ->
     Name;
+pp({tuple_t, _, []}) ->
+    "unit";
 pp({tuple_t, _, Cpts}) ->
-    ["(", pp(Cpts), ")"];
+    ["(", string:join(lists:map(fun pp/1, Cpts), " * "), ")"];
+pp({bytes_t, _, any}) -> "bytes(_)";
 pp({bytes_t, _, Len}) ->
     ["bytes(", integer_to_list(Len), ")"];
 pp({app_t, _, T, []}) ->
@@ -2093,7 +2578,9 @@ pp({named_arg_t, _, Name, Type, Default}) ->
 pp({fun_t, _, Named = {uvar, _, _}, As, B}) ->
     ["(", pp(Named), " | ", pp(As), ") => ", pp(B)];
 pp({fun_t, _, Named, As, B}) when is_list(Named) ->
-    ["(", pp(Named ++ As), ") => ", pp(B)].
+    ["(", pp(Named ++ As), ") => ", pp(B)];
+pp(Other) ->
+    io_lib:format("~p", [Other]).
 
 %% -- Pre-type checking desugaring -------------------------------------------
 

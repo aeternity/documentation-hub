@@ -1117,7 +1117,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../developer-tools/sdks/sdk-python/" title="Python" class="md-nav__link">
+    <a href="../../developer-tools/sdks/aepp-sdk-python/" title="Python" class="md-nav__link">
       Python
     </a>
   </li>
@@ -1870,22 +1870,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-0-run-your-forgae-node" title="Step 0. Run your forgae node" class="md-nav__link">
-    Step 0. Run your forgae node
+  <a href="#step-0-create-a-project-and-run-your-forgae-node" title="Step 0: Create a project and Run your forgae node" class="md-nav__link">
+    Step 0: Create a project and Run your forgae node
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-if-you-are-on-track" title="Check if you are on track" class="md-nav__link">
+    Check if you are on track
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-update-your-examplecontractaes" title="Step 1: Update your ExampleContract.aes" class="md-nav__link">
+    Step 1: Update your ExampleContract.aes
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-update-your-example-project" title="Step 1. Update your example project" class="md-nav__link">
-    Step 1. Update your example project
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-change-our-default-deploy-script" title="Step 2. Change our default deploy script" class="md-nav__link">
-    Step 2. Change our default deploy script
+  <a href="#step-2-update-your-deployjs" title="Step 2. Update your deploy.js" class="md-nav__link">
+    Step 2. Update your deploy.js
   </a>
   
 </li>
@@ -2296,22 +2309,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-0-run-your-forgae-node" title="Step 0. Run your forgae node" class="md-nav__link">
-    Step 0. Run your forgae node
+  <a href="#step-0-create-a-project-and-run-your-forgae-node" title="Step 0: Create a project and Run your forgae node" class="md-nav__link">
+    Step 0: Create a project and Run your forgae node
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-if-you-are-on-track" title="Check if you are on track" class="md-nav__link">
+    Check if you are on track
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-update-your-examplecontractaes" title="Step 1: Update your ExampleContract.aes" class="md-nav__link">
+    Step 1: Update your ExampleContract.aes
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-update-your-example-project" title="Step 1. Update your example project" class="md-nav__link">
-    Step 1. Update your example project
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-change-our-default-deploy-script" title="Step 2. Change our default deploy script" class="md-nav__link">
-    Step 2. Change our default deploy script
+  <a href="#step-2-update-your-deployjs" title="Step 2. Update your deploy.js" class="md-nav__link">
+    Step 2. Update your deploy.js
   </a>
   
 </li>
@@ -2351,60 +2377,110 @@
                 
                 <h1 id="tutorial-deploying-sophia-smart-contracts-with-init-parameters">TUTORIAL: Deploying Sophia smart contracts with init parameters</h1>
 <h2 id="tutorial-overview">Tutorial Overview</h2>
-<p>This tutorial will walk you through the deployment of smart contracts with init parameters throug the use of forgae.</p>
+<p>This tutorial will walk you through the deployment of smart contracts with init parameters through the use of forgae.</p>
 <h2 id="prerequisites">Prerequisites</h2>
+<p>You have completed <a href="../smart-contract-deployment-in-forgae/">this tutorial</a> that teaches you how to deploy a contract without init parameters.</p>
+<h2 id="step-0-create-a-project-and-run-your-forgae-node">Step 0: Create a project and Run your forgae node</h2>
+<p>We would need a local node to compile and deploy on. The easiest option is to spawn one from forgae. Follow the below steps to create a project, initilize the project and test the project using forgae on your CLI</p>
+<pre><code>Step 1: $ mkdir forgae-init
+Step 2: $ cd forgae-init
+Step 3: $ forgae init
+Step 4: $ forgae node
+</code></pre>
+
+<h3 id="check-if-you-are-on-track">Check if you are on track</h3>
 <ul>
-<li>You have completed <a href="../smart-contract-deployment-in-forgae/">this tutorial</a> that teaches you how to deploy a contract without init parameters.</li>
+<li>Step 3 Output</li>
 </ul>
-<h2 id="step-0-run-your-forgae-node">Step 0. Run your forgae node</h2>
-<p>We would need a local node to compile and deploy on. The easiest option is to spawn one from forgae</p>
-<pre><code>forgae node
+<pre><code>===== Initializing ForgAE =====
+===== Installing aepp-sdk =====
+===== Installing ForgAE locally =====
+===== Installing yarn locally =====
+===== Creating project file &amp; dir structure =====
+===== Creating contracts directory =====
+===== Creating tests directory =====
+===== Creating integrations directory =====
+===== Creating deploy directory =====
+===== Creating docker directory =====
+===== ForgAE was successfully initialized! =====
+</code></pre>
+
+<ul>
+<li>Step 4 Output</li>
+</ul>
+<pre><code>===== Starting node =====
+........Creating forgae-init_node3_1 ...
+Creating forgae-init_node1_1 ...
+Creating forgae-init_proxy_1 ...
+Creating forgae-init_node2_1 ...
+..............
+
+===== Node was successfully started =====
+===== Funding default wallets =====
+
+....
+===== Default wallets was successfully funded! =====
 </code></pre>
 
 <p>Do not forget to stop it once you are done developing</p>
 <pre><code>forgae node --stop
 </code></pre>
 
-<h2 id="step-1-update-your-example-project">Step 1. Update your example project</h2>
-<p>Lets add some state and init parameters to our example contract.</p>
+<h2 id="step-1-update-your-examplecontractaes">Step 1: Update your ExampleContract.aes</h2>
+<p>Lets add some state and init parameters to our example contract which can be found at <strong>contracts/ExampleContract.aes</strong></p>
 <pre><code>contract ExampleContract =
-  record state = 
-    { savedNumber : int }
 
-  public stateful function init(num : int) = 
-    { savedNumber = num }
+  record state = { saved_string : string }
 
-  public function savedNumber() : int = state.savedNumber
+  entrypoint init() = { saved_string = &quot;aeternity&quot; }
+
+  public entrypoint get_string() : string =
+      state.saved_string
+
+  public stateful entrypoint register_string(word : string) =
+      put(state { saved_string = word})
 </code></pre>
 
-<p>As you can see the contract now has a state variable <code>savedNumber</code> of type int. The initial value will be passed by the init function. We've also added a read function for this value.</p>
+<p>As you can see the contract now has a state variable <code>saved_string</code> of type <code>string</code>. The initial value will be passed by the init function. We've also added a read function <code>get_string</code> for this value and a write function <code>register_string</code> to write and change the value in <code>saved_string</code>.</p>
 <p>Run forgae compile to verify that your contract compiles successfully</p>
 <pre><code>forgae compile
 </code></pre>
 
-<h2 id="step-2-change-our-default-deploy-script">Step 2. Change our default deploy script</h2>
-<p>Lets change our default deploy script to add parameters. The parameters of the init functions are always passed as tuple. Here is how our new deploy script deploy function looks like</p>
-<pre><code>const deploy = async (network, privateKey) =&gt; {
-    let deployer = new Deployer(network, privateKey)
+<h2 id="step-2-update-your-deployjs">Step 2. Update your deploy.js</h2>
+<p>Lets add some parameters to our example deploy script which can be found at <strong>deployment/deploy.js</strong>. The parameters of the init functions are always passed as tuple. Here is how our new deploy script looks like</p>
+<pre><code>const Deployer = require('forgae-lib').Deployer;
 
-    let contract = await deployer.deploy(&quot;./contracts/ExampleContract.aes&quot;, gasLimit, `(42)`)
+const deploy = async (network, privateKey, compiler) =&gt; {
+    let deployer = new Deployer(network, privateKey, compiler)
 
-    let encodedSavedNumber = await contract.callStatic('savedNumber')
-    let decodedSavedNumber = await encodedSavedNumber.decode(&quot;int&quot;)
-    console.log(decodedSavedNumber.value) // 42
+    let contract = await deployer.deploy(&quot;./contracts/ExampleContract.aes&quot;)
+
+    // Getting savedString value in our ExampleContract
+    let get_string = await contract.decode('get_string')
+    console.log(get_string.value)
+
+    // Writing new value ('hello world') to our saved_string
+    await contract.call('register_string', 'hello world')
+
+    // Getting new saved_string value in our ExampleContract
+    let get_string2 = await contract.decode('get_string')
+    console.log(get_string2.value)
+};
+
+module.exports = {
+    deploy
 };
 </code></pre>
 
-<p>As you can see, we are now passing the initial value value of 42 as tuple string. <em>Note</em>: If you are passing string, do not forget to add quotes (<code>"</code>) around the string too (<code>("Some string")</code>). More than one parameter can be passed separated by coma (<code>("Some string", 42)</code>))</p>
+<p>As you can see, we got our first initial value of <code>aeternity</code> then we are add a new value <code>hello world</code> as a tuple string and finally got the new value.</p>
 <h2 id="step-3-run-our-deploy-script">Step 3. Run our deploy script</h2>
 <p>Running our deployment script with forgae is trivial. Just run :</p>
 <pre><code>forgae deploy
 </code></pre>
 
-<p>You will see in your terminal the value of the saved number - 42.</p>
+<p>You will see in your terminal the value of the saved string - aeternity.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>Smart contracts are frequently in need of init params. Keep in mind the specifics of tuples and you will be able to successfully initialize your awesome Aeternity smart contracts.</p>
-<p>The æternity team will keep this tutorial updated. If you encounter any problems please contact us through the <a href="https://forum.aeternity.com/c/development">æternity Forum</a>.</p>
+<p>Smart contracts are frequently in need of init params. Keep in mind the specifics of tuples and you will be able to successfully initialize your awesome Aeternity smart contracts. The æternity team will keep this tutorial updated. If you encounter any problems please contact us through the <a href="https://forum.aeternity.com/c/development">æternity Forum</a>.</p>
                 
                   
                 

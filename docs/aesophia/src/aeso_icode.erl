@@ -13,8 +13,10 @@
          pp/1,
          set_name/2,
          set_namespace/2,
+         set_payable/2,
          enter_namespace/2,
          get_namespace/1,
+         in_main_contract/1,
          qualify/2,
          set_functions/2,
          map_typerep/2,
@@ -48,6 +50,7 @@
                   , type_vars => #{ string() => aeb_aevm_data:type() }
                   , constructors => #{ [string()] => integer() }  %% name to tag
                   , options => [any()]
+                  , payable => boolean()
                   }.
 
 pp(Icode) ->
@@ -65,16 +68,19 @@ new(Options) ->
      , types => builtin_types()
      , type_vars => #{}
      , constructors => builtin_constructors()
-     , options => Options}.
+     , options => Options
+     , payable => false }.
 
 builtin_types() ->
     Word = fun([]) -> word end,
     #{ "bool"         => Word
      , "int"          => Word
+     , "char"         => Word
      , "bits"         => Word
      , "string"       => fun([]) -> string end
      , "address"      => Word
      , "hash"         => Word
+     , "unit"         => fun([]) -> {tuple, []} end
      , "signature"    => fun([]) -> {tuple, [word, word]} end
      , "oracle"       => fun([_, _]) -> word end
      , "oracle_query" => fun([_, _]) -> word end
@@ -103,6 +109,10 @@ new_env() ->
 set_name(Name, Icode) ->
     maps:put(contract_name, Name, Icode).
 
+-spec set_payable(boolean(), icode()) -> icode().
+set_payable(Payable, Icode) ->
+    maps:put(payable, Payable, Icode).
+
 -spec set_namespace(aeso_syntax:con() | aeso_syntax:qcon(), icode()) -> icode().
 set_namespace(NS, Icode) -> Icode#{ namespace => NS }.
 
@@ -111,6 +121,10 @@ enter_namespace(NS, Icode = #{ namespace := NS1 }) ->
     Icode#{ namespace => aeso_syntax:qualify(NS1, NS) };
 enter_namespace(NS, Icode) ->
     Icode#{ namespace => NS }.
+
+-spec in_main_contract(icode()) -> boolean().
+in_main_contract(#{ namespace := {con, _, Main}, contract_name := Main }) -> true;
+in_main_contract(_Icode) -> false.
 
 -spec get_namespace(icode()) -> false | aeso_syntax:con() | aeso_syntax:qcon().
 get_namespace(Icode) -> maps:get(namespace, Icode, false).

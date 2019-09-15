@@ -13,9 +13,6 @@
 [submodule "aetmodel"]
 	path = aetmodel
 	url = git@github.com:aeternity/aetmodel.git
-[submodule "aesophia"]
-	path = aesophia
-	url = git@github.com:aeternity/aesophia.git
 [submodule "airgap-coin-lib"]
 	path = airgap-coin-lib
 	url = git@github.com:airgap-it/airgap-coin-lib.git
@@ -61,3 +58,6 @@
 [submodule "aepp-sdk-python"]
 	path = aepp-sdk-python
 	url = git@github.com:aeternity/aepp-sdk-python.git
+[submodule "aesophia"]
+	path = aesophia
+	url = git@github.com:aeternity/aesophia.git

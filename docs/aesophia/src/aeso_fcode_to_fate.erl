@@ -9,7 +9,7 @@
 %%%-------------------------------------------------------------------
 -module(aeso_fcode_to_fate).
 
--export([compile/2]).
+-export([compile/2, term_to_fate/1]).
 
 %% -- Preamble ---------------------------------------------------------------
 
@@ -18,7 +18,7 @@
                 | switch_body
                 | tuple().    %% FATE instruction
 
--type arg() :: tuple(). %% Not exported: aeb_fate_code:fate_arg().
+-type arg() :: tuple(). %% Not exported: aeb_fate_ops:fate_arg().
 
 %% Annotated scode
 -type scode_a()  :: [sinstr_a()].
@@ -39,6 +39,9 @@
 -define(i(X), {immediate, X}).
 -define(a, {stack, 0}).
 -define(s, {var, -1}).  %% TODO: until we have state support in FATE
+-define(void, {var, 9999}).
+
+-define(IsState(X), (is_tuple(X) andalso tuple_size(X) =:= 2 andalso element(1, X) =:= var andalso element(2, X) < 0)).
 
 -define(IsOp(Op), (
      Op =:= 'STORE'           orelse
@@ -65,6 +68,8 @@
      Op =:= 'MAP_DELETE'      orelse
      Op =:= 'MAP_MEMBER'      orelse
      Op =:= 'MAP_FROM_LIST'   orelse
+     Op =:= 'MAP_TO_LIST'     orelse
+     Op =:= 'MAP_SIZE'        orelse
      Op =:= 'NIL'             orelse
      Op =:= 'IS_NIL'          orelse
      Op =:= 'CONS'            orelse
@@ -76,6 +81,7 @@
      Op =:= 'INT_TO_STR'      orelse
      Op =:= 'ADDR_TO_STR'     orelse
      Op =:= 'STR_REVERSE'     orelse
+     Op =:= 'STR_LENGTH'      orelse
      Op =:= 'INT_TO_ADDR'     orelse
      Op =:= 'VARIANT_TEST'    orelse
      Op =:= 'VARIANT_ELEMENT' orelse
@@ -89,15 +95,37 @@
      Op =:= 'BITS_OR'         orelse
      Op =:= 'BITS_AND'        orelse
      Op =:= 'BITS_DIFF'       orelse
+     Op =:= 'SHA3'            orelse
+     Op =:= 'SHA256'          orelse
+     Op =:= 'BLAKE2B'         orelse
+     Op =:= 'VERIFY_SIG'           orelse
+     Op =:= 'VERIFY_SIG_SECP256K1' orelse
+     Op =:= 'ECVERIFY_SECP256K1'   orelse
+     Op =:= 'ECRECOVER_SECP256K1'  orelse
+     Op =:= 'CONTRACT_TO_ADDRESS'  orelse
+     Op =:= 'AUTH_TX_HASH'         orelse
+     Op =:= 'BYTES_TO_INT'         orelse
+     Op =:= 'BYTES_TO_STR'         orelse
+     Op =:= 'BYTES_CONCAT'         orelse
+     Op =:= 'BYTES_SPLIT'          orelse
+     Op =:= 'ORACLE_CHECK'         orelse
+     Op =:= 'ORACLE_CHECK_QUERY'   orelse
+     Op =:= 'IS_ORACLE'            orelse
+     Op =:= 'IS_CONTRACT'          orelse
+     Op =:= 'IS_PAYABLE'           orelse
+     Op =:= 'CREATOR'              orelse
      false)).
 
--record(env, { contract, vars = [], locals = [], tailpos = true }).
+-record(env, { contract, vars = [], locals = [], current_function, tailpos = true }).
 
 %% -- Debugging --------------------------------------------------------------
 
-debug(Tag, Options, Fmt, Args) ->
+is_debug(Tag, Options) ->
     Tags = proplists:get_value(debug, Options, []),
-    case Tags == all orelse lists:member(Tag, Tags) of
+    Tags == all orelse lists:member(Tag, Tags).
+
+debug(Tag, Options, Fmt, Args) ->
+    case is_debug(Tag, Options) of
         true  -> io:format(Fmt, Args);
         false -> ok
     end.
@@ -107,52 +135,79 @@ debug(Tag, Options, Fmt, Args) ->
 %% @doc Main entry point.
 compile(FCode, Options) ->
     #{ contract_name := ContractName,
-       state_type    := _StateType,
        functions     := Functions } = FCode,
     SFuns  = functions_to_scode(ContractName, Functions, Options),
     SFuns1 = optimize_scode(SFuns, Options),
-    BBFuns = to_basic_blocks(SFuns1, Options),
-    FateCode = #{ functions   => BBFuns,
-                  symbols     => #{},
-                  annotations => #{} },
+    FateCode = to_basic_blocks(SFuns1),
     debug(compile, Options, "~s\n", [aeb_fate_asm:pp(FateCode)]),
     FateCode.
 
-make_function_name(init)               -> <<"init">>;
+make_function_id(X) ->
+    aeb_fate_code:symbol_identifier(make_function_name(X)).
+
+make_function_name(event)              -> <<"Chain.event">>;
 make_function_name({entrypoint, Name}) -> Name;
 make_function_name({local_fun, Xs})    -> list_to_binary("." ++ string:join(Xs, ".")).
 
 functions_to_scode(ContractName, Functions, Options) ->
     FunNames = maps:keys(Functions),
     maps:from_list(
-        [ {make_function_name(Name), function_to_scode(ContractName, FunNames, Name, Args, Body, Type, Options)}
+        [ {make_function_name(Name), function_to_scode(ContractName, FunNames, Name, Attrs, Args, Body, Type, Options)}
         || {Name, #{args   := Args,
                     body   := Body,
-                    return := Type}} <- maps:to_list(Functions),
-           Name /= init ]).  %% TODO: skip init for now
+                    attrs  := Attrs,
+                    return := Type}} <- maps:to_list(Functions)]).
 
-function_to_scode(ContractName, Functions, _Name, Args, Body, ResType, _Options) ->
-    ArgTypes = [ type_to_scode(T) || {_, T} <- Args ],
-    SCode    = to_scode(init_env(ContractName, Functions, Args), Body),
-    {{ArgTypes, type_to_scode(ResType)}, SCode}.
+function_to_scode(ContractName, Functions, Name, Attrs0, Args, Body, ResType, _Options) ->
+    {ArgTypes, ResType1} = typesig_to_scode(Args, ResType),
+    Attrs = Attrs0 -- [stateful], %% Only track private and payable from here.
+    SCode = to_scode(init_env(ContractName, Functions, Name, Args), Body),
+    {Attrs, {ArgTypes, ResType1}, SCode}.
 
-type_to_scode({variant, Cons}) -> {variant, lists:map(fun length/1, Cons)};
+-define(tvars, '$tvars').
+
+typesig_to_scode(Args, Res) ->
+    put(?tvars, {0, #{}}),
+    R = {[type_to_scode(T) || {_, T} <- Args], type_to_scode(Res)},
+    erase(?tvars),
+    R.
+
+type_to_scode(integer)         -> integer;
+type_to_scode(boolean)         -> boolean;
+type_to_scode(string)          -> string;
+type_to_scode(address)         -> address;
+type_to_scode({bytes, N})      -> {bytes, N};
+type_to_scode(contract)        -> contract;
+type_to_scode({oracle, _, _})  -> oracle;
+type_to_scode(oracle_query)    -> oracle_query;
+type_to_scode(name)            -> name;
+type_to_scode(channel)         -> channel;
+type_to_scode(bits)            -> bits;
+type_to_scode(any)             -> any;
+type_to_scode({variant, Cons}) -> {variant, lists:map(fun(T) -> type_to_scode({tuple, T}) end, Cons)};
 type_to_scode({list, Type})    -> {list, type_to_scode(Type)};
 type_to_scode({tuple, Types})  -> {tuple, lists:map(fun type_to_scode/1, Types)};
 type_to_scode({map, Key, Val}) -> {map, type_to_scode(Key), type_to_scode(Val)};
 type_to_scode({function, _Args, _Res}) -> {tuple, [string, any]};
-type_to_scode(contract)        -> address;
-type_to_scode(T)               -> T.
+type_to_scode({tvar, X}) ->
+    {I, Vars} = get(?tvars),
+    case maps:get(X, Vars, false) of
+        false ->
+            put(?tvars, {I + 1, Vars#{ X => I }}),
+            {tvar, I};
+        J -> {tvar, J}
+    end.
 
 %% -- Phase I ----------------------------------------------------------------
 %%  Icode to structured assembly
 
 %% -- Environment functions --
 
-init_env(ContractName, FunNames, Args) ->
+init_env(ContractName, FunNames, Name, Args) ->
     #env{ vars      = [ {X, {arg, I}} || {I, {X, _}} <- with_ixs(Args) ],
           contract  = ContractName,
           locals    = FunNames,
+          current_function = Name,
           tailpos   = true }.
 
 next_var(#env{ vars = Vars }) ->
@@ -177,19 +232,49 @@ lookup_var(#env{vars = Vars}, X) ->
 
 %% -- The compiler --
 
-to_scode(_Env, {lit, L}) ->
+lit_to_fate(L) ->
     case L of
-        {int, N}             -> [push(?i(N))];
-        {string, S}          -> [push(?i(aeb_fate_data:make_string(S)))];
-        {bool, B}            -> [push(?i(B))];
-        {account_pubkey, K}  -> [push(?i(aeb_fate_data:make_address(K)))];
-        {contract_pubkey, K} -> [push(?i(aeb_fate_data:make_address(K)))];
-        {oracle_pubkey, K}   -> [push(?i(aeb_fate_data:make_oracle(K)))];
-        {oracle_query_id, _} -> ?TODO(fate_oracle_query_id_value)
-    end;
+        {int, N}             -> aeb_fate_data:make_integer(N);
+        {string, S}          -> aeb_fate_data:make_string(S);
+        {bytes, B}           -> aeb_fate_data:make_bytes(B);
+        {bool, B}            -> aeb_fate_data:make_boolean(B);
+        {account_pubkey, K}  -> aeb_fate_data:make_address(K);
+        {contract_pubkey, K} -> aeb_fate_data:make_contract(K);
+        {oracle_pubkey, K}   -> aeb_fate_data:make_oracle(K);
+        {oracle_query_id, H} -> aeb_fate_data:make_oracle_query(H);
+        {typerep, T}         -> aeb_fate_data:make_typerep(type_to_scode(T))
+     end.
+
+term_to_fate({lit, L}) ->
+    lit_to_fate(L);
+%% negative literals are parsed as 0 - N
+term_to_fate({op, '-', [{lit, {int, 0}}, {lit, {int, N}}]}) ->
+    aeb_fate_data:make_integer(-N);
+term_to_fate(nil) ->
+    aeb_fate_data:make_list([]);
+term_to_fate({op, '::', [Hd, Tl]}) ->
+    %% The Tl will translate into a list, because FATE lists are just lists
+    [term_to_fate(Hd) | term_to_fate(Tl)];
+term_to_fate({tuple, As}) ->
+    aeb_fate_data:make_tuple(list_to_tuple([ term_to_fate(A) || A<-As]));
+term_to_fate({con, Ar, I, As}) ->
+    FateAs = [ term_to_fate(A) || A <- As ],
+    aeb_fate_data:make_variant(Ar, I, list_to_tuple(FateAs));
+term_to_fate({builtin, map_empty, []}) ->
+    aeb_fate_data:make_map(#{});
+term_to_fate({'let', _, {builtin, map_empty, []}, Set}) ->
+    aeb_fate_data:make_map(map_to_fate(Set)).
+
+map_to_fate({op, map_set, [{var, _}, K, V]}) ->
+    #{term_to_fate(K) => term_to_fate(V)};
+map_to_fate({op, map_set, [Set, K, V]}) ->
+    Map = map_to_fate(Set), Map#{term_to_fate(K) => term_to_fate(V)}.
+
+to_scode(_Env, {lit, L}) ->
+    [push(?i(lit_to_fate(L)))];
 
 to_scode(_Env, nil) ->
-    [aeb_fate_code:nil(?a)];
+    [aeb_fate_ops:nil(?a)];
 
 to_scode(Env, {var, X}) ->
     [push(lookup_var(Env, X))];
@@ -197,21 +282,21 @@ to_scode(Env, {var, X}) ->
 to_scode(Env, {con, Ar, I, As}) ->
     N = length(As),
     [[to_scode(notail(Env), A) || A <- As],
-     aeb_fate_code:variant(?a, ?i(Ar), ?i(I), ?i(N))];
+     aeb_fate_ops:variant(?a, ?i(Ar), ?i(I), ?i(N))];
 
 to_scode(Env, {tuple, As}) ->
     N = length(As),
     [[ to_scode(notail(Env), A) || A <- As ],
-     aeb_fate_code:tuple(N)];
+     tuple(N)];
 
 to_scode(Env, {proj, E, I}) ->
     [to_scode(notail(Env), E),
-     aeb_fate_code:element_op(?a, ?i(I), ?a)];
+     aeb_fate_ops:element_op(?a, ?i(I), ?a)];
 
 to_scode(Env, {set_proj, R, I, E}) ->
     [to_scode(notail(Env), E),
      to_scode(notail(Env), R),
-     aeb_fate_code:setelement(?a, ?i(I), ?a, ?a)];
+     aeb_fate_ops:setelement(?a, ?i(I), ?a, ?a)];
 
 to_scode(Env, {op, Op, Args}) ->
     call_to_scode(Env, op_to_scode(Op), Args);
@@ -222,11 +307,29 @@ to_scode(Env, {'let', X, {var, Y}, Body}) ->
 to_scode(Env, {'let', X, Expr, Body}) ->
     {I, Env1} = bind_local(X, Env),
     [ to_scode(notail(Env), Expr),
-      aeb_fate_code:store({var, I}, {stack, 0}),
+      aeb_fate_ops:store({var, I}, {stack, 0}),
       to_scode(Env1, Body) ];
 
+to_scode(Env = #env{ current_function = Fun, tailpos = true }, {def, Fun, Args}) ->
+    %% Tail-call to current function, f(e0..en). Compile to
+    %%      [ let xi = ei ]
+    %%      [ STORE argi xi ]
+    %%      jump 0
+    {Vars, Code, _Env} =
+        lists:foldl(fun(Arg, {Is, Acc, Env1}) ->
+                        {I, Env2} = bind_local("_", Env1),
+                        ArgCode   = to_scode(notail(Env2), Arg),
+                        Acc1 = [Acc, ArgCode,
+                                aeb_fate_ops:store({var, I}, ?a)],
+                        {[I | Is], Acc1, Env2}
+                    end, {[], [], Env}, Args),
+    [ Code,
+      [ aeb_fate_ops:store({arg, I}, {var, J})
+        || {I, J} <- lists:zip(lists:seq(0, length(Vars) - 1),
+                               lists:reverse(Vars)) ],
+      loop ];
 to_scode(Env, {def, Fun, Args}) ->
-    FName = make_function_name(Fun),
+    FName = make_function_id(Fun),
     Lbl   = aeb_fate_data:make_string(FName),
     call_to_scode(Env, local_call(Env, ?i(Lbl)), Args);
 to_scode(Env, {funcall, Fun, Args}) ->
@@ -235,21 +338,28 @@ to_scode(Env, {funcall, Fun, Args}) ->
 to_scode(Env, {builtin, B, Args}) ->
     builtin_to_scode(Env, B, Args);
 
-to_scode(Env, {remote, Ct, Fun, [_Gas, _Value | Args]}) ->
-    %% TODO: FATE doesn't support value and gas arguments yet
-    Lbl  = make_function_name(Fun),
-    Call = if Env#env.tailpos -> aeb_fate_code:call_tr(?a, Lbl);
-              true            -> aeb_fate_code:call_r(?a, Lbl) end,
-    call_to_scode(Env, [to_scode(Env, Ct), Call], Args);
+to_scode(Env, {remote, ArgsT, RetT, Ct, Fun, [Gas, Value | Args]}) ->
+    Lbl = make_function_id(Fun),
+    {ArgTypes, RetType0} = typesig_to_scode([{"_", T} || T <- ArgsT], RetT),
+    ArgType = ?i(aeb_fate_data:make_typerep({tuple, ArgTypes})),
+    RetType = ?i(aeb_fate_data:make_typerep(RetType0)),
+    case Gas of
+        {builtin, call_gas_left, _} ->
+            Call = aeb_fate_ops:call_r(?a, Lbl, ArgType, RetType, ?a),
+            call_to_scode(Env, Call, [Ct, Value | Args]);
+        _ ->
+            Call = aeb_fate_ops:call_gr(?a, Lbl, ArgType, RetType, ?a, ?a),
+            call_to_scode(Env, Call, [Ct, Value, Gas | Args])
+    end;
 
 to_scode(Env, {closure, Fun, FVs}) ->
-    to_scode(Env, {tuple, [{lit, {string, make_function_name(Fun)}}, FVs]});
+    to_scode(Env, {tuple, [{lit, {string, make_function_id(Fun)}}, FVs]});
 
 to_scode(Env, {switch, Case}) ->
     split_to_scode(Env, Case).
 
-local_call( Env, Fun) when Env#env.tailpos -> aeb_fate_code:call_t(Fun);
-local_call(_Env, Fun)                      -> aeb_fate_code:call(Fun).
+local_call( Env, Fun) when Env#env.tailpos -> aeb_fate_ops:call_t(Fun);
+local_call(_Env, Fun)                      -> aeb_fate_ops:call(Fun).
 
 split_to_scode(Env, {nosplit, Expr}) ->
     [switch_body, to_scode(Env, Expr)];
@@ -287,13 +397,13 @@ split_to_scode(Env, {split, {list, _}, X, Alts}) ->
                      [{'case', {'::', Y, Z}, S} | _] ->
                          {I, Env1} = bind_local(Y, Env),
                          {J, Env2} = bind_local(Z, Env1),
-                         [aeb_fate_code:hd({var, I}, Arg),
-                          aeb_fate_code:tl({var, J}, Arg),
+                         [aeb_fate_ops:hd({var, I}, Arg),
+                          aeb_fate_ops:tl({var, J}, Arg),
                           split_to_scode(Env2, S)]
                  end
              end,
     SAlts = [GetAlt('::'), GetAlt(nil)],
-    [aeb_fate_code:is_nil(?a, Arg),
+    [aeb_fate_ops:is_nil(?a, Arg),
      {switch, ?a, boolean, SAlts, Def}];
 split_to_scode(Env, {split, Type, X, Alts}) when Type == integer; Type == string ->
     {Def, Alts1} = catchall_to_scode(Env, X, Alts),
@@ -329,7 +439,7 @@ literal_split_to_scode(Env, Type, Arg, [{'case', Lit, Body} | Alts], Def) when T
                {int, N} -> N;
                {string, S} -> aeb_fate_data:make_string(S)
            end,
-    [aeb_fate_code:eq(?a, Arg, ?i(SLit)),
+    [aeb_fate_ops:eq(?a, Arg, ?i(SLit)),
      {switch, ?a, boolean, [False, True], Def}].
 
 catchall_to_scode(Env, X, Alts) -> catchall_to_scode(Env, X, Alts, []).
@@ -343,10 +453,10 @@ catchall_to_scode(_, _, [], Acc) -> {missing, lists:reverse(Acc)}.
 
 %% Tuple is in the accumulator. Arguments are the variable names.
 match_tuple(Env, Arg, Xs) ->
-    match_tuple(Env, 0, fun aeb_fate_code:element_op/3, Arg, Xs).
+    match_tuple(Env, 0, fun aeb_fate_ops:element_op/3, Arg, Xs).
 
 match_variant(Env, Arg, Xs) ->
-    Elem = fun(Dst, I, Val) -> aeb_fate_code:variant_element(Dst, Val, I) end,
+    Elem = fun(Dst, I, Val) -> aeb_fate_ops:variant_element(Dst, Val, I) end,
     match_tuple(Env, 0, Elem, Arg, Xs).
 
 match_tuple(Env, I, Elem, Arg, ["_" | Xs]) ->
@@ -367,126 +477,157 @@ call_to_scode(Env, CallCode, Args) ->
 builtin_to_scode(_Env, get_state, []) ->
     [push(?s)];
 builtin_to_scode(Env, set_state, [_] = Args) ->
-    call_to_scode(Env, [aeb_fate_code:store(?s, ?a),
-                        aeb_fate_code:tuple(0)], Args);
-builtin_to_scode(_Env, event, [_] = _Args) ->
-    ?TODO(fate_event_instruction);
+    call_to_scode(Env, [aeb_fate_ops:store(?s, ?a),
+                        tuple(0)], Args);
+builtin_to_scode(Env, chain_event, Args) ->
+    call_to_scode(Env, [erlang:apply(aeb_fate_ops, log, lists:duplicate(length(Args), ?a)),
+                        tuple(0)], Args);
 builtin_to_scode(_Env, map_empty, []) ->
-    [aeb_fate_code:map_empty(?a)];
+    [aeb_fate_ops:map_empty(?a)];
 builtin_to_scode(_Env, bits_none, []) ->
-    [aeb_fate_code:bits_none(?a)];
+    [aeb_fate_ops:bits_none(?a)];
 builtin_to_scode(_Env, bits_all, []) ->
-    [aeb_fate_code:bits_all(?a)];
+    [aeb_fate_ops:bits_all(?a)];
+builtin_to_scode(Env, bytes_to_int, [_] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:bytes_to_int(?a, ?a), Args);
+builtin_to_scode(Env, bytes_to_str, [_] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:bytes_to_str(?a, ?a), Args);
+builtin_to_scode(Env, bytes_concat, [_, _] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:bytes_concat(?a, ?a, ?a), Args);
+builtin_to_scode(Env, bytes_split, [_, _] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:bytes_split(?a, ?a, ?a), Args);
 builtin_to_scode(Env, abort, [_] = Args) ->
-    call_to_scode(Env, aeb_fate_code:abort(?a), Args);
+    call_to_scode(Env, aeb_fate_ops:abort(?a), Args);
 builtin_to_scode(Env, chain_spend, [_, _] = Args) ->
-    call_to_scode(Env, [aeb_fate_code:spend(?a, ?a),
-                        aeb_fate_code:tuple(0)], Args);
+    call_to_scode(Env, [aeb_fate_ops:spend(?a, ?a),
+                        tuple(0)], Args);
 builtin_to_scode(Env, chain_balance, [_] = Args) ->
-    call_to_scode(Env, aeb_fate_code:balance_other(?a, ?a), Args);
+    call_to_scode(Env, aeb_fate_ops:balance_other(?a, ?a), Args);
 builtin_to_scode(Env, chain_block_hash, [_] = Args) ->
-    call_to_scode(Env, aeb_fate_code:blockhash(?a, ?a), Args);
+    call_to_scode(Env, aeb_fate_ops:blockhash(?a, ?a), Args);
 builtin_to_scode(_Env, chain_coinbase, []) ->
-    [aeb_fate_code:beneficiary(?a)];
+    [aeb_fate_ops:beneficiary(?a)];
 builtin_to_scode(_Env, chain_timestamp, []) ->
-    [aeb_fate_code:timestamp(?a)];
+    [aeb_fate_ops:timestamp(?a)];
 builtin_to_scode(_Env, chain_block_height, []) ->
-    [aeb_fate_code:generation(?a)];
+    [aeb_fate_ops:generation(?a)];
 builtin_to_scode(_Env, chain_difficulty, []) ->
-    [aeb_fate_code:difficulty(?a)];
+    [aeb_fate_ops:difficulty(?a)];
 builtin_to_scode(_Env, chain_gas_limit, []) ->
-    [aeb_fate_code:gaslimit(?a)];
+    [aeb_fate_ops:gaslimit(?a)];
 builtin_to_scode(_Env, contract_balance, []) ->
-    [aeb_fate_code:balance(?a)];
+    [aeb_fate_ops:balance(?a)];
 builtin_to_scode(_Env, contract_address, []) ->
-    [aeb_fate_code:address(?a)];
+    [aeb_fate_ops:address(?a)];
+builtin_to_scode(_Env, contract_creator, []) ->
+    [aeb_fate_ops:contract_creator(?a)];
 builtin_to_scode(_Env, call_origin, []) ->
-    [aeb_fate_code:origin(?a)];
+    [aeb_fate_ops:origin(?a)];
 builtin_to_scode(_Env, call_caller, []) ->
-    [aeb_fate_code:caller(?a)];
+    [aeb_fate_ops:caller(?a)];
 builtin_to_scode(_Env, call_value, []) ->
-    ?TODO(fate_call_value_instruction);
+    [aeb_fate_ops:call_value(?a)];
 builtin_to_scode(_Env, call_gas_price, []) ->
-    [aeb_fate_code:gasprice(?a)];
+    [aeb_fate_ops:gasprice(?a)];
 builtin_to_scode(_Env, call_gas_left, []) ->
-    [aeb_fate_code:gas(?a)];
-builtin_to_scode(_Env, oracle_register, [_, _, _, _] = _Args) ->
-    ?TODO(fate_oracle_register_instruction);
-builtin_to_scode(_Env, oracle_query_fee, [_] = _Args) ->
-    ?TODO(fate_oracle_query_fee_instruction);
-builtin_to_scode(_Env, oracle_query, [_, _, _, _, _] = _Args) ->
-    ?TODO(fate_oracle_query_instruction);
-builtin_to_scode(_Env, oracle_get_question, [_, _] = _Args) ->
-    ?TODO(fate_oracle_get_question_instruction);
-builtin_to_scode(_Env, oracle_respond, [_, _, _, _] = _Args) ->
-    ?TODO(fate_oracle_respond_instruction);
-builtin_to_scode(_Env, oracle_extend, [_, _, _] = _Args) ->
-    ?TODO(fate_oracle_extend_instruction);
-builtin_to_scode(_Env, oracle_get_answer, [_, _] = _Args) ->
-    ?TODO(fate_oracle_get_answer_instruction);
-builtin_to_scode(_Env, aens_resolve, [_, _] = _Args) ->
-    ?TODO(fate_aens_resolve_instruction);
-builtin_to_scode(_Env, aens_preclaim, [_, _, _] = _Args) ->
-    ?TODO(fate_aens_preclaim_instruction);
-builtin_to_scode(_Env, aens_claim, [_, _, _, _] = _Args) ->
-    ?TODO(fate_aens_claim_instruction);
-builtin_to_scode(_Env, aens_transfer, [_, _, _, _] = _Args) ->
-    ?TODO(fate_aens_transfer_instruction);
-builtin_to_scode(_Env, aens_revoke, [_, _, _] = _Args) ->
-    ?TODO(fate_aens_revoke_instruction);
-builtin_to_scode(_Env, crypto_ecverify, [_, _, _] = _Args) ->
-    ?TODO(fate_crypto_ecverify_instruction);
-builtin_to_scode(_Env, crypto_ecverify_secp256k1, [_, _, _] = _Args) ->
-    ?TODO(fate_crypto_ecverify_secp256k1_instruction);
-builtin_to_scode(_Env, crypto_sha3, [_] = _Args) ->
-    ?TODO(fate_crypto_sha3_instruction);
-builtin_to_scode(_Env, crypto_sha256, [_] = _Args) ->
-    ?TODO(fate_crypto_sha256_instruction);
-builtin_to_scode(_Env, crypto_blake2b, [_] = _Args) ->
-    ?TODO(fate_crypto_blake2b_instruction);
+    [aeb_fate_ops:gas(?a)];
+builtin_to_scode(Env, oracle_register, [_Sign,_Account,_QFee,_TTL,_QType,_RType] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:oracle_register(?a, ?a, ?a, ?a, ?a, ?a, ?a), Args);
+builtin_to_scode(Env, oracle_query_fee, [_Oracle] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:oracle_query_fee(?a, ?a), Args);
+builtin_to_scode(Env, oracle_query, [_Oracle, _Question, _QFee, _QTTL, _RTTL, _QType, _RType] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:oracle_query(?a, ?a, ?a, ?a, ?a, ?a, ?a, ?a), Args);
+builtin_to_scode(Env, oracle_get_question, [_Oracle, _QueryId, _QType, _RType] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:oracle_get_question(?a, ?a, ?a, ?a, ?a), Args);
+builtin_to_scode(Env, oracle_respond, [_Sign, _Oracle, _QueryId, _Response, _QType, _RType] = Args) ->
+    call_to_scode(Env, [aeb_fate_ops:oracle_respond(?a, ?a, ?a, ?a, ?a, ?a),
+                        tuple(0)], Args);
+builtin_to_scode(Env, oracle_extend, [_Sign, _Oracle, _TTL] = Args) ->
+    call_to_scode(Env, [aeb_fate_ops:oracle_extend(?a, ?a, ?a),
+                        tuple(0)], Args);
+builtin_to_scode(Env, oracle_get_answer, [_Oracle, _QueryId, _QType, _RType] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:oracle_get_answer(?a, ?a, ?a, ?a, ?a), Args);
+builtin_to_scode(Env, oracle_check, [_Oracle, _QType, _RType] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:oracle_check(?a, ?a, ?a, ?a), Args);
+builtin_to_scode(Env, oracle_check_query, [_Oracle, _Query, _QType, _RType] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:oracle_check_query(?a, ?a, ?a, ?a, ?a), Args);
+builtin_to_scode(Env, address_is_oracle, [_] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:is_oracle(?a, ?a), Args);
+builtin_to_scode(Env, address_is_contract, [_] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:is_contract(?a, ?a), Args);
+builtin_to_scode(Env, address_is_payable, [_] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:is_payable(?a, ?a), Args);
+builtin_to_scode(Env, aens_resolve, [_Name, _Key, _Type] = Args) ->
+    call_to_scode(Env, aeb_fate_ops:aens_resolve(?a, ?a, ?a, ?a), Args);
+builtin_to_scode(Env, aens_preclaim, [_Sign, _Account, _Hash] = Args) ->
+    call_to_scode(Env, [aeb_fate_ops:aens_preclaim(?a, ?a, ?a),
+                        tuple(0)], Args);
+builtin_to_scode(Env, aens_claim, [_Sign, _Account, _NameString, _Salt, _NameFee] = Args) ->
+    call_to_scode(Env, [aeb_fate_ops:aens_claim(?a, ?a, ?a, ?a, ?a),
+                        tuple(0)], Args);
+builtin_to_scode(Env, aens_transfer, [_Sign, _From, _To, _Name] = Args) ->
+    call_to_scode(Env, [aeb_fate_ops:aens_transfer(?a, ?a, ?a, ?a),
+                        tuple(0)], Args);
+builtin_to_scode(Env, aens_revoke, [_Sign, _Account, _Name] = Args) ->
+    call_to_scode(Env, [aeb_fate_ops:aens_revoke(?a, ?a, ?a),
+                        tuple(0)], Args);
 builtin_to_scode(_Env, auth_tx_hash, []) ->
-    ?TODO(fate_auth_tx_hash_instruction).
+    [aeb_fate_ops:auth_tx_hash(?a)].
 
 %% -- Operators --
 
-op_to_scode('+')               -> aeb_fate_code:add(?a, ?a, ?a);
-op_to_scode('-')               -> aeb_fate_code:sub(?a, ?a, ?a);
-op_to_scode('*')               -> aeb_fate_code:mul(?a, ?a, ?a);
-op_to_scode('/')               -> aeb_fate_code:divide(?a, ?a, ?a);
-op_to_scode(mod)               -> aeb_fate_code:modulo(?a, ?a, ?a);
-op_to_scode('^')               -> aeb_fate_code:pow(?a, ?a, ?a);
-op_to_scode('++')              -> aeb_fate_code:append(?a, ?a, ?a);
-op_to_scode('::')              -> aeb_fate_code:cons(?a, ?a, ?a);
-op_to_scode('<')               -> aeb_fate_code:lt(?a, ?a, ?a);
-op_to_scode('>')               -> aeb_fate_code:gt(?a, ?a, ?a);
-op_to_scode('=<')              -> aeb_fate_code:elt(?a, ?a, ?a);
-op_to_scode('>=')              -> aeb_fate_code:egt(?a, ?a, ?a);
-op_to_scode('==')              -> aeb_fate_code:eq(?a, ?a, ?a);
-op_to_scode('!=')              -> aeb_fate_code:neq(?a, ?a, ?a);
-op_to_scode('!')               -> aeb_fate_code:not_op(?a, ?a);
-op_to_scode(map_get)           -> aeb_fate_code:map_lookup(?a, ?a, ?a);
-op_to_scode(map_get_d)         -> aeb_fate_code:map_lookup(?a, ?a, ?a, ?a);
-op_to_scode(map_set)           -> aeb_fate_code:map_update(?a, ?a, ?a, ?a);
-op_to_scode(map_from_list)     -> aeb_fate_code:map_from_list(?a, ?a);
-op_to_scode(map_to_list)       -> ?TODO(fate_map_to_list_instruction);
-op_to_scode(map_delete)        -> aeb_fate_code:map_delete(?a, ?a, ?a);
-op_to_scode(map_member)        -> aeb_fate_code:map_member(?a, ?a, ?a);
-op_to_scode(map_size)          -> ?TODO(fate_map_size_instruction);
-op_to_scode(string_length)     -> ?TODO(fate_string_length_instruction);
-op_to_scode(string_concat)     -> aeb_fate_code:str_join(?a, ?a, ?a);
-op_to_scode(bits_set)          -> aeb_fate_code:bits_set(?a, ?a, ?a);
-op_to_scode(bits_clear)        -> aeb_fate_code:bits_clear(?a, ?a, ?a);
-op_to_scode(bits_test)         -> aeb_fate_code:bits_test(?a, ?a, ?a);
-op_to_scode(bits_sum)          -> aeb_fate_code:bits_sum(?a, ?a);
-op_to_scode(bits_intersection) -> aeb_fate_code:bits_and(?a, ?a, ?a);
-op_to_scode(bits_union)        -> aeb_fate_code:bits_or(?a, ?a, ?a);
-op_to_scode(bits_difference)   -> aeb_fate_code:bits_diff(?a, ?a, ?a);
-op_to_scode(address_to_str)    -> aeb_fate_code:addr_to_str(?a, ?a);
-op_to_scode(int_to_str)        -> aeb_fate_code:int_to_str(?a, ?a).
+op_to_scode('+')               -> aeb_fate_ops:add(?a, ?a, ?a);
+op_to_scode('-')               -> aeb_fate_ops:sub(?a, ?a, ?a);
+op_to_scode('*')               -> aeb_fate_ops:mul(?a, ?a, ?a);
+op_to_scode('/')               -> aeb_fate_ops:divide(?a, ?a, ?a);
+op_to_scode(mod)               -> aeb_fate_ops:modulo(?a, ?a, ?a);
+op_to_scode('^')               -> aeb_fate_ops:pow(?a, ?a, ?a);
+op_to_scode('++')              -> aeb_fate_ops:append(?a, ?a, ?a);
+op_to_scode('::')              -> aeb_fate_ops:cons(?a, ?a, ?a);
+op_to_scode('<')               -> aeb_fate_ops:lt(?a, ?a, ?a);
+op_to_scode('>')               -> aeb_fate_ops:gt(?a, ?a, ?a);
+op_to_scode('=<')              -> aeb_fate_ops:elt(?a, ?a, ?a);
+op_to_scode('>=')              -> aeb_fate_ops:egt(?a, ?a, ?a);
+op_to_scode('==')              -> aeb_fate_ops:eq(?a, ?a, ?a);
+op_to_scode('!=')              -> aeb_fate_ops:neq(?a, ?a, ?a);
+op_to_scode('!')               -> aeb_fate_ops:not_op(?a, ?a);
+op_to_scode(map_get)           -> aeb_fate_ops:map_lookup(?a, ?a, ?a);
+op_to_scode(map_get_d)         -> aeb_fate_ops:map_lookup(?a, ?a, ?a, ?a);
+op_to_scode(map_set)           -> aeb_fate_ops:map_update(?a, ?a, ?a, ?a);
+op_to_scode(map_from_list)     -> aeb_fate_ops:map_from_list(?a, ?a);
+op_to_scode(map_to_list)       -> aeb_fate_ops:map_to_list(?a, ?a);
+op_to_scode(map_delete)        -> aeb_fate_ops:map_delete(?a, ?a, ?a);
+op_to_scode(map_member)        -> aeb_fate_ops:map_member(?a, ?a, ?a);
+op_to_scode(map_size)          -> aeb_fate_ops:map_size_(?a, ?a);
+op_to_scode(string_length)     -> aeb_fate_ops:str_length(?a, ?a);
+op_to_scode(string_concat)     -> aeb_fate_ops:str_join(?a, ?a, ?a);
+op_to_scode(bits_set)          -> aeb_fate_ops:bits_set(?a, ?a, ?a);
+op_to_scode(bits_clear)        -> aeb_fate_ops:bits_clear(?a, ?a, ?a);
+op_to_scode(bits_test)         -> aeb_fate_ops:bits_test(?a, ?a, ?a);
+op_to_scode(bits_sum)          -> aeb_fate_ops:bits_sum(?a, ?a);
+op_to_scode(bits_intersection) -> aeb_fate_ops:bits_and(?a, ?a, ?a);
+op_to_scode(bits_union)        -> aeb_fate_ops:bits_or(?a, ?a, ?a);
+op_to_scode(bits_difference)   -> aeb_fate_ops:bits_diff(?a, ?a, ?a);
+op_to_scode(address_to_str)    -> aeb_fate_ops:addr_to_str(?a, ?a);
+op_to_scode(int_to_str)        -> aeb_fate_ops:int_to_str(?a, ?a);
+op_to_scode(contract_to_address)         -> aeb_fate_ops:contract_to_address(?a, ?a);
+op_to_scode(crypto_verify_sig)           -> aeb_fate_ops:verify_sig(?a, ?a, ?a, ?a);
+op_to_scode(crypto_verify_sig_secp256k1) -> aeb_fate_ops:verify_sig_secp256k1(?a, ?a, ?a, ?a);
+op_to_scode(crypto_ecverify_secp256k1)   -> aeb_fate_ops:ecverify_secp256k1(?a, ?a, ?a, ?a);
+op_to_scode(crypto_ecrecover_secp256k1)  -> aeb_fate_ops:ecrecover_secp256k1(?a, ?a, ?a);
+op_to_scode(crypto_sha3)                 -> aeb_fate_ops:sha3(?a, ?a);
+op_to_scode(crypto_sha256)               -> aeb_fate_ops:sha256(?a, ?a);
+op_to_scode(crypto_blake2b)              -> aeb_fate_ops:blake2b(?a, ?a);
+op_to_scode(string_sha3)                 -> aeb_fate_ops:sha3(?a, ?a);
+op_to_scode(string_sha256)               -> aeb_fate_ops:sha256(?a, ?a);
+op_to_scode(string_blake2b)              -> aeb_fate_ops:blake2b(?a, ?a).
 
 %% PUSH and STORE ?a are the same, so we use STORE to make optimizations
 %% easier, and specialize to PUSH (which is cheaper) at the end.
-push(A) -> aeb_fate_code:store(?a, A).
+push(A) -> aeb_fate_ops:store(?a, A).
+
+tuple(0) -> push(?i({tuple, {}}));
+tuple(N) -> aeb_fate_ops:tuple(?a, N).
 
 %% -- Phase II ---------------------------------------------------------------
 %%  Optimize
@@ -504,12 +645,12 @@ flatten_s(I) -> I.
 
 -define(MAX_SIMPL_ITERATIONS, 10).
 
-optimize_fun(_Funs, Name, {{Args, Res}, Code}, Options) ->
+optimize_fun(_Funs, Name, {Attrs, Sig, Code}, Options) ->
     Code0 = flatten(Code),
     debug(opt, Options, "Optimizing ~s\n", [Name]),
     Code1 = simpl_loop(0, Code0, Options),
     Code2 = desugar(Code1),
-    {{Args, Res}, Code2}.
+    {Attrs, Sig, Code2}.
 
 simpl_loop(N, Code, Options) when N >= ?MAX_SIMPL_ITERATIONS ->
     debug(opt, Options, "  No simpl_loop fixed_point after ~p iterations.\n\n", [N]),
@@ -548,15 +689,19 @@ pp_ann(Ind, [{i, #{ live_in := In, live_out := Out }, I} | Code]) ->
     Fmt = fun([]) -> "()";
              (Xs) -> string:join([lists:concat(["var", N]) || {var, N} <- Xs], " ")
           end,
-    Op  = [Ind, aeb_fate_pp:format_op(I, #{})],
+    Op  = [Ind, pp_op(I)],
     Ann = [["   % ", Fmt(In), " -> ", Fmt(Out)] || In ++ Out /= []],
     [io_lib:format("~-40s~s\n", [Op, Ann]),
      pp_ann(Ind, Code)];
 pp_ann(_, []) -> [].
 
+pp_op(loop) -> "LOOP";
+pp_op(I)    ->
+    aeb_fate_pp:format_op(I, #{}).
 
 pp_arg(?i(I))    -> io_lib:format("~w", [I]);
 pp_arg({arg, N}) -> io_lib:format("arg~p", [N]);
+pp_arg({var, N}) when N < 0 -> io_lib:format("store~p", [-N]);
 pp_arg({var, N}) -> io_lib:format("var~p", [N]);
 pp_arg(?a)       -> "a".
 
@@ -577,7 +722,7 @@ ann_writes([{switch, Arg, Type, Alts, Def} | Code], Writes, Acc) ->
     Writes1 = ordsets:union(Writes, ordsets:intersection([WritesDef | WritesAlts])),
     ann_writes(Code, Writes1, [{switch, Arg, Type, Alts1, Def1} | Acc]);
 ann_writes([I | Code], Writes, Acc) ->
-    Ws = var_writes(I),
+    Ws = [ W || W <- var_writes(I), not ?IsState(W) ],
     Writes1 = ordsets:union(Writes, Ws),
     Ann = #{ writes_in => Writes, writes_out => Writes1 },
     ann_writes(Code, Writes1, [{i, Ann, I} | Acc]);
@@ -619,25 +764,27 @@ attributes(I) ->
     Pure   = fun(W, R) -> Attr(W, R, true) end,
     Impure = fun(W, R) -> Attr(W, R, false) end,
     case I of
+        loop                                  -> Impure(pc, []);
         'RETURN'                              -> Impure(pc, []);
         {'RETURNR', A}                        -> Impure(pc, A);
         {'CALL', _}                           -> Impure(?a, []);
-        {'CALL_R', A, _}                      -> Impure(?a, A);
+        {'CALL_R', A, _, B, C, D}             -> Impure(?a, [A, B, C, D]);
+        {'CALL_GR', A, _, B, C, D, E}         -> Impure(?a, [A, B, C, D, E]);
         {'CALL_T', _}                         -> Impure(pc, []);
-        {'CALL_TR', A, _}                     -> Impure(pc, A);
+        {'CALL_VALUE', A}                     -> Pure(A, []);
         {'JUMP', _}                           -> Impure(pc, []);
         {'JUMPIF', A, _}                      -> Impure(pc, A);
         {'SWITCH_V2', A, _, _}                -> Impure(pc, A);
         {'SWITCH_V3', A, _, _, _}             -> Impure(pc, A);
         {'SWITCH_VN', A, _}                   -> Impure(pc, A);
         {'PUSH', A}                           -> Pure(?a, A);
-        'DUPA'                                -> Pure(?a, []);
+        'DUPA'                                -> Pure(?a, ?a);
         {'DUP', A}                            -> Pure(?a, A);
         {'POP', A}                            -> Pure(A, ?a);
         {'STORE', A, B}                       -> Pure(A, B);
         'INCA'                                -> Pure(?a, ?a);
         {'INC', A}                            -> Pure(A, A);
-        'DECA'                                -> Pure(?a, []);
+        'DECA'                                -> Pure(?a, ?a);
         {'DEC', A}                            -> Pure(A, A);
         {'ADD', A, B, C}                      -> Pure(A, [B, C]);
         {'SUB', A, B, C}                      -> Pure(A, [B, C]);
@@ -654,7 +801,7 @@ attributes(I) ->
         {'AND', A, B, C}                      -> Pure(A, [B, C]);
         {'OR', A, B, C}                       -> Pure(A, [B, C]);
         {'NOT', A, B}                         -> Pure(A, B);
-        {'TUPLE', _}                          -> Pure(?a, []);
+        {'TUPLE', A, N}                       -> Pure(A, [?a || N > 0]);
         {'ELEMENT', A, B, C}                  -> Pure(A, [B, C]);
         {'SETELEMENT', A, B, C, D}            -> Pure(A, [B, C, D]);
         {'MAP_EMPTY', A}                      -> Pure(A, []);
@@ -664,6 +811,8 @@ attributes(I) ->
         {'MAP_DELETE', A, B, C}               -> Pure(A, [B, C]);
         {'MAP_MEMBER', A, B, C}               -> Pure(A, [B, C]);
         {'MAP_FROM_LIST', A, B}               -> Pure(A, B);
+        {'MAP_TO_LIST', A, B}                 -> Pure(A, B);
+        {'MAP_SIZE', A, B}                    -> Pure(A, B);
         {'NIL', A}                            -> Pure(A, []);
         {'IS_NIL', A, B}                      -> Pure(A, B);
         {'CONS', A, B, C}                     -> Pure(A, [B, C]);
@@ -675,6 +824,7 @@ attributes(I) ->
         {'INT_TO_STR', A, B}                  -> Pure(A, B);
         {'ADDR_TO_STR', A, B}                 -> Pure(A, B);
         {'STR_REVERSE', A, B}                 -> Pure(A, B);
+        {'STR_LENGTH', A, B}                  -> Pure(A, B);
         {'INT_TO_ADDR', A, B}                 -> Pure(A, B);
         {'VARIANT', A, B, C, D}               -> Pure(A, [?a, B, C, D]);
         {'VARIANT_TEST', A, B, C}             -> Pure(A, [B, C]);
@@ -691,13 +841,32 @@ attributes(I) ->
         {'BITS_OR', A, B, C}                  -> Pure(A, [B, C]);
         {'BITS_AND', A, B, C}                 -> Pure(A, [B, C]);
         {'BITS_DIFF', A, B, C}                -> Pure(A, [B, C]);
+        {'SHA3', A, B}                        -> Pure(A, [B]);
+        {'SHA256', A, B}                      -> Pure(A, [B]);
+        {'BLAKE2B', A, B}                     -> Pure(A, [B]);
+        {'VERIFY_SIG', A, B, C, D}            -> Pure(A, [B, C, D]);
+        {'VERIFY_SIG_SECP256K1', A, B, C, D}  -> Pure(A, [B, C, D]);
+        {'ECVERIFY_SECP256K1', A, B, C, D}    -> Pure(A, [B, C, D]);
+        {'ECRECOVER_SECP256K1', A, B, C}      -> Pure(A, [B, C]);
+        {'CONTRACT_TO_ADDRESS', A, B}         -> Pure(A, [B]);
+        {'AUTH_TX_HASH', A}                   -> Pure(A, []);
+        {'BYTES_TO_INT', A, B}                -> Pure(A, [B]);
+        {'BYTES_TO_STR', A, B}                -> Pure(A, [B]);
+        {'BYTES_CONCAT', A, B, C}             -> Pure(A, [B, C]);
+        {'BYTES_SPLIT', A, B, C}              -> Pure(A, [B, C]);
+        {'ORACLE_CHECK', A, B, C, D}          -> Impure(A, [B, C, D]);
+        {'ORACLE_CHECK_QUERY', A, B, C, D, E} -> Impure(A, [B, C, D, E]);
+        {'IS_ORACLE', A, B}                   -> Impure(A, [B]);
+        {'IS_CONTRACT', A, B}                 -> Impure(A, [B]);
+        {'IS_PAYABLE', A, B}                  -> Impure(A, [B]);
+        {'CREATOR', A}                        -> Pure(A, []);
         {'ADDRESS', A}                        -> Pure(A, []);
         {'BALANCE', A}                        -> Impure(A, []);
         {'BALANCE_OTHER', A, B}               -> Impure(A, [B]);
         {'ORIGIN', A}                         -> Pure(A, []);
         {'CALLER', A}                         -> Pure(A, []);
         {'GASPRICE', A}                       -> Pure(A, []);
-        {'BLOCKHASH', A}                      -> Pure(A, []);
+        {'BLOCKHASH', A, B}                   -> Impure(A, [B]);
         {'BENEFICIARY', A}                    -> Pure(A, []);
         {'TIMESTAMP', A}                      -> Pure(A, []);
         {'GENERATION', A}                     -> Pure(A, []);
@@ -705,31 +874,26 @@ attributes(I) ->
         {'DIFFICULTY', A}                     -> Pure(A, []);
         {'GASLIMIT', A}                       -> Pure(A, []);
         {'GAS', A}                            -> Impure(?a, A);
-        {'LOG0', A, B}                        -> Impure(none, [A, B]);
-        {'LOG1', A, B, C}                     -> Impure(none, [A, B, C]);
-        {'LOG2', A, B, C, D}                  -> Impure(none, [A, B, C, D]);
-        {'LOG3', A, B, C, D, E}               -> Impure(none, [A, B, C, D, E]);
-        {'LOG4', A, B, C, D, E, F}            -> Impure(none, [A, B, C, D, E, F]);
+        {'LOG0', A}                           -> Impure(none, [A]);
+        {'LOG1', A, B}                        -> Impure(none, [A, B]);
+        {'LOG2', A, B, C}                     -> Impure(none, [A, B, C]);
+        {'LOG3', A, B, C, D}                  -> Impure(none, [A, B, C, D]);
+        {'LOG4', A, B, C, D, E}               -> Impure(none, [A, B, C, D, E]);
         'DEACTIVATE'                          -> Impure(none, []);
         {'SPEND', A, B}                       -> Impure(none, [A, B]);
-
-        {'ORACLE_REGISTER', A, B, C, D, E, F} -> Impure(A, [B, C, D, E, F]);
-        'ORACLE_QUERY'                        -> Impure(?a, []);  %% TODO
-        'ORACLE_RESPOND'                      -> Impure(?a, []);  %% TODO
-        'ORACLE_EXTEND'                       -> Impure(?a, []);  %% TODO
-        'ORACLE_GET_ANSWER'                   -> Impure(?a, []);  %% TODO
-        'ORACLE_GET_QUESTION'                 -> Impure(?a, []);  %% TODO
-        'ORACLE_QUERY_FEE'                    -> Impure(?a, []);  %% TODO
-        'AENS_RESOLVE'                        -> Impure(?a, []);  %% TODO
-        'AENS_PRECLAIM'                       -> Impure(?a, []);  %% TODO
-        'AENS_CLAIM'                          -> Impure(?a, []);  %% TODO
-        'AENS_UPDATE'                         -> Impure(?a, []);  %% TODO
-        'AENS_TRANSFER'                       -> Impure(?a, []);  %% TODO
-        'AENS_REVOKE'                         -> Impure(?a, []);  %% TODO
-        'ECVERIFY'                            -> Pure(?a, []);  %% TODO
-        'SHA3'                                -> Pure(?a, []);  %% TODO
-        'SHA256'                              -> Pure(?a, []);  %% TODO
-        'BLAKE2B'                             -> Pure(?a, []);  %% TODO
+        {'ORACLE_REGISTER', A, B, C, D, E, F, G} -> Impure(A, [B, C, D, E, F, G]);
+        {'ORACLE_QUERY', A, B, C, D, E, F, G, H} -> Impure(A, [B, C, D, E, F, G, H]);
+        {'ORACLE_RESPOND', A, B, C, D, E, F}  -> Impure(none, [A, B, C, D, E, F]);
+        {'ORACLE_EXTEND', A, B, C}            -> Impure(none, [A, B, C]);
+        {'ORACLE_GET_ANSWER', A, B, C, D, E}  -> Impure(A, [B, C, D, E]);
+        {'ORACLE_GET_QUESTION', A, B, C, D, E}-> Impure(A, [B, C, D, E]);
+        {'ORACLE_QUERY_FEE', A, B}            -> Impure(A, [B]);
+        {'AENS_RESOLVE', A, B, C, D}          -> Impure(A, [B, C, D]);
+        {'AENS_PRECLAIM', A, B, C}            -> Impure(none, [A, B, C]);
+        {'AENS_CLAIM', A, B, C, D, E}         -> Impure(none, [A, B, C, D, E]);
+        'AENS_UPDATE'                         -> Impure(none, []);%% TODO
+        {'AENS_TRANSFER', A, B, C, D}         -> Impure(none, [A, B, C, D]);
+        {'AENS_REVOKE', A, B, C}              -> Impure(none, [A, B, C]);
         {'ABORT', A}                          -> Impure(pc, A);
         {'EXIT', A}                           -> Impure(pc, A);
         'NOP'                                 -> Pure(none, [])
@@ -781,6 +945,7 @@ swap_instrs({i, #{ live_in := Live1 }, I}, {i, #{ live_in := Live2, live_out := 
     {{i, #{ live_in => Live1,  live_out => Live2_ }, J},
      {i, #{ live_in => Live2_, live_out => Live3  }, I}}.
 
+live_in(R, _) when ?IsState(R) -> true;
 live_in(R, #{ live_in  := LiveIn  }) -> ordsets:is_element(R, LiveIn);
 live_in(R, {i, Ann, _}) -> live_in(R, Ann);
 live_in(R, [I = {i, _, _} | _]) -> live_in(R, I);
@@ -790,6 +955,7 @@ live_in(R, [{switch, A, _, Alts, Def} | _]) ->
 live_in(_, missing) -> false;
 live_in(_, []) -> false.
 
+live_out(R, _) when ?IsState(R) -> true;
 live_out(R, #{ live_out := LiveOut }) -> ordsets:is_element(R, LiveOut).
 
 %% -- Optimizations --
@@ -803,15 +969,29 @@ simpl_s({switch, Arg, Type, Alts, Def}, Options) ->
     {switch, Arg, Type, [simplify(A, Options) || A <- Alts], simplify(Def, Options)};
 simpl_s(I, _) -> I.
 
-simpl_top(I, Code, Options) ->
-    apply_rules(rules(), I, Code, Options).
+%% Safe-guard against loops in the rewriting. Shouldn't happen so throw an
+%% error if we run out.
+-define(SIMPL_FUEL, 5000).
 
-apply_rules(Rules, I, Code, Options) ->
-    Cons = fun(X, Xs) -> simpl_top(X, Xs, Options) end,
+simpl_top(I, Code, Options) ->
+    simpl_top(?SIMPL_FUEL, I, Code, Options).
+
+simpl_top(0, I, Code, _Options) ->
+    error({out_of_fuel, I, Code});
+simpl_top(Fuel, I, Code, Options) ->
+    apply_rules(Fuel, rules(), I, Code, Options).
+
+apply_rules(Fuel, Rules, I, Code, Options) ->
+    Cons = fun(X, Xs) -> simpl_top(Fuel - 1, X, Xs, Options) end,
     case apply_rules_once(Rules, I, Code) of
         false -> [I | Code];
         {RName, New, Rest} ->
-            debug(opt_rules, Options, "  Applied ~p:\n~s  ==>\n~s\n", [RName, pp_ann("    ", [I | Code]), pp_ann("    ", New ++ Rest)]),
+            case is_debug(opt_rules, Options) of
+                true ->
+                    {OldCode, NewCode} = drop_common_suffix([I | Code], New ++ Rest),
+                    debug(opt_rules, Options, "  Applied ~p:\n~s  ==>\n~s\n", [RName, pp_ann("    ", OldCode), pp_ann("    ", NewCode)]);
+                false -> ok
+            end,
             lists:foldr(Cons, Rest, New)
     end.
 
@@ -834,8 +1014,8 @@ merge_rules() ->
 
 rules() ->
     merge_rules() ++
-    [?RULE(r_dup_to_push),
-     ?RULE(r_swap_push),
+    [?RULE(r_swap_push),
+     ?RULE(r_swap_pop),
      ?RULE(r_swap_write),
      ?RULE(r_constant_propagation),
      ?RULE(r_prune_impossible_branches),
@@ -844,11 +1024,6 @@ rules() ->
     ].
 
 %% Removing pushes that are immediately consumed.
-r_push_consume({i, Ann1, {'STORE', ?a, A}}, [{i, Ann2, {'POP', B}} | Code]) ->
-    case live_out(B, Ann2) of
-        true  -> {[{i, merge_ann(Ann1, Ann2), {'STORE', B, A}}], Code};
-        false -> {[], Code}
-    end;
 r_push_consume({i, Ann1, {'STORE', ?a, A}}, Code) ->
     inline_push(Ann1, A, 0, Code, []);
 %% Writing directly to memory instead of going through the accumulator.
@@ -878,11 +1053,12 @@ inline_push(Ann1, Arg, Stack, [{i, Ann2, I} = AI | Code], Acc) ->
                     {As0, As1} = split_stack_arg(Stack, As),
                     Acc1 = [{i, merge_ann(Ann1, Ann2), from_op_view(Op, R, As0 ++ [Arg] ++ As1)} | Acc],
                     {lists:reverse(Acc1), Code};
-                false ->
+                false when Arg /= R ->
                     {AI1, {i, Ann1b, _}} = swap_instrs({i, Ann1, {'STORE', ?a, Arg}}, AI),
-                    inline_push(Ann1b, Arg, Stack + Produces - Consumes, Code, [AI1 | Acc])
+                    inline_push(Ann1b, Arg, Stack + Produces - Consumes, Code, [AI1 | Acc]);
+                false -> false
             end;
-        false -> false
+        _ -> false
     end;
 inline_push(_, _, _, _, _) -> false.
 
@@ -894,23 +1070,41 @@ split_stack_arg(N, [A | As], Acc) ->
             true    -> N end,
     split_stack_arg(N1, As, [A | Acc]).
 
-%% Changing PUSH A, DUPA to PUSH A, PUSH A enables further optimisations
-r_dup_to_push({i, Ann1, Push={'STORE', ?a, _}}, [{i, Ann2, 'DUPA'} | Code]) ->
-    #{ live_in  := LiveIn  } = Ann1,
-    Ann1_ = Ann1#{ live_out => LiveIn },
-    Ann2_ = Ann2#{ live_in  => LiveIn },
-    {[{i, Ann1_, Push}, {i, Ann2_, Push}], Code};
-r_dup_to_push(_, _) -> false.
-
-%% Move PUSH A past non-stack instructions.
-r_swap_push(Push = {i, _, {'STORE', ?a, _}}, [I | Code]) ->
-    case independent(Push, I) of
-        true ->
-            {I1, Push1} = swap_instrs(Push, I),
-            {[I1, Push1], Code};
-        false -> false
+%% Move PUSHes past non-stack instructions.
+r_swap_push(Push = {i, _, PushI}, [I | Code]) ->
+    case op_view(PushI) of
+        {_, ?a, _} ->
+            case independent(Push, I) of
+                true ->
+                    {I1, Push1} = swap_instrs(Push, I),
+                    {[I1, Push1], Code};
+                false -> false
+            end;
+        _ -> false
     end;
 r_swap_push(_, _) -> false.
+
+%% Move non-stack instruction past POPs.
+r_swap_pop(IA = {i, _, I}, [JA = {i, _, J} | Code]) ->
+    case independent(IA, JA) of
+        true ->
+            case {op_view(I), op_view(J)} of
+                {false, _} -> false;
+                {_, false} -> false;
+                {{_, IR, IAs}, {_, RJ, JAs}} ->
+                    NonStackI = not lists:member(?a, [IR | IAs]),
+                    %% RJ /= ?a to not conflict with r_swap_push
+                    PopJ      = RJ /= ?a andalso lists:member(?a, JAs),
+                    case NonStackI andalso PopJ of
+                        false -> false;
+                        true  ->
+                            {JA1, IA1} = swap_instrs(IA, JA),
+                            {[JA1, IA1], Code}
+                    end
+            end;
+        false -> false
+    end;
+r_swap_pop(_, _) -> false.
 
 %% Match up writes to variables with instructions further down.
 r_swap_write(I = {i, _, _}, [J | Code]) ->
@@ -1047,6 +1241,8 @@ r_float_switch_body(I = {i, _, _}, [switch_body | Code]) ->
 r_float_switch_body(_, _) -> false.
 
 %% Inline stores
+r_inline_store({i, _, {'STORE', R, R}}, Code) ->
+    {[], Code};
 r_inline_store(I = {i, _, {'STORE', R = {var, _}, A}}, Code) ->
     %% Not when A is var unless updating the annotations properly.
     Inline = case A of
@@ -1101,15 +1297,15 @@ r_one_shot_var({i, Ann1, I}, [{i, Ann2, J} | Code]) ->
 r_one_shot_var(_, _) -> false.
 
 %% Remove writes to dead variables
+r_write_to_dead_var({i, _, {'STORE', ?void, ?a}}, _) -> false; %% Avoid looping
 r_write_to_dead_var({i, Ann, I}, Code) ->
     case op_view(I) of
         {_Op, R = {var, _}, As} ->
             case live_out(R, Ann) of
                 false ->
                     %% Subtle: we still have to pop the stack if any of the arguments
-                    %% came from there. In this case we pop to R, which we know is
-                    %% unused.
-                    {[{i, Ann, {'POP', R}} || X <- As, X == ?a], Code};
+                    %% came from there.
+                    {[{i, Ann, {'STORE', ?void, ?a}} || X <- As, X == ?a], Code};
                 true -> false
             end;
         _ -> false
@@ -1139,9 +1335,13 @@ unannotate(Code) when is_list(Code) ->
 unannotate({i, _Ann, I}) -> [I].
 
 %% Desugar and specialize
-desugar({'ADD', ?a, ?i(1), ?a})     -> [aeb_fate_code:inc()];
-desugar({'SUB', ?a, ?a, ?i(1)})     -> [aeb_fate_code:dec()];
-desugar({'STORE', ?a, A})           -> [aeb_fate_code:push(A)];
+desugar({'ADD', ?a, ?i(1), ?a}) -> [aeb_fate_ops:inc()];
+desugar({'ADD', A,  ?i(1), A})  -> [aeb_fate_ops:inc(A)];
+desugar({'ADD', ?a, ?a, ?i(1)}) -> [aeb_fate_ops:inc()];
+desugar({'ADD', A,  A,  ?i(1)}) -> [aeb_fate_ops:inc(A)];
+desugar({'SUB', ?a, ?a, ?i(1)}) -> [aeb_fate_ops:dec()];
+desugar({'SUB', A, A, ?i(1)})   -> [aeb_fate_ops:dec(A)];
+desugar({'STORE', ?a, A})       -> [aeb_fate_ops:push(A)];
 desugar({switch, Arg, Type, Alts, Def}) ->
     [{switch, Arg, Type, [desugar(A) || A <- Alts], desugar(Def)}];
 desugar(missing) -> missing;
@@ -1152,12 +1352,16 @@ desugar(I) -> [I].
 %% -- Phase III --------------------------------------------------------------
 %%  Constructing basic blocks
 
-to_basic_blocks(Funs, Options) ->
-    maps:from_list([ {Name, {{Args, Res},
-                             bb(Name, Code ++ [aeb_fate_code:return()], Options)}}
-                     || {Name, {{Args, Res}, Code}} <- maps:to_list(Funs) ]).
+to_basic_blocks(Funs) ->
+    to_basic_blocks(maps:to_list(Funs), aeb_fate_code:new()).
 
-bb(_Name, Code, _Options) ->
+to_basic_blocks([{Name, {Attrs, Sig, Code}}|Left], Acc) ->
+    BB = bb(Name, Code ++ [aeb_fate_ops:return()]),
+    to_basic_blocks(Left, aeb_fate_code:insert_fun(Name, Attrs, Sig, BB, Acc));
+to_basic_blocks([], Acc) ->
+    Acc.
+
+bb(_Name, Code) ->
     Blocks0 = blocks(Code),
     Blocks1 = optimize_blocks(Blocks0),
     Blocks  = lists:flatmap(fun split_calls/1, Blocks1),
@@ -1208,7 +1412,7 @@ block(Blk = #blk{code     = [{switch, Arg, Type, Alts, Default} | Code],
     {DefRef, DefBlk} =
         case Default of
             missing when Catchall == none ->
-                FreshBlk([aeb_fate_code:abort(?i(<<"Incomplete patterns">>))], none);
+                FreshBlk([aeb_fate_ops:exit(?i(<<"Incomplete patterns">>))], none);
             missing -> {Catchall, []};
             _       -> FreshBlk(Default ++ [{jump, RestRef}], Catchall)
                        %% ^ fall-through to the outer catchall
@@ -1281,7 +1485,7 @@ reorder_blocks(Ref, Code, Blocks, Acc) ->
         ['RETURN'|_]          -> reorder_blocks(Blocks, Acc1);
         [{'RETURNR', _}|_]    -> reorder_blocks(Blocks, Acc1);
         [{'CALL_T', _}|_]     -> reorder_blocks(Blocks, Acc1);
-        [{'CALL_TR', _, _}|_] -> reorder_blocks(Blocks, Acc1);
+        [{'EXIT', _}|_]       -> reorder_blocks(Blocks, Acc1);
         [{'ABORT', _}|_]      -> reorder_blocks(Blocks, Acc1);
         [{switch, _, _}|_]    -> reorder_blocks(Blocks, Acc1);
         [{jump, L}|_]         ->
@@ -1320,22 +1524,30 @@ chase_labels([L | Ls], Map, Live) ->
     chase_labels(New ++ Ls, Map, Live#{ L => true }).
 
 %% Replace PUSH, RETURN by RETURNR, drop returns after tail calls.
-tweak_returns(['RETURN', {'PUSH', A} | Code])              -> [{'RETURNR', A} | Code];
-tweak_returns(['RETURN' | Code = [{'CALL_T', _} | _]])     -> Code;
-tweak_returns(['RETURN' | Code = [{'CALL_TR', _, _} | _]]) -> Code;
-tweak_returns(['RETURN' | Code = [{'ABORT', _} | _]])      -> Code;
+tweak_returns(['RETURN', {'PUSH', A} | Code])          -> [{'RETURNR', A} | Code];
+tweak_returns(['RETURN' | Code = [{'CALL_T', _} | _]]) -> Code;
+tweak_returns(['RETURN' | Code = [{'ABORT', _} | _]])  -> Code;
+tweak_returns(['RETURN' | Code = [{'EXIT', _} | _]])   -> Code;
 tweak_returns(Code) -> Code.
 
 %% -- Split basic blocks at CALL instructions --
-%%  Calls can only return to a new basic block.
+%%  Calls can only return to a new basic block. Also splits at JUMPIF instructions.
 
 split_calls({Ref, Code}) ->
     split_calls(Ref, Code, [], []).
 
 split_calls(Ref, [], Acc, Blocks) ->
     lists:reverse([{Ref, lists:reverse(Acc)} | Blocks]);
-split_calls(Ref, [I | Code], Acc, Blocks) when element(1, I) == 'CALL'; element(1, I) == 'CALL_R' ->
+split_calls(Ref, [I | Code], Acc, Blocks) when element(1, I) == 'CALL';
+                                               element(1, I) == 'CALL_R';
+                                               element(1, I) == 'CALL_GR';
+                                               element(1, I) == 'jumpif';
+                                               I == loop ->
     split_calls(make_ref(), Code, [], [{Ref, lists:reverse([I | Acc])} | Blocks]);
+split_calls(Ref, [{'ABORT', _} = I | _Code], Acc, Blocks) ->
+    lists:reverse([{Ref, lists:reverse([I | Acc])} | Blocks]);
+split_calls(Ref, [{'EXIT', _} = I | _Code], Acc, Blocks) ->
+    lists:reverse([{Ref, lists:reverse([I | Acc])} | Blocks]);
 split_calls(Ref, [I | Code], Acc, Blocks) ->
     split_calls(Ref, Code, [I | Acc], Blocks).
 
@@ -1343,13 +1555,14 @@ split_calls(Ref, [I | Code], Acc, Blocks) ->
 
 set_labels(Labels, {Ref, Code}) when is_reference(Ref) ->
     {maps:get(Ref, Labels), [ set_labels(Labels, I) || I <- Code ]};
-set_labels(Labels, {jump, Ref})   -> aeb_fate_code:jump(maps:get(Ref, Labels));
-set_labels(Labels, {jumpif, Arg, Ref}) -> aeb_fate_code:jumpif(Arg, maps:get(Ref, Labels));
+set_labels(_Labels, loop)              -> aeb_fate_ops:jump(0);
+set_labels(Labels, {jump, Ref})        -> aeb_fate_ops:jump(maps:get(Ref, Labels));
+set_labels(Labels, {jumpif, Arg, Ref}) -> aeb_fate_ops:jumpif(Arg, maps:get(Ref, Labels));
 set_labels(Labels, {switch, Arg, Refs}) ->
     case [ maps:get(Ref, Labels) || Ref <- Refs ] of
-        [R1, R2]     -> aeb_fate_code:switch(Arg, R1, R2);
-        [R1, R2, R3] -> aeb_fate_code:switch(Arg, R1, R2, R3);
-        Rs           -> aeb_fate_code:switch(Arg, Rs)
+        [R1, R2]     -> aeb_fate_ops:switch(Arg, R1, R2);
+        [R1, R2, R3] -> aeb_fate_ops:switch(Arg, R1, R2, R3);
+        Rs           -> aeb_fate_ops:switch(Arg, Rs)
     end;
 set_labels(_, I) -> I.
 
@@ -1358,3 +1571,10 @@ set_labels(_, I) -> I.
 with_ixs(Xs) ->
     lists:zip(lists:seq(0, length(Xs) - 1), Xs).
 
+drop_common_suffix(Xs, Ys) ->
+    drop_common_suffix_r(lists:reverse(Xs), lists:reverse(Ys)).
+
+drop_common_suffix_r([X | Xs], [X | Ys]) ->
+    drop_common_suffix_r(Xs, Ys);
+drop_common_suffix_r(Xs, Ys) ->
+    {lists:reverse(Xs), lists:reverse(Ys)}.

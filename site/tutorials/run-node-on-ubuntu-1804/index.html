@@ -1117,7 +1117,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../developer-tools/sdks/sdk-python/" title="Python" class="md-nav__link">
+    <a href="../../developer-tools/sdks/aepp-sdk-python/" title="Python" class="md-nav__link">
       Python
     </a>
   </li>
@@ -2346,7 +2346,7 @@
 2.3. Unpack epoch release inside directory. In your terminal type:
 <code>tar xf ~/Downloads/epoch-1.0.1-ubuntu-x86_64.tar.gz</code></p>
 <h2 id="3-configure-the-node">3. Configure the node</h2>
-<p>3.1. Inside your node directory create an<code>epoch.yaml</code> file
+<p>3.1. Inside your node directory create an<code>aeternity.yaml</code> file
 3.2. Go to https://airgap.it/ or https://base.aepps.com/ and create an AE keypair
 3.3. Copy paste the below provided code to epoch.yaml </p>
 <pre><code>sync:
@@ -2380,12 +2380,12 @@ fork_management:
 
 <p>3.4. Replace peer_password: “secret” with your own password.
 3.5. Replace beneficiary: “beneficiary_pubkey_to_be_replaced” with your AE public key.
-3.6. Check if your <code>epoch.yaml</code> configuration is OK. In your terminal type: <code>./bin/epoch check_config epoch.yaml</code>
+3.6. Check if your <code>aeternity.yaml</code> configuration is OK. In your terminal type: <code>./bin/aeternity check_config aeternity.yaml</code>
 You should get an “OK” back, if not go through your config and check for mistakes.</p>
 <h2 id="4-make-sure-your-node-is-connectable">4. Make sure your node is connectable</h2>
 <p>https://blog.aeternity.com/insides-from-the-coredev-corner-configuring-ports-of-the-%C3%A6ternity-epoch-node-3bf366ebed26</p>
 <h2 id="5-run-the-node">5. Run the node</h2>
-<p>4.1. Start the node inside your node directory using <code>./bin/epoch start</code> inside the terminal.
+<p>4.1. Start the node inside your node directory using <code>./bin/aeternity start</code> inside the terminal.
 4.2. Inspect the current top of the blockchain as seen by the roma network. In your terminal type:
 <code>curl http://35.178.61.73:3013/v2/blocks/top</code>
 4.3. Inspect the current top of the blockchain as seen by your node. In your terminal type:

@@ -1117,7 +1117,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../developer-tools/sdks/sdk-python/" title="Python" class="md-nav__link">
+    <a href="../../developer-tools/sdks/aepp-sdk-python/" title="Python" class="md-nav__link">
       Python
     </a>
   </li>
@@ -2223,10 +2223,9 @@
     Unit testing with forgae
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#special-global-variables-and-modules-available-for-unit-tests" title="Special global variables and modules available for unit tests" class="md-nav__link">
     Special global variables and modules available for unit tests
   </a>
@@ -2255,13 +2254,22 @@
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#note" title="Note" class="md-nav__link">
+    Note
+  </a>
   
 </li>
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-if-you-are-on-track" title="Check if you are on track" class="md-nav__link">
+    Check if you are on track
+  </a>
   
 </li>
       
@@ -2293,7 +2301,7 @@
                 
                 <h1 id="tutorial-how-to-get-started-with-unit-testing-using-forgae">TUTORIAL: How to Get Started With Unit Testing Using forgae</h1>
 <h2 id="tutorial-overview">Tutorial Overview</h2>
-<p>Immutability of smart contracts is both the best and worst thing for the blockchain developer. On one hand, the applications are trustless and are always running as expected. </p>
+<p>Immutability of smart contracts is both the best and worst thing for the blockchain developer. On one hand, the applications are trustless and are always running as expected.</p>
 <p>On the other hand, smart contracts don’t generally offer simple upgrade paths, especially when it comes to critical components, such as code that controls the value in a token contract. Once a smart contract is up and running, changing it becomes complicated, if not impossible, regardless if the user has a malicious or benevolent intent.</p>
 <p>The only way to be confident that your smart contract is solid is to test it meticulously. That begins with smart contract unit testing. At its simplest, unit testing means testing the code at the lowest level — at the smallest unit of code — to identify problems early, before they affect the program.</p>
 <p>This tutorial will show you how to test your æternity Sophia smart contract project created via <strong>forgae</strong>.</p>
@@ -2305,66 +2313,177 @@
 </ul>
 <h2 id="getting-started">Getting started</h2>
 <p><strong>Forgae</strong> is an æternity framework which helps with setting up a Sophia project. The framework makes the development of smart contracts on the æternity network very easy. It provides commands for compilation of smart contracts, running a local æternity node and unit testing the contracts. In the future, smart contract deployment will also be possible through <strong>forgae</strong>.</p>
-<p>For convenience, here are the main <strong>forgae</strong> commands:
-- <code>forgae init</code> - creates an æternity project structure with a few folders that the developer can use to create the contracts, tests and deployment scripts. Docker configuration files are also created, for easy boot up of a local æternity blockchain network.
-- <code>forgae node</code> - helps developers run their docker-based local network. The local network contains 3 nodes. Spawning the network takes couple of minutes. At the end of this command you will be presented with AE accounts (key pairs) that you can use in your unit tests.
-- <code>forgae compile</code> - compiles a Sophia smart contract. It's recommended to use the .aes file extension. Default directory is <code>$projectDir/contracts</code>. The result of the compilation is the contract bytecode printed in the console.
-- <code>forgae test</code> - helps developers run their unit tests for æternity projects. The command executes the test scripts that are located in the <code>test</code> folder of your æternity project.</p>
+<p>For convenience, here are the main <strong>forgae</strong> commands:</p>
+<p>Note before running the bellow commands, Create a directory for the project</p>
+<pre><code>$ mkdir forgae-unit-testing
+$ cd forgae-unit-testing
+</code></pre>
+
+<ul>
+<li><strong>Command 1</strong>: <code>forgae init</code> - creates an æternity project structure with a few folders that the developer can use to create the contracts, tests and deployment scripts. Docker configuration files are also created, for easy boot up of a local æternity blockchain network.</li>
+<li><strong>Command 2</strong>: <code>forgae node</code> - helps developers run their docker-based local network. The local network contains 3 nodes. Spawning the network takes couple of minutes. At the end of this command you will be presented with AE accounts (key pairs) that you can use in your unit tests.</li>
+<li><strong>Command 3</strong>: <code>forgae compile</code> - compiles a Sophia smart contract. It's recommended to use the .aes file extension. Default directory is <code>$projectDir/contracts</code>. The result of the compilation is the contract bytecode printed in the console.</li>
+<li><strong>Command 4</strong>: <code>forgae test</code> - helps developers run their unit tests for æternity projects. The command executes the test scripts that are located in the <code>test</code> folder of your æternity project.</li>
+</ul>
 <h2 id="unit-testing-with-forgae">Unit testing with forgae</h2>
 <p>In this tutorial we will focus on the <code>forgae test</code> command.</p>
 <p>As rule of thumb, every smart contract should have unit tests covering it’s logic. It’s not a “nice to have” thing  —  it's a "must have" in the immutable blockchain world. Using <strong>forgae</strong> you get the well-known Mocha testing framework in place.</p>
-<h3 id="special-global-variables-and-modules-available-for-unit-tests">Special global variables and modules available for unit tests</h3>
+<h2 id="special-global-variables-and-modules-available-for-unit-tests">Special global variables and modules available for unit tests</h2>
 <p><strong>forgae</strong> exposes a number of global variables and functions that can be used in your unit tests.</p>
-<h4 id="wallets">wallets</h4>
+<h3 id="wallets">wallets</h3>
 <p>The global <code>wallets</code> array is available for the developer to use. <code>wallets</code> has 10 items, all representing the 10 forgae wallets created on the forgae node start. Every item has the structure of:</p>
 <pre><code>{
-    &quot;publicKey&quot;: &quot;ak_fUq2NesPXcYZe...&quot;,
-    &quot;secretKey&quot;: &quot;7c6e602a94f30e4e...&quot;
+  &quot;publicKey&quot;: &quot;ak_fUq2NesPXcYZe...&quot;,
+  &quot;secretKey&quot;: &quot;7c6e602a94f30e4e...&quot;
 }
 </code></pre>
 
 <p>This structure makes it very convenient for the creation of SDK client instances:</p>
 <pre><code>// Create client objects
 owner = await Ae({
-    url: config.host,
-    internalUrl: config.internalHost,
-    keypair: wallets[0],
-    nativeMode: true,
-    networkId: 'ae_devnet'
+  url: config.host,
+  internalUrl: config.internalHost,
+  keypair: wallets[0],
+  nativeMode: true,
+  networkId: 'ae_uat',
+  compilerUrl: 'http://localhost:3080',
 });
 
 nonOwner = await Ae({
-    url: config.host,
-    internalUrl: config.internalHost,
-    keypair: wallets[1],
-    nativeMode: true,
-    networkId: 'ae_devnet'
+  url: config.host,
+  internalUrl: config.internalHost,
+  keypair: wallets[1],
+  nativeMode: true,
+  networkId: 'ae_uat',
+  compilerUrl: 'http://localhost:3080',
 });
 </code></pre>
 
-<h4 id="minerwallet">minerWallet</h4>
+<h3 id="minerwallet">minerWallet</h3>
 <p>Similarly to <code>wallets</code> there is a global variable <code>minerWallet</code> representing the wallet of the node miner following the same structure. Let's look at an example:</p>
 <pre><code>// Create client objects
 miner = await Ae({
-    url: config.host,
-    internalUrl: config.internalHost,
-    keypair: minerWallet,
-    nativeMode: true,
-    networkId: 'ae_devnet'
+  url: config.host,
+  internalUrl: config.internalHost,
+  keypair: minerWallet,
+  nativeMode: true,
+  networkId: 'ae_uat',
+  compilerUrl: 'http://localhost:3080',
 });
 </code></pre>
 
-<h4 id="utils">utils</h4>
+<h3 id="utils">utils</h3>
 <p><code>utils</code> is a package exposing helper functions, mainly for working with files. The most widely used one is <code>readFileRelative(relativePath, fileEncoding)</code>. Here is how we can use it:</p>
 <pre><code>const contractSource = utils.readFileRelative(config.contractSourceFile, &quot;utf-8&quot;);
 const compiledContract = await client.contractCompile(contractSource, {
-    gas: config.gas
+  gas: config.gas
 })
 </code></pre>
 
+<h3 id="note">Note</h3>
+<p>Let replace our <code>ExampleContract.aes</code> with the below contract code before running command 3 and 4</p>
+<pre><code>contract ExampleContract =
+
+  record state = { saved_string : string }
+
+  entrypoint init() = { saved_string = &quot;aeternity&quot; }
+
+  public entrypoint get_string() : string =
+    state.saved_string
+
+  public stateful entrypoint register_string(word : string) =
+    put(state { saved_string = word})
+</code></pre>
+
+<p>and then our deploy.js code with the code snippet below</p>
+<pre><code>const Deployer = require('forgae-lib').Deployer;
+
+const deploy = async (network, privateKey, compiler) =&gt; {
+    let deployer = new Deployer(network, privateKey, compiler)
+
+    let contract = await deployer.deploy(&quot;./contracts/ExampleContract.aes&quot;)
+
+    // Getting savedString value in our ExampleContract
+    let get_string = await contract.decode('get_string')
+    console.log(get_string.value)
+
+    // Writing new value ('hello world') to our saved_string
+    await contract.call('register_string', 'hello world')
+
+    // Getting new saved_string value in our ExampleContract
+    let get_string2 = await contract.decode('get_string')
+    console.log(get_string2.value)
+};
+
+module.exports = {
+    deploy
+};
+</code></pre>
+
+<h2 id="check-if-you-are-on-track">Check if you are on track</h2>
+<ul>
+<li>Command 1 Output</li>
+</ul>
+<pre><code>===== Initializing ForgAE =====
+===== Installing aepp-sdk =====
+===== Installing ForgAE locally =====
+===== Installing yarn locally =====
+===== Creating project file &amp; dir structure =====
+===== Creating contracts directory =====
+===== Creating tests directory =====
+===== Creating integrations directory =====
+===== Creating deploy directory =====
+===== Creating docker directory =====
+===== ForgAE was successfully initialized! =====
+</code></pre>
+
+<ul>
+<li>Command 2 Output</li>
+</ul>
+<pre><code>===== Starting node =====
+.....Starting forgae-init-testing_node3_1 ...
+
+Creating forgae-init-testing_proxy_1 ...
+
+Starting forgae-init-testing_node3_1 ... done
+
+Creating forgae-init-testing_node1_1 ...
+Creating forgae-init-testing_proxy_1 ... done
+........
+...
+Creating forgae-init-testing_node1_1 ... done
+
+........................................................
+===== Node was successfully started! =====
+===== Funding default wallets! =====
+</code></pre>
+
+<ul>
+<li>Command 3 Output</li>
+</ul>
+<pre><code>Contract '~\forgae-unit-testing\contracts\ExampleContract.aes has been successfully compiled'     
+Contract bytecode: cb_+QP1RgKgP9ddDnECNFDZtun/Kvi5cOcQRqSHHZPubbCyqVqphpD5Avv5ASqgaPJnYzj/UIg5q6R3Se/6i+h+8oTyB/s9mZhwHNU4h8WEbWFpbrjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKD//////////////////////////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+QHLoLnJVvKLMUmp9Zh6pQXz2hsiCcxXOSNABiu2wb2fn5nqhGluaXS4YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//////////////////////////////////////////7kBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA//////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///////////////////////////////////////////uMxiAABkYgAAhJGAgIBRf7nJVvKLMUmp9Zh6pQXz2hsiCcxXOSNABiu2wb2fn5nqFGIAAMBXUIBRf2jyZ2M4/1CIOaukd0nv+ovofvKE8gf7PZmYcBzVOIfFFGIAAK9XUGABGVEAW2AAGVlgIAGQgVJgIJADYAOBUpBZYABRWVJgAFJgAPNbYACAUmAA81tZWWAgAZCBUmAgkANgABlZYCABkIFSYCCQA2ADgVKBUpBWW2AgAVFRWVCAkVBQgJBQkFZbUFCCkVBQYgAAjFaFMi4xLjA5775X
+</code></pre>
+
+<ul>
+<li>Command 4 Output</li>
+</ul>
+<pre><code>===== Starting Tests =====
+
+
+  Example Contract
+===== Contract: ExampleContract.aes has been deployed =====
+    ✓ Deploying Example Contract (5242ms)
+
+
+  1 passing (5s)
+
+There is no sophia test to execute.
+[]
+</code></pre>
+
 <h2 id="conclusion">Conclusion</h2>
-<p>It’s very important to test your smart contract before deploying it on the main network in order to prevent (sometimes catastrophic) issues in the future. When you have written unit tests, they will give you confidence that there won’t be any discrepancies between your expectations and the actual smart contract execution.</p>
-<p>Look forward to our next tutorial showing how to create unit tests for a Sophia contract.</p>
+<p>It’s very important to test your smart contract before deploying it on the main network in order to prevent (sometimes catastrophic) issues in the future. When you have written unit tests, they will give you confidence that there won’t be any discrepancies between your expectations and the actual smart contract execution. Look forward to our next tutorial showing how to create unit tests for a Sophia contract.</p>
 <p>The æternity team will keep this tutorial updated. If you encounter any problems please contract us through the <a href="https://forum.aeternity.com/c/development">æternity dev Forum category</a>.</p>
                 
                   

@@ -153,15 +153,22 @@ decl({type_decl, _, T, Vars}) -> typedecl(alias_t, T, Vars);
 decl({type_def, _, T, Vars, Def}) ->
     Kind = element(1, Def),
     equals(typedecl(Kind, T, Vars), typedef(Def));
-decl({fun_decl, _, F, T}) ->
-    hsep(text("function"), typed(name(F), T));
+decl({fun_decl, Ann, F, T}) ->
+    Fun = case aeso_syntax:get_ann(entrypoint, Ann, false) of
+            true  -> text("entrypoint");
+            false -> text("function")
+          end,
+    hsep(Fun, typed(name(F), T));
 decl(D = {letfun, Attrs, _, _, _, _}) ->
-    Mod = fun({Mod, true}) when Mod == private; Mod == internal; Mod == public; Mod == stateful ->
+    Mod = fun({Mod, true}) when Mod == private; Mod == stateful ->
                             text(atom_to_list(Mod));
              (_) -> empty() end,
-    hsep(lists:map(Mod, Attrs) ++ [letdecl("function", D)]);
-decl(D = {letval, _, _, _, _})    -> letdecl("let", D);
-decl(D = {letrec, _, _})          -> letdecl("let", D).
+    Fun = case aeso_syntax:get_ann(entrypoint, Attrs, false) of
+              true  -> "entrypoint";
+              false -> "function"
+          end,
+    hsep(lists:map(Mod, Attrs) ++ [letdecl(Fun, D)]);
+decl(D = {letval, _, _, _, _}) -> letdecl("let", D).
 
 -spec expr(aeso_syntax:expr(), options()) -> doc().
 expr(E, Options) ->
@@ -184,9 +191,7 @@ name({typed, _, Name, _}) -> name(Name).
 letdecl(Let, {letval, _, F, T, E}) ->
     block_expr(0, hsep([text(Let), typed(name(F), T), text("=")]), E);
 letdecl(Let, {letfun, _, F, Args, T, E}) ->
-    block_expr(0, hsep([text(Let), typed(beside(name(F), args(Args)), T), text("=")]), E);
-letdecl(Let, {letrec, _, [D | Ds]}) ->
-    hsep(text(Let), above([ letdecl("rec", D) | [ letdecl("and", D1) || D1 <- Ds ] ])).
+    block_expr(0, hsep([text(Let), typed(beside(name(F), args(Args)), T), text("=")]), E).
 
 -spec args([aeso_syntax:arg()]) -> doc().
 args(Args) ->
@@ -217,7 +222,7 @@ typedef({variant_t, Constructors}) ->
 
 -spec constructor_t(aeso_syntax:constructor_t()) -> doc().
 constructor_t({constr_t, _, C, []}) -> name(C);
-constructor_t({constr_t, _, C, Args}) -> beside(name(C), tuple_type(Args)).
+constructor_t({constr_t, _, C, Args}) -> beside(name(C), args_type(Args)).
 
 -spec field_t(aeso_syntax:field_t()) -> doc().
 field_t({field_t, _, Name, Type}) ->
@@ -229,13 +234,18 @@ type(Type, Options) ->
 
 -spec type(aeso_syntax:type()) -> doc().
 type({fun_t, _, Named, Args, Ret}) ->
+    follow(hsep(args_type(Named ++ Args), text("=>")), type(Ret));
+type({type_sig, _, Named, Args, Ret}) ->
     follow(hsep(tuple_type(Named ++ Args), text("=>")), type(Ret));
 type({app_t, _, Type, []}) ->
     type(Type);
 type({app_t, _, Type, Args}) ->
-    beside(type(Type), tuple_type(Args));
+    beside(type(Type), args_type(Args));
 type({tuple_t, _, Args}) ->
     tuple_type(Args);
+type({args_t, _, Args}) ->
+    args_type(Args);
+type({bytes_t, _, any}) -> text("bytes(_)");
 type({bytes_t, _, Len}) ->
     text(lists:concat(["bytes(", Len, ")"]));
 type({named_arg_t, _, Name, Type, _Default}) ->
@@ -250,9 +260,19 @@ type(T = {con, _, _})  -> name(T);
 type(T = {qcon, _, _}) -> name(T);
 type(T = {tvar, _, _}) -> name(T).
 
--spec tuple_type([aeso_syntax:type()]) -> doc().
-tuple_type(Args) ->
+-spec args_type([aeso_syntax:type()]) -> doc().
+args_type(Args) ->
     tuple(lists:map(fun type/1, Args)).
+
+-spec tuple_type([aeso_syntax:type()]) -> doc().
+tuple_type([]) ->
+    text("unit");
+tuple_type(Factors) ->
+    beside(
+      [ text("(")
+      , par(punctuate(text(" *"), lists:map(fun type/1, Factors)), 0)
+      , text(")")
+      ]).
 
 -spec arg_expr(aeso_syntax:arg_expr()) -> doc().
 arg_expr({named_arg, _, Name, E}) ->
@@ -332,6 +352,7 @@ expr_p(_, {Type, _, Bin})
          Type == oracle_pubkey;
          Type == oracle_query_id ->
     text(binary_to_list(aeser_api_encoder:encode(Type, Bin)));
+expr_p(_, {string, _, <<>>}) -> text("\"\"");
 expr_p(_, {string, _, S}) -> term(binary_to_list(S));
 expr_p(_, {char, _, C}) ->
     case C of
@@ -364,6 +385,7 @@ stmt_p({else, Else}) ->
 -spec bin_prec(aeso_syntax:bin_op()) -> {integer(), integer(), integer()}.
 bin_prec('..')   -> {  0,   0,   0};  %% Always printed inside '[ ]'
 bin_prec('=')    -> {  0,   0,   0};  %% Always printed inside '[ ]'
+bin_prec('@')    -> {  0,   0,   0};  %% Only in error messages
 bin_prec('||')   -> {200, 300, 200};
 bin_prec('&&')   -> {300, 400, 300};
 bin_prec('<')    -> {400, 500, 500};
@@ -435,7 +457,6 @@ statements(Stmts) ->
 
 statement(S = {letval, _, _, _, _})    -> letdecl("let", S);
 statement(S = {letfun, _, _, _, _, _}) -> letdecl("let", S);
-statement(S = {letrec, _, _})          -> letdecl("let", S);
 statement(E) -> expr(E).
 
 get_elifs(Expr) -> get_elifs(Expr, []).

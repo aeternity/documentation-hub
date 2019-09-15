@@ -6,7 +6,7 @@
 %%%-------------------------------------------------------------------
 -module(aeso_syntax_utils).
 
--export([used_ids/1, used_types/1, used/1]).
+-export([used_ids/1, used_types/2, used/1]).
 
 -record(alg, {zero, plus, scoped}).
 
@@ -39,11 +39,6 @@ fold(Alg = #alg{zero = Zero, plus = Plus, scoped = Scoped}, Fun, K, X) ->
     BindExpr = fun(P) -> fold(Alg, Fun, bind_expr, P) end,
     BindType = fun(T) -> fold(Alg, Fun, bind_type, T) end,
     Top = Fun(K, X),
-    Bound = fun LB ({letval, _, Y, _, _})    -> BindExpr(Y);
-                LB ({letfun, _, F, _, _, _}) -> BindExpr(F);
-                LB ({letrec, _, Ds})         -> Sum(lists:map(LB, Ds));
-                LB (_)                       -> Zero
-            end,
     Rec = case X of
             %% lists (bound things in head scope over tail)
             [A | As]                 -> Scoped(Same(A), Same(As));
@@ -54,8 +49,7 @@ fold(Alg = #alg{zero = Zero, plus = Plus, scoped = Scoped}, Fun, K, X) ->
             {type_def, _, I, _, D}   -> Plus(BindType(I), Decl(D));
             {fun_decl, _, _, T}      -> Type(T);
             {letval, _, F, T, E}     -> Sum([BindExpr(F), Type(T), Expr(E)]);
-            {letfun, _, F, Xs, T, E} -> Sum([BindExpr(F), Type(T), Scoped(BindExpr(Xs), Expr(E))]);
-            {letrec, _, Ds}          -> Plus(Bound(Ds), Decl(Ds));
+            {letfun, _, F, Xs, T, E} -> Sum([BindExpr(F), Type(T), Expr(Xs ++ [E])]);
             %% typedef()
             {alias_t, T}    -> Type(T);
             {record_t, Fs}  -> Type(Fs);
@@ -77,6 +71,15 @@ fold(Alg = #alg{zero = Zero, plus = Plus, scoped = Scoped}, Fun, K, X) ->
             {proj, _, E, _}        -> Expr(E);
             {tuple, _, As}         -> Expr(As);
             {list, _, As}          -> Expr(As);
+            {list_comp, _, Y, []}  -> Expr(Y);
+            {list_comp, A, Y, [{comprehension_bind, I, E}|R]} ->
+                Plus(Expr(E), Scoped(BindExpr(I), Expr({list_comp, A, Y, R})));
+            {list_comp, A, Y, [{comprehension_if, _, E}|R]} ->
+                Plus(Expr(E), Expr({list_comp, A, Y, R}));
+            {list_comp, A, Y, [D = {letval, _, F, _, _} | R]} ->
+                Plus(Decl(D), Scoped(BindExpr(F), Expr({list_comp, A, Y, R})));
+            {list_comp, A, Y, [D = {letfun, _, F, _, _, _} | R]} ->
+                Plus(Decl(D), Scoped(BindExpr(F), Expr({list_comp, A, Y, R})));
             {typed, _, E, T}       -> Plus(Expr(E), Type(T));
             {record, _, Fs}        -> Expr(Fs);
             {record, _, E, Fs}     -> Expr([E | Fs]);
@@ -89,7 +92,7 @@ fold(Alg = #alg{zero = Zero, plus = Plus, scoped = Scoped}, Fun, K, X) ->
             {field, _, LV, E}    -> Expr([LV, E]);
             {field, _, LV, _, E} -> Expr([LV, E]);
             %% arg()
-            {arg, _, X, T} -> Plus(Expr(X), Type(T));
+            {arg, _, Y, T} -> Plus(BindExpr(Y), Type(T));
             %% alt()
             {'case', _, P, E} -> Scoped(BindExpr(P), Expr(E));
             %% elim()
@@ -104,29 +107,35 @@ fold(Alg = #alg{zero = Zero, plus = Plus, scoped = Scoped}, Fun, K, X) ->
 %% Name dependencies
 
 used_ids(E) ->
-    [ X || {term, [X]} <- used(E) ].
+    [ X || {{term, [X]}, _} <- used(E) ].
 
-used_types(T) ->
-    [ X || {type, [X]} <- used(T) ].
+used_types([Top] = _CurrentNS, T) ->
+    F = fun({{type, [X]}, _}) -> [X];
+           ({{type, [Top1, X]}, _}) when Top1 == Top -> [X];
+           (_) -> []
+        end,
+    lists:flatmap(F, used(T)).
 
 -type entity() :: {term, [string()]}
                 | {type, [string()]}
                 | {namespace, [string()]}.
 
--spec entity_alg() -> alg([entity()]).
+-spec entity_alg() -> alg(#{entity() => aeso_syntax:ann()}).
 entity_alg() ->
     IsBound = fun({K, _}) -> lists:member(K, [bound_term, bound_type]) end,
     Unbind  = fun(bound_term) -> term; (bound_type) -> type end,
+    Remove  = fun(Keys, Map) -> maps:without(Keys, Map) end,
     Scoped = fun(Xs, Ys) ->
-                {Bound, Others} = lists:partition(IsBound, Ys),
+                Bound  = [E || E <- maps:keys(Xs), IsBound(E)],
                 Bound1 = [ {Unbind(Tag), X} || {Tag, X} <- Bound ],
-                lists:umerge(Xs -- Bound1, Others)
+                Others = Remove(Bound1, Ys),
+                maps:merge(Remove(Bound, Xs), Others)
             end,
-    #alg{ zero   = []
-        , plus   = fun lists:umerge/2
+    #alg{ zero   = #{}
+        , plus   = fun maps:merge/2
         , scoped = Scoped }.
 
--spec used(_) -> [entity()].
+-spec used(_) -> [{entity(), aeso_syntax:ann()}].
 used(D) ->
     Kind = fun(expr)      -> term;
               (bind_expr) -> bound_term;
@@ -134,14 +143,14 @@ used(D) ->
               (bind_type) -> bound_type
            end,
     NS = fun(Xs) -> {namespace, lists:droplast(Xs)} end,
-    NotBound = fun({Tag, _}) -> not lists:member(Tag, [bound_term, bound_type]) end,
+    NotBound = fun({{Tag, _}, _}) -> not lists:member(Tag, [bound_term, bound_type]) end,
     Xs =
-        fold(entity_alg(),
-            fun(K, {id,   _, X})  -> [{Kind(K), [X]}];
-               (K, {qid,  _, Xs}) -> [{Kind(K), Xs}, NS(Xs)];
-               (K, {con,  _, X})  -> [{Kind(K), [X]}];
-               (K, {qcon, _, Xs}) -> [{Kind(K), Xs}, NS(Xs)];
-               (_, _)             -> []
-            end, decl, D),
+        maps:to_list(fold(entity_alg(),
+            fun(K, {id,   Ann, X})  -> #{{Kind(K), [X]} => Ann};
+               (K, {qid,  Ann, Xs}) -> #{{Kind(K), Xs}  => Ann, NS(Xs) => Ann};
+               (K, {con,  Ann, X})  -> #{{Kind(K), [X]} => Ann};
+               (K, {qcon, Ann, Xs}) -> #{{Kind(K), Xs}  => Ann, NS(Xs) => Ann};
+               (_, _)             -> #{}
+            end, decl, D)),
     lists:filter(NotBound, Xs).
 

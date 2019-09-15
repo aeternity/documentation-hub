@@ -27,7 +27,7 @@ convert(#{ contract_name := _ContractName
               },
         _Options) ->
     %% Create a function dispatcher
-    DispatchFun = {"_main", [], [{"arg", "_"}],
+    DispatchFun = {"%main", [], [{"arg", "_"}],
                    {switch, {var_ref, "arg"},
                     [{{tuple, [fun_hash(Fun),
                                {tuple, make_args(Args)}]},
@@ -44,7 +44,7 @@ convert(#{ contract_name := _ContractName
     %% taken from the stack
     StopLabel = make_ref(),
     StatefulStopLabel = make_ref(),
-    MainFunction = lookup_fun(Funs, "_main"),
+    MainFunction = lookup_fun(Funs, "%main"),
 
     StateTypeValue = aeso_ast_to_icode:type_value(StateType),
 
@@ -105,7 +105,7 @@ make_args(Args) ->
 
 fun_hash({FName, _, Args, _, TypeRep}) ->
     ArgType = {tuple, [T || {_, T} <- Args]},
-    <<Hash:256>> = aeb_abi:function_type_hash(list_to_binary(lists:last(FName)), ArgType, TypeRep),
+    <<Hash:256>> = aeb_aevm_abi:function_type_hash(list_to_binary(lists:last(FName)), ArgType, TypeRep),
     {integer, Hash}.
 
 %% Expects two return addresses below N elements on the stack. Picks the top
@@ -343,6 +343,8 @@ assemble_expr(Funs, Stack, _Tail, #prim_put{ state = State }) ->
 %% Environment primitives
 assemble_expr(_Funs, _Stack, _Tail, prim_contract_address) ->
     [i(?ADDRESS)];
+assemble_expr(_Funs, _Stack, _Tail, prim_contract_creator) ->
+    [i(?CREATOR)];
 assemble_expr(_Funs, _Stack, _Tail, prim_call_origin) ->
     [i(?ORIGIN)];
 assemble_expr(_Funs, _Stack, _Tail, prim_caller) ->
