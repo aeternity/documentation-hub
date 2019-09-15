@@ -3,16 +3,16 @@ nav:
     - Introduction: 'index.md'
     - Quick Glossary: 'quick_glossary.md'
     - Node:
-        - Introduction: 'æternity/README.md'
+        - Introduction: 'aeternity/README.md'
         - Get Started:
-            - Build in Windows: 'æternity/docs/build-windows.md'
-            - Build in Ubuntu: 'æternity/docs/build.md'
-            - Configuration: 'æternity/docs/configuration.md'
-            - CUDA Miner: 'æternity/docs/cuda-miner.md'
-            - Docker: 'æternity/docs/docker.md'
-            - Installation in Windows: 'æternity/docs/installation-windows.md'
-            - Installation in Ubuntu: 'æternity/docs/installation.md'
-            - Operation: 'æternity/docs/operation.md'
+            - Build in Windows: 'aeternity/docs/build-windows.md'
+            - Build in Ubuntu: 'aeternity/docs/build.md'
+            - Configuration: 'aeternity/docs/configuration.md'
+            - CUDA Miner: 'aeternity/docs/cuda-miner.md'
+            - Docker: 'aeternity/docs/docker.md'
+            - Installation in Windows: 'aeternity/docs/installation-windows.md'
+            - Installation in Ubuntu: 'aeternity/docs/installation.md'
+            - Operation: 'aeternity/docs/operation.md'
     - Protocol:
         - Oracles:
             - Life Cycle: 'protocol/oracles/oracle_life_cycle.md'

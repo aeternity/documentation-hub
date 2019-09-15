@@ -1,0 +1,89 @@
+%% -*- mode: erlang; erlang-indent-level: 4; indent-tabs-mode: nil -*-
+{application, aecore,
+ [{description, "Blockchain for aeapps"},
+  {vsn, {cmd, "cat ../../VERSION"}},
+  {registered, []},
+  {mod, { aecore_app, []}},
+  {start_phases, [
+                  {create_metrics_probes, []},
+                  {start_reporters, []}
+                 ]},
+  {applications,
+   [kernel,
+    stdlib,
+    crypto,
+    sext,
+    parse_trans,
+    eper,
+    syntax_tools,
+    compiler,
+    goldrush,
+    gproc,
+    jobs,
+    exometer_core,
+    yamerl,
+    lager,
+    aeutils,
+    base58,
+    sha3,
+    enacl,
+    enoise,
+    jsx,
+    unicode_util_compat, %% to be removed, not needed in OTP 20
+    idna,
+    inets,
+    nat,
+    aeminer,
+    aetx,
+    aevm,
+    aeprimop,
+    aeoracle,
+    aechannel,
+    aecontract,
+    aebytecode,
+    aens,
+    aega,
+    aefate,
+    aeserialization,
+    ranch
+  ]},
+  {env, [
+         {exometer_predefined,
+          {script, "$PRIV_DIR/exometer_predefined.script"}},
+         {exometer_subscribers,
+          [
+           {select,
+            {[
+              {{[ae,epoch|'_'],counter,enabled},[],['$_']},
+              {{[ae,epoch|'_'],gauge,enabled},[],['$_']}
+             ],
+             aec_metrics_main, [value], default, true}},
+           {select,
+            {[
+              {{[ae,epoch|'_'],'$1',enabled},[{'=/=','$1',counter},
+                                              {'=/=','$1',gauge}], ['$_']}
+             ],
+             aec_metrics_main, default, default, true}}
+          ]},
+         {metrics_probes,
+          [{[ae,epoch,aecore,chain], aec_chain_metrics_probe},
+           {[ae,epoch,aecore,tx_pool], aec_tx_pool_metrics_probe},
+           {[ae,epoch,aecore,eper] , aec_eper_metrics_probe}]},
+         {'$setup_hooks',
+          [
+           {normal, [
+                     {110, {aecore_app, check_env, []}},
+                     {110, {aec_dev_reward, ensure_env, []}},
+                     {110, {aehttp_app, check_env, []}},
+                     {110, {aec_hard_forks, check_env, []}},
+                     {110, {aec_mining, check_env, []}},
+                     {200, {aec_db, check_db, []}}
+                    ]}
+          ]}
+        ]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
