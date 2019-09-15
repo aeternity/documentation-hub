@@ -1,0 +1,13 @@
+// Tests of builtin bit fields
+contract BitsTest =
+
+  entrypoint none()                           : bits = Bits.none
+  entrypoint all()                            : bits = Bits.all
+  entrypoint set(b : bits, i : int)           : bits = Bits.set(b, i)
+  entrypoint clear(b : bits, i : int)         : bits = Bits.clear(b, i)
+  entrypoint test(b : bits, i : int)          : bool = Bits.test(b, i)
+  entrypoint sum(b : bits)                    : int  = Bits.sum(b)
+  entrypoint union(a : bits, b : bits)        : bits = Bits.union(a, b)
+  entrypoint intersection(a : bits, b : bits) : bits = Bits.intersection(a, b)
+  entrypoint difference(a : bits, b : bits)   : bits = Bits.difference(a, b)
+

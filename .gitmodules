@@ -1,6 +1,3 @@
-[submodule "æternity"]
-	path = æternity
-	url = git@github.com:aeternity/aeternity.git
 [submodule "protocol"]
 	path = protocol
 	url = git@github.com:aeternity/protocol.git
@@ -61,3 +58,6 @@
 [submodule "aepp-sophia-examples"]
 	path = aepp-sophia-examples
 	url = git@github.com:aeternity/aepp-sophia-examples.git
+[submodule "aeternity"]
+	path = aeternity
+	url = git@github.com:aeternity/aeternity.git

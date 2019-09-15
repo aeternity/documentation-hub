@@ -1,0 +1,31 @@
+// A simple test of the abort built-in function.
+
+contract AbortTest =
+
+  record state = { value : int }
+
+  entrypoint init(v : int) =
+    { value = v }
+
+  // Aborting
+  stateful entrypoint do_abort(v : int, s : string) : () =
+    put_value(v)
+    revert_abort(s)
+
+  // Accessing the value
+  entrypoint get_value() = state.value
+  stateful entrypoint put_value(v : int) = put(state{value = v})
+  entrypoint get_values() : list(int) = [state.value]
+  stateful entrypoint put_values(v : int) = put(state{value = v})
+
+  // Some basic statistics
+  entrypoint get_stats(acct : address) =
+    ( Contract.balance, Chain.balance(acct) )
+
+  // Abort functions.
+  function revert_abort(s : string) =
+    abort(s)
+
+  // This is still legal but will be stripped out.
+  // TODO: This function confuses the type inference, so it cannot be present.
+  //private function abort(s : string) = 42

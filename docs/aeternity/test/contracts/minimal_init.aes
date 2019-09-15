@@ -1,0 +1,6 @@
+contract MinimalInit =
+
+  record state = {foo : int}
+
+  entrypoint init() =
+    { foo = 0 }

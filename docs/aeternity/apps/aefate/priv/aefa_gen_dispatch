@@ -1,0 +1,95 @@
+#!/usr/bin/env escript
+%% -*- erlang-indent-level: 4; indent-tabs-mode: nil -*-
+%%
+%% Helper to generate code for eval dispatch.
+%% Could be extended with fetching and writing arguments
+%% and checking types in the future.
+%%
+-mode(compile).
+
+main(Args) ->
+    {ShowHelp, OutFile} = process_args(Args),
+    maybe_show_help(ShowHelp),
+    do_main(OutFile).
+
+usage() ->
+    io:format("Usage: aefa_gen_dispatch [--help | OUT_FILE]~n", []).
+
+process_args(["--help" | _]) ->
+    {true, nil};
+process_args([OutFile]) ->
+    {false, OutFile};
+process_args(_) ->
+    {true, nil}.
+
+maybe_show_help(true) ->
+    usage(),
+    halt(0);
+maybe_show_help(false) ->
+    ok.
+
+do_main(Filename) ->
+    {ok, File} = file:open(Filename, [write]),
+    Ops = aeb_fate_generate_ops:get_ops(),
+    Instructions = lists:flatten([gen_eval(Op)++"\n" || Op <- Ops]),
+    io:format(File,
+	      "%%\n%% This file is generated. Any modifications will be overwritten.\n%%\n"
+	      "-module(aefa_fate_eval).\n\n"
+	      "-export([eval/2]).\n\n"
+              "~s"
+              "eval(Op, _EngineState) ->\n"
+              "    throw({error, unknown_op, Op}).\n"
+             , [Instructions]),
+    io:format(File, "\n", []),
+    file:close(File).
+
+gen_eval(#{ constructor := Constructor, gas := Gas } = Op) ->
+    Cmd = io_lib:format("aefa_fate_op:~w(~saefa_engine_state:spend_gas(~w, EngineState))",
+                        [Constructor, gen_cargs(Op), Gas]),
+    Body = [gen_allowed_offchain(Op),
+            gen_in_auth(Op, gen_next_cmd(Op, Cmd))
+           ],
+    io_lib:format("eval(~s, EngineState) ->\n~s;\n",
+                  [gen_op_w_args(Op), Body]).
+
+gen_next_cmd(#{ end_bb := true },  Cmd) -> Cmd;
+gen_next_cmd(#{ end_bb := false }, Cmd) -> io_lib:format("{next, ~s}", [Cmd]).
+
+gen_in_auth(#{ in_auth := false, opname := Name }, Cmd) ->
+    io_lib:format(
+      "    case aefa_engine_state:in_auth_context(EngineState) of\n"
+      "        false -> ~s;\n"
+      "        true  -> aefa_fate:abort({not_allowed_in_auth_context, ~w}, EngineState)\n"
+      "    end", [Cmd, Name]);
+gen_in_auth(_Op, Cmd) ->
+    ["    ", Cmd].
+
+gen_allowed_offchain(#{ offchain := false, opname := Name }) ->
+    io_lib:format(
+      "    case aefa_engine_state:is_onchain(EngineState) of\n"
+      "        true  -> ok;\n"
+      "        false -> aefa_fate:abort({not_allowed_offchain, ~w}, EngineState)\n"
+      "    end,\n", [Name]);
+gen_allowed_offchain(#{ offchain := true}) ->
+    "".
+
+gen_op_w_args(#{ opname := Name, format := [] }) ->
+    io_lib:format("~w", [Name]);
+gen_op_w_args(#{ opname := Name, format := Fmt }) ->
+    io_lib:format("{~w~s}", [Name, gen_arg_matches(Fmt, 0)]).
+
+gen_cargs(#{ arity := Arity }) ->
+    [ io_lib:format("Arg~w, ", [N]) || N <- lists:seq(0, Arity-1) ].
+
+gen_arg_matches([], _) ->
+    "";
+gen_arg_matches([ a | Rest], N) ->
+    io_lib:format(", Arg~w", [N]) ++ gen_arg_matches(Rest, N+1);
+gen_arg_matches([is | Rest], N) ->
+    io_lib:format(", {immediate, Arg~w}", [N]) ++ gen_arg_matches(Rest, N+1);
+gen_arg_matches([li | Rest], N) ->
+    io_lib:format(", {immediate, Arg~w}", [N]) ++ gen_arg_matches(Rest, N+1);
+gen_arg_matches([ii | Rest], N) ->
+    io_lib:format(", {immediate, Arg~w}", [N]) ++ gen_arg_matches(Rest, N+1).
+
+

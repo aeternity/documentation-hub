@@ -1457,8 +1457,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../examples/SmartDataProvider/" title="Smart Data Provider" class="md-nav__link">
-      Smart Data Provider
+    <a href="../../examples/SmartShop/" title="SmartShop" class="md-nav__link">
+      SmartShop
     </a>
   </li>
 
@@ -1469,8 +1469,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../../examples/SmartRealEstate/" title="Smart Real Estate" class="md-nav__link">
-      Smart Real Estate
+    <a href="../../examples/CryptoHamster/" title="Crypto Hamster" class="md-nav__link">
+      Crypto Hamster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../examples/SmartRealEstate/" title="SmartRealEstate" class="md-nav__link">
+      SmartRealEstate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../examples/SmartDataProvider/" title="Data Provider" class="md-nav__link">
+      Data Provider
     </a>
   </li>
 
@@ -1493,8 +1517,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../examples/TicTacToe/" title="Tic Tac Toe" class="md-nav__link">
-      Tic Tac Toe
+    <a href="../../examples/TicTacToe/" title="TicTacToe" class="md-nav__link">
+      TicTacToe
     </a>
   </li>
 
@@ -2227,16 +2251,16 @@ The token owner can act upon this token in various ways. They can set it's metad
 <ul>
 <li><code>name()</code> - name of the token contract</li>
 <li><code>symbol()</code> - symbol of the token contract</li>
-<li><code>balanceOf(tokenOwner : address)</code> - returns how many tokens are owned by the inputted address</li>
-<li><code>ownerOf(tokenId : token_id)</code> - Returns the address of the owner of token with the supplied id</li>
-<li><code>getApproved(tokenId : token_id)</code> - Returns the address of an user that has been given the rights to transfer the token with this token_id on the behalf of the token owner</li>
-<li><code>isApprovedForAll(_owner: address, operator : address)</code> - Returns true of the certain _owner user has approved certain operator address to transact on its behalf with any token.</li>
-<li><code>getTokenURI(tokenId : token_id)</code> - Returns the metadata for a token identified by this tokenId</li>
-<li><code>mint(tokenId : token_id, to : address)</code> - Creates a new token unit with the given ID and assigns its owner to be the address identified by the <code>to</code> parameter. Callable only by the contract owner.</li>
-<li><code>burn(tokenId : token_id)</code> - Destroys this token. Callable only by the token owner.</li>
-<li><code>approve(tokenId : int, to : address)</code> - Allows a certain address <code>to</code> to represent you for your token identified by <code>tokenId</code>. Callable by the tokenOwner only</li>
-<li><code>transferFrom(from : address, to : address, tokenId : token_id)</code> - Allows for an approved representor (trough the use of <code>approve</code>) to transfer a token identified by tokenId from its owner to an address identified by `to</li>
-<li><code>setApprovalForAll(to : address, approved : bool)</code> - Allows an address identified by <code>to</code> to transact with all your tokens</li>
+<li><code>balance_of(token_owner : address)</code> - returns how many tokens are owned by the inputted address</li>
+<li><code>owner_of(token_id' : token_id)</code> - Returns the address of the owner of token with the supplied id</li>
+<li><code>get_approved(token_id' : token_id)</code> - Returns the address of an user that has been given the rights to transfer the token with this token_id on the behalf of the token owner</li>
+<li><code>is_approved_for_all(owner: address, operator : address)</code> - Returns true of the certain _owner user has approved certain operator address to transact on its behalf with any token.</li>
+<li><code>get_token_uri(token_id' : token_id)</code> - Returns the metadata for a token identified by this tokenId</li>
+<li><code>mint(token_id' : token_id, to : address)</code> - Creates a new token unit with the given ID and assigns its owner to be the address identified by the <code>to</code> parameter. Callable only by the contract owner.</li>
+<li><code>burn(token_id' : token_id)</code> - Destroys this token. Callable only by the token owner.</li>
+<li><code>approve(token_id' : int, to : address)</code> - Allows a certain address <code>to</code> to represent you for your token identified by <code>token_id'</code>. Callable by the tokenOwner only</li>
+<li><code>transfer_from(from : address, to : address, token_id' : token_id)</code> - Allows for an approved representor (trough the use of <code>approve</code>) to transfer a token identified by token_id' from its owner to an address identified by `to</li>
+<li><code>set_approval_for_all(to : address, approved : bool)</code> - Allows an address identified by <code>to</code> to transact with all your tokens</li>
 </ul>
                 
                   

@@ -1,0 +1,53 @@
+contract Remote =
+  function id : ('a) => 'a
+  function missing : ('a) => 'a
+  function bogus_string_string_arg : (string) => string
+  function bogus_string_string_ret : (string) => string
+  function bogus_id : ('a) => ('a)
+
+contract Main =
+
+  type state = int
+
+  function init() = 0
+
+  function next_state() = state + 1
+
+  function id(x : int) =
+    x
+
+  function bogus_id(x) =
+    (x, x)
+
+  function bogus_string_string_arg(x : int) =
+    "hello"
+
+  function bogus_string_string_ret(x : string) =
+    42
+
+  function remote_id(r : Remote, x) =
+    r.id(x)
+
+  function remote_missing(r : Remote, x) =
+    r.missing(x)
+
+  function remote_wrong_arg(r : Remote, x) =
+    r.bogus_string_string_arg(x)
+
+  function remote_wrong_ret(r : Remote, x) =
+    (r.bogus_string_string_ret(x), r.bogus_string_string_ret(x))
+
+  function remote_wrong_ret_tailcall(r : Remote, x) : string =
+    r.bogus_string_string_ret(x)
+
+  function remote_wrong_ret_tailcall_type_vars(r : Remote, x) =
+    r.bogus_id(x)
+
+  function remote_wrong_put(r : Remote, x) =
+    put(r.bogus_id(x))
+
+  function call_bogus_id(r : Remote, x : 'a) : 'a = r.bogus_id(x)
+
+  function remote_wrong_put_polymorphic(r : Remote, x) =
+    put(call_bogus_id(r, x))
+
