@@ -1,0 +1,20 @@
+{application, aecontract,
+ [{description, "AE Contract"},
+  {vsn, {cmd, "cat ../../VERSION"}},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib,
+    lager,
+    crypto,
+    aetx,
+    aeserialization,
+    aebytecode,
+    aeutils
+   ]},
+  {env,[]},
+  {modules, []},
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
