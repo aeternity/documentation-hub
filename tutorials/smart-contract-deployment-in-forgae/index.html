@@ -1117,7 +1117,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../developer-tools/sdks/sdk-python/" title="Python" class="md-nav__link">
+    <a href="../../developer-tools/sdks/aepp-sdk-python/" title="Python" class="md-nav__link">
       Python
     </a>
   </li>
@@ -1880,8 +1880,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#after-install" title="After install" class="md-nav__link">
-    After install
+  <a href="#after-installing" title="After installing" class="md-nav__link">
+    After installing
   </a>
   
 </li>
@@ -1919,8 +1919,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploying-examplecontract-on-the-sdk-edgenet" title="Deploying ExampleContract on the sdk-edgenet" class="md-nav__link">
-    Deploying ExampleContract on the sdk-edgenet
+  <a href="#deploying-examplecontract-on-the-sdk-testnet" title="Deploying ExampleContract on the sdk-testnet" class="md-nav__link">
+    Deploying ExampleContract on the sdk-testnet
   </a>
   
 </li>
@@ -2358,8 +2358,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#after-install" title="After install" class="md-nav__link">
-    After install
+  <a href="#after-installing" title="After installing" class="md-nav__link">
+    After installing
   </a>
   
 </li>
@@ -2397,8 +2397,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deploying-examplecontract-on-the-sdk-edgenet" title="Deploying ExampleContract on the sdk-edgenet" class="md-nav__link">
-    Deploying ExampleContract on the sdk-edgenet
+  <a href="#deploying-examplecontract-on-the-sdk-testnet" title="Deploying ExampleContract on the sdk-testnet" class="md-nav__link">
+    Deploying ExampleContract on the sdk-testnet
   </a>
   
 </li>
@@ -2436,55 +2436,59 @@
 <ul>
 <li>Installed node.js and npm (node package manager)</li>
 <li>Installed docker and docker-compose. Installation instructions can be found <a href="https://docs.docker.com/compose/install/">here</a></li>
-<li>The private key of an account that has at least AE tokens (<em>estimate tx cost/fee - 1671168 AET</em>)</li>
+<li>The private key of an account that has at least AE tokens (<em>estimate tx cost/fee - 1677680 AET</em>)</li>
+<li>Installed Visual Studio Code 2017 for Windows users</li>
 </ul>
 <h2 id="installing-forgae">Installing forgae</h2>
-<p><strong>forgae</strong> is an æternity framework which helps with setting up an æpp project. The framework makes the development of smart contracts in the æternity network very easy. It provides commands for compilation of smart contracts, running a local aeternity node, unit testing and deployment of smart contracts.</p>
+<p><strong>forgae</strong> is an æternity framework which helps with setting up an æpp project. The framework makes the development of smart contracts in the æternity network very easy. It provides commands for compilation of smart contracts, running a local æternity node, unit testing and deployment of smart contracts.</p>
 <h3 id="from-npm-global-repository-recommended">From npm global repository (recommended)</h3>
-<p>The package will soon be available for installation from the npm global repository. You will be able to install it via the following command:</p>
+<p>The package is available for installation from the npm global repository. You will be able to install it via the following command:</p>
 <pre><code>npm i -g forgae
 </code></pre>
 
 <h3 id="install-from-source">Install from source</h3>
-<p>Currently, to use the framework, you must clone the repository and install it from source.</p>
-<pre><code>git clone https://github.com/aeternity/forgae.git
+<p>You can also clone the repository and install it from source.</p>
+<pre><code>git clone https://github.com/aeternity/aepp-forgae-js.git
 </code></pre>
 
-<p>Get into the cloned repository with  <code>cd forgae</code></p>
-<p>Run <code>npm link</code> inside the <code>forgae</code> folder (<em>If you have any folder permission issues, try running with sudo <code>sudo npm link</code></em>)</p>
-<p><code>npm link</code> in the forgae folder will create a symlink in the global folder {prefix}/lib/node_modules/forgae that links to the package folder where the npm link command was executed.</p>
-<h3 id="after-install">After install</h3>
+<p>Get into the cloned repository with  <code>cd aepp-forgae-js</code></p>
+<p>Run <code>npm link</code> inside the <code>aepp-forgae-js</code> folder (<em>If you have any folder permission issues, try running with sudo <code>sudo npm link</code></em>)</p>
+<p><code>npm link</code> in the <code>aepp-forgae-js</code> folder will create a symlink in the global folder {prefix}/lib/node_modules/forgae that links to the package folder where the npm link command was executed.</p>
+<h3 id="after-installing">After installing</h3>
 <p>Now, you have a global command - <code>forgae</code>
 With <code>forgae -h</code> command you have a quick reference list of all commands:</p>
 <pre><code>Usage: forgae [options] [command]
 
 Options:
-  -V, --version      output the version number
-  -h, --help         output usage information
+  -V, --version        output the version number
+  -h, --help           output usage information
 
 Commands:
-  init [options]     Initialize aepp project
-  compile [options]  Compile contracts
-  test [options]     Running the tests
-  node [options]     Running a local node. Without any argument node will be runned with --start argument
-  deploy [options]   Run deploy script
+  init [options]       Initialize ForgAE
+  compile [options]    Compile contracts
+  test [options]       Running the tests
+  node [options]       Running a local node. Without any argument node will be runned with --start argument
+  deploy [options]     Run deploy script
+  history [options]    Show deployment history info
+  contracts [options]  Running a Contract web aepp locally and connect it to the spawned forgae node.
+  shape &lt;type&gt; [type]  Initialize a web Vue project.
 </code></pre>
 
 <h2 id="generating-the-pp-project-structure">Generating the æpp project structure</h2>
 <h3 id="initialize-pp">Initialize æpp</h3>
 <p>The first thing we need to do is create a project folder and initialize its structure.</p>
 <p>Let's create a folder for our project:</p>
-<pre><code>mkdir ~/Development/myFirstAepp
+<pre><code>mkdir ~/myFirstAepp
 </code></pre>
 
-<p>Go to a newly created folder <code>cd ~/Development/myFirstAepp</code> and initialize the æpp with:</p>
+<p>Go to the newly created folder <code>cd ~/myFirstAepp</code> and initialize the æpp with:</p>
 <pre><code>forgae init
 </code></pre>
 
 <p>The init command creates an æpp structure with several folders and scripts:</p>
 <ul>
 <li>contracts - directory in which the developer can create contracts<ul>
-<li>ExampleContract.aes -  an sample smart contract coming with the init. <strong>We will be deploying this one.</strong>
+<li>ExampleContract.aes -  a sample smart contract coming with the init. <strong>We will be deploying this one.</strong>
 <code>contract ExampleContract =
    type state = ()
    function main(x : int) = x</code></li>
@@ -2512,21 +2516,26 @@ Commands:
 </code></pre>
 
 <ul>
-<li><strong>-path</strong> - path to a deployment file, default value is <code>./deployment/deploy.js</code></li>
-<li><strong>-network</strong> (<strong>-n</strong>) - specify the url to a node in this network (ex. https://sdk-mainnet.aepps.com)</li>
-<li><strong>-secretKey</strong> (<strong>-s</strong>) - secret(private) key that will unlock the wallet that will be used to deploy the contract</li>
+<li><strong>--path</strong> - path to a deployment file, default value is <code>./deployment/deploy.js</code></li>
+<li><strong>--network</strong> (<strong>-n</strong>) - specify the network (ex. mainnet)</li>
+<li><strong>--secretKey</strong> (<strong>-s</strong>) - secret(private) key that will unlock the wallet that will be used to deploy the contract</li>
 </ul>
 <p>Deploy ExampleContract.aes on mainnet with the following command: </p>
-<pre><code>forgae deploy -n https://sdk-mainnet.aepps.com  -s &lt;secretKey&gt;
+<pre><code>forgae deploy -n mainnet -s &lt;secretKey&gt;
 </code></pre>
 
-<h2 id="deploying-examplecontract-on-the-sdk-edgenet">Deploying ExampleContract on the sdk-edgenet</h2>
-<p>The command for depoying on the edgenet is similar to the one above above, but with different <code>--network</code> paramerter:</p>
-<pre><code>forgae deploy -n https://sdk-edgenet.aepps.com  -s &lt;secretKey&gt;
+<p>Final output upon deployment:</p>
+<pre><code>===== Contract: ExampleContract.aes has been deployed =====
+Your deployment script finished successfully!
+</code></pre>
+
+<h2 id="deploying-examplecontract-on-the-sdk-testnet">Deploying ExampleContract on the sdk-testnet</h2>
+<p>The command for deploying on the testnet is similar to the one above, but with a different <code>--network</code> parameter:</p>
+<pre><code>forgae deploy -n testnet -s &lt;secretKey&gt;
 </code></pre>
 
 <h2 id="conclusion">Conclusion</h2>
-<p>Deploying smart contracts to the æternity network is nice and easy. In just few minutes and few commands, one can deploy their desired contracts on any net. The æternity team will keep this tutorial updated with news. If you encounter any problems please contract us through the <a href="https://forum.aeternity.com/c/development">æternity dev Forum category</a>.</p>
+<p>Deploying smart contracts to the æternity network is nice and easy. In just a few minutes and few commands, one can deploy their desired contracts on any network. The æternity team will keep this tutorial updated with news. If you encounter any problems please contact us through the <a href="https://forum.aeternity.com/c/development">æternity dev Forum category</a>.</p>
                 
                   
                 
