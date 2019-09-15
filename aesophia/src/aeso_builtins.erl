@@ -10,6 +10,7 @@
 -module(aeso_builtins).
 
 -export([ builtin_function/1
+        , bytes_to_raw_string/2
         , check_event_type/1
         , used_builtins/1 ]).
 
@@ -44,7 +45,9 @@ builtin_deps1(addr_to_str)                -> [{baseX_int, 58}];
 builtin_deps1({baseX_int, X})             -> [{baseX_int_pad, X}];
 builtin_deps1({baseX_int_pad, X})         -> [{baseX_int_encode, X}];
 builtin_deps1({baseX_int_encode, X})      -> [{baseX_int_encode_, X}, {baseX_tab, X}, {baseX_digits, X}];
+builtin_deps1({bytes_to_str, _})          -> [bytes_to_str_worker, bytes_to_str_worker_x];
 builtin_deps1(string_reverse)             -> [string_reverse_];
+builtin_deps1(require)                    -> [abort];
 builtin_deps1(_)                          -> [].
 
 dep_closure(Deps) ->
@@ -60,12 +63,14 @@ v(X) when is_list(X) -> #var_ref{name = X}.
 option_none()  -> {tuple, [{integer, 0}]}.
 option_some(X) -> {tuple, [{integer, 1}, X]}.
 
+-define(HASH_BYTES, 32).
+
 -define(call(Fun, Args), #funcall{ function = #var_ref{ name = {builtin, Fun} }, args = Args }).
 -define(I(X), {integer, X}).
 -define(V(X), v(X)).
 -define(A(Op), aeb_opcodes:mnemonic(Op)).
 -define(LET(Var, Expr, Body), {switch, Expr, [{v(Var), Body}]}).
--define(DEREF(Var, Ptr, Body), {switch, v(Ptr), [{{tuple, [v(Var)]}, Body}]}).
+-define(DEREF(Var, Ptr, Body), {switch, operand(Ptr), [{{tuple, [v(Var)]}, Body}]}).
 -define(NXT(Ptr), op('+', Ptr, 32)).
 -define(NEG(A), op('/', A, {unop, '-', {integer, 1}})).
 -define(BYTE(Ix, Word), op('byte', Ix, Word)).
@@ -85,17 +90,17 @@ option_some(X) -> {tuple, [{integer, 1}, X]}.
 -define(BSL(X, B), op('bsl', ?MUL(B, 8), X)).
 -define(BSR(X, B), op('bsr', ?MUL(B, 8), X)).
 
-op(Op, A, B) -> {binop, Op, operand(A), operand(B)}.
+op(Op, A, B) -> simpl({binop, Op, operand(A), operand(B)}).
+
+%% We generate a lot of B * 8 for integer B from BSL and BSR.
+simpl({binop, '*', {integer, A}, {integer, B}}) when A >= 0, B >= 0, A * B < 1 bsl 256 ->
+    {integer, A * B};
+simpl(Op) -> Op.
+
 
 operand(A) when is_atom(A) -> v(A);
 operand(I) when is_integer(I) -> {integer, I};
 operand(T) -> T.
-
-str_to_icode(String) when is_list(String) ->
-    str_to_icode(list_to_binary(String));
-str_to_icode(BinStr) ->
-    Cpts = [size(BinStr) | aeb_memory:binary_to_words(BinStr)],
-    #tuple{ cpts = [ #integer{value = X} || X <- Cpts ] }.
 
 check_event_type(Icode) ->
     case maps:get(event_type, Icode) of
@@ -117,11 +122,12 @@ check_event_type(EvtName, Ix, Type, Icode) ->
         catch _:_ ->
             error({EvtName, could_not_resolve_type, Type})
         end,
-    case {Ix, VMType} of
-        {indexed, word}      -> ok;
-        {notindexed, string} -> ok;
-        {indexed, _}         -> error({EvtName, indexed_field_should_be_word, is, VMType});
-        {notindexed, _}      -> error({EvtName, payload_should_be_string, is, VMType})
+    case {Ix, VMType, Type} of
+        {indexed, word, _}      -> ok;
+        {notindexed, string, _} -> ok;
+        {notindexed, _, {bytes_t, _, N}} when N > 32 -> ok;
+        {indexed, _, _}         -> error({EvtName, indexed_field_should_be_word, is, VMType});
+        {notindexed, _, _}      -> error({EvtName, payload_should_be_string, is, VMType})
     end.
 
 bfun(B, {IArgs, IExpr, IRet}) ->
@@ -131,6 +137,8 @@ builtin_function(BF) ->
     case BF of
         {event, EventT}            -> bfun(BF, builtin_event(EventT));
         abort                      -> bfun(BF, builtin_abort());
+        block_hash                 -> bfun(BF, builtin_block_hash());
+        require                    -> bfun(BF, builtin_require());
         {map_lookup, Type}         -> bfun(BF, builtin_map_lookup(Type));
         map_put                    -> bfun(BF, builtin_map_put());
         map_delete                 -> bfun(BF, builtin_map_delete());
@@ -158,6 +166,12 @@ builtin_function(BF) ->
         {baseX_int_pad, X}         -> bfun(BF, builtin_baseX_int_pad(X));
         {baseX_int_encode, X}      -> bfun(BF, builtin_baseX_int_encode(X));
         {baseX_int_encode_, X}     -> bfun(BF, builtin_baseX_int_encode_(X));
+        {bytes_to_int, N}          -> bfun(BF, builtin_bytes_to_int(N));
+        {bytes_to_str, N}          -> bfun(BF, builtin_bytes_to_str(N));
+        {bytes_concat, A, B}       -> bfun(BF, builtin_bytes_concat(A, B));
+        {bytes_split, A, B}        -> bfun(BF, builtin_bytes_split(A, B));
+        bytes_to_str_worker        -> bfun(BF, builtin_bytes_to_str_worker());
+        bytes_to_str_worker_x      -> bfun(BF, builtin_bytes_to_str_worker_x());
         string_reverse             -> bfun(BF, builtin_string_reverse());
         string_reverse_            -> bfun(BF, builtin_string_reverse_())
     end.
@@ -171,16 +185,23 @@ builtin_event(EventT) ->
     VIx       = fun(Ix) -> v(lists:concat(["v", Ix])) end,
     ArgPats   = fun(Ts) -> [ VIx(Ix) || Ix <- lists:seq(0, length(Ts) - 1) ] end,
     Payload = %% Should put data ptr, length on stack.
-        fun([]) ->  {inline_asm, [A(?PUSH1), 0, A(?PUSH1), 0]};
-           ([V]) -> {seq, [V, {inline_asm, [A(?DUP1), A(?MLOAD),                  %% length, ptr
-                                            A(?SWAP1), A(?PUSH1), 32, A(?ADD)]}]} %% ptr+32, length
+        fun([])            -> {inline_asm, [A(?PUSH1), 0, A(?PUSH1), 0]};
+           ([{{id, _, "string"}, V}]) ->
+                {seq, [V, {inline_asm, [A(?DUP1), A(?MLOAD),  %% length, ptr
+                       A(?SWAP1), A(?PUSH1), 32, A(?ADD)]}]}; %% ptr+32, length
+           ([{{bytes_t, _, N}, V}]) -> {seq, [V, {integer, N}, {inline_asm, A(?SWAP1)}]}
         end,
+    Ix =
+        fun({bytes_t, _, N}, V) when N < 32 -> ?BSR(V, 32 - N);
+           (_, V) -> V end,
     Clause =
         fun(_Tag, {con, _, Con}, IxTypes) ->
             Types     = [ T || {_Ix, T} <- IxTypes ],
-            Indexed   = [ Var || {Var, {indexed, _Type}} <- lists:zip(ArgPats(Types), IxTypes) ],
-            EvtIndex  = {unop, 'sha3', str_to_icode(Con)},
-            {event, lists:reverse(Indexed) ++ [EvtIndex], Payload(ArgPats(Types) -- Indexed)}
+            Indexed   = [ Ix(Type, Var) || {Var, {indexed, Type}} <- lists:zip(ArgPats(Types), IxTypes) ],
+            Data      = [ {Type, Var} || {Var, {notindexed, Type}} <- lists:zip(ArgPats(Types), IxTypes) ],
+            {ok, <<EvtIndexN:256>>} = eblake2:blake2b(?HASH_BYTES, list_to_binary(Con)),
+            EvtIndex  = {integer, EvtIndexN},
+            {event, lists:reverse(Indexed) ++ [EvtIndex], Payload(Data)}
         end,
     Pat = fun(Tag, Types) -> {tuple, [{integer, Tag} | ArgPats(Types)]} end,
 
@@ -200,6 +221,17 @@ builtin_abort() ->
      {inline_asm, [A(?PUSH1),0,  %% Push a dummy 0 for the first arg
                    A(?REVERT)]}, %% Stack: 0,Ptr
      {tuple,[]}}.
+
+builtin_block_hash() ->
+    {[{"height", word}],
+     ?LET(hash, #prim_block_hash{ height = ?V(height)},
+          {ifte, ?EQ(hash, 0), option_none(), option_some(?V(hash))}),
+     aeso_icode:option_typerep(word)}.
+
+builtin_require() ->
+    {[{"c", word}, {"msg", string}],
+     {ifte, ?V(c), {tuple, []}, ?call(abort, [?V(msg)])},
+     {tuple, []}}.
 
 %% Map primitives
 builtin_map_lookup(Type) ->
@@ -437,6 +469,10 @@ builtin_baseX_int_pad(X = 10) ->
         ?call({baseX_int_encode, X}, [?NEG(src), ?I(1), ?BSL($-, 31)]),
         ?call({baseX_int_encode, X}, [?V(src), ?V(ix), ?V(dst)])},
      word};
+builtin_baseX_int_pad(X = 16) ->
+    {[{"src", word}, {"ix", word}, {"dst", word}],
+        ?call({baseX_int_encode, X}, [?V(src), ?V(ix), ?V(dst)]),
+     word};
 builtin_baseX_int_pad(X = 58) ->
     {[{"src", word}, {"ix", word}, {"dst", word}],
      {ifte, ?GT(?ADD(?DIV(ix, 31), ?BYTE(ix, src)), 0),
@@ -471,6 +507,77 @@ builtin_baseX_digits(X) ->
         {ifte, ?EQ(x1, 0), ?V(dgts), ?call({baseX_digits, X}, [?V(x1), ?ADD(dgts, 1)])}),
      word}.
 
+builtin_bytes_to_int(32) ->
+    {[{"w", word}], ?V(w), word};
+builtin_bytes_to_int(N) when N < 32 ->
+    {[{"w", word}], ?BSR(w, 32 - N), word};
+builtin_bytes_to_int(N) when N > 32 ->
+    LastFullWord = N div 32 - 1,
+    Body = case N rem 32 of
+                0 -> ?DEREF(n, ?ADD(b, LastFullWord * 32), ?V(n));
+                R ->
+                    ?DEREF(hi, ?ADD(b, LastFullWord * 32),
+                    ?DEREF(lo, ?ADD(b, (LastFullWord + 1) * 32),
+                    ?ADD(?BSR(lo, 32 - R), ?BSL(hi, R))))
+           end,
+    {[{"b", pointer}], Body, word}.
+
+%% Two versions of this helper function, worker for sections not even 16 bytes long
+%% and worker_x for the full sized chunks.
+builtin_bytes_to_str_worker_x() ->
+    <<Tab:256>> = <<"0123456789ABCDEF________________">>,
+    {[{"w", word}, {"offs", word}, {"acc", word}],
+     {ifte, ?EQ(offs, 16), {seq, [?V(acc), {inline_asm, [?A(?MSIZE), ?A(?MSTORE), ?A(?MSIZE)]}]},
+         ?LET(b,  ?BYTE(offs, w),
+         ?LET(lo, ?BYTE(?MOD(b, 16), Tab),
+         ?LET(hi, ?BYTE(op('bsr', 4 , b), Tab),
+         ?call(bytes_to_str_worker_x, [?V(w), ?ADD(offs, 1), ?ADD(?BSL(acc, 2), ?ADD(?BSL(hi, 1), lo))]))))
+     },
+     word}.
+
+builtin_bytes_to_str_worker() ->
+    <<Tab:256>> = <<"0123456789ABCDEF________________">>,
+    {[{"w", word}, {"offs", word}, {"acc", word}, {"stop", word}],
+     {ifte, ?EQ(stop, offs), {seq, [?BSL(acc, ?MUL(2, ?SUB(16, offs))), {inline_asm, [?A(?MSIZE), ?A(?MSTORE), ?A(?MSIZE)]}]},
+         ?LET(b,  ?BYTE(offs, w),
+         ?LET(lo, ?BYTE(?MOD(b, 16), Tab),
+         ?LET(hi, ?BYTE(op('bsr', 4 , b), Tab),
+         ?call(bytes_to_str_worker, [?V(w), ?ADD(offs, 1), ?ADD(?BSL(acc, 2), ?ADD(?BSL(hi, 1), lo)), ?V(stop)]))))
+     },
+     word}.
+
+builtin_bytes_to_str_body(Var, N) when N < 16 ->
+    [?call(bytes_to_str_worker, [?V(Var), ?I(0), ?I(0), ?I(N)])];
+builtin_bytes_to_str_body(Var, 16) ->
+    [?call(bytes_to_str_worker_x, [?V(Var), ?I(0), ?I(0)])];
+builtin_bytes_to_str_body(Var, N) when N < 32 ->
+    builtin_bytes_to_str_body(Var, 16) ++ [{inline_asm, [?A(?POP)]}] ++
+    [?call(bytes_to_str_worker, [?BSL(Var, 16), ?I(0), ?I(0), ?I(N - 16)])];
+builtin_bytes_to_str_body(Var, 32) ->
+    builtin_bytes_to_str_body(Var, 16) ++ [{inline_asm, [?A(?POP)]}] ++
+    [?call(bytes_to_str_worker_x, [?BSL(Var, 16), ?I(0), ?I(0)])];
+builtin_bytes_to_str_body(Var, N) when N > 32 ->
+    WholeWords = ((N + 31) div 32) - 1,
+    lists:append(
+    [ [?DEREF(w, ?ADD(Var, 32 * I), {seq, builtin_bytes_to_str_body(w, 32)}), {inline_asm, [?A(?POP)]}]
+      || I <- lists:seq(0, WholeWords - 1) ]) ++
+    [ ?DEREF(w, ?ADD(Var, 32 * WholeWords), {seq, builtin_bytes_to_str_body(w, N - WholeWords * 32)}) ].
+
+builtin_bytes_to_str(N) when N =< 32 ->
+    {[{"w", word}],
+     ?LET(ret, {inline_asm, [?A(?MSIZE)]},
+     {seq, [?I(N * 2), {inline_asm, [?A(?MSIZE), ?A(?MSTORE)]}] ++
+            builtin_bytes_to_str_body(w, N) ++
+            [{inline_asm, [?A(?POP)]}, ?V(ret)]}),
+     string};
+builtin_bytes_to_str(N) when N > 32 ->
+    {[{"p", pointer}],
+     ?LET(ret, {inline_asm, [?A(?MSIZE)]},
+     {seq, [?I(N * 2), {inline_asm, [?A(?MSIZE), ?A(?MSTORE)]}] ++
+            builtin_bytes_to_str_body(p, N) ++
+            [{inline_asm, [?A(?POP)]}, ?V(ret)]}),
+     string}.
+
 builtin_string_reverse() ->
     {[{"s", string}],
      ?DEREF(n, s,
@@ -497,4 +604,81 @@ builtin_string_reverse_() ->
 
 builtin_addr_to_str() ->
     {[{"a", word}], ?call({baseX_int, 58}, [?V(a)]), word}.
+
+%% At most one word
+%% | ..... | ========= | ........ |
+%%    Offs ^ ^- Len -^   TotalLen ^
+bytes_slice(Offs, Len, TotalLen, Bytes) when TotalLen =< 32 ->
+    %% Bytes are packed into a single word
+    Masked =
+        case Offs of
+            0 -> Bytes;
+            _ -> ?MOD(Bytes, 1 bsl ((32 - Offs) * 8))
+        end,
+    Unpadded =
+        case 32 - (Offs + Len) of
+            0 -> Masked;
+            N -> ?BSR(Masked, N)
+        end,
+    case Len of
+        32 -> Unpadded;
+        _  -> ?BSL(Unpadded, 32 - Len)
+    end;
+bytes_slice(Offs, Len, TotalLen, Bytes) when TotalLen > 32 ->
+    %% Bytes is a pointer to memory. The VM can read at non-aligned addresses.
+    %% Might read one word more than necessary.
+    Word = op('!', Offs, Bytes),
+    case Len == 32 of
+        true -> Word;
+        _    -> ?BSL(?BSR(Word, 32 - Len), 32 - Len)
+    end.
+
+builtin_bytes_concat(A, B) ->
+    Type     = fun(N) when N =< 32 -> word; (_) -> pointer end,
+    MkBytes  = fun([W]) -> W;
+                  (Ws)  -> {tuple, Ws} end,
+    Words    = fun(N) -> (N + 31) div 32 end,
+    WordsRes = Words(A + B),
+    Word = fun(I) when 32 * (I + 1) =< A -> bytes_slice(I * 32, 32, A, ?V(a));
+              (I) when 32 * I < A ->
+                   Len = A rem 32,
+                   Hi  = bytes_slice(32 * I, Len, A, ?V(a)),
+                   Lo  = bytes_slice(0, min(32 - Len, B), B, ?V(b)),
+                   ?ADD(Hi, ?BSR(Lo, Len));
+              (I) ->
+                   Offs = 32 * I - A,
+                   Len  = min(32, B - Offs),
+                   bytes_slice(Offs, Len, B, ?V(b))
+           end,
+    Body =
+        case {A, B} of
+            {0, _} -> ?V(b);
+            {_, 0} -> ?V(a);
+            _      -> MkBytes([ Word(I) || I <- lists:seq(0, WordsRes - 1) ])
+        end,
+    {[{"a", Type(A)}, {"b", Type(B)}], Body, Type(A + B)}.
+
+builtin_bytes_split(A, B) ->
+    Type    = fun(N) when N =< 32 -> word; (_) -> pointer end,
+    MkBytes = fun([W]) -> W;
+                 (Ws)  -> {tuple, Ws} end,
+    Word    = fun(I, Max) ->
+                bytes_slice(I, min(32, Max - I), A + B, ?V(c))
+              end,
+    Body =
+        case {A, B} of
+            {0, _} -> [?I(0), ?V(c)];
+            {_, 0} -> [?V(c), ?I(0)];
+            _      -> [MkBytes([ Word(I, A)     || I <- lists:seq(0, A - 1, 32) ]),
+                       MkBytes([ Word(I, A + B) || I <- lists:seq(A, A + B - 1, 32) ])]
+        end,
+    {[{"c", Type(A + B)}], {tuple, Body}, {tuple, [Type(A), Type(B)]}}.
+
+bytes_to_raw_string(N, Term) when N =< 32 ->
+    {tuple, [?I(N), Term]};
+bytes_to_raw_string(N, Term) when N > 32 ->
+    Elem  = fun(I) -> #binop{op = '!', left = ?I(32 * I), right = ?V(bin)}
+            end,
+    Words = (N + 31) div 32,
+    ?LET(bin, Term, {tuple, [?I(N) | [Elem(I) || I <- lists:seq(0, Words - 1)]]}).
 

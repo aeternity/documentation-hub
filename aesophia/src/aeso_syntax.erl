@@ -25,7 +25,7 @@
 -type ann_origin() :: system | user.
 -type ann_format() :: '?:' | hex | infix | prefix | elif.
 
--type ann() :: [{line, ann_line()} | {col, ann_col()} | {format, ann_format()} | {origin, ann_origin()}].
+-type ann() :: [{line, ann_line()} | {col, ann_col()} | {format, ann_format()} | {origin, ann_origin()} | stateful | private].
 
 -type name() :: string().
 -type id()   :: {id,   ann(), name()}.
@@ -43,8 +43,7 @@
 
 -type letbind()
     :: {letval, ann(), id(), type(), expr()}
-     | {letfun, ann(), id(), [arg()], type(), expr()}
-     | {letrec, ann(), [letbind()]}.
+     | {letfun, ann(), id(), [arg()], type(), expr()}.
 
 -type arg() :: {arg, ann(), id(), type()}.
 
@@ -60,7 +59,8 @@
 -type type() :: {fun_t, ann(), [named_arg_t()], [type()], type()}
               | {app_t, ann(), type(), [type()]}
               | {tuple_t, ann(), [type()]}
-              | {bytes_t, ann(), integer()}
+              | {args_t, ann(), [type()]}   %% old tuple syntax, old for error messages
+              | {bytes_t, ann(), integer() | any}
               | id()  | qid()
               | con() | qcon()  %% contracts
               | tvar().
@@ -70,11 +70,11 @@
 -type constant()
     :: {int, ann(), integer()}
      | {bool, ann(), true | false}
-     | {hash, ann(), binary()}
-     | {account_pubkey, binary()}
-     | {contract_pubkey, binary()}
-     | {oracle_pubkey, binary()}
-     | {oracle_query_id, binary()}
+     | {bytes, ann(), binary()}
+     | {account_pubkey, ann(), binary()}
+     | {contract_pubkey, ann(), binary()}
+     | {oracle_pubkey, ann(), binary()}
+     | {oracle_query_id, ann(), binary()}
      | {string, ann(), binary()}
      | {char, ann(), integer()}.
 
@@ -93,6 +93,7 @@
      | {proj, ann(), expr(), id()}
      | {tuple, ann(), [expr()]}
      | {list, ann(), [expr()]}
+     | {list_comp, ann(), expr(), [comprehension_exp()]}
      | {typed, ann(), expr(), type()}
      | {record, ann(), [field(expr())]}
      | {record, ann(), expr(), [field(expr())]} %% record update
@@ -104,6 +105,10 @@
      | {op(), ann()}
      | id() | qid() | con() | qcon()
      | constant().
+
+-type comprehension_exp() :: [ {comprehension_bind, id(), expr()}
+                             | {comprehension_if, ann(), expr()}
+                             | letbind() ].
 
 -type arg_expr() :: expr() | {named_arg, ann(), id(), expr()}.
 
@@ -149,4 +154,3 @@ get_ann(Key, Node, Default) ->
 qualify({con, Ann, N}, X)             -> qualify({qcon, Ann, [N]}, X);
 qualify({qcon, _, NS}, {con, Ann, C}) -> {qcon, Ann, NS ++ [C]};
 qualify({qcon, _, NS}, {id, Ann, X})  -> {qid, Ann, NS ++ [X]}.
-

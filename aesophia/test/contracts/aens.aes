@@ -3,53 +3,54 @@ contract AENSTest =
 
   // Name resolution
 
-  function resolve_word(name : string, key : string) : option(address) =
+  stateful entrypoint resolve_word(name : string, key : string) : option(address) =
     AENS.resolve(name, key)
 
-  function resolve_string(name : string, key : string) : option(string) =
+  stateful entrypoint resolve_string(name : string, key : string) : option(string) =
     AENS.resolve(name, key)
 
   // Transactions
 
-  function preclaim(addr  : address,          // Claim on behalf of this account (can be Contract.address)
-                    chash : hash) : () =      // Commitment hash
+  stateful entrypoint preclaim(addr  : address,     // Claim on behalf of this account (can be Contract.address)
+                             chash : hash) : unit = // Commitment hash
     AENS.preclaim(addr, chash)
 
-  function signedPreclaim(addr  : address,          // Claim on behalf of this account (can be Contract.address)
-                          chash : hash,             // Commitment hash
-                          sign  : signature) : () = // Signed by addr (if not Contract.address)
+  stateful entrypoint signedPreclaim(addr  : address, // Claim on behalf of this account (can be Contract.address)
+                                   chash : hash,             // Commitment hash
+                                   sign  : signature) : unit = // Signed by addr (if not Contract.address)
     AENS.preclaim(addr, chash, signature = sign)
 
-  function claim(addr : address,
-                 name : string,
-                 salt : int) : () =
-    AENS.claim(addr, name, salt)
+  stateful entrypoint claim(addr : address,
+                          name : string,
+                          salt : int,
+                          name_fee : int) : unit =
+    AENS.claim(addr, name, salt, name_fee)
 
-  function signedClaim(addr : address,
-                       name : string,
-                       salt : int,
-                       sign : signature) : () =
-    AENS.claim(addr, name, salt, signature = sign)
+  stateful entrypoint signedClaim(addr : address,
+                                name : string,
+                                salt : int,
+                                name_fee : int,
+                                sign : signature) : unit =
+    AENS.claim(addr, name, salt, name_fee, signature = sign)
 
   // TODO: update() -- how to handle pointers?
 
-  function transfer(owner     : address,
-                    new_owner : address,
-                    name_hash : hash) : () =
-    AENS.transfer(owner, new_owner, name_hash)
+  stateful entrypoint transfer(owner     : address,
+                             new_owner : address,
+                             name      : string) : unit =
+    AENS.transfer(owner, new_owner, name)
 
-  function signedTransfer(owner     : address,
-                          new_owner : address,
-                          name_hash : hash,
-                          sign      : signature) : () =
-    AENS.transfer(owner, new_owner, name_hash, signature = sign)
+  stateful entrypoint signedTransfer(owner     : address,
+                                     new_owner : address,
+                                     name      : string,
+                                     sign      : signature) : unit =
+    AENS.transfer(owner, new_owner, name, signature = sign)
 
-  function revoke(owner     : address,
-                  name_hash : hash) : () =
-    AENS.revoke(owner, name_hash)
+  stateful entrypoint revoke(owner     : address,
+                           name      : string) : unit =
+    AENS.revoke(owner, name)
 
-  function signedRevoke(owner     : address,
-                        name_hash : hash,
-                        sign      : signature) : () =
-    AENS.revoke(owner, name_hash, signature = sign)
-
+  stateful entrypoint signedRevoke(owner     : address,
+                                   name      : string,
+                                   sign      : signature) : unit =
+    AENS.revoke(owner, name, signature = sign)
