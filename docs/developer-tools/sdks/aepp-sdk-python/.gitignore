@@ -1,0 +1,15 @@
+venv
+.idea
+**/*.pyc
+.pytest_cache
+.vscode
+aepp_sdk.egg-info
+dist
+build
+coverage.xml
+docker-compose.override.yml
+test-results.xml
+.coverage
+private
+.DS_Store
+.envrc

@@ -32,6 +32,7 @@ title: Tutorials
 * [TUTORIAL: How to Run Your Own æternity Middleware](running-your-own-ae-middleware.md)
 * [TUTORIAL: How to build a To-do list Æpp - Part 1](build-to-do-list-aepp-1.md)
 * [TUTORIAL: How to build a To-do list Æpp - Part 2](build-to-do-list-aepp-2.md)
+* [TUTORIAL: Forgae has made it simple to build Æpps with the front-end framework](forgae-shape-vue-command.md)
 
 Get support in [the Forum](https://forum.aeternity.com/c/development).
 
@@ -56,4 +57,4 @@ If you prefer human interaction, you can request up to 2m ættos for testing pur
 
 **More tutorials are coming!**
 
-To edit this page, go here: https://github.com/aeternity/tutorials/edit/master/README.md
+To edit this page, you go here: https://github.com/aeternity/tutorials/blob/master/README.md
