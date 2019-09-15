@@ -28,7 +28,10 @@ nav:
             - Contract State Tree: 'protocol/contracts/contract_state_tree.md'
             - Contract Transactions: 'protocol/contracts/contract_transactions.md'
         - State Channels: 'protocol/channels/README.md'
+        - Generalized Accounts: 'protocol/generalized_accounts/generalized_accounts.md'
         - Serialization Formats: 'protocol/serializations.md'
+        - Stratum: 'protocol/STRATUM.md'
+        - Sync: 'protocol/SYNC.md'
     - Aetmodel:
         - Threat Model: 'aetmodel/ThreatModel.md'
     - AEXs:
