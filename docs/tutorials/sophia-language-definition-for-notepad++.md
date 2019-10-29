@@ -2,7 +2,7 @@
 
 Here are the steps to setup syntax highlighting for Sophia language in Notepad++.
 
-The next steps are to implement language server and also a VSCode plugin for Sophia (something like [this](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity) for Solidity).
+If you are using VSCode you can also install the plugin for Sophia [VSCode-Sophia](https://marketplace.visualstudio.com/items?itemName=MilenRadkov.sophia).
 
 
 ### 1. Download and install Notepad++
