@@ -37,29 +37,29 @@ We are thrilled to have you with us!
 ## Tools
 ----
 
-[æternal - a backend API](https://github.com/aeternity/aeternal)
+[æternal](https://github.com/aeternity/aeternal) - a backend API
 
-[AEproject - an aeternity framework](https://github.com/aeternity/aepp-aeproject-js)
+[AEproject](https://github.com/aeternity/aepp-aeproject-js) - an aeternity framework
 
-[Blockchain Explorer - a blockchain browser for æternity](https://testnet.explorer.aepps.com/#/)
+[Blockchain Explorer](https://testnet.explorer.aepps.com/#/) - a blockchain browser for æternity
 
 [FireEditor - an easy-to-use Web-IDE for Sophia](http://fireeditor.nikitafuchs.de/)
 
-[Contract Editor - an editor for smart contracts written in Sophia](https://testnet.contracts.aepps.com/)
+[Contract Editor](https://testnet.contracts.aepps.com/) - an editor for smart contracts written in Sophia
 
-[Token Faucet - a reward system that dispenses rewards in the form of a AE test tokens](https://testnet.faucet.aepps.com/)
+[Token Faucet](https://testnet.faucet.aepps.com/) - a reward system that dispenses rewards in the form of a AE test tokens
 
-[Playground - a full-featured IDE](https://testing.playground.aepps.com/)
+[Playground](https://testing.playground.aepps.com/) - a full-featured IDE
 
-[Goggles - a simple interface to decode and verify encoded transactions for the æternity network](https://goggles.aepps.com/)
+[Goggles](https://goggles.aepps.com/) - a simple interface to decode and verify encoded transactions for the æternity network
 
-[AEKnow Explorer - a blockchain browser for æternity](https://www.aeknow.org/)
+[AEKnow Explorer](https://www.aeknow.org/) - a blockchain browser for æternity
 
-[AEMonitor - a blockchain browser for æternity](https://aemonitor.mobycrypt.com/core)
+[AEMonitor](https://aemonitor.mobycrypt.com/core) - a blockchain browser for æternity
 
-[Node.js/MongoDB Middleware - a backend API](https://github.com/kryztoval/aepp-middleware-mn)
+[Node.js/MongoDB Middleware](https://github.com/kryztoval/aepp-middleware-mn) - a backend API
 
-[Aeternity Blockchain Explorer - a blockchain browser for æternity](https://ae.criesca.net:3011/explorer/dashboard.html) & [API Endpoint](https://ae.criesca.net:3011/api)
+[Aeternity Blockchain Explorer](https://ae.criesca.net:3011/explorer/dashboard.html) & [API Endpoint](https://ae.criesca.net:3011/api) - a blockchain browser for æternity
 
 
 ## Other Projects
