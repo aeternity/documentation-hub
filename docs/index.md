@@ -9,7 +9,7 @@ If you’d like to see a specific improvement, you can either submit a pull requ
 
 We are thrilled to have you with us!
 
-## æpps
+## Wallets
 ----
 
 [AirGap](https://airgap.it/)
@@ -17,6 +17,11 @@ We are thrilled to have you with us!
 [Base æpp](https://base.aepps.com/#/)
 
 [Waellet](https://waellet.com/)
+
+
+## æpps
+----
+[Governance æpp](https://github.com/aeternity/aepp-governance)
 
 [Ledger Nano S](https://github.com/aeternity/ledger-app)
 
@@ -32,25 +37,29 @@ We are thrilled to have you with us!
 ## Tools
 ----
 
-[Blockchain Explorer](https://testnet.explorer.aepps.com/#/)
+[æternal - a backend API](https://github.com/aeternity/aeternal)
 
-[FireEditor](http://fireeditor.nikitafuchs.de/)
+[AEproject - an aeternity framework](https://github.com/aeternity/aepp-aeproject-js)
 
-[Contract Editor](https://testnet.contracts.aepps.com/)
+[Blockchain Explorer - a blockchain browser for æternity](https://testnet.explorer.aepps.com/#/)
 
-[Token Faucet](https://testnet.faucet.aepps.com/)
+[FireEditor - an easy-to-use Web-IDE for Sophia](http://fireeditor.nikitafuchs.de/)
 
-[Playground](https://testing.playground.aepps.com/)
+[Contract Editor - an editor for smart contracts written in Sophia](https://testnet.contracts.aepps.com/)
 
-[Goggles](https://goggles.aepps.com/)
+[Token Faucet - a reward system that dispenses rewards in the form of a AE test tokens](https://testnet.faucet.aepps.com/)
 
-[AEKnow Explorer](https://www.aeknow.org/)
+[Playground - a full-featured IDE](https://testing.playground.aepps.com/)
 
-[AEMonitor](https://aemonitor.mobycrypt.com/core)
+[Goggles - a simple interface to decode and verify encoded transactions for the æternity network](https://goggles.aepps.com/)
 
-[Node.js/MongoDB Middleware](https://github.com/kryztoval/aepp-middleware-mn)
+[AEKnow Explorer - a blockchain browser for æternity](https://www.aeknow.org/)
 
-[Aeternity Blockchain Explorer](https://ae.criesca.net:3011/explorer/dashboard.html) & [API Endpoint](https://ae.criesca.net:3011/api)
+[AEMonitor - a blockchain browser for æternity](https://aemonitor.mobycrypt.com/core)
+
+[Node.js/MongoDB Middleware - a backend API](https://github.com/kryztoval/aepp-middleware-mn)
+
+[Aeternity Blockchain Explorer - a blockchain browser for æternity](https://ae.criesca.net:3011/explorer/dashboard.html) & [API Endpoint](https://ae.criesca.net:3011/api)
 
 
 ## Other Projects

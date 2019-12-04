@@ -39,7 +39,7 @@ simple_contracts_test_() ->
             RightAssoc = fun(Op) -> CheckParens({a, Op, {b, Op, c}}) end,
             NonAssoc   = fun(Op) ->
                             OpAtom = list_to_atom(Op),
-                            ?assertError({error, {_, parse_error, _}},
+                            ?assertThrow({error, [_]},
                                          parse_expr(NoPar({a, Op, {b, Op, c}}))) end,
             Stronger = fun(Op1, Op2) ->
                     CheckParens({{a, Op1, b}, Op2, c}),
@@ -62,7 +62,7 @@ simple_contracts_test_() ->
      %% Parse tests of example contracts
      [ {lists:concat(["Parse the ", Contract, " contract."]),
         fun() -> roundtrip_contract(Contract) end}
-        || Contract <- [counter, voting, all_syntax, '05_greeter', aeproof, multi_sig, simple_storage, withdrawal, fundme, dutch_auction] ]
+        || Contract <- [counter, voting, all_syntax, '05_greeter', aeproof, multi_sig, simple_storage, fundme, dutch_auction] ]
     }.
 
 parse_contract(Name) ->
@@ -71,11 +71,10 @@ parse_contract(Name) ->
 roundtrip_contract(Name) ->
     round_trip(aeso_test_utils:read_contract(Name)).
 
-parse_string(Text) ->
-    case aeso_parser:string(Text) of
-        {ok, Contract} -> Contract;
-        Err -> error(Err)
-    end.
+parse_string(Text) -> parse_string(Text, []).
+
+parse_string(Text, Opts) ->
+    aeso_parser:string(Text, Opts).
 
 parse_expr(Text) ->
     [{letval, _, _, _, Expr}] =
@@ -84,11 +83,15 @@ parse_expr(Text) ->
 
 round_trip(Text) ->
     Contract  = parse_string(Text),
-    Text1     = prettypr:format(aeso_pretty:decls(Contract)),
+    Text1     = prettypr:format(aeso_pretty:decls(strip_stdlib(Contract))),
     Contract1 = parse_string(Text1),
     NoSrcLoc  = remove_line_numbers(Contract),
     NoSrcLoc1 = remove_line_numbers(Contract1),
     ?assertMatch(NoSrcLoc, diff(NoSrcLoc, NoSrcLoc1)).
+
+strip_stdlib([{namespace, _, {con, _, "ListInternal"}, _} | Decls]) ->
+    strip_stdlib(Decls);
+strip_stdlib(Decls) -> Decls.
 
 remove_line_numbers({line, _L}) -> {line, 0};
 remove_line_numbers({col,  _C}) -> {col, 0};

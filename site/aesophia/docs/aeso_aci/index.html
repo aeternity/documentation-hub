@@ -2234,15 +2234,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#encodecontractstring-okjsonstring-errorerrorstring" title="encode(ContractString) -&gt; {ok,JSONstring} | {error,ErrorString}" class="md-nav__link">
-    encode(ContractString) -&gt; {ok,JSONstring} | {error,ErrorString}
+  <a href="#contract95interfaceaci95type-string-ok-json-string-error-term" title="contract_interface(aci_type(), string()) -&gt; {ok, json() | string()} | {error, term()}" class="md-nav__link">
+    contract_interface(aci_type(), string()) -&gt; {ok, json() | string()} | {error, term()}
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#decodejsonstring-constractstring" title="decode(JSONstring) -&gt; ConstractString." class="md-nav__link">
-    decode(JSONstring) -&gt; ConstractString.
+  <a href="#render95aci95jsonjson-json95text-string" title="render_aci_json(json() | json_text()) -&gt; string()." class="md-nav__link">
+    render_aci_json(json() | json_text()) -&gt; string().
   </a>
   
 </li>
@@ -2255,13 +2255,6 @@
         <li class="md-nav__item">
   <a href="#example-run" title="Example run" class="md-nav__link">
     Example run
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" title="Notes" class="md-nav__link">
-    Notes
   </a>
   
 </li>
@@ -2306,28 +2299,14 @@ interface. As yet the interface is very basic.</p>
 <p>generates the following JSON structure representing the contract interface:</p>
 <pre><code class="json">{
   &quot;contract&quot;: {
-    &quot;name&quot;: &quot;Answers&quot;,
-    &quot;type_defs&quot;: [
-      {
-        &quot;name&quot;: &quot;state&quot;,
-        &quot;vars&quot;: [],
-        &quot;typedef&quot;: &quot;{a : map(string,int)}&quot;
-      },
-      {
-        &quot;name&quot;: &quot;answers&quot;,
-        &quot;vars&quot;: [],
-        &quot;typedef&quot;: &quot;map(string,int)&quot;
-      }
-    ],
     &quot;functions&quot;: [
       {
-        &quot;name&quot;: &quot;init&quot;,
         &quot;arguments&quot;: [],
-        &quot;type&quot;: &quot;{a : map(string,int)}&quot;,
+        &quot;name&quot;: &quot;init&quot;,
+        &quot;returns&quot;: &quot;Answers.state&quot;,
         &quot;stateful&quot;: true
       },
       {
-        &quot;name&quot;: &quot;new_answer&quot;,
         &quot;arguments&quot;: [
           {
             &quot;name&quot;: &quot;q&quot;,
@@ -2338,8 +2317,35 @@ interface. As yet the interface is very basic.</p>
             &quot;type&quot;: &quot;int&quot;
           }
         ],
-        &quot;type&quot;: &quot;map(string,int)&quot;,
+        &quot;name&quot;: &quot;new_answer&quot;,
+        &quot;returns&quot;: {
+          &quot;map&quot;: [
+            &quot;string&quot;,
+            &quot;int&quot;
+          ]
+        },
         &quot;stateful&quot;: false
+      }
+    ],
+    &quot;name&quot;: &quot;Answers&quot;,
+    &quot;state&quot;: {
+      &quot;record&quot;: [
+        {
+          &quot;name&quot;: &quot;a&quot;,
+          &quot;type&quot;: &quot;Answers.answers&quot;
+        }
+      ]
+    },
+    &quot;type_defs&quot;: [
+      {
+        &quot;name&quot;: &quot;answers&quot;,
+        &quot;typedef&quot;: {
+          &quot;map&quot;: [
+            &quot;string&quot;,
+            &quot;int&quot;
+          ]
+        },
+        &quot;vars&quot;: []
       }
     ]
   }
@@ -2348,50 +2354,64 @@ interface. As yet the interface is very basic.</p>
 
 <p>When that encoding is decoded the following include definition is generated:</p>
 <pre><code>contract Answers =
-  function new_answer : (string, int) =&gt; map(string,int)
+  record state = {a : Answers.answers}
+  type answers = map(string, int)
+  function init : () =&gt; Answers.state
+  function new_answer : (string, int) =&gt; map(string, int)
 </code></pre>
 
 <h3 id="types">Types</h3>
-<pre><code class="erlang">contract_string() = string() | binary()
-json_string() = binary()
+<pre><code class="erlang">-type aci_type()  :: json | string.
+-type json()      :: jsx:json_term().
+-type json_text() :: binary().
 </code></pre>
 
 <h3 id="exports">Exports</h3>
-<h4 id="encodecontractstring-okjsonstring-errorerrorstring">encode(ContractString) -&gt; {ok,JSONstring} | {error,ErrorString}</h4>
-<p>Types</p>
-<pre><code class="erlang">ConstractString = contract_string()
-JSONstring = json_string()
-</code></pre>
-
-<p>Generate the JSON encoding of the interface to a contract. The type definitions and non-private functions are included in the JSON string.</p>
-<h4 id="decodejsonstring-constractstring">decode(JSONstring) -&gt; ConstractString.</h4>
-<p>Types</p>
-<pre><code class="erlang">ConstractString = contract_string()
-JSONstring = json_string()
-</code></pre>
-
-<p>Take a JSON encoding of a contract interface and generate and generate a contract definition which can be included in another contract.</p>
+<h4 id="contract95interfaceaci95type-string-ok-json-string-error-term">contract_interface(aci_type(), string()) -&gt; {ok, json() | string()} | {error, term()}</h4>
+<p>Generate the JSON encoding of the interface to a contract. The type definitions
+and non-private functions are included in the JSON string.</p>
+<h4 id="render95aci95jsonjson-json95text-string">render_aci_json(json() | json_text()) -&gt; string().</h4>
+<p>Take a JSON encoding of a contract interface and generate a contract interface
+that can be included in another contract.</p>
 <h3 id="example-run">Example run</h3>
-<p>This is an example of using the ACI generator from an Erlang shell. The file called <code>aci_test.aes</code> contains the contract in the description from which we want to generate files <code>aci_test.json</code> which is the JSON encoding of the contract interface and <code>aci_test.include</code> which is the contract definition to be included inside another contract.</p>
+<p>This is an example of using the ACI generator from an Erlang shell. The file
+called <code>aci_test.aes</code> contains the contract in the description from which we
+want to generate files <code>aci_test.json</code> which is the JSON encoding of the
+contract interface and <code>aci_test.include</code> which is the contract definition to
+be included inside another contract.</p>
 <pre><code class="erlang">1&gt; {ok,Contract} = file:read_file(&quot;aci_test.aes&quot;).
 {ok,&lt;&lt;&quot;contract Answers =\n  record state = { a : answers }\n  type answers() = map(string, int)\n\n  stateful function&quot;...&gt;&gt;}
-2&gt; {ok,Encoding} = aeso_aci:encode(Contract).
-&lt;&lt;&quot;{\&quot;contract\&quot;:{\&quot;name\&quot;:\&quot;Answers\&quot;,\&quot;type_defs\&quot;:[{\&quot;name\&quot;:\&quot;state\&quot;,\&quot;vars\&quot;:[],\&quot;typedef\&quot;:\&quot;{a : map(string,int)}\&quot;},{\&quot;name\&quot;:\&quot;ans&quot;...&gt;&gt;
-3&gt; file:write_file(&quot;aci_test.aci&quot;, Encoding).
+2&gt; {ok,JsonACI} = aeso_aci:contract_interface(json, Contract).
+{ok,[#{contract =&gt;
+           #{functions =&gt;
+                 [#{arguments =&gt; [],name =&gt; &lt;&lt;&quot;init&quot;&gt;&gt;,
+                    returns =&gt; &lt;&lt;&quot;Answers.state&quot;&gt;&gt;,stateful =&gt; true},
+                  #{arguments =&gt;
+                        [#{name =&gt; &lt;&lt;&quot;q&quot;&gt;&gt;,type =&gt; &lt;&lt;&quot;string&quot;&gt;&gt;},
+                         #{name =&gt; &lt;&lt;&quot;a&quot;&gt;&gt;,type =&gt; &lt;&lt;&quot;int&quot;&gt;&gt;}],
+                    name =&gt; &lt;&lt;&quot;new_answer&quot;&gt;&gt;,
+                    returns =&gt; #{&lt;&lt;&quot;map&quot;&gt;&gt; =&gt; [&lt;&lt;&quot;string&quot;&gt;&gt;,&lt;&lt;&quot;int&quot;&gt;&gt;]},
+                    stateful =&gt; false}],
+             name =&gt; &lt;&lt;&quot;Answers&quot;&gt;&gt;,
+             state =&gt;
+                 #{record =&gt;
+                       [#{name =&gt; &lt;&lt;&quot;a&quot;&gt;&gt;,type =&gt; &lt;&lt;&quot;Answers.answers&quot;&gt;&gt;}]},
+             type_defs =&gt;
+                 [#{name =&gt; &lt;&lt;&quot;answers&quot;&gt;&gt;,
+                    typedef =&gt; #{&lt;&lt;&quot;map&quot;&gt;&gt; =&gt; [&lt;&lt;&quot;string&quot;&gt;&gt;,&lt;&lt;&quot;int&quot;&gt;&gt;]},
+                    vars =&gt; []}]}}]}
+3&gt; file:write_file(&quot;aci_test.aci&quot;, jsx:encode(JsonACI)).
 ok
-4&gt; Decoded = aeso_aci:decode(Encoding).
-&lt;&lt;&quot;contract Answers =\n  function new_answer : (string, int) =&gt; map(string,int)\n&quot;&gt;&gt;
-5&gt; file:write_file(&quot;aci_test.include&quot;, Decoded).
+4&gt; {ok,InterfaceStub} = aeso_aci:render_aci_json(JsonACI).
+{ok,&lt;&lt;&quot;contract Answers =\n  record state = {a : Answers.answers}\n  type answers = map(string, int)\n  function init &quot;...&gt;&gt;}
+5&gt; file:write_file(&quot;aci_test.include&quot;, InterfaceStub).
 ok
-6&gt; jsx:prettify(Encoding).
-&lt;&lt;&quot;{\n  \&quot;contract\&quot;: {\n    \&quot;name\&quot;: \&quot;Answers\&quot;,\n    \&quot;type_defs\&quot;: [\n      {\n        \&quot;name\&quot;: \&quot;state\&quot;,\n        \&quot;vars\&quot;: [],\n   &quot;...&gt;&gt;
+6&gt; jsx:prettify(jsx:encode(JsonACI)).
+&lt;&lt;&quot;[\n  {\n    \&quot;contract\&quot;: {\n      \&quot;functions\&quot;: [\n        {\n          \&quot;arguments\&quot;: [],\n          \&quot;name\&quot;: \&quot;init\&quot;,\n        &quot;...&gt;&gt;
 </code></pre>
 
-<p>The final call to <code>jsx:prettify(Encoding)</code> returns the encoding in a
-more easily readable form. This is what is shown in the description
-above.</p>
-<h3 id="notes">Notes</h3>
-<p>The ACI generator currently cannot properly handle types defined using <code>datatype</code>.</p>
+<p>The final call to <code>jsx:prettify(jsx:encode(JsonACI))</code> returns the encoding in a
+more easily readable form. This is what is shown in the description above.</p>
                 
                   
                 

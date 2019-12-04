@@ -12,12 +12,16 @@
         , file/2
         , from_string/2
         , check_call/4
-        , create_calldata/3
+        , create_calldata/3  %% deprecated
+        , create_calldata/4
         , version/0
         , sophia_type_to_typerep/1
-        , to_sophia_value/4
+        , to_sophia_value/4  %% deprecated, need a backend
         , to_sophia_value/5
-        , decode_calldata/3
+        , decode_calldata/3  %% deprecated
+        , decode_calldata/4
+        , parse/2
+        , add_include_path/2
         ]).
 
 -include_lib("aebytecode/include/aeb_opcodes.hrl").
@@ -31,6 +35,8 @@
                 | pp_icode
                 | pp_assembler
                 | pp_bytecode
+                | no_code
+                | {backend, aevm | fate}
                 | {include, {file_system, [string()]} |
                             {explicit_files, #{string() => binary()}}}
                 | {src_file, string()}.
@@ -59,67 +65,93 @@ version() ->
             {ok, list_to_binary(VsnString)}
     end.
 
--spec file(string()) -> {ok, map()} | {error, binary()}.
+-spec file(string()) -> {ok, map()} | {error, [aeso_errors:error()]}.
 file(Filename) ->
-    Dir = filename:dirname(Filename),
-    {ok, Cwd} = file:get_cwd(),
-    file(Filename, [{include, {file_system, [Cwd, Dir]}}]).
+    file(Filename, []).
 
--spec file(string(), options()) -> {ok, map()} | {error, binary()}.
-file(File, Options) ->
+-spec file(string(), options()) -> {ok, map()} | {error, [aeso_errors:error()]}.
+file(File, Options0) ->
+    Options = add_include_path(File, Options0),
     case read_contract(File) of
         {ok, Bin} -> from_string(Bin, [{src_file, File} | Options]);
         {error, Error} ->
-	    ErrorString = [File,": ",file:format_error(Error)],
-	    {error, join_errors("File errors", [ErrorString], fun(E) -> E end)}
+            Msg = lists:flatten([File,": ",file:format_error(Error)]),
+            {error, [aeso_errors:new(file_error, Msg)]}
     end.
 
--spec from_string(binary() | string(), options()) -> {ok, map()} | {error, binary()}.
-from_string(ContractBin, Options) when is_binary(ContractBin) ->
-    from_string(binary_to_list(ContractBin), Options);
-from_string(ContractString, Options) ->
+add_include_path(File, Options) ->
+    case lists:keymember(include, 1, Options) of
+        true  -> Options;
+        false ->
+            Dir = filename:dirname(File),
+            {ok, Cwd} = file:get_cwd(),
+            [{include, {file_system, [Cwd, Dir]}} | Options]
+    end.
+
+-spec from_string(binary() | string(), options()) -> {ok, map()} | {error, [aeso_errors:error()]}.
+from_string(Contract, Options) ->
+    from_string(proplists:get_value(backend, Options, aevm), Contract, Options).
+
+from_string(Backend, ContractBin, Options) when is_binary(ContractBin) ->
+    from_string(Backend, binary_to_list(ContractBin), Options);
+from_string(Backend, ContractString, Options) ->
     try
-        #{icode := Icode} = string_to_icode(ContractString, Options),
-        TypeInfo  = extract_type_info(Icode),
-        Assembler = assemble(Icode, Options),
-        pp_assembler(Assembler, Options),
-        ByteCodeList = to_bytecode(Assembler, Options),
-        ByteCode = << << B:8 >> || B <- ByteCodeList >>,
-        pp_bytecode(ByteCode, Options),
-        {ok, Version} = version(),
-        {ok, #{byte_code => ByteCode,
-               compiler_version => Version,
-               contract_source => ContractString,
-               type_info => TypeInfo
-              }}
+        from_string1(Backend, ContractString, Options)
     catch
-        %% The compiler errors.
-        error:{parse_errors, Errors} ->
-            {error, join_errors("Parse errors", Errors, fun(E) -> E end)};
-        error:{type_errors, Errors} ->
-            {error, join_errors("Type errors", Errors, fun(E) -> E end)};
-        error:{code_errors, Errors} ->
-            {error, join_errors("Code errors", Errors,
-                                fun (E) -> io_lib:format("~p", [E]) end)}
-        %% General programming errors in the compiler just signal error.
+        throw:{error, Errors} -> {error, Errors}
     end.
 
--spec string_to_icode(string(), [option()]) -> map().
-string_to_icode(ContractString, Options) ->
+from_string1(aevm, ContractString, Options) ->
+    #{icode := Icode} = string_to_code(ContractString, Options),
+    TypeInfo  = extract_type_info(Icode),
+    Assembler = assemble(Icode, Options),
+    pp_assembler(aevm, Assembler, Options),
+    ByteCodeList = to_bytecode(Assembler, Options),
+    ByteCode = << << B:8 >> || B <- ByteCodeList >>,
+    pp_bytecode(ByteCode, Options),
+    {ok, Version} = version(),
+    {ok, #{byte_code => ByteCode,
+           compiler_version => Version,
+           contract_source => ContractString,
+           type_info => TypeInfo,
+           abi_version => aeb_aevm_abi:abi_version(),
+           payable => maps:get(payable, Icode)
+          }};
+from_string1(fate, ContractString, Options) ->
+    #{fcode := FCode} = string_to_code(ContractString, Options),
+    FateCode = aeso_fcode_to_fate:compile(FCode, Options),
+    pp_assembler(fate, FateCode, Options),
+    ByteCode = aeb_fate_code:serialize(FateCode, []),
+    {ok, Version} = version(),
+    {ok, #{byte_code => ByteCode,
+           compiler_version => Version,
+           contract_source => ContractString,
+           type_info => [],
+           fate_code => FateCode,
+           abi_version => aeb_fate_abi:abi_version(),
+           payable => maps:get(payable, FCode)
+          }}.
+
+-spec string_to_code(string(), options()) -> map().
+string_to_code(ContractString, Options) ->
     Ast = parse(ContractString, Options),
     pp_sophia_code(Ast, Options),
     pp_ast(Ast, Options),
-    {TypeEnv, TypedAst} = aeso_ast_infer_types:infer(Ast, [return_env]),
+    {TypeEnv, TypedAst} = aeso_ast_infer_types:infer(Ast, [return_env | Options]),
     pp_typed_ast(TypedAst, Options),
-    Icode = ast_to_icode(TypedAst, Options),
-    pp_icode(Icode, Options),
-    #{ typed_ast => TypedAst,
-       type_env  => TypeEnv,
-       icode     => Icode }.
-
-join_errors(Prefix, Errors, Pfun) ->
-    Ess = [ Pfun(E) || E <- Errors ],
-    list_to_binary(string:join([Prefix|Ess], "\n")).
+    case proplists:get_value(backend, Options, aevm) of
+        aevm ->
+            Icode = ast_to_icode(TypedAst, Options),
+            pp_icode(Icode, Options),
+            #{ icode => Icode,
+               typed_ast => TypedAst,
+               type_env  => TypeEnv};
+        fate ->
+            Fcode = aeso_ast_to_fcode:ast_to_fcode(TypedAst, Options),
+            #{ fcode => Fcode,
+               typed_ast => TypedAst,
+               type_env  => TypeEnv}
+    end.
 
 -define(CALL_NAME,   "__call").
 -define(DECODE_NAME, "__decode").
@@ -130,14 +162,15 @@ join_errors(Prefix, Errors, Pfun) ->
 %% terms for the arguments.
 %% NOTE: Special treatment for "init" since it might be implicit and has
 %%       a special return type (typerep, T)
--spec check_call(string(), string(), [string()], options()) -> {ok, string(), {[Type], Type}, [term()]} | {error, term()}
+-spec check_call(string(), string(), [string()], options()) -> {ok, string(), {[Type], Type}, [term()]}
+                                                                   | {ok, string(), [term()]}
+                                                                   | {error, [aeso_errors:error()]}
     when Type :: term().
 check_call(Source, "init" = FunName, Args, Options) ->
-    PatchFun = fun(T) -> {tuple, [typerep, T]} end,
-    case check_call(Source, FunName, Args, Options, PatchFun) of
+    case check_call1(Source, FunName, Args, Options) of
         Err = {error, _} when Args == [] ->
             %% Try with default init-function
-            case check_call(insert_init_function(Source, Options), FunName, Args, Options, PatchFun) of
+            case check_call1(insert_init_function(Source, Options), FunName, Args, Options) of
                 {error, _} -> Err; %% The first error is most likely better...
                 Res        -> Res
             end;
@@ -145,50 +178,76 @@ check_call(Source, "init" = FunName, Args, Options) ->
             Res
     end;
 check_call(Source, FunName, Args, Options) ->
-    PatchFun = fun(T) -> T end,
-    check_call(Source, FunName, Args, Options, PatchFun).
+    check_call1(Source, FunName, Args, Options).
 
-check_call(ContractString0, FunName, Args, Options, PatchFun) ->
+check_call1(ContractString0, FunName, Args, Options) ->
     try
-        %% First check the contract without the __call function
-        #{} = string_to_icode(ContractString0, Options),
-        ContractString = insert_call_function(ContractString0, FunName, Args, Options),
-        #{typed_ast := TypedAst,
-          icode     := Icode} = string_to_icode(ContractString, Options),
-        {ok, {FunName, {fun_t, _, _, ArgTypes, RetType}}} = get_call_type(TypedAst),
-        ArgVMTypes = [ aeso_ast_to_icode:ast_typerep(T, Icode) || T <- ArgTypes ],
-        RetVMType  = case RetType of
-                         {id, _, "_"} -> any;
-                         _            -> aeso_ast_to_icode:ast_typerep(RetType, Icode)
-                     end,
-        #{ functions := Funs } = Icode,
-        ArgIcode = get_arg_icode(Funs),
-        ArgTerms = [ icode_to_term(T, Arg) ||
-                       {T, Arg} <- lists:zip(ArgVMTypes, ArgIcode) ],
-        {ok, FunName, {ArgVMTypes, PatchFun(RetVMType)}, ArgTerms}
+        case proplists:get_value(backend, Options, aevm) of
+            aevm ->
+                %% First check the contract without the __call function
+                #{} = string_to_code(ContractString0, Options),
+                ContractString = insert_call_function(ContractString0, ?CALL_NAME, FunName, Args, Options),
+                #{typed_ast := TypedAst,
+                  icode     := Icode} = string_to_code(ContractString, Options),
+                {ok, {FunName, {fun_t, _, _, ArgTypes, RetType}}} = get_call_type(TypedAst),
+                ArgVMTypes = [ aeso_ast_to_icode:ast_typerep(T, Icode) || T <- ArgTypes ],
+                RetVMType  = case RetType of
+                                 {id, _, "_"} -> any;
+                                 _            -> aeso_ast_to_icode:ast_typerep(RetType, Icode)
+                             end,
+                #{ functions := Funs } = Icode,
+                ArgIcode = get_arg_icode(Funs),
+                ArgTerms = [ icode_to_term(T, Arg) ||
+                               {T, Arg} <- lists:zip(ArgVMTypes, ArgIcode) ],
+                RetVMType1 =
+                    case FunName of
+                        "init" -> {tuple, [typerep, RetVMType]};
+                        _ -> RetVMType
+                    end,
+                {ok, FunName, {ArgVMTypes, RetVMType1}, ArgTerms};
+            fate ->
+                %% First check the contract without the __call function
+                #{fcode := OrgFcode} = string_to_code(ContractString0, Options),
+                FateCode = aeso_fcode_to_fate:compile(OrgFcode, []),
+                %% collect all hashes and compute the first name without hash collision to
+                SymbolHashes = maps:keys(aeb_fate_code:symbols(FateCode)),
+                CallName = first_none_match(?CALL_NAME, SymbolHashes,
+                                            lists:seq($1, $9) ++ lists:seq($A, $Z) ++ lists:seq($a, $z)),
+                ContractString = insert_call_function(ContractString0, CallName, FunName, Args, Options),
+                #{fcode := Fcode} = string_to_code(ContractString, Options),
+                CallArgs = arguments_of_body(CallName, FunName, Fcode),
+                {ok, FunName, CallArgs}
+        end
     catch
-        error:{parse_errors, Errors} ->
-            {error, join_errors("Parse errors", Errors, fun (E) -> E end)};
-        error:{type_errors, Errors} ->
-            {error, join_errors("Type errors", Errors, fun (E) -> E end)};
-        error:{badmatch, {error, missing_call_function}} ->
-            {error, join_errors("Type errors", ["missing __call function"],
-                                fun (E) -> E end)};
-        throw:Error ->                          %Don't ask
-            {error, join_errors("Code errors", [Error],
-                                fun (E) -> io_lib:format("~p", [E]) end)}
+        throw:{error, Errors} -> {error, Errors}
+    end.
+
+arguments_of_body(CallName, _FunName, Fcode) ->
+    #{body := Body} = maps:get({entrypoint, list_to_binary(CallName)}, maps:get(functions, Fcode)),
+    {def, _FName, Args} = Body,
+    %% FName is either {entrypoint, list_to_binary(FunName)} or 'init'
+    [ aeso_fcode_to_fate:term_to_fate(A) || A <- Args ].
+
+first_none_match(_CallName, _Hashes, []) ->
+    error(unable_to_find_unique_call_name);
+first_none_match(CallName, Hashes, [Char|Chars]) ->
+    case not lists:member(aeb_fate_code:symbol_identifier(list_to_binary(CallName)), Hashes) of
+        true ->
+            CallName;
+        false ->
+            first_none_match(?CALL_NAME++[Char], Hashes, Chars)
     end.
 
 %% Add the __call function to a contract.
--spec insert_call_function(string(), string(), [string()], options()) -> string().
-insert_call_function(Code, FunName, Args, Options) ->
+-spec insert_call_function(string(), string(), string(), [string()], options()) -> string().
+insert_call_function(Code, Call, FunName, Args, Options) ->
     Ast = parse(Code, Options),
     Ind = last_contract_indent(Ast),
     lists:flatten(
         [ Code,
           "\n\n",
           lists:duplicate(Ind, " "),
-          "function __call() = ", FunName, "(", string:join(Args, ","), ")\n"
+          "stateful entrypoint ", Call, "() = ", FunName, "(", string:join(Args, ","), ")\n"
         ]).
 
 -spec insert_init_function(string(), options()) -> string().
@@ -198,7 +257,7 @@ insert_init_function(Code, Options) ->
     lists:flatten(
         [ Code,
           "\n\n",
-          lists:duplicate(Ind, " "), "function init() = ()\n"
+          lists:duplicate(Ind, " "), "entrypoint init() = ()\n"
         ]).
 
 last_contract_indent(Decls) ->
@@ -208,169 +267,173 @@ last_contract_indent(Decls) ->
     end.
 
 -spec to_sophia_value(string(), string(), ok | error | revert, aeb_aevm_data:data()) ->
-        {ok, aeso_syntax:expr()} | {error, term()}.
+        {ok, aeso_syntax:expr()} | {error, [aeso_errors:error()]}.
 to_sophia_value(ContractString, Fun, ResType, Data) ->
-    to_sophia_value(ContractString, Fun, ResType, Data, []).
+    to_sophia_value(ContractString, Fun, ResType, Data, [{backend, aevm}]).
 
 -spec to_sophia_value(string(), string(), ok | error | revert, binary(), options()) ->
-        {ok, aeso_syntax:expr()} | {error, term()}.
+        {ok, aeso_syntax:expr()} | {error, [aeso_errors:error()]}.
 to_sophia_value(_, _, error, Err, _Options) ->
     {ok, {app, [], {id, [], "error"}, [{string, [], Err}]}};
-to_sophia_value(_, _, revert, Data, _Options) ->
-    case aeb_heap:from_binary(string, Data) of
-        {ok, Err} -> {ok, {app, [], {id, [], "abort"}, [{string, [], Err}]}};
-        {error, _} = Err -> Err
+to_sophia_value(_, _, revert, Data, Options) ->
+    case proplists:get_value(backend, Options, aevm) of
+        aevm ->
+            case aeb_heap:from_binary(string, Data) of
+                {ok, Err} ->
+                    {ok, {app, [], {id, [], "abort"}, [{string, [], Err}]}};
+                {error, _} ->
+                    Msg = "Could not interpret the revert message\n",
+                    {error, [aeso_errors:new(data_error, Msg)]}
+            end;
+        fate ->
+            try aeb_fate_encoding:deserialize(Data) of
+                Err -> {ok, {app, [], {id, [], "abort"}, [{string, [], Err}]}}
+            catch _:_ ->
+                Msg = "Could not deserialize the revert message\n",
+                {error, [aeso_errors:new(data_error, Msg)]}
+            end
     end;
-to_sophia_value(ContractString, FunName, ok, Data, Options) ->
+to_sophia_value(ContractString, FunName, ok, Data, Options0) ->
+    Options = [no_code | Options0],
     try
-        #{ typed_ast := TypedAst,
-           type_env  := TypeEnv,
-           icode     := Icode } = string_to_icode(ContractString, Options),
+        Code = string_to_code(ContractString, Options),
+        #{ typed_ast := TypedAst, type_env  := TypeEnv} = Code,
         {ok, _, Type0} = get_decode_type(FunName, TypedAst),
         Type   = aeso_ast_infer_types:unfold_types_in_type(TypeEnv, Type0, [unfold_record_types, unfold_variant_types]),
-        VmType = aeso_ast_to_icode:ast_typerep(Type, Icode),
-        case aeb_heap:from_binary(VmType, Data) of
-            {ok, VmValue} ->
-                try
-                    {ok, translate_vm_value(VmType, Type, VmValue)}
-                catch throw:cannot_translate_to_sophia ->
-                    Type0Str = prettypr:format(aeso_pretty:type(Type0)),
-                    {error, join_errors("Translation error", [lists:flatten(io_lib:format("Cannot translate VM value ~p\n  of type ~p\n  to Sophia type ~s\n",
-                                                                            [Data, VmType, Type0Str]))],
-                                        fun (E) -> E end)}
+
+        case proplists:get_value(backend, Options, aevm) of
+            aevm ->
+                Icode  = maps:get(icode, Code),
+                VmType = aeso_ast_to_icode:ast_typerep(Type, Icode),
+                case aeb_heap:from_binary(VmType, Data) of
+                    {ok, VmValue} ->
+                        try
+                            {ok, aeso_vm_decode:from_aevm(VmType, Type, VmValue)}
+                        catch throw:cannot_translate_to_sophia ->
+                            Type0Str = prettypr:format(aeso_pretty:type(Type0)),
+                            Msg = io_lib:format("Cannot translate VM value ~p\n  of type ~p\n  to Sophia type ~s\n",
+                                                [Data, VmType, Type0Str]),
+                            {error, [aeso_errors:new(data_error, Msg)]}
+                        end;
+                    {error, _Err} ->
+                        Msg = io_lib:format("Failed to decode binary as type ~p\n", [VmType]),
+                        {error, [aeso_errors:new(data_error, Msg)]}
                 end;
-            {error, _Err} ->
-                {error, join_errors("Decode errors", [lists:flatten(io_lib:format("Failed to decode binary at type ~p", [VmType]))],
-                                    fun(E) -> E end)}
+            fate ->
+                try
+                    {ok, aeso_vm_decode:from_fate(Type, aeb_fate_encoding:deserialize(Data))}
+                catch throw:cannot_translate_to_sophia ->
+                        Type1 = prettypr:format(aeso_pretty:type(Type)),
+                        Msg = io_lib:format("Cannot translate FATE value ~p\n  of Sophia type ~s\n",
+                                            [aeb_fate_encoding:deserialize(Data), Type1]),
+                        {error, [aeso_errors:new(data_error, Msg)]};
+                      _:_ ->
+                        Type1 = prettypr:format(aeso_pretty:type(Type)),
+                        Msg = io_lib:format("Failed to decode binary as type ~s\n", [Type1]),
+                        {error, [aeso_errors:new(data_error, Msg)]}
+               end
         end
     catch
-        error:{parse_errors, Errors} ->
-            {error, join_errors("Parse errors", Errors, fun (E) -> E end)};
-        error:{type_errors, Errors} ->
-            {error, join_errors("Type errors", Errors, fun (E) -> E end)};
-        error:{badmatch, {error, missing_function}} ->
-            {error, join_errors("Type errors", ["no function: '" ++ FunName ++ "'"],
-                                fun (E) -> E end)};
-        throw:Error ->                          %Don't ask
-            {error, join_errors("Code errors", [Error],
-                                fun (E) -> io_lib:format("~p", [E]) end)}
+        throw:{error, Errors} -> {error, Errors}
     end.
 
-address_literal(Type, N) -> {Type, [], <<N:256>>}.
-
-%% TODO: somewhere else
--spec translate_vm_value(aeb_aevm_data:type(), aeso_syntax:type(), aeb_aevm_data:data()) -> aeso_syntax:expr().
-translate_vm_value(word, {id, _, "address"},                     N) -> address_literal(account_pubkey, N);
-translate_vm_value(word, {app_t, _, {id, _, "oracle"}, _},       N) -> address_literal(oracle_pubkey, N);
-translate_vm_value(word, {app_t, _, {id, _, "oracle_query"}, _}, N) -> address_literal(oracle_query_id, N);
-translate_vm_value(word, {con, _, _Name},                        N) -> address_literal(contract_pubkey, N);
-translate_vm_value(word, {id, _, "int"},     N) -> {int, [], N};
-translate_vm_value(word, {id, _, "bits"},    N) -> error({todo, bits, N});
-translate_vm_value(word, {id, _, "bool"},    N) -> {bool, [], N /= 0};
-translate_vm_value(word, {bytes_t, _, Len}, Val) when Len =< 32 ->
-    {bytes, [], <<Val:Len/unit:8>>};
-translate_vm_value({tuple, _}, {bytes_t, _, Len}, Val) ->
-    {bytes, [], binary:part(<< <<W:32/unit:8>> || W <- tuple_to_list(Val) >>, 0, Len)};
-translate_vm_value(string, {id, _, "string"}, S) -> {string, [], S};
-translate_vm_value({list, VmType}, {app_t, _, {id, _, "list"}, [Type]}, List) ->
-    {list, [], [translate_vm_value(VmType, Type, X) || X <- List]};
-translate_vm_value({option, VmType}, {app_t, _, {id, _, "option"}, [Type]}, Val) ->
-    case Val of
-        none              -> {con, [], "None"};
-        {some, X}         -> {app, [], {con, [], "Some"}, [translate_vm_value(VmType, Type, X)]}
-    end;
-translate_vm_value({variant, [[], [VmType]]}, {app_t, _, {id, _, "option"}, [Type]}, Val) ->
-    case Val of
-        {variant, 0, []}  -> {con, [], "None"};
-        {variant, 1, [X]} -> {app, [], {con, [], "Some"}, [translate_vm_value(VmType, Type, X)]}
-    end;
-translate_vm_value({tuple, VmTypes}, {tuple_t, _, Types}, Val)
-        when length(VmTypes) == length(Types),
-             length(VmTypes) == tuple_size(Val) ->
-    {tuple, [], [translate_vm_value(VmType, Type, X)
-                 || {VmType, Type, X} <- lists:zip3(VmTypes, Types, tuple_to_list(Val))]};
-translate_vm_value({tuple, VmTypes}, {record_t, Fields}, Val)
-        when length(VmTypes) == length(Fields),
-             length(VmTypes) == tuple_size(Val) ->
-    {record, [], [ {field, [], [{proj, [], FName}], translate_vm_value(VmType, FType, X)}
-                   || {VmType, {field_t, _, FName, FType}, X} <- lists:zip3(VmTypes, Fields, tuple_to_list(Val)) ]};
-translate_vm_value({map, VmKeyType, VmValType}, {app_t, _, {id, _, "map"}, [KeyType, ValType]}, Map)
-        when is_map(Map) ->
-    {map, [], [ {translate_vm_value(VmKeyType, KeyType, Key),
-                 translate_vm_value(VmValType, ValType, Val)}
-                || {Key, Val} <- maps:to_list(Map) ]};
-translate_vm_value({variant, VmCons}, {variant_t, Cons}, {variant, Tag, Args})
-        when length(VmCons) == length(Cons),
-             length(VmCons) > Tag ->
-    VmTypes = lists:nth(Tag + 1, VmCons),
-    ConType = lists:nth(Tag + 1, Cons),
-    translate_vm_value(VmTypes, ConType, Args);
-translate_vm_value(VmTypes, {constr_t, _, Con, Types}, Args)
-        when length(VmTypes) == length(Types),
-             length(VmTypes) == length(Args) ->
-    {app, [], Con, [ translate_vm_value(VmType, Type, Arg)
-                     || {VmType, Type, Arg} <- lists:zip3(VmTypes, Types, Args) ]};
-translate_vm_value(_VmType, _Type, _Data) ->
-    throw(cannot_translate_to_sophia).
 
 -spec create_calldata(string(), string(), [string()]) ->
                              {ok, binary(), aeb_aevm_data:type(), aeb_aevm_data:type()}
-                             | {error, term()}.
+                             | {error, [aeso_errors:error()]}.
 create_calldata(Code, Fun, Args) ->
-    case check_call(Code, Fun, Args, []) of
-        {ok, FunName, {ArgTypes, RetType}, VMArgs} ->
-            aeb_abi:create_calldata(FunName, VMArgs, ArgTypes, RetType);
-        {error, _} = Err -> Err
+    create_calldata(Code, Fun, Args, [{backend, aevm}]).
+
+-spec create_calldata(string(), string(), [string()], [{atom(), any()}]) ->
+                             {ok, binary()} | {error, [aeso_errors:error()]}.
+create_calldata(Code, Fun, Args, Options0) ->
+    Options = [no_code | Options0],
+    case proplists:get_value(backend, Options, aevm) of
+        aevm ->
+            case check_call(Code, Fun, Args, Options) of
+                {ok, FunName, {ArgTypes, RetType}, VMArgs} ->
+                    aeb_aevm_abi:create_calldata(FunName, VMArgs, ArgTypes, RetType);
+                {error, _} = Err -> Err
+            end;
+        fate ->
+            case check_call(Code, Fun, Args, Options) of
+                {ok, FunName, FateArgs} ->
+                    aeb_fate_abi:create_calldata(FunName, FateArgs);
+                {error, _} = Err -> Err
+            end
     end.
 
 -spec decode_calldata(string(), string(), binary()) ->
                              {ok, [aeso_syntax:type()], [aeso_syntax:expr()]}
-                             | {error, term()}.
+                             | {error, [aeso_errors:error()]}.
 decode_calldata(ContractString, FunName, Calldata) ->
+    decode_calldata(ContractString, FunName, Calldata, [{backend, aevm}]).
+
+decode_calldata(ContractString, FunName, Calldata, Options0) ->
+    Options = [no_code | Options0],
     try
-        #{ typed_ast := TypedAst,
-           type_env  := TypeEnv,
-           icode     := Icode } = string_to_icode(ContractString, []),
+        Code = string_to_code(ContractString, Options),
+        #{ typed_ast := TypedAst, type_env  := TypeEnv} = Code,
+
         {ok, Args, _} = get_decode_type(FunName, TypedAst),
         DropArg       = fun({arg, _, _, T}) -> T; (T) -> T end,
         ArgTypes      = lists:map(DropArg, Args),
         Type0         = {tuple_t, [], ArgTypes},
-        Type   = aeso_ast_infer_types:unfold_types_in_type(TypeEnv, Type0, [unfold_record_types, unfold_variant_types]),
-        VmType = aeso_ast_to_icode:ast_typerep(Type, Icode),
-        case aeb_heap:from_binary({tuple, [word, VmType]}, Calldata) of
-            {ok, {_, VmValue}} ->
-                try
-                    {tuple, [], Values} = translate_vm_value(VmType, Type, VmValue),
-                    {ok, ArgTypes, Values}
-                catch throw:cannot_translate_to_sophia ->
-                    Type0Str = prettypr:format(aeso_pretty:type(Type0)),
-                    {error, join_errors("Translation error", [lists:flatten(io_lib:format("Cannot translate VM value ~p\n  of type ~p\n  to Sophia type ~s\n",
-                                                                            [VmValue, VmType, Type0Str]))],
-                                        fun (E) -> E end)}
+        %% user defined data types such as variants needed to match against
+        Type          = aeso_ast_infer_types:unfold_types_in_type(TypeEnv, Type0, [unfold_record_types, unfold_variant_types]),
+        case proplists:get_value(backend, Options, aevm) of
+            aevm ->
+                Icode  = maps:get(icode, Code),
+                VmType = aeso_ast_to_icode:ast_typerep(Type, Icode),
+                case aeb_heap:from_binary({tuple, [word, VmType]}, Calldata) of
+                    {ok, {_, VmValue}} ->
+                        try
+                            {tuple, [], Values} = aeso_vm_decode:from_aevm(VmType, Type, VmValue),
+                            %% Values are Sophia expressions in AST format
+                            {ok, ArgTypes, Values}
+                        catch throw:cannot_translate_to_sophia ->
+                            Type0Str = prettypr:format(aeso_pretty:type(Type0)),
+                            Msg = io_lib:format("Cannot translate VM value ~p\n  of type ~p\n  to Sophia type ~s\n",
+                                                [VmValue, VmType, Type0Str]),
+                            {error, [aeso_errors:new(data_error, Msg)]}
+                        end;
+                    {error, _Err} ->
+                        Msg = io_lib:format("Failed to decode calldata as type ~p\n", [VmType]),
+                        {error, [aeso_errors:new(data_error, Msg)]}
                 end;
-            {error, _Err} ->
-                {error, join_errors("Decode errors", [lists:flatten(io_lib:format("Failed to decode binary at type ~p", [VmType]))],
-                                    fun(E) -> E end)}
+            fate ->
+                case aeb_fate_abi:decode_calldata(FunName, Calldata) of
+                    {ok, FateArgs} ->
+                        try
+                            {tuple_t, [], ArgTypes1} = Type,
+                            AstArgs = [ aeso_vm_decode:from_fate(ArgType, FateArg)
+                                        || {ArgType, FateArg} <- lists:zip(ArgTypes1, FateArgs)],
+                            {ok, ArgTypes, AstArgs}
+                        catch throw:cannot_translate_to_sophia ->
+                                Type0Str = prettypr:format(aeso_pretty:type(Type0)),
+                                Msg = io_lib:format("Cannot translate FATE value ~p\n  to Sophia type ~s\n",
+                                                    [FateArgs, Type0Str]),
+                                {error, [aeso_errors:new(data_error, Msg)]}
+                        end;
+                    {error, _} ->
+                        Msg = io_lib:format("Failed to decode calldata binary\n", []),
+                        {error, [aeso_errors:new(data_error, Msg)]}
+                end
         end
     catch
-        error:{parse_errors, Errors} ->
-            {error, join_errors("Parse errors", Errors, fun (E) -> E end)};
-        error:{type_errors, Errors} ->
-            {error, join_errors("Type errors", Errors, fun (E) -> E end)};
-        error:{badmatch, {error, missing_function}} ->
-            {error, join_errors("Type errors", ["no function: '" ++ FunName ++ "'"],
-                                fun (E) -> E end)};
-        throw:Error ->                          %Don't ask
-            {error, join_errors("Code errors", [Error],
-                                fun (E) -> io_lib:format("~p", [E]) end)}
+        throw:{error, Errors} -> {error, Errors}
     end.
-
 
 get_arg_icode(Funs) ->
     case [ Args || {[_, ?CALL_NAME], _, _, {funcall, _, Args}, _} <- Funs ] of
         [Args] -> Args;
-        []     -> error({missing_call_function, Funs})
+        []     -> error_missing_call_function()
     end.
+
+-dialyzer({nowarn_function, error_missing_call_function/0}).
+error_missing_call_function() ->
+    Msg = "Internal error: missing '__call'-function",
+    aeso_errors:throw(aeso_errors:new(internal_error, Msg)).
 
 get_call_type([{contract, _, _, Defs}]) ->
     case [ {lists:last(QFunName), FunType}
@@ -379,19 +442,27 @@ get_call_type([{contract, _, _, Defs}]) ->
                     {app, _,
                         {typed, _, {qid, _, QFunName}, FunType}, _}, _}} <- Defs ] of
         [Call] -> {ok, Call};
-        []     -> {error, missing_call_function}
+        []     -> error_missing_call_function()
     end;
 get_call_type([_ | Contracts]) ->
     %% The __call should be in the final contract
     get_call_type(Contracts).
 
-get_decode_type(FunName, [{contract, _, _, Defs}]) ->
+-dialyzer({nowarn_function, get_decode_type/2}).
+get_decode_type(FunName, [{contract, Ann, _, Defs}]) ->
     GetType = fun({letfun, _, {id, _, Name}, Args, Ret, _})               when Name == FunName -> [{Args, Ret}];
                  ({fun_decl, _, {id, _, Name}, {fun_t, _, _, Args, Ret}}) when Name == FunName -> [{Args, Ret}];
                  (_) -> [] end,
     case lists:flatmap(GetType, Defs) of
         [{Args, Ret}] -> {ok, Args, Ret};
-        []            -> {error, missing_function}
+        []            ->
+            case FunName of
+                "init" -> {ok, [], {tuple_t, [], []}};
+                 _ ->
+                    Msg = io_lib:format("Function '~s' is missing in contract\n", [FunName]),
+                    Pos = aeso_code_errors:pos(Ann),
+                    aeso_errors:throw(aeso_errors:new(data_error, Pos, Msg))
+            end
     end;
 get_decode_type(FunName, [_ | Contracts]) ->
     %% The __decode should be in the final contract
@@ -400,6 +471,7 @@ get_decode_type(FunName, [_ | Contracts]) ->
 %% Translate an icode value (error if not value) to an Erlang term that can be
 %% consumed by aeb_heap:to_binary().
 icode_to_term(word, {integer, N}) -> N;
+icode_to_term(word, {unop, '-', {integer, N}}) -> -N;
 icode_to_term(string, {tuple, [{integer, Len} | Words]}) ->
     <<Str:Len/binary, _/binary>> = << <<W:256>> || {integer, W} <- Words >>,
     Str;
@@ -446,8 +518,9 @@ to_bytecode([], _) -> [].
 
 extract_type_info(#{functions := Functions} =_Icode) ->
     ArgTypesOnly = fun(As) -> [ T || {_, T} <- As ] end,
-    TypeInfo = [aeb_abi:function_type_info(list_to_binary(lists:last(Name)),
-                                            ArgTypesOnly(Args), TypeRep)
+    Payable = fun(Attrs) -> proplists:get_value(payable, Attrs, false) end,
+    TypeInfo = [aeb_aevm_abi:function_type_info(list_to_binary(lists:last(Name)),
+                                            Payable(Attrs), ArgTypesOnly(Args), TypeRep)
                 || {Name, Attrs, Args,_Body, TypeRep} <- Functions,
                    not is_tuple(Name),
                    not lists:member(private, Attrs)
@@ -460,8 +533,10 @@ pp_sophia_code(C, Opts)->  pp(C, Opts, pp_sophia_code, fun(Code) ->
 pp_ast(C, Opts)      ->  pp(C, Opts, pp_ast, fun aeso_ast:pp/1).
 pp_typed_ast(C, Opts)->  pp(C, Opts, pp_typed_ast, fun aeso_ast:pp_typed/1).
 pp_icode(C, Opts)    ->  pp(C, Opts, pp_icode, fun aeso_icode:pp/1).
-pp_assembler(C, Opts)->  pp(C, Opts, pp_assembler, fun aeb_asm:pp/1).
 pp_bytecode(C, Opts) ->  pp(C, Opts, pp_bytecode, fun aeb_disassemble:pp/1).
+
+pp_assembler(aevm, C, Opts) ->  pp(C, Opts, pp_assembler, fun aeb_asm:pp/1);
+pp_assembler(fate, C, Opts) ->  pp(C, Opts, pp_assembler, fun(Asm) -> io:format("~s", [aeb_fate_asm:pp(Asm)]) end).
 
 pp(Code, Options, Option, PPFun) ->
     case proplists:lookup(Option, Options) of
@@ -471,9 +546,7 @@ pp(Code, Options, Option, PPFun) ->
             ok
     end.
 
-
 %% -------------------------------------------------------------------
-%% TODO: Tempoary parser hook below...
 
 sophia_type_to_typerep(String) ->
     {ok, Ast} = aeso_parser:type(String),
@@ -482,38 +555,13 @@ sophia_type_to_typerep(String) ->
     catch _:_ -> {error, bad_type}
     end.
 
+-spec parse(string(), aeso_compiler:options()) -> none() | aeso_syntax:ast().
 parse(Text, Options) ->
-    %% Try and return something sensible here!
-    case aeso_parser:string(Text, Options) of
-        %% Yay, it worked!
-        {ok, Contract} -> Contract;
-        %% Scan errors.
-        {error, {Pos, scan_error}} ->
-            parse_error(Pos, "scan error");
-        {error, {Pos, scan_error_no_state}} ->
-            parse_error(Pos, "scan error");
-        %% Parse errors.
-        {error, {Pos, parse_error, Error}} ->
-            parse_error(Pos, Error);
-        {error, {Pos, ambiguous_parse, As}} ->
-            ErrorString = io_lib:format("Ambiguous ~p", [As]),
-            parse_error(Pos, ErrorString);
-        %% Include error
-        {error, {Pos, include_error, File}} ->
-            parse_error(Pos, io_lib:format("could not find include file '~s'", [File]))
-    end.
+    parse(Text, sets:new(), Options).
 
-parse_error(Pos, ErrorString) ->
-    Error = io_lib:format("~s: ~s", [pos_error(Pos), ErrorString]),
-    error({parse_errors, [Error]}).
+-spec parse(string(), sets:set(), aeso_compiler:options()) -> none() | aeso_syntax:ast().
+parse(Text, Included, Options) ->
+    aeso_parser:string(Text, Included, Options).
 
 read_contract(Name) ->
     file:read_file(Name).
-
-pos_error({Line, Pos}) ->
-    io_lib:format("line ~p, column ~p", [Line, Pos]);
-pos_error({no_file, Line, Pos}) ->
-    pos_error({Line, Pos});
-pos_error({File, Line, Pos}) ->
-    io_lib:format("file ~s, line ~p, column ~p", [File, Line, Pos]).
-

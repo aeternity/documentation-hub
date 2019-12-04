@@ -21,7 +21,7 @@ contract Oracles =
   function respond(o    : oracle_id,
                    q    : query_id,
                    sign : signature,
-                   r    : answer_t) : () =
+                   r    : answer_t) : unit =
     Oracle.respond(o, q, signature = sign, r)
 
 
@@ -33,5 +33,3 @@ contract Oracles =
                      q : query_id) : option(answer_t) =
     Oracle.get_answer(o, q)
 
-  private function require(b : bool, err : string) =
-    if(!b) abort(err)

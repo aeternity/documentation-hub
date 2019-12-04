@@ -24,7 +24,7 @@ contract AllSyntax =
         if(valWithType(Map.empty) == None)
           print(42 mod 10 * 5 / 3)
 
-  function funWithType(x : int, y) : (int, list(int)) = (x, 0 :: [y] ++ [])
+  function funWithType(x : int, y) : int * list(int) = (x, 0 :: [y] ++ [])
   function funNoType() =
     let foo = (x, y : bool) =>
                 if (! (y && x =< 0x0b || true)) [x]
@@ -35,11 +35,6 @@ contract AllSyntax =
     switch (funWithType(1, -2))
       (x, [y, z]) => bar({x = z, y = -y + - -z * (-1)})
       (x, y :: _) => ()
-
-  function mutual() =
-    let rec recFun(x : int) = mutFun(x)
-        and mutFun(x) = if(x =< 0) 1 else x * recFun(x - 1)
-    recFun(0)
 
   let hash : address = #01ab0fff11
   let b = false

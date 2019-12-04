@@ -1,7 +1,7 @@
 -module(aeso_abi_tests).
 
 -include_lib("eunit/include/eunit.hrl").
--compile(export_all).
+-compile([export_all, nowarn_export_all]).
 
 -define(SANDBOX(Code), sandbox(fun() -> Code end)).
 -define(DUMMY_HASH_WORD, 16#123).
@@ -62,28 +62,81 @@ encode_decode_sophia_test() ->
                                 Other -> Other
                               end end,
     ok = Check("int", "42"),
+    ok = Check("int", "-42"),
     ok = Check("bool", "true"),
     ok = Check("bool", "false"),
     ok = Check("string", "\"Hello\""),
-    ok = Check("(string, list(int), option(bool))",
+    ok = Check("string * list(int) * option(bool)",
                "(\"Hello\", [1, 2, 3], Some(true))"),
     ok = Check("variant", "Blue({[\"x\"] = 1})"),
     ok = Check("r", "{x = (\"foo\", 0), y = Red}"),
     ok.
 
+to_sophia_value_neg_test() ->
+    Code = [ "contract Foo =\n"
+             "  entrypoint x(y : int) : string = \"hello\"\n" ],
+
+    {error, [Err1]} = aeso_compiler:to_sophia_value(Code, "x", ok, encode(12)),
+    ?assertEqual("Data error:\nFailed to decode binary as type string\n", aeso_errors:pp(Err1)),
+    {error, [Err2]} = aeso_compiler:to_sophia_value(Code, "x", ok, encode(12), [{backend, fate}]),
+    ?assertEqual("Data error:\nFailed to decode binary as type string\n", aeso_errors:pp(Err2)),
+
+    {error, [Err3]} = aeso_compiler:to_sophia_value(Code, "x", revert, encode(12)),
+    ?assertEqual("Data error:\nCould not interpret the revert message\n", aeso_errors:pp(Err3)),
+    {error, [Err4]} = aeso_compiler:to_sophia_value(Code, "x", revert, encode(12), [{backend, fate}]),
+    ?assertEqual("Data error:\nCould not deserialize the revert message\n", aeso_errors:pp(Err4)),
+    ok.
+
+encode_calldata_neg_test() ->
+    Code = [ "contract Foo =\n"
+             "  entrypoint x(y : int) : string = \"hello\"\n" ],
+
+    ExpErr1 = "Type error at line 5, col 34:\nCannot unify int\n         and bool\n"
+              "when checking the application at line 5, column 34 of\n"
+              "  x : (int) => string\nto arguments\n  true : bool\n",
+    {error, [Err1]} = aeso_compiler:create_calldata(Code, "x", ["true"]),
+    ?assertEqual(ExpErr1, aeso_errors:pp(Err1)),
+    {error, [Err2]} = aeso_compiler:create_calldata(Code, "x", ["true"], [{backend, fate}]),
+    ?assertEqual(ExpErr1, aeso_errors:pp(Err2)),
+
+    ok.
+
+decode_calldata_neg_test() ->
+    Code1 = [ "contract Foo =\n"
+              "  entrypoint x(y : int) : string = \"hello\"\n" ],
+    Code2 = [ "contract Foo =\n"
+              "  entrypoint x(y : string) : int = 42\n" ],
+
+    {ok, CallDataAEVM} = aeso_compiler:create_calldata(Code1, "x", ["42"]),
+    {ok, CallDataFATE} = aeso_compiler:create_calldata(Code1, "x", ["42"], [{backend, fate}]),
+
+    {error, [Err1]} = aeso_compiler:decode_calldata(Code2, "x", CallDataAEVM),
+    ?assertEqual("Data error:\nFailed to decode calldata as type {tuple,[string]}\n", aeso_errors:pp(Err1)),
+    {error, [Err2]} = aeso_compiler:decode_calldata(Code2, "x", <<1,2,3>>, [{backend, fate}]),
+    ?assertEqual("Data error:\nFailed to decode calldata binary\n", aeso_errors:pp(Err2)),
+    {error, [Err3]} = aeso_compiler:decode_calldata(Code2, "x", CallDataFATE, [{backend, fate}]),
+    ?assertEqual("Data error:\nCannot translate FATE value \"*\"\n  to Sophia type (string)\n", aeso_errors:pp(Err3)),
+
+    {error, [Err4]} = aeso_compiler:decode_calldata(Code2, "y", CallDataAEVM),
+    ?assertEqual("Data error at line 1, col 1:\nFunction 'y' is missing in contract\n", aeso_errors:pp(Err4)),
+    {error, [Err5]} = aeso_compiler:decode_calldata(Code2, "y", CallDataFATE, [{backend, fate}]),
+    ?assertEqual("Data error at line 1, col 1:\nFunction 'y' is missing in contract\n", aeso_errors:pp(Err5)),
+    ok.
+
+
 encode_decode_sophia_string(SophiaType, String) ->
     io:format("String ~p~n", [String]),
     Code = [ "contract MakeCall =\n"
            , "  type arg_type = ", SophiaType, "\n"
-           , "  type an_alias('a) = (string, 'a)\n"
+           , "  type an_alias('a) = string * 'a\n"
            , "  record r = {x : an_alias(int), y : variant}\n"
            , "  datatype variant = Red | Blue(map(string, int))\n"
-           , "  function foo : arg_type => arg_type\n" ],
-    case aeso_compiler:check_call(lists:flatten(Code), "foo", [String], []) of
+           , "  entrypoint foo : arg_type => arg_type\n" ],
+    case aeso_compiler:check_call(lists:flatten(Code), "foo", [String], [no_code]) of
         {ok, _, {[Type], _}, [Arg]} ->
             io:format("Type ~p~n", [Type]),
             Data = encode(Arg),
-            case aeso_compiler:to_sophia_value(Code, "foo", ok, Data) of
+            case aeso_compiler:to_sophia_value(Code, "foo", ok, Data, [no_code]) of
                 {ok, Sophia} ->
                     lists:flatten(io_lib:format("~s", [prettypr:format(aeso_pretty:expr(Sophia))]));
                 {error, Err} ->
@@ -119,16 +172,14 @@ calldata_init_test() ->
 
 calldata_indent_test() ->
     Test = fun(Extra) ->
-            encode_decode_calldata_(
-                parameterized_contract(Extra, "foo", ["int"]),
-                "foo", ["42"], word)
+            Code = parameterized_contract(Extra, "foo", ["int"]),
+            encode_decode_calldata_(Code, "foo", ["42"], word)
            end,
-    Test("  stateful function bla() = ()"),
+    Test("  stateful entrypoint bla() = ()"),
     Test("  type x = int"),
-    Test("  private function bla : int => int"),
-    Test("  public stateful function bla(x : int) =\n"
+    Test("  stateful entrypoint bla(x : int) =\n"
          "    x + 1"),
-    Test("  stateful private function bla(x : int) : int =\n"
+    Test("  stateful entrypoint bla(x : int) : int =\n"
          "    x + 1"),
     ok.
 
@@ -138,32 +189,34 @@ parameterized_contract(FunName, Types) ->
 parameterized_contract(ExtraCode, FunName, Types) ->
     lists:flatten(
         ["contract Remote =\n"
-         "  function bla : () => ()\n\n"
+         "  entrypoint bla : () => unit\n\n"
          "contract Dummy =\n",
          ExtraCode, "\n",
-         "  type an_alias('a) = (string, 'a)\n"
+         "  type an_alias('a) = string * 'a\n"
          "  record r = {x : an_alias(int), y : variant}\n"
          "  datatype variant = Red | Blue(map(string, int))\n"
-         "  function ", FunName, " : (", string:join(Types, ", "), ") => int\n" ]).
+         "  entrypoint ", FunName, " : (", string:join(Types, ", "), ") => int\n" ]).
 
 oracle_test() ->
     Contract =
         "contract OracleTest =\n"
-        "  function question(o, q : oracle_query(list(string), option(int))) =\n"
+        "  entrypoint question(o, q : oracle_query(list(string), option(int))) =\n"
         "    Oracle.get_question(o, q)\n",
     {ok, _, {[word, word], {list, string}}, [16#123, 16#456]} =
         aeso_compiler:check_call(Contract, "question", ["ok_111111111111111111111111111111ZrdqRz9",
-                                                        "oq_1111111111111111111111111111113AFEFpt5"], []),
+                                                        "oq_1111111111111111111111111111113AFEFpt5"], [no_code]),
 
     ok.
 
 permissive_literals_fail_test() ->
     Contract =
         "contract OracleTest =\n"
-        "  function haxx(o : oracle(list(string), option(int))) =\n"
+        "  stateful entrypoint haxx(o : oracle(list(string), option(int))) =\n"
         "    Chain.spend(o, 1000000)\n",
-        {error, <<"Type errors\nCannot unify", _/binary>>} =
-            aeso_compiler:check_call(Contract, "haxx", ["#123"], []),
+    {error, [Err]} =
+        aeso_compiler:check_call(Contract, "haxx", ["#123"], []),
+    ?assertMatch("Type error at line 3, col 5:\nCannot unify" ++ _, aeso_errors:pp(Err)),
+    ?assertEqual(type_error, aeso_errors:type(Err)),
     ok.
 
 encode_decode_calldata(FunName, Types, Args) ->
@@ -174,14 +227,16 @@ encode_decode_calldata(FunName, Types, Args, RetType) ->
     encode_decode_calldata_(Code, FunName, Args, RetType).
 
 encode_decode_calldata_(Code, FunName, Args, RetVMType) ->
-    {ok, Calldata, CalldataType, RetVMType1} = aeso_compiler:create_calldata(Code, FunName, Args),
-    ?assertEqual(RetVMType1, RetVMType),
+    {ok, Calldata} = aeso_compiler:create_calldata(Code, FunName, Args, []),
+    {ok, _, {ArgTypes, RetType}, _} = aeso_compiler:check_call(Code, FunName, Args, [{backend, aevm}, no_code]),
+    ?assertEqual(RetType, RetVMType),
+    CalldataType = {tuple, [word, {tuple, ArgTypes}]},
     {ok, {_Hash, ArgTuple}} = aeb_heap:from_binary(CalldataType, Calldata),
     case FunName of
         "init" ->
             ok;
         _ ->
-            {ok, _ArgTypes, ValueASTs} = aeso_compiler:decode_calldata(Code, FunName, Calldata),
+            {ok, _ArgTypes, ValueASTs} = aeso_compiler:decode_calldata(Code, FunName, Calldata, []),
             Values = [ prettypr:format(aeso_pretty:expr(V)) || V <- ValueASTs ],
             ?assertMatch({X, X}, {Args, Values})
     end,
