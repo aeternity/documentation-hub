@@ -13,7 +13,7 @@ nav:
             - Installation in Windows: 'aeternity/docs/installation-windows.md'
             - Installation in Ubuntu: 'aeternity/docs/installation.md'
             - Operation: 'aeternity/docs/operation.md'
-      - Protocol:
+       - Protocol:
           - æternity Protocol: 'protocol/README.md'
           - AENS Naming System: 'protocol/AENS.md'
           - Gossip: 'protocol/GOSSIP.md'
