@@ -1,0 +1,4782 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+    
+    
+      
+        <title>abort_withdraw - æternity Documentation Hub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../../../../assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="../../../../../../../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#e91e63">
+      
+    
+    
+      <script src="../../../../../../../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../../../../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../../../../../../site/assets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="pink" data-md-color-accent="white">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#initiator-opens-a-websocket-connection" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../../../../../.." title="æternity Documentation Hub" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              æternity Documentation Hub
+            </span>
+            <span class="md-header-nav__topic">
+              abort_withdraw
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../../../../../.." title="æternity Documentation Hub" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    æternity Documentation Hub
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aeternity/documentation-hub/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aeternity/documentation-hub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../.." title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../quick_glossary/" title="Quick Glossary" class="md-nav__link">
+      Quick Glossary
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Get Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Get Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/docs/build-windows/" title="Build in Windows" class="md-nav__link">
+      Build in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/docs/build/" title="Build in Ubuntu" class="md-nav__link">
+      Build in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/docs/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/docs/cuda-miner/" title="CUDA Miner" class="md-nav__link">
+      CUDA Miner
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/docs/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/docs/installation-windows/" title="Installation in Windows" class="md-nav__link">
+      Installation in Windows
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/docs/installation/" title="Installation in Ubuntu" class="md-nav__link">
+      Installation in Ubuntu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aeternity/docs/operation/" title="Operation" class="md-nav__link">
+      Operation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Protocol
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Protocol
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../" title="æternity Protocol" class="md-nav__link">
+      æternity Protocol
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../AENS/" title="AENS Naming System" class="md-nav__link">
+      AENS Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../GOSSIP/" title="Gossip" class="md-nav__link">
+      Gossip
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../STRATUM/" title="Stratum" class="md-nav__link">
+      Stratum
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../SYNC/" title="Sync" class="md-nav__link">
+      Sync
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../serializations/" title="Serializations" class="md-nav__link">
+      Serializations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-7" type="checkbox" id="nav-4-7">
+    
+    <label class="md-nav__link" for="nav-4-7">
+      Channels
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-7">
+        Channels
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../channels/" title="State Channels" class="md-nav__link">
+      State Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../channels/OFF-CHAIN/" title="Off-chain" class="md-nav__link">
+      Off-chain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../channels/ON-CHAIN/" title="On-chain" class="md-nav__link">
+      On-chain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../channels/authentication/" title="Authentication" class="md-nav__link">
+      Authentication
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../channels/state/" title="State" class="md-nav__link">
+      State
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-8" type="checkbox" id="nav-4-8">
+    
+    <label class="md-nav__link" for="nav-4-8">
+      Consensus
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-8">
+        Consensus
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../consensus/bitcoin-ng/" title="Bitcoin-NG" class="md-nav__link">
+      Bitcoin-NG
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../consensus/coinbase/" title="Coinbase" class="md-nav__link">
+      Coinbase
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../consensus/consensus/" title="Consensus" class="md-nav__link">
+      Consensus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../consensus/inflation.png" title="Inflation" class="md-nav__link">
+      Inflation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../consensus/locking/" title="Locking" class="md-nav__link">
+      Locking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-9" type="checkbox" id="nav-4-9">
+    
+    <label class="md-nav__link" for="nav-4-9">
+      Contracts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-9">
+        Contracts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/aevm/" title="AEVM" class="md-nav__link">
+      AEVM
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/contract_life_cycle/" title="Contract Life Cycle Examples" class="md-nav__link">
+      Contract Life Cycle Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/contract_state_tree/" title="Contract State Tree" class="md-nav__link">
+      Contract State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/contract_transactions/" title="Contract Transactions" class="md-nav__link">
+      Contract Transactions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/contract_vms/" title="Contract VMS" class="md-nav__link">
+      Contract VMS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/contracts/" title="Contracts" class="md-nav__link">
+      Contracts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/solidity/" title="The Solidity Language" class="md-nav__link">
+      The Solidity Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/sophia/" title="The Sophia Language" class="md-nav__link">
+      The Sophia Language
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/sophia_explained/" title="Sophia Explained" class="md-nav__link">
+      Sophia Explained
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/sophia_stdlib/" title="Standard Library" class="md-nav__link">
+      Standard Library
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../contracts/varna/" title="The Varna Language" class="md-nav__link">
+      The Varna Language
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-10" type="checkbox" id="nav-4-10">
+    
+    <label class="md-nav__link" for="nav-4-10">
+      Generalized Accounts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-10">
+        Generalized Accounts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../generalized_accounts/ga_explained/" title="Generalized Accounts" class="md-nav__link">
+      Generalized Accounts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../generalized_accounts/generalized_accounts/" title="Generic Accounts" class="md-nav__link">
+      Generic Accounts
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11" type="checkbox" id="nav-4-11" checked>
+    
+    <label class="md-nav__link" for="nav-4-11">
+      Node
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-11">
+        Node
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1" type="checkbox" id="nav-4-11-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-11-1">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-11-1">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../account_api_usage/" title="Account API Usage" class="md-nav__link">
+      Account API Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../api_encoding/" title="API Encoding" class="md-nav__link">
+      API Encoding
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../channel_ws_api/" title="State Channel WebSocket API" class="md-nav__link">
+      State Channel WebSocket API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../channels_api_usage/" title="Channels API Usage" class="md-nav__link">
+      Channels API Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../contract_api_usage/" title="Contract API Usage" class="md-nav__link">
+      Contract API Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../mining_api_usage/" title="Mining API Usage" class="md-nav__link">
+      Mining API Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../naming_system_api_usage/" title="Naming System API Usage" class="md-nav__link">
+      Naming System API Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../oracle_api_usage/" title="Oracle API Usage" class="md-nav__link">
+      Oracle API Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../spend_api_usage/" title="Spend API Usage" class="md-nav__link">
+      Spend API Usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10" type="checkbox" id="nav-4-11-1-10" checked>
+    
+    <label class="md-nav__link" for="nav-4-11-1-10">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-11-1-10">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1" type="checkbox" id="nav-4-11-1-10-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1">
+      State Channels
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="5">
+      <label class="md-nav__title" for="nav-4-11-1-10-1">
+        State Channels
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="WebSocket API Examples" class="md-nav__link">
+      WebSocket API Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2" type="checkbox" id="nav-4-11-1-10-1-2" checked>
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2">
+      JSON-RPS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="6">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2">
+        JSON-RPS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-1" type="checkbox" id="nav-4-11-1-10-1-2-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-1">
+      Abort Updates
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="7">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-1">
+        Abort Updates
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sc_ws_abort_deposit/" title="abort_deposit" class="md-nav__link">
+      abort_deposit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sc_ws_abort_offchain_update/" title="abort_offchain_update" class="md-nav__link">
+      abort_offchain_update
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sc_ws_abort_settle/" title="abort_settle" class="md-nav__link">
+      abort_settle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sc_ws_abort_shutdown/" title="abort_shutdown" class="md-nav__link">
+      abort_shutdown
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sc_ws_abort_slash/" title="abort_slash" class="md-nav__link">
+      abort_slash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sc_ws_abort_snapshot_solo/" title="abort_snapshot_solo" class="md-nav__link">
+      abort_snapshot_solo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        abort_withdraw
+      </label>
+    
+    <a href="./" title="abort_withdraw" class="md-nav__link md-nav__link--active">
+      abort_withdraw
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-opens-a-websocket-connection" title="initiator opens a WebSocket connection" class="md-nav__link">
+    initiator opens a WebSocket connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-opens-a-websocket-connection" title="responder opens a WebSocket connection" class="md-nav__link">
+    responder opens a WebSocket connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_1" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info_1" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_1" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info_1" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_2" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_3" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_4" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_2" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_3" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_4" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_5" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_6" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_5" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_6" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_7" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_7" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_8" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_8" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_9" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_9" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_10" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_11" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_10" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info_2" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_12" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info_2" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_11" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info_3" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_12" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info_4" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_13" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info_3" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_14" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_13" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info_4" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_15" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_16" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_17" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_18" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_19" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_14" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_15" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_16" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_17" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_20" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_21" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_22" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_23" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_24" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_25" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_18" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_19" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_20" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_21" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_26" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_22" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_23" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_27" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_24" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_28" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-closes-websocket-connection" title="responder closes WebSocket connection" class="md-nav__link">
+    responder closes WebSocket connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_29" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-closes-websocket-connection" title="initiator closes WebSocket connection" class="md-nav__link">
+    initiator closes WebSocket connection
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sc_ws_can_not_abort_while_open/" title="can_not_abort_while_open" class="md-nav__link">
+      can_not_abort_while_open
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-2" type="checkbox" id="nav-4-11-1-10-1-2-2">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-2">
+      Changeable Fee
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="7">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-2">
+        Changeable Fee
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changeable_fee/sc_ws_set_fee_close_mutual/" title="set_fee_close_mutual" class="md-nav__link">
+      set_fee_close_mutual
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changeable_fee/sc_ws_set_fee_close_solo/" title="set_fee_close_solo" class="md-nav__link">
+      set_fee_close_solo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changeable_fee/sc_ws_set_fee_create/" title="set_fee_create" class="md-nav__link">
+      set_fee_create
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changeable_fee/sc_ws_set_fee_deposit/" title="set_fee_deposit" class="md-nav__link">
+      set_fee_deposit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changeable_fee/sc_ws_set_fee_settle/" title="set_fee_settle" class="md-nav__link">
+      set_fee_settle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changeable_fee/sc_ws_set_fee_slash/" title="set_fee_slash" class="md-nav__link">
+      set_fee_slash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changeable_fee/sc_ws_set_fee_snapshot/" title="set_fee_snapshot" class="md-nav__link">
+      set_fee_snapshot
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../changeable_fee/sc_ws_set_fee_withdrawl.md" title="set_fee_withdrawl" class="md-nav__link">
+      set_fee_withdrawl
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-3" type="checkbox" id="nav-4-11-1-10-1-2-3">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-3">
+      Continious
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="7">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-3">
+        Continious
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../continuous/init_per_group/" title="init_per_group" class="md-nav__link">
+      init_per_group
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../continuous/sc_ws_deposit/" title="deposit" class="md-nav__link">
+      deposit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../continuous/sc_ws_failed_update/" title="failed_update" class="md-nav__link">
+      failed_update
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../continuous/sc_ws_generic_messages/" title="generic_messages" class="md-nav__link">
+      generic_messages
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../continuous/sc_ws_ping_pong/" title="ping_pong" class="md-nav__link">
+      ping_pong
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../continuous/sc_ws_update_conflict/" title="update_conflict" class="md-nav__link">
+      update_conflict
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../continuous/sc_ws_withdraw/" title="withdraw" class="md-nav__link">
+      withdraw
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-4" type="checkbox" id="nav-4-11-1-10-1-2-4">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-4">
+      Contracts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="7">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-4">
+        Contracts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/init_per_group/" title="init_per_group" class="md-nav__link">
+      init_per_group
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/sc_ws_environment_contract/" title="environment_contract" class="md-nav__link">
+      environment_contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/sc_ws_nameservice_contract/" title="nameservice_contract" class="md-nav__link">
+      nameservice_contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/sc_ws_oracle_contract/" title="oracle_contract" class="md-nav__link">
+      oracle_contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/sc_ws_remote_call_contract/" title="remote_call_contract" class="md-nav__link">
+      remote_call_contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/sc_ws_remote_call_contract_refering_onchain_data/" title="remote_call_contract_refering_onchain_data" class="md-nav__link">
+      remote_call_contract_refering_onchain_data
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contracts/sc_ws_wrong_call_data/" title="wrong_call_data" class="md-nav__link">
+      wrong_call_data
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-5" type="checkbox" id="nav-4-11-1-10-1-2-5">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-5">
+      Generalized Accounts
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="7">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-5">
+        Generalized Accounts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-5-1" type="checkbox" id="nav-4-11-1-10-1-2-5-1">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-5-1">
+      both
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="8">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-5-1">
+        both
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../generalized_accounts/both/basic_open_close.md" title="basic_open_close" class="md-nav__link">
+      basic_open_close
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-5-2" type="checkbox" id="nav-4-11-1-10-1-2-5-2">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-5-2">
+      initiator
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="8">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-5-2">
+        initiator
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../generalized_accounts/initiator/basic_open_close.md" title="basic_open_close" class="md-nav__link">
+      basic_open_close
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-5-3" type="checkbox" id="nav-4-11-1-10-1-2-5-3">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-5-3">
+      responder
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="8">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-5-3">
+        responder
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../generalized_accounts/responder/basic_open_close.md" title="basic_open_close" class="md-nav__link">
+      basic_open_close
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-6" type="checkbox" id="nav-4-11-1-10-1-2-6">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-6">
+      Reconnect
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="7">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-6">
+        Reconnect
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reconnect/basic_client_reconnect_i.md" title="basic_client_reconnect_i" class="md-nav__link">
+      basic_client_reconnect_i
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reconnect/basic_client_reconnect_i_w_reestablish.md" title="basic_client_reconnect_i_w_reestablish" class="md-nav__link">
+      basic_client_reconnect_i_w_reestablish
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reconnect/basic_client_reconnect_r.md" title="basic_client_reconnect_r" class="md-nav__link">
+      basic_client_reconnect_r
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-11-1-10-1-2-7" type="checkbox" id="nav-4-11-1-10-1-2-7">
+    
+    <label class="md-nav__link" for="nav-4-11-1-10-1-2-7">
+      With Meta
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="7">
+      <label class="md-nav__title" for="nav-4-11-1-10-1-2-7">
+        With Meta
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../with_meta/init_per_group/" title="init_per_group" class="md-nav__link">
+      init_per_group
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../with_meta/sc_ws_deposit/" title="deposit" class="md-nav__link">
+      deposit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../with_meta/sc_ws_remote_call_contract/" title="remote_call_contract" class="md-nav__link">
+      remote_call_contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../with_meta/sc_ws_withdraw/" title="withdraw" class="md-nav__link">
+      withdraw
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_basic_open_close_server/" title="basic_open_close" class="md-nav__link">
+      basic_open_close
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_basic_open_close/" title="basic_open_close_server" class="md-nav__link">
+      basic_open_close_server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_broken_open_params/" title="broken_open_params" class="md-nav__link">
+      broken_open_params
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_set_fee_close_mutual.md" title="close_mutual" class="md-nav__link">
+      close_mutual
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_close_mutual/" title="close_solo" class="md-nav__link">
+      close_solo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_leave_reconnect/" title="leave_reconnect" class="md-nav__link">
+      leave_reconnect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_leave_reestablish/" title="leave_reestablish" class="md-nav__link">
+      leave_reestablish
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_leave_reestablish_responder_stays/" title="leave_reestablish_responder_stays" class="md-nav__link">
+      leave_reestablish_responder_stays
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../sc_ws_leave_reestablish_wrong_fsm_id/" title="leave_reestablish_wrong_fsm_id" class="md-nav__link">
+      leave_reestablish_wrong_fsm_id
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../min_depth_is_modifiable.md" title="min_depth_is_modifiable" class="md-nav__link">
+      min_depth_is_modifiable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../min_depth_not_reached_timeout.md" title="min_depth_not_reached_timeout" class="md-nav__link">
+      min_depth_not_reached_timeout
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../opening_ping_pong.md" title="opening_ping_pong" class="md-nav__link">
+      opening_ping_pong
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../slash.md" title="slash" class="md-nav__link">
+      slash
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../snapshot_solo.md" title="snapshot_solo" class="md-nav__link">
+      snapshot_solo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../timeout_open.md" title="timeout_open" class="md-nav__link">
+      timeout_open
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../update_with_meta.md" title="update_with_meta" class="md-nav__link">
+      update_with_meta
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-12" type="checkbox" id="nav-4-12">
+    
+    <label class="md-nav__link" for="nav-4-12">
+      Oracles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-12">
+        Oracles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../oracles/oracles/" title="Oracles" class="md-nav__link">
+      Oracles
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../oracles/oracle_life_cycle/" title="Oracle Life Cycle Examples" class="md-nav__link">
+      Oracle Life Cycle Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../oracles/oracle_state_tree/" title="Oracle State Tree" class="md-nav__link">
+      Oracle State Tree
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../oracles/oracle_transactions.md." title="Oracle Transactions" class="md-nav__link">
+      Oracle Transactions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Aetmodel
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Aetmodel
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aetmodel/ThreatModel/" title="Threat Model" class="md-nav__link">
+      Threat Model
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      AEXs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        AEXs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-1/" title="AEX1" class="md-nav__link">
+      AEX1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-2/" title="AEX2" class="md-nav__link">
+      AEX2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-3/" title="AEX3" class="md-nav__link">
+      AEX3
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-4/" title="AEX4" class="md-nav__link">
+      AEX4
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-5/" title="AEX5" class="md-nav__link">
+      AEX5
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-7/" title="AEX7" class="md-nav__link">
+      AEX7
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-9/" title="AEX9" class="md-nav__link">
+      AEX9
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-10/" title="AEX10" class="md-nav__link">
+      AEX10
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../AEXs/AEXS/aex-draft_data_serialization/" title="AEX-Draft" class="md-nav__link">
+      AEX-Draft
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Node Usage API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Node Usage API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7-1" type="checkbox" id="nav-7-1">
+    
+    <label class="md-nav__link" for="nav-7-1">
+      Latest Stable Release
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-1">
+        Latest Stable Release
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../api-docs/README.md" title="Autogenerated æternity Node API Documentation" class="md-nav__link">
+      Autogenerated æternity Node API Documentation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../api_encoding/" title="Encoding Scheme" class="md-nav__link">
+      Encoding Scheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../account_api_usage/" title="Account Managment" class="md-nav__link">
+      Account Managment
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../spend_api_usage/" title="Spending Tokens" class="md-nav__link">
+      Spending Tokens
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../oracle_api_usage/" title="Oracle" class="md-nav__link">
+      Oracle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../naming_system_api_usage/" title="Naming System" class="md-nav__link">
+      Naming System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../contract_api_usage/" title="Contract" class="md-nav__link">
+      Contract
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../channels_api_usage/" title="Channels" class="md-nav__link">
+      Channels
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../mining_api_usage/" title="Mining" class="md-nav__link">
+      Mining
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Developer Tools
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Developer Tools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-1" type="checkbox" id="nav-8-1">
+    
+    <label class="md-nav__link" for="nav-8-1">
+      æternity Framework
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-1">
+        æternity Framework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/æternity-frameworks/aepp-aeproject-js/" title="AEproject" class="md-nav__link">
+      AEproject
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-2" type="checkbox" id="nav-8-2">
+    
+    <label class="md-nav__link" for="nav-8-2">
+      Software Development Kits
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-2">
+        Software Development Kits
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/sdks/aepp-sdk-go/" title="Go" class="md-nav__link">
+      Go
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/sdks/aepp-sdk-js/" title="JavaScript" class="md-nav__link">
+      JavaScript
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/sdks/aepp-sdk-python/" title="Python" class="md-nav__link">
+      Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/sdks/aepp-sdk-elixir/" title="Elixir" class="md-nav__link">
+      Elixir
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/sdks/aepp-sdk-java/" title="Java" class="md-nav__link">
+      Java
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/aepp-middleware/" title="Middleware" class="md-nav__link">
+      Middleware
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/aepp-faucet/" title="Token Faucet" class="md-nav__link">
+      Token Faucet
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-5" type="checkbox" id="nav-8-5">
+    
+    <label class="md-nav__link" for="nav-8-5">
+      Frameworks
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-5">
+        Frameworks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/frameworks/aepp-components/" title="æpp Components" class="md-nav__link">
+      æpp Components
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/aepp-contracts/" title="Contract Editor" class="md-nav__link">
+      Contract Editor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-7" type="checkbox" id="nav-8-7">
+    
+    <label class="md-nav__link" for="nav-8-7">
+      AirGap
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-7">
+        AirGap
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/airgap/airgap-coin-lib/docs/" title="AirGap Coin Library" class="md-nav__link">
+      AirGap Coin Library
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/airgap/airgap-vault/" title="AirGap Vault" class="md-nav__link">
+      AirGap Vault
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../developer-tools/airgap/airgap-wallet/" title="AirGap Wallet" class="md-nav__link">
+      AirGap Wallet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      Sophia Compiler
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Sophia Compiler
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aesophia/" title="aesophia" class="md-nav__link">
+      aesophia
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Sophia Libraries
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Sophia Libraries
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aepp-sophia-examples/libraries/DateTime/" title="DateTime" class="md-nav__link">
+      DateTime
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aepp-sophia-examples/libraries/List/" title="List" class="md-nav__link">
+      List
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aepp-sophia-examples/libraries/Ownable/" title="Ownable" class="md-nav__link">
+      Ownable
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aepp-sophia-examples/libraries/FungibleToken/" title="FungibleToken" class="md-nav__link">
+      FungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aepp-sophia-examples/libraries/NonFungibleToken/" title="NonFungibleToken" class="md-nav__link">
+      NonFungibleToken
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../../../../aepp-sophia-examples/libraries/MultisignatureWallet/" title="MultisignatureWallet" class="md-nav__link">
+      MultisignatureWallet
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-opens-a-websocket-connection" title="initiator opens a WebSocket connection" class="md-nav__link">
+    initiator opens a WebSocket connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-opens-a-websocket-connection" title="responder opens a WebSocket connection" class="md-nav__link">
+    responder opens a WebSocket connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_1" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info_1" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_1" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info_1" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_2" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_3" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_4" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_2" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_3" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_4" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_5" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_6" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_5" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_6" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_7" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_7" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_8" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_8" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_9" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_9" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_10" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_11" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_10" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info_2" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_12" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info_2" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_11" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info_3" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_12" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-info_4" title="responder info" class="md-nav__link">
+    responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_13" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info_3" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_14" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_13" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-info_4" title="initiator info" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_15" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_16" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_17" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_18" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_19" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_14" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_15" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_16" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_17" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_20" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_21" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_22" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_23" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_24" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_25" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_18" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_19" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_20" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_21" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_26" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_22" title="responder ---&gt; node" class="md-nav__link">
+    responder ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_23" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_27" title="initiator ---&gt; node" class="md-nav__link">
+    initiator ---&gt; node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_24" title="responder &lt;--- node" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_28" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-closes-websocket-connection" title="responder closes WebSocket connection" class="md-nav__link">
+    responder closes WebSocket connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_29" title="initiator &lt;--- node" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-closes-websocket-connection" title="initiator closes WebSocket connection" class="md-nav__link">
+    initiator closes WebSocket connection
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aeternity/documentation-hub/edit/master/docs/protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_abort_withdraw.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>abort_withdraw</h1>
+                
+                <h4 id="initiator-opens-a-websocket-connection">initiator opens a WebSocket connection</h4>
+<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;host=localhost&amp;initiator_amount=70000000000000&amp;initiator_id=ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&amp;role=initiator
+</code></pre>
+
+<h4 id="initiator-node">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;fsm_up&quot;,
+      &quot;fsm_id&quot;: &quot;ba_YHjoTxz2pn7zk2A3tbZiA55LhqGopOwEKu3/w8iP65Rp24ir&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-info">initiator info</h4>
+<blockquote>
+<p>The local fsm has been started</p>
+</blockquote>
+<h4 id="responder-opens-a-websocket-connection">responder opens a WebSocket connection</h4>
+<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;initiator_amount=70000000000000&amp;initiator_id=ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&amp;role=responder
+</code></pre>
+
+<h4 id="responder-node">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;fsm_up&quot;,
+      &quot;fsm_id&quot;: &quot;ba_7y8r6s66XWlE9dhokpvIrp7HuRdNkyy5sYoyKAjgh/ipFj2I&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-info">responder info</h4>
+<blockquote>
+<p>The local fsm has been started</p>
+</blockquote>
+<h4 id="responder-node_1">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;channel_open&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-info_1">responder info</h4>
+<blockquote>
+<p>Received an WebSocket opening request</p>
+</blockquote>
+<h4 id="initiator-node_1">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;channel_accept&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-info_1">initiator info</h4>
+<blockquote>
+<p>Received an WebSocket connection accepted</p>
+</blockquote>
+<h4 id="initiator-node_2">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.sign.initiator_sign&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;signed_tx&quot;: &quot;tx_+IgLAcC4g/iBMgGhAcW47IdoVlsitY21h/Ku93EKqO7HEQeD04gBq8ukLLv0hj+qJSJgAKEB0TZvMXURn2j/DUUtWanRpprEaPBWgtcFtlVhYne0ThCGJGE5yoAAAgoAhhAGeddIAMCgFk9HuJ93FJGde2FyW3hXYthviTWdftxygmDVi9qw3+47I0LiWQ==&quot;,
+      &quot;updates&quot;: []
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_3">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;id&quot;: -576460752303422883,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.initiator_sign&quot;,
+  &quot;params&quot;: {
+    &quot;signed_tx&quot;: &quot;tx_+MsLAfhCuEDaEOA3tcXJzKB6kuYTz95voQAW7dqMmxGfeg7c3YvfuHao0Ere1vV+Q5z8XYhZBp1xpD4idnsupNfW0zQMkTADuIP4gTIBoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79IY/qiUiYAChAdE2bzF1EZ9o/w1FLVmp0aaaxGjwVoLXBbZVYWJ3tE4QhiRhOcqAAAIKAIYQBnnXSADAoBZPR7ifdxSRnXthclt4V2LYb4k1nX7ccoJg1YvasN/uO2rMQXI=&quot;
+  }
+}
+</code></pre>
+
+<h4 id="initiator-node_4">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;channel_id&quot;: null,
+  &quot;id&quot;: -576460752303422883,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;ok&quot;,
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_2">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;funding_created&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_3">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.sign.responder_sign&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;signed_tx&quot;: &quot;tx_+MsLAfhCuEDaEOA3tcXJzKB6kuYTz95voQAW7dqMmxGfeg7c3YvfuHao0Ere1vV+Q5z8XYhZBp1xpD4idnsupNfW0zQMkTADuIP4gTIBoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79IY/qiUiYAChAdE2bzF1EZ9o/w1FLVmp0aaaxGjwVoLXBbZVYWJ3tE4QhiRhOcqAAAIKAIYQBnnXSADAoBZPR7ifdxSRnXthclt4V2LYb4k1nX7ccoJg1YvasN/uO2rMQXI=&quot;,
+      &quot;updates&quot;: []
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_4">responder ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;id&quot;: -576460752303422882,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.responder_sign&quot;,
+  &quot;params&quot;: {
+    &quot;signed_tx&quot;: &quot;tx_+QENCwH4hLhABNFLMGLkDOrFimA9N5BckQ4EIwNOEQv3pGafmxh6GEuLXm9G2zenowirWyNw0kxtnthZmyAL2V+p4nj4ruIpAbhA2hDgN7XFycygepLmE8/eb6EAFu3ajJsRn3oO3N2L37h2qNBK3tb1fkOc/F2IWQadcaQ+InZ7LqTX1tM0DJEwA7iD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7jvmIZrn&quot;
+  }
+}
+</code></pre>
+
+<h4 id="responder-node_5">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;channel_id&quot;: null,
+  &quot;id&quot;: -576460752303422882,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;ok&quot;,
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_6">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;info&quot;: &quot;funding_created&quot;,
+      &quot;tx&quot;: &quot;tx_+QENCwH4hLhABNFLMGLkDOrFimA9N5BckQ4EIwNOEQv3pGafmxh6GEuLXm9G2zenowirWyNw0kxtnthZmyAL2V+p4nj4ruIpAbhA2hDgN7XFycygepLmE8/eb6EAFu3ajJsRn3oO3N2L37h2qNBK3tb1fkOc/F2IWQadcaQ+InZ7LqTX1tM0DJEwA7iD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7jvmIZrn&quot;,
+      &quot;type&quot;: &quot;channel_create_tx&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_5">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;funding_signed&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_6">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;info&quot;: &quot;funding_signed&quot;,
+      &quot;tx&quot;: &quot;tx_+QENCwH4hLhABNFLMGLkDOrFimA9N5BckQ4EIwNOEQv3pGafmxh6GEuLXm9G2zenowirWyNw0kxtnthZmyAL2V+p4nj4ruIpAbhA2hDgN7XFycygepLmE8/eb6EAFu3ajJsRn3oO3N2L37h2qNBK3tb1fkOc/F2IWQadcaQ+InZ7LqTX1tM0DJEwA7iD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7jvmIZrn&quot;,
+      &quot;type&quot;: &quot;channel_create_tx&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_7">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;info&quot;: &quot;channel_changed&quot;,
+      &quot;tx&quot;: &quot;tx_+QENCwH4hLhABNFLMGLkDOrFimA9N5BckQ4EIwNOEQv3pGafmxh6GEuLXm9G2zenowirWyNw0kxtnthZmyAL2V+p4nj4ruIpAbhA2hDgN7XFycygepLmE8/eb6EAFu3ajJsRn3oO3N2L37h2qNBK3tb1fkOc/F2IWQadcaQ+InZ7LqTX1tM0DJEwA7iD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7jvmIZrn&quot;,
+      &quot;type&quot;: &quot;channel_create_tx&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_7">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;info&quot;: &quot;channel_changed&quot;,
+      &quot;tx&quot;: &quot;tx_+QENCwH4hLhABNFLMGLkDOrFimA9N5BckQ4EIwNOEQv3pGafmxh6GEuLXm9G2zenowirWyNw0kxtnthZmyAL2V+p4nj4ruIpAbhA2hDgN7XFycygepLmE8/eb6EAFu3ajJsRn3oO3N2L37h2qNBK3tb1fkOc/F2IWQadcaQ+InZ7LqTX1tM0DJEwA7iD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7jvmIZrn&quot;,
+      &quot;type&quot;: &quot;channel_create_tx&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_8">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.message&quot;,
+  &quot;params&quot;: {
+    &quot;info&quot;: &quot;Hello&quot;,
+    &quot;to&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+  }
+}
+</code></pre>
+
+<h4 id="responder-node_8">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.message&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;message&quot;: {
+        &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+        &quot;from&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
+        &quot;info&quot;: &quot;Hello&quot;,
+        &quot;to&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+      }
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_9">responder ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.message&quot;,
+  &quot;params&quot;: {
+    &quot;info&quot;: &quot;Hello back&quot;,
+    &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+  }
+}
+</code></pre>
+
+<h4 id="initiator-node_9">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.message&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;message&quot;: {
+        &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+        &quot;from&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;,
+        &quot;info&quot;: &quot;Hello back&quot;,
+        &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+      }
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_10">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;id&quot;: -576460752303422881,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.get.balances&quot;,
+  &quot;params&quot;: {
+    &quot;accounts&quot;: [
+      &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
+      &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+    ]
+  }
+}
+</code></pre>
+
+<h4 id="initiator-node_11">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+  &quot;id&quot;: -576460752303422881,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: [
+    {
+      &quot;account&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
+      &quot;balance&quot;: 69999999999999
+    },
+    {
+      &quot;account&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;,
+      &quot;balance&quot;: 40000000000001
+    }
+  ],
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_10">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;own_funding_locked&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-info_2">responder info</h4>
+<blockquote>
+<p>Funding has been confirmed locally on-chain</p>
+</blockquote>
+<h4 id="initiator-node_12">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;own_funding_locked&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-info_2">initiator info</h4>
+<blockquote>
+<p>Funding has been confirmed locally on-chain</p>
+</blockquote>
+<h4 id="responder-node_11">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;funding_locked&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-info_3">responder info</h4>
+<blockquote>
+<p>Funding has been confirmed on-chain by other party</p>
+</blockquote>
+<h4 id="responder-node_12">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;open&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-info_4">responder info</h4>
+<blockquote>
+<p>Channel is <code>open</code> and ready to use</p>
+</blockquote>
+<h4 id="initiator-node_13">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;funding_locked&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-info_3">initiator info</h4>
+<blockquote>
+<p>Funding has been confirmed on-chain by other party</p>
+</blockquote>
+<h4 id="initiator-node_14">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;open&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_13">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.update&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;tx_+QENCwH4hLhABNFLMGLkDOrFimA9N5BckQ4EIwNOEQv3pGafmxh6GEuLXm9G2zenowirWyNw0kxtnthZmyAL2V+p4nj4ruIpAbhA2hDgN7XFycygepLmE8/eb6EAFu3ajJsRn3oO3N2L37h2qNBK3tb1fkOc/F2IWQadcaQ+InZ7LqTX1tM0DJEwA7iD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7jvmIZrn&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-info_4">initiator info</h4>
+<blockquote>
+<p>Channel is <code>open</code> and ready to use</p>
+</blockquote>
+<h4 id="initiator-node_15">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.update&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;tx_+QENCwH4hLhABNFLMGLkDOrFimA9N5BckQ4EIwNOEQv3pGafmxh6GEuLXm9G2zenowirWyNw0kxtnthZmyAL2V+p4nj4ruIpAbhA2hDgN7XFycygepLmE8/eb6EAFu3ajJsRn3oO3N2L37h2qNBK3tb1fkOc/F2IWQadcaQ+InZ7LqTX1tM0DJEwA7iD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7jvmIZrn&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_16">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.withdraw&quot;,
+  &quot;params&quot;: {
+    &quot;amount&quot;: 2
+  }
+}
+</code></pre>
+
+<h4 id="initiator-node_17">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.sign.withdraw_tx&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;signed_tx&quot;: &quot;tx_+HkLAcC4dPhyNAGhBmmlF4WZ9KOya5xsealsB3Og3WL08Qp2mC/BPBiRizSdoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79AIAhg/AoHKQAKDzbRVCr+DdkhskLcCBV1D3dvqUhQ5X1avffdiIqRPtFwI88AvelA==&quot;,
+      &quot;updates&quot;: [
+        {
+          &quot;amount&quot;: 2,
+          &quot;op&quot;: &quot;OffChainWithdrawal&quot;,
+          &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+        }
+      ]
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_18">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.withdraw_tx&quot;,
+  &quot;params&quot;: {
+    &quot;error&quot;: 42
+  }
+}
+</code></pre>
+
+<h4 id="initiator-node_19">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;aborted_update&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_14">responder ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.withdraw&quot;,
+  &quot;params&quot;: {
+    &quot;amount&quot;: 2
+  }
+}
+</code></pre>
+
+<h4 id="responder-node_15">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.sign.withdraw_tx&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;signed_tx&quot;: &quot;tx_+HkLAcC4dPhyNAGhBmmlF4WZ9KOya5xsealsB3Og3WL08Qp2mC/BPBiRizSdoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEAIAhg/AoHKQAKDlzwAxiXLRRweSA8y8C+7SpRvQR8MYCvXqf+y6juh93QIXfq8CVg==&quot;,
+      &quot;updates&quot;: [
+        {
+          &quot;amount&quot;: 2,
+          &quot;op&quot;: &quot;OffChainWithdrawal&quot;,
+          &quot;to&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+        }
+      ]
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_16">responder ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.withdraw_tx&quot;,
+  &quot;params&quot;: {
+    &quot;error&quot;: 42
+  }
+}
+</code></pre>
+
+<h4 id="responder-node_17">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;aborted_update&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_20">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.withdraw&quot;,
+  &quot;params&quot;: {
+    &quot;amount&quot;: 2
+  }
+}
+</code></pre>
+
+<h4 id="initiator-node_21">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.sign.withdraw_tx&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;signed_tx&quot;: &quot;tx_+HkLAcC4dPhyNAGhBmmlF4WZ9KOya5xsealsB3Og3WL08Qp2mC/BPBiRizSdoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79AIAhg/AoHKQAKDzbRVCr+DdkhskLcCBV1D3dvqUhQ5X1avffdiIqRPtFwI88AvelA==&quot;,
+      &quot;updates&quot;: [
+        {
+          &quot;amount&quot;: 2,
+          &quot;op&quot;: &quot;OffChainWithdrawal&quot;,
+          &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+        }
+      ]
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_22">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;id&quot;: -576460752303422880,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.withdraw_tx&quot;,
+  &quot;params&quot;: {
+    &quot;signed_tx&quot;: &quot;tx_+LwLAfhCuEC3gZ9ZnKFY3knOYLNeJTJNwfSbCgut9YUBszuDrxxBWJN6VlGdY63RoWHmLfKyZ4H9lq7wwV9p3gyNhXlVDCUMuHT4cjQBoQZppReFmfSjsmucbHmpbAdzoN1i9PEKdpgvwTwYkYs0naEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/QCAIYPwKBykACg820VQq/g3ZIbJC3AgVdQ93b6lIUOV9Wr333YiKkT7RcCPPi6gTg=&quot;
+  }
+}
+</code></pre>
+
+<h4 id="initiator-node_23">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+  &quot;id&quot;: -576460752303422880,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;ok&quot;,
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_24">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.withdraw_tx&quot;,
+  &quot;params&quot;: {
+    &quot;error&quot;: 42
+  }
+}
+</code></pre>
+
+<h4 id="initiator-node_25">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+  &quot;error&quot;: {
+    &quot;code&quot;: 3,
+    &quot;data&quot;: [
+      {
+        &quot;code&quot;: 1018,
+        &quot;message&quot;: &quot;Not allowed at current channel state&quot;
+      }
+    ],
+    &quot;message&quot;: &quot;Rejected&quot;,
+    &quot;request&quot;: {
+      &quot;jsonrpc&quot;: &quot;2.0&quot;,
+      &quot;method&quot;: &quot;channels.withdraw_tx&quot;,
+      &quot;params&quot;: {
+        &quot;error&quot;: 42
+      }
+    }
+  },
+  &quot;id&quot;: null,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_18">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;withdraw_created&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_19">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.sign.withdraw_ack&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;signed_tx&quot;: &quot;tx_+LwLAfhCuEC3gZ9ZnKFY3knOYLNeJTJNwfSbCgut9YUBszuDrxxBWJN6VlGdY63RoWHmLfKyZ4H9lq7wwV9p3gyNhXlVDCUMuHT4cjQBoQZppReFmfSjsmucbHmpbAdzoN1i9PEKdpgvwTwYkYs0naEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/QCAIYPwKBykACg820VQq/g3ZIbJC3AgVdQ93b6lIUOV9Wr333YiKkT7RcCPPi6gTg=&quot;,
+      &quot;updates&quot;: [
+        {
+          &quot;amount&quot;: 2,
+          &quot;op&quot;: &quot;OffChainWithdrawal&quot;,
+          &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+        }
+      ]
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_20">responder ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.withdraw_ack&quot;,
+  &quot;params&quot;: {
+    &quot;error&quot;: 42
+  }
+}
+</code></pre>
+
+<h4 id="responder-node_21">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;aborted_update&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_26">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.conflict&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+      &quot;error_code&quot;: 42,
+      &quot;error_msg&quot;: &quot;unknown&quot;,
+      &quot;round&quot;: 1
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-node_22">responder ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;id&quot;: -576460752303422879,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.system&quot;,
+  &quot;params&quot;: {
+    &quot;action&quot;: &quot;stop&quot;
+  }
+}
+</code></pre>
+
+<h4 id="responder-node_23">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+  &quot;id&quot;: -576460752303422879,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;ok&quot;,
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_27">initiator ---&gt; node</h4>
+<pre><code class="javascript">{
+  &quot;id&quot;: -576460752303422878,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.system&quot;,
+  &quot;params&quot;: {
+    &quot;action&quot;: &quot;stop&quot;
+  }
+}
+</code></pre>
+
+<h4 id="responder-node_24">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;died&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_28">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;died&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="responder-closes-websocket-connection">responder closes WebSocket connection</h4>
+<h4 id="initiator-node_29">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;channel_id&quot;: &quot;ch_oXZJWVx8EW3f4qMoXQfgaFN4Dorj8fbyZoCuZNXmgYZd2MV4b&quot;,
+  &quot;id&quot;: -576460752303422878,
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;ok&quot;,
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-closes-websocket-connection">initiator closes WebSocket connection</h4>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../sc_ws_abort_snapshot_solo/" title="abort_snapshot_solo" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                abort_snapshot_solo
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../sc_ws_can_not_abort_while_open/" title="can_not_abort_while_open" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                can_not_abort_while_open
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../../../../../assets/javascripts/application.dc02f8ce.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../../../../../../.."}})</script>
+      
+    
+  </body>
+</html>
