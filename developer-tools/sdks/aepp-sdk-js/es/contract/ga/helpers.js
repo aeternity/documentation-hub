@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { MAX_AUTH_FUN_GAS, TX_TYPE } from '../../tx/builder/schema'
-import { buildTx, unpackTx } from '../../tx/builder'
+import { buildTx } from '../../tx/builder'
+import { hash } from '../../utils/crypto'
 
 export const prepareGaParams = (ins) => async (authData, authFnName) => {
   if (typeof authData !== 'object') throw new Error('AuthData must be an object')
@@ -17,10 +18,8 @@ export const prepareGaParams = (ins) => async (authData, authFnName) => {
 
 export const getContractAuthFan = (ins) => async (source, fnName) => {
   const { bytecode } = await ins.contractCompile(source)
-  const { tx: { typeInfo } } = await unpackTx(bytecode, false, 'cb')
-  if (!typeInfo[fnName]) throw new Error(`Can't find authFan for function "${fnName}"`)
-  const { funHash: authFun } = typeInfo[fnName]
-  return { bytecode, authFun }
+
+  return { bytecode, authFun: hash(fnName) }
 }
 
 export const wrapInEmptySignedTx = (rlp) => buildTx({ encodedTx: rlp, signatures: [] }, TX_TYPE.signed)

@@ -16,6 +16,7 @@
  */
 
 import * as Crypto from './utils/crypto'
+import * as Keystore from './utils/keystore'
 import * as Bytes from './utils/bytes'
 import * as TxBuilder from './tx/builder'
 import * as TxBuilderHelper from './tx/builder/helpers'
@@ -34,11 +35,10 @@ import Accounts from './accounts'
 import MemoryAccount from './account/memory'
 import Aens from './ae/aens'
 import Contract from './ae/contract'
-// Todo Enable GA
-// import GeneralizeAccount from './contract/ga'
+import GeneralizeAccount from './contract/ga'
 import ContractCompilerAPI from './contract/compiler'
-import Wallet from './ae/wallet'
-import Aepp from './ae/aepp'
+import { Aepp, RpcAepp } from './ae/aepp'
+import { Wallet, RpcWallet } from './ae/wallet'
 import Oracle from './ae/oracle'
 import OracleNodeAPI from './oracle/node'
 import Selector from './account/selector'
@@ -57,11 +57,13 @@ export {
   ContractCompilerAPI,
   ContractACI,
   ChainNode,
+  RpcAepp,
+  RpcWallet,
   Channel,
   Crypto,
+  Keystore,
   Chain,
-  // Todo Enable GA
-  // GeneralizeAccount,
+  GeneralizeAccount,
   HdWallet,
   MemoryAccount,
   Node,

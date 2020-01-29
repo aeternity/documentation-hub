@@ -22,21 +22,24 @@
  * @example import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
  */
 
+import * as R from 'ramda'
+
 import Ae from './'
 import Account from '../account'
 import ContractBase from '../contract'
 import Accounts from '../accounts'
 import Chain from '../chain/node'
 import Rpc from '../rpc/server'
-import * as R from 'ramda'
 import Tx from '../tx/tx'
+import TxBase from '../tx'
 import Contract from './contract'
-import NodePool from '../node-pool'
-// Todo Enable GA
-// import GeneralizeAccount from '../contract/ga'
+import GeneralizeAccount from '../contract/ga'
+import { WalletRpc } from '../utils/aepp-wallet-communication/rpc/wallet-rpc'
+import Oracle from './oracle'
+import Aens from './aens'
 
 const contains = R.flip(R.contains)
-const isTxMethod = contains(Tx.compose.deepConfiguration.Ae.methods)
+const isTxMethod = contains(TxBase.compose.deepConfiguration.Ae.methods)
 const isChainMethod = contains(Chain.compose.deepConfiguration.Ae.methods)
 const isAccountMethod = contains(Account.compose.deepConfiguration.Ae.methods)
 const isContractMethod = contains(ContractBase.compose.deepConfiguration.Contract.methods)
@@ -132,7 +135,7 @@ async function rpcAddress ({ params, session }) {
   onContract: confirm
 })
  */
-const Wallet = Ae.compose(Accounts, Chain, NodePool, Tx, Contract, Rpc, {
+export const Wallet = Ae.compose(Accounts, Chain, Tx, Contract, GeneralizeAccount, Rpc, {
   init ({ onTx = this.onTx, onChain = this.onChain, onAccount = this.onAccount, onContract = this.onContract }, { stamp }) {
     this.onTx = onTx
     this.onChain = onChain
@@ -155,5 +158,7 @@ const Wallet = Ae.compose(Accounts, Chain, NodePool, Tx, Contract, Rpc, {
     }
   }
 })
+
+export const RpcWallet = Ae.compose(WalletRpc, Tx, Contract, Oracle, Aens, GeneralizeAccount, Chain)
 
 export default Wallet

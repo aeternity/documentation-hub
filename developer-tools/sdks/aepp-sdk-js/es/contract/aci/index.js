@@ -27,7 +27,12 @@ import * as R from 'ramda'
 
 import { validateArguments, transform, transformDecodedData } from './transformation'
 import { buildContractMethods, getFunctionACI } from './helpers'
+import { isAddressValid } from '../../utils/crypto'
 import AsyncInit from '../../utils/async-init'
+import { BigNumber } from 'bignumber.js'
+import { COMPILER_LT_VERSION } from '../compiler'
+import semverSatisfies from '../../utils/semver-satisfies'
+import { AMOUNT, DEPOSIT, GAS, MIN_GAS_PRICE } from '../../tx/builder/schema'
 
 /**
  * Validated contract call arguments using contract ACI
@@ -56,9 +61,11 @@ async function prepareArgsForEncode (aci, params) {
  * Generate contract ACI object with predefined js methods for contract usage - can be used for creating a reference to already deployed contracts
  * @alias module:@aeternity/aepp-sdk/es/contract/aci
  * @param {String} source Contract source code
- * @param {Object} [options] Options object
- * @param {Object} [options.aci] Contract ACI
- * @param {Object} [options.contractAddress] Contract address
+ * @param {Object} [options={}] Options object
+ * @param {String} [options.aci] Contract ACI
+ * @param {String} [options.contractAddress] Contract address
+ * @param {Object} [options.filesystem] Contact source external namespaces map
+ * @param {Object} [options.forceCodeCheck] Don't check contract code
  * @param {Object} [options.opt] Contract options
  * @return {ContractInstance} JS Contract API
  * @example
@@ -69,19 +76,20 @@ async function prepareArgsForEncode (aci, params) {
  * Also you can call contract like: await contractIns.methods.setState(123, options)
  * Then sdk decide to make on-chain or static call(dry-run API) transaction based on function is stateful or not
  */
-async function getContractInstance (source, { aci, contractAddress, opt } = {}) {
-  aci = aci || await this.contractGetACI(source)
+async function getContractInstance (source, { aci, contractAddress, filesystem = {}, forceCodeCheck = true, opt } = {}) {
+  aci = aci || await this.contractGetACI(source, { filesystem })
   const defaultOptions = {
     skipArgsConvert: false,
     skipTransformDecoded: false,
     callStatic: false,
-    deposit: 0,
-    gasPrice: 1000000000, // min gasPrice 1e9
-    amount: 0,
-    gas: 1600000 - 21000,
+    deposit: DEPOSIT,
+    gasPrice: MIN_GAS_PRICE, // min gasPrice 1e9
+    amount: AMOUNT,
+    gas: GAS,
     top: null, // using for contract call static
     waitMined: true,
-    verify: false
+    verify: false,
+    filesystem
   }
   const instance = {
     interface: R.defaultTo(null, R.prop('interface', aci)),
@@ -93,6 +101,19 @@ async function getContractInstance (source, { aci, contractAddress, opt } = {}) 
     compilerVersion: this.compilerVersion,
     setOptions (opt) {
       this.options = R.merge(this.options, opt)
+    }
+  }
+
+  // Check for valid contract address and contract code
+  if (contractAddress) {
+    if (!isAddressValid(contractAddress, 'ct')) throw new Error('Invalid contract address')
+    const contract = await this.getContract(contractAddress).catch(e => null)
+    if (!contract || !contract.active) throw new Error(`Contract with address ${contractAddress} not found on-chain or not active`)
+    // Check if we are using compiler version gte then 4.1.0(has comparing bytecode API)
+    if (!forceCodeCheck && semverSatisfies(this.compilerVersion, '4.1.0', COMPILER_LT_VERSION)) {
+      const onChanByteCode = (await this.getContractByteCode(contractAddress)).bytecode
+      const isCorrespondingBytecode = await this.validateByteCodeAPI(onChanByteCode, instance.source, instance.options).catch(e => false)
+      if (!isCorrespondingBytecode) throw new Error('Contract source do not correspond to the contract bytecode deployed on the chain')
     }
   }
 
@@ -146,7 +167,10 @@ const call = ({ client, instance }) => async (fn, params = [], options = {}) => 
 
   if (!fn) throw new Error('Function name is required')
   if (!instance.deployInfo.address) throw new Error('You need to deploy contract before calling!')
-
+  if (
+    BigNumber(opt.amount).gt(0) &&
+    (Object.prototype.hasOwnProperty.call(fnACI, 'payable') && !fnACI.payable)
+  ) throw new Error(`You try to pay "${opt.amount}" to function "${fn}" which is not payable. Only payable function can accept tokens`)
   params = !opt.skipArgsConvert ? await prepareArgsForEncode(fnACI, params) : params
   const result = opt.callStatic
     ? await client.contractCallStatic(source, instance.deployInfo.address, fn, params, {
@@ -156,11 +180,11 @@ const call = ({ client, instance }) => async (fn, params = [], options = {}) => 
     : await client.contractCall(source, instance.deployInfo.address, fn, params, opt)
   return {
     ...result,
-    decodedResult: await transformDecodedData(
+    decodedResult: opt.waitMined ? await transformDecodedData(
       fnACI.returns,
       await result.decode(),
-      { ...opt, compilerVersion: instance.compilerVersion, bindings: fnACI.bindings }
-    )
+      { ...opt, bindings: fnACI.bindings }
+    ) : null
   }
 }
 
@@ -169,7 +193,7 @@ const deploy = ({ client, instance }) => async (init = [], options = {}) => {
   const fnACI = getFunctionACI(instance.aci, 'init')
   const source = opt.source || instance.source
 
-  if (!instance.compiled) await instance.compile()
+  if (!instance.compiled) await instance.compile(opt)
   init = !opt.skipArgsConvert ? await prepareArgsForEncode(fnACI, init) : init
 
   if (opt.callStatic) {
@@ -185,8 +209,8 @@ const deploy = ({ client, instance }) => async (init = [], options = {}) => {
   }
 }
 
-const compile = ({ client, instance }) => async () => {
-  const { bytecode } = await client.contractCompile(instance.source)
+const compile = ({ client, instance }) => async (options = {}) => {
+  const { bytecode } = await client.contractCompile(instance.source, { ...instance.options, ...options })
   instance.compiled = bytecode
   return instance.compiled
 }

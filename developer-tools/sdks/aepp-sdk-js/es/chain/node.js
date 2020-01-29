@@ -15,6 +15,7 @@
  *  PERFORMANCE OF THIS SOFTWARE.
  */
 import * as R from 'ramda'
+
 import Chain from './'
 import Oracle from '../oracle/node'
 import formatBalance from '../utils/amount-formatter'
@@ -31,12 +32,12 @@ import NodePool from '../node-pool'
  */
 
 async function sendTransaction (tx, options = {}) {
-  const { waitMined, verify } = R.merge(this.Chain.defaults, options)
+  const { waitMined, verify } = R.merge(this.Ae.defaults, options)
   // Verify transaction before broadcast
-  if (this.verifyTxBeforeSend || verify) {
+  if (verify || (typeof verify !== 'boolean' && this.verifyTxBeforeSend)) {
     const { validation, tx: txObject, txType } = await this.unpackAndVerify(tx)
     if (validation.length) {
-      throw Object.assign(Error('Transaction verification error'), {
+      throw Object.assign(Error('Transaction verification error: ' + JSON.stringify(validation)), {
         code: 'TX_VERIFICATION_ERROR',
         errorData: { validation, tx: txObject, txType },
         txHash: tx
@@ -46,7 +47,16 @@ async function sendTransaction (tx, options = {}) {
 
   try {
     const { txHash } = await this.api.postTransaction({ tx })
-    return waitMined ? { ...(await this.poll(txHash, options)), rawTx: tx } : { hash: txHash, rawTx: tx }
+
+    if (waitMined) {
+      const txData = { ...(await this.poll(txHash, options)), rawTx: tx }
+      // wait for transaction confirmation
+      if (options.confirm) {
+        return { ...txData, confirmationHeight: await this.waitForTxConfirm(txHash, options) }
+      }
+      return txData
+    }
+    return { hash: txHash, rawTx: tx }
   } catch (e) {
     throw Object.assign(
       (new Error(e.message)),
@@ -56,6 +66,12 @@ async function sendTransaction (tx, options = {}) {
       }
     )
   }
+}
+
+async function waitForTxConfirm (txHash, options = { confirm: 3 }) {
+  options.confirm = typeof options.confirm === 'boolean' && options.confirm ? 3 : options.confirm
+  const { blockHeight } = await this.tx(txHash)
+  return this.awaitHeight(blockHeight + options.confirm, options)
 }
 
 async function getAccount (address, { height, hash } = {}) {
@@ -128,8 +144,8 @@ async function poll (th, { blocks = 10, interval = 5000 } = {}) {
   const max = await this.height() + blocks
 
   async function probe () {
-    const tx = await instance.tx(th)
-    if (tx.blockHeight !== -1) {
+    const tx = await instance.tx(th).catch(_ => null)
+    if (tx && tx.blockHeight !== -1) {
       return tx
     }
     if (await instance.height() < max) {
@@ -175,11 +191,15 @@ async function getMicroBlockHeader (hash) {
 }
 
 async function txDryRun (txs, accounts, top) {
-  return this.api.dryRunTxs({ txs, accounts, top })
+  return this.api.dryRunTxs({ txs: txs.map(tx => ({ tx })), accounts, top })
 }
 
 async function getContractByteCode (contractId) {
   return this.api.getContractCode(contractId)
+}
+
+async function getContract (contractId) {
+  return this.api.getContract(contractId)
 }
 
 async function getName (name) {
@@ -199,7 +219,7 @@ async function getName (name) {
  * @example ChainNode({url: 'https://sdk-testnet.aepps.com/'})
  */
 const ChainNode = Chain.compose(Oracle, TransactionValidator, NodePool, {
-  init ({ verifyTx = false }) {
+  init ({ verifyTx = true }) {
     this.verifyTxBeforeSend = verifyTx
   },
   methods: {
@@ -221,7 +241,9 @@ const ChainNode = Chain.compose(Oracle, TransactionValidator, NodePool, {
     getKeyBlock,
     txDryRun,
     getContractByteCode,
-    getName
+    getContract,
+    getName,
+    waitForTxConfirm
   }
 })
 
