@@ -3,7 +3,6 @@
 ## @aeternity/aepp-sdk/es/tx/builder
 JavaScript-based Transaction builder
 
-**Export**: TxBuilder  
 **Example**  
 ```js
 import Transaction from '@aeternity/aepp-sdk/es/tx/builder'
@@ -114,7 +113,7 @@ Unpack transaction hash
 
 | Param | Type | Description |
 | --- | --- | --- |
-| encodedTx | `String` \| `Array` | String or RLP encoded transaction array (if fromRlpBinary flag is true) |
+| encodedTx | `String` \| `Buffer` | String or RLP encoded transaction array (if fromRlpBinary flag is true) |
 | fromRlpBinary | `Boolean` | Unpack from RLP encoded transaction (default: false) |
 | prefix | `String` | Prefix of data |
 

@@ -11,13 +11,11 @@ import * as Crypto from '@aeternity/aepp-sdk/es/utils/crypto'
 * [@aeternity/aepp-sdk/es/utils/crypto](#module_@aeternity/aepp-sdk/es/utils/crypto)
     * _static_
         * [.decode](#module_@aeternity/aepp-sdk/es/utils/crypto.decode) ⇒ `Array`
-        * [.isBase64(str)](#module_@aeternity/aepp-sdk/es/utils/crypto.isBase64) ⇒ `boolean`
         * [.formatAddress(format, address)](#module_@aeternity/aepp-sdk/es/utils/crypto.formatAddress) ⇒ `String`
-        * [.isAddressValid(address)](#module_@aeternity/aepp-sdk/es/utils/crypto.isAddressValid) ⇒ `Boolean`
+        * [.isAddressValid(address, prefix)](#module_@aeternity/aepp-sdk/es/utils/crypto.isAddressValid) ⇒ `Boolean`
         * [.addressToHex(base58CheckAddress)](#module_@aeternity/aepp-sdk/es/utils/crypto.addressToHex) ⇒ `String`
         * [.addressFromDecimal(decimalAddress)](#module_@aeternity/aepp-sdk/es/utils/crypto.addressFromDecimal) ⇒ `String`
         * [.hash(input)](#module_@aeternity/aepp-sdk/es/utils/crypto.hash) ⇒ `Buffer`
-        * [.nameId(input)](#module_@aeternity/aepp-sdk/es/utils/crypto.nameId) ⇒ `Buffer`
         * [.sha256hash(input)](#module_@aeternity/aepp-sdk/es/utils/crypto.sha256hash) ⇒ `String`
         * [.salt()](#module_@aeternity/aepp-sdk/es/utils/crypto.salt) ⇒ `Number`
         * [.encodeBase64Check(input)](#module_@aeternity/aepp-sdk/es/utils/crypto.encodeBase64Check) ⇒ `Buffer`
@@ -41,11 +39,12 @@ import * as Crypto from '@aeternity/aepp-sdk/es/utils/crypto'
         * [.decryptPrivateKey(password)](#module_@aeternity/aepp-sdk/es/utils/crypto.decryptPrivateKey) ⇒ `Buffer`
         * [.decryptPubKey(password)](#module_@aeternity/aepp-sdk/es/utils/crypto.decryptPubKey) ⇒ `Buffer`
         * [.assertedType(data, type, forceError)](#module_@aeternity/aepp-sdk/es/utils/crypto.assertedType) ⇒ `String` \| `Boolean`
-        * [.decodeTx(password)](#module_@aeternity/aepp-sdk/es/utils/crypto.decodeTx) ⇒ `Array`
+        * [.decodeTx(txHash)](#module_@aeternity/aepp-sdk/es/utils/crypto.decodeTx) ⇒ `Buffer`
         * [.encodeTx(txData)](#module_@aeternity/aepp-sdk/es/utils/crypto.encodeTx) ⇒ `String`
         * [.isValidKeypair(privateKey, publicKey)](#module_@aeternity/aepp-sdk/es/utils/crypto.isValidKeypair) ⇒ `Boolean`
-        * [.envKeypair(env)](#module_@aeternity/aepp-sdk/es/utils/crypto.envKeypair) ⇒ `Object`
-        * [.deserialize(binary, opts)](#module_@aeternity/aepp-sdk/es/utils/crypto.deserialize) ⇒ `Object`
+        * [.envKeypair(env, [force])](#module_@aeternity/aepp-sdk/es/utils/crypto.envKeypair) ⇒ `Object`
+        * [.encryptData(msg, publicKey)](#module_@aeternity/aepp-sdk/es/utils/crypto.encryptData) ⇒ `Object`
+        * [.decryptData(secretKey, encryptedData)](#module_@aeternity/aepp-sdk/es/utils/crypto.decryptData) ⇒ `Buffer` \| `null`
     * _inner_
         * [~Transaction](#module_@aeternity/aepp-sdk/es/utils/crypto..Transaction) : `Array`
 
@@ -61,18 +60,6 @@ RLP decode
 | Param | Type | Description |
 | --- | --- | --- |
 | data | `Buffer` \| `String` \| `Integer` \| `Array` | Data to decode |
-
-<a id="module_@aeternity/aepp-sdk/es/utils/crypto.isBase64"></a>
-
-### @aeternity/aepp-sdk/es/utils/crypto.isBase64(str) ⇒ `boolean`
-Check whether a string is valid base-64.
-
-**Kind**: static method of [`@aeternity/aepp-sdk/es/utils/crypto`](#module_@aeternity/aepp-sdk/es/utils/crypto)  
-**Returns**: `boolean` - True if the string is valid base-64, false otherwise.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| str | `string` | String to validate. |
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto.formatAddress"></a>
 
@@ -90,7 +77,7 @@ Format account address
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto.isAddressValid"></a>
 
-### @aeternity/aepp-sdk/es/utils/crypto.isAddressValid(address) ⇒ `Boolean`
+### @aeternity/aepp-sdk/es/utils/crypto.isAddressValid(address, prefix) ⇒ `Boolean`
 Check if address is valid
 
 **Kind**: static method of [`@aeternity/aepp-sdk/es/utils/crypto`](#module_@aeternity/aepp-sdk/es/utils/crypto)  
@@ -100,6 +87,7 @@ Check if address is valid
 | Param | Type | Description |
 | --- | --- | --- |
 | address | `String` | Address |
+| prefix | `String` | Transaction prefix. Default: 'ak' |
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto.addressToHex"></a>
 
@@ -139,20 +127,6 @@ Calculate 256bits Blake2b hash of `input`
 | Param | Type | Description |
 | --- | --- | --- |
 | input | `String` \| `Buffer` | Data to hash |
-
-<a id="module_@aeternity/aepp-sdk/es/utils/crypto.nameId"></a>
-
-### @aeternity/aepp-sdk/es/utils/crypto.nameId(input) ⇒ `Buffer`
-Calculate 256bits Blake2b nameId of `input`
-as defined in https://github.com/aeternity/protocol/blob/master/AENS.md#hashing
-
-**Kind**: static method of [`@aeternity/aepp-sdk/es/utils/crypto`](#module_@aeternity/aepp-sdk/es/utils/crypto)  
-**Returns**: `Buffer` - Hash  
-**rtype**: `(input: String) => hash: String`
-
-| Param | Type | Description |
-| --- | --- | --- |
-| input | `String` | Data to hash |
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto.sha256hash"></a>
 
@@ -212,7 +186,7 @@ Base58 encode given `input`
 
 | Param | Type | Description |
 | --- | --- | --- |
-| input | `String` | Data to encode |
+| input | `String` \| `Buffer` | Data to encode |
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto.decodeBase58Check"></a>
 
@@ -375,7 +349,7 @@ Verify that signature was signed by public key
 
 | Param | Type | Description |
 | --- | --- | --- |
-| str | `String` | Data to verify |
+| str | `String` \| `Buffer` | Data to verify |
 | signature | `Buffer` | Signature to verify |
 | publicKey | `Buffer` | Key to verify against |
 
@@ -463,16 +437,16 @@ Assert base58 encoded type and return its payload
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto.decodeTx"></a>
 
-### @aeternity/aepp-sdk/es/utils/crypto.decodeTx(password) ⇒ `Array`
+### @aeternity/aepp-sdk/es/utils/crypto.decodeTx(txHash) ⇒ `Buffer`
 Decode a transaction
 
 **Kind**: static method of [`@aeternity/aepp-sdk/es/utils/crypto`](#module_@aeternity/aepp-sdk/es/utils/crypto)  
-**Returns**: `Array` - Decoded transaction  
+**Returns**: `Buffer` - Decoded transaction  
 **rtype**: `(txHash: String) => Buffer`
 
 | Param | Type | Description |
 | --- | --- | --- |
-| password | `String` | Password to decrypt with |
+| txHash | `String` | Transaction hash |
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto.encodeTx"></a>
 
@@ -505,7 +479,7 @@ Sign a message, and then verifying that signature
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto.envKeypair"></a>
 
-### @aeternity/aepp-sdk/es/utils/crypto.envKeypair(env) ⇒ `Object`
+### @aeternity/aepp-sdk/es/utils/crypto.envKeypair(env, [force]) ⇒ `Object`
 Obtain key pair from `env`
 
 Designed to be used with `env` from nodejs. Assumes enviroment variables
@@ -515,23 +489,38 @@ Designed to be used with `env` from nodejs. Assumes enviroment variables
 **Returns**: `Object` - Key pair  
 **rtype**: `(env: Object) => {publicKey: String, secretKey: String}, throws: Error`
 
-| Param | Type | Description |
-| --- | --- | --- |
-| env | `Object` | Environment |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| env | `Object` |  | Environment |
+| [force] | `Boolean` | <code>false</code> | Force throwing error |
 
-<a id="module_@aeternity/aepp-sdk/es/utils/crypto.deserialize"></a>
+<a id="module_@aeternity/aepp-sdk/es/utils/crypto.encryptData"></a>
 
-### @aeternity/aepp-sdk/es/utils/crypto.deserialize(binary, opts) ⇒ `Object`
-Deserialize `binary` state channel transaction
+### @aeternity/aepp-sdk/es/utils/crypto.encryptData(msg, publicKey) ⇒ `Object`
+This function encrypts a message using base58check encoded and 'ak' prefixed
+publicKey such that only the corresponding secretKey will
+be able to decrypt
 
 **Kind**: static method of [`@aeternity/aepp-sdk/es/utils/crypto`](#module_@aeternity/aepp-sdk/es/utils/crypto)  
-**Returns**: `Object` - Channel data  
-**rtype**: `(binary: String) => Object`
+**rtype**: `(msg: String, publicKey: String) => Object`
 
 | Param | Type | Description |
 | --- | --- | --- |
-| binary | `String` | Data to deserialize |
-| opts | `Object` | Options |
+| msg | `Buffer` | Data to encode |
+| publicKey | `String` | Public key |
+
+<a id="module_@aeternity/aepp-sdk/es/utils/crypto.decryptData"></a>
+
+### @aeternity/aepp-sdk/es/utils/crypto.decryptData(secretKey, encryptedData) ⇒ `Buffer` \| `null`
+This function decrypt a message using secret key
+
+**Kind**: static method of [`@aeternity/aepp-sdk/es/utils/crypto`](#module_@aeternity/aepp-sdk/es/utils/crypto)  
+**rtype**: `(secretKey: String, encryptedData: Object) => Buffer|null`
+
+| Param | Type | Description |
+| --- | --- | --- |
+| secretKey | `String` | Secret key |
+| encryptedData | `Object` | Encrypted data |
 
 <a id="module_@aeternity/aepp-sdk/es/utils/crypto..Transaction"></a>
 

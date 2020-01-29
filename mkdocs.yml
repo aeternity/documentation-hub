@@ -160,8 +160,66 @@ nav:
         - æternity Framework:
             - AEproject: 'developer-tools/æternity-frameworks/aepp-aeproject-js/README.md'
         - Software Development Kits:
+            - JavaScript:
+               - Introduction: 'developer-tools/sdks/aepp-sdk-js/README.md'
+               - Contributing: 'developer-tools/sdks/aepp-sdk-js/contrib/README.md'
+               - CHANGELOG: 'developer-tools/sdks/aepp-sdk-js/CHANGELOG.md'
+               - API:
+                  - Account:
+                     - Memory: 'developer-tools/sdks/aepp-sdk-js/docs/api/account/memory.md'
+                     - Selector: 'developer-tools/sdks/aepp-sdk-js/docs/api/account/selector.md'
+                  - AE:
+                     - AENS: 'developer-tools/sdks/aepp-sdk-js/docs/api/ae/aens.md'
+                     - æpp: 'developer-tools/sdks/aepp-sdk-js/docs/api/ae/aepp.md'
+                     - Contract: 'developer-tools/sdks/aepp-sdk-js/docs/api/ae/contract.md'
+                     - Oracle: 'developer-tools/sdks/aepp-sdk-js/docs/api/ae/oracle.md'
+                     - Universal: 'developer-tools/sdks/aepp-sdk-js/docs/api/ae/universal.md'
+                     - Wallet: 'developer-tools/sdks/aepp-sdk-js/docs/api/ae/wallet.md'
+                  - Chain:
+                     - Node: 'developer-tools/sdks/aepp-sdk-js/docs/api/chain/node.md'
+                  - Channel:
+                     - Channel: 'developer-tools/sdks/aepp-sdk-js/docs/api/channel/index.md'
+                  - Contract:
+                     - ACI: 'developer-tools/sdks/aepp-sdk-js/docs/api/contract/aci.md'
+                     - Compiler: 'developer-tools/sdks/aepp-sdk-js/docs/api/contract/compiler.md'
+                     - Generalized Account: 'developer-tools/sdks/aepp-sdk-js/docs/api/contract/ga.md'
+                  - Oracle:
+                     - Node: 'developer-tools/sdks/aepp-sdk-js/docs/api/oracle/node.md'
+                  - RPC:
+                     - Client: 'developer-tools/sdks/aepp-sdk-js/docs/api/rpc/client.md'
+                  - Transcation:
+                     - Helper for Builder:
+                        - Helpers: 'developer-tools/sdks/aepp-sdk-js/docs/api/tx/builder/helpers.md'
+                        - Schema: 'developer-tools/sdks/aepp-sdk-js/docs/api/tx/builder/schema.md'
+                     - Builder: 'developer-tools/sdks/aepp-sdk-js/docs/api/tx/builder.md'
+                     - Transaction: 'developer-tools/sdks/aepp-sdk-js/docs/api/tx/tx.md'
+                     - Validator: 'developer-tools/sdks/aepp-sdk-js/docs/api/tx/validator.md'
+                  - Utils:
+                     - Wallet Communication:
+                        - Connection:
+                           - Browser-Runtime: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/aepp-wallet-communication/connection/browser-runtime.md'
+                           - Browser-Window-Message: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/aepp-wallet-communication/connection/browser-window-message.md'
+                        - RPC:
+                           - æpp: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/aepp-wallet-communication/rpc/aepp-rpc.md'
+                           - Client: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/aepp-wallet-communication/rpc/rpc-client.md'
+                           - Wallet: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/aepp-wallet-communication/rpc/wallet-rpc.md'
+                        - Connection: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/aepp-wallet-communication/connection.md'
+                        - Content Script Bridge: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/aepp-wallet-communication/content-script-bridge.md'
+                        - Wallet Detector: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/aepp-wallet-communication/wallet-detector.md'
+                     - Bytes: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/bytes.md'
+                     - Crypto: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/crypto.md'
+                     - Keystore: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/keystore.md'
+                     - Swagger: 'developer-tools/sdks/aepp-sdk-js/docs/api/utils/swagger.md'
+                  - Account: 'developer-tools/sdks/aepp-sdk-js/docs/api/account.md'
+                  - Accounts: 'developer-tools/sdks/aepp-sdk-js/docs/api/accounts.md'
+                  - AE: 'developer-tools/sdks/aepp-sdk-js/docs/api/ae.md'
+                  - Chain: 'developer-tools/sdks/aepp-sdk-js/docs/api/chain.md'
+                  - Contract: 'developer-tools/sdks/aepp-sdk-js/docs/api/contract.md'
+                  - Node Pool: 'developer-tools/sdks/aepp-sdk-js/docs/api/node-pool.md'
+                  - Node: 'developer-tools/sdks/aepp-sdk-js/docs/api/node.md'
+                  - Oracle: 'developer-tools/sdks/aepp-sdk-js/docs/api/oracle.md'
+                  - Transaction (Tx): 'developer-tools/sdks/aepp-sdk-js/docs/api/tx.md'
             - Go: 'developer-tools/sdks/aepp-sdk-go/README.md'
-            - JavaScript: 'developer-tools/sdks/aepp-sdk-js/README.md'
             - Python: 'developer-tools/sdks/aepp-sdk-python/README.md'
             - Elixir: 'developer-tools/sdks/aepp-sdk-elixir/README.md'
             - Java:

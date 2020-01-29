@@ -2,11 +2,14 @@
 
 ## @aeternity/aepp-sdk/es/utils/keystore
 KeyStore module
-!!!Work only in node.js!!!
 
 **Example**  
 ```js
-import * as Crypto from '@aeternity/aepp-sdk/es/utils/keystore'
+import * as Keystore from '@aeternity/aepp-sdk/es/utils/keystore'
+```
+**Example**  
+```js
+const { Keystore } = require('@aeternity/aepp-sdk')
 ```
 
 * [@aeternity/aepp-sdk/es/utils/keystore](#module_@aeternity/aepp-sdk/es/utils/keystore)

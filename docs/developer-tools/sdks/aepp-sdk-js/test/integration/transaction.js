@@ -18,17 +18,19 @@
 import { describe, it, before } from 'mocha'
 import { encodeBase58Check, encodeBase64Check, generateKeyPair, salt } from '../../es/utils/crypto'
 import { ready, configure } from './index'
-import { commitmentHash } from '../../es/tx/builder/helpers'
+import { commitmentHash, isNameValid } from '../../es/tx/builder/helpers'
+import { MemoryAccount } from '../../es'
 
 const nonce = 1
 const nameTtl = 1
 const clientTtl = 1
-const amount = 1
+const amount = 0
 const senderId = 'ak_2iBPH7HUz3cSDVEUWiHg76MZJ6tZooVNBmmxcgVK6VV8KAE688'
 const recipientId = 'ak_2iBPH7HUz3cSDVEUWiHg76MZJ6tZooVNBmmxcgVK6VV8KAE688'
 const name = 'test123test.test'
 const nameHash = `nm_${encodeBase58Check(Buffer.from(name))}`
 const nameId = 'nm_2sFnPHi5ziAqhdApSpRBsYdomCahtmk3YGNZKYUTtUNpVSMccC'
+const nameFee = '1000000000000000000000'
 const pointers = [{ key: 'account_pubkey', id: senderId }]
 
 // Oracle
@@ -44,7 +46,6 @@ const queryResponse = '{\'tmp\': 101}'
 // Contract test data
 const contractCode = `
 contract Identity =
-  type state = ()
   entrypoint main(x : int) = x
 `
 let contractId
@@ -68,8 +69,8 @@ describe('Native Transaction', function () {
     client = await ready(this, false)
     clientNative = await ready(this)
     await client.spend('16774200000000000000', keyPair.publicKey)
-    client.setKeypair(keyPair)
-    clientNative.setKeypair(keyPair)
+    await client.addAccount(MemoryAccount({ keypair: keyPair }), { select: true })
+    await clientNative.addAccount(MemoryAccount({ keypair: keyPair }), { select: true })
     oracleId = `ok_${(await client.address()).slice(3)}`
     _salt = salt()
     commitmentId = await commitmentHash(name, _salt)
@@ -92,13 +93,15 @@ describe('Native Transaction', function () {
       accountId: senderId,
       nonce,
       name: nameHash,
-      nameSalt: _salt
+      nameSalt: _salt,
+      nameFee
     })
     const nativeTx = await clientNative.nameClaimTx({
       accountId: senderId,
       nonce,
       name: nameHash,
-      nameSalt: _salt
+      nameSalt: _salt,
+      nameFee
     })
     txFromAPI.should.be.equal(nativeTx)
   })
@@ -237,5 +240,24 @@ describe('Native Transaction', function () {
 
     const orQuery = (await client.getOracleQuery(oracleId, queryId))
     orQuery.response.should.be.equal(`or_${encodeBase64Check(queryResponse)}`)
+  })
+  it('Get next account nonce', async () => {
+    const accountId = await client.address()
+    const { nonce: accountNonce } = await client.api.getAccountByPubkey(accountId).catch(() => ({ nonce: 0 }))
+    const nonce = await client.getAccountNonce(await client.address())
+    nonce.should.be.equal(accountNonce + 1)
+    const nonceCustom = await client.getAccountNonce(await client.address(), 1)
+    nonceCustom.should.be.equal(1)
+  })
+  it('Is name valid', () => {
+    try {
+      isNameValid('asdasdasd.testDomain')
+    } catch (e) {
+      e.message.indexOf('AENS: Invalid name domain').should.not.be.equal(-1)
+    }
+  })
+  it('Destroy instance', () => {
+    client.destroyInstance()
+    console.log('Finish without error')
   })
 })

@@ -228,4 +228,25 @@ public final class EncodingUtils {
     String publicKey = encodeCheck(rawKeyPair.getPublicKey(), ApiIdentifiers.ACCOUNT_PUBKEY);
     return BaseKeyPair.builder().privateKey(privateKey).publicKey(publicKey).build();
   }
+
+  public static String generateCommitmentHash(final String name, final BigInteger salt) {
+    return encodeCheck(
+        hash(ByteUtils.concatenate(name.getBytes(), ByteUtils.leftPad(32, salt.toByteArray()))),
+        ApiIdentifiers.COMMITMENT);
+  }
+
+  /**
+   * @param senderId senders public key
+   * @param nonce senders nonce
+   * @param oracleId oracleId
+   * @return queryId
+   */
+  public static String queryId(String senderId, BigInteger nonce, String oracleId) {
+    return hashEncode(
+        ByteUtils.concatenate(
+            decodeCheckWithIdentifier(senderId),
+            ByteUtils.leftPad(32, nonce.toByteArray()),
+            decodeCheckWithIdentifier(oracleId)),
+        ApiIdentifiers.ORACLE_QUERY_ID);
+  }
 }

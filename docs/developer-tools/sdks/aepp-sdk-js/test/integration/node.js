@@ -53,12 +53,6 @@ describe('Node client', function () {
     )
   })
   describe('Node Pool', () => {
-    it('init using old style (url, internalUrl)', async () => {
-      const node = await NodePool({ url, internalUrl })
-      const nodeInfoKeys = ['name', 'url', 'internalUrl', 'nodeNetworkId', 'version', 'consensusProtocolVersion']
-      const isNodeInfo = !Object.keys(node.getNodeInfo).find(k => !nodeInfoKeys.includes(k))
-      isNodeInfo.should.be.equal(true)
-    })
     it('throw error on invalid node object', async () => {
       const node = await NodePool()
       expect(() => node.addNode('test', {})).to.throw(Error)
@@ -68,6 +62,14 @@ describe('Node client', function () {
         node.addNode('test', {})
       } catch (e) {
         e.message.should.be.equal('Invalid node instance object')
+      }
+    })
+    it('Throw error on get network without node ', async () => {
+      const node = await NodePool()
+      try {
+        node.getNetworkId()
+      } catch (e) {
+        e.message.should.be.equal('networkId is not provided')
       }
     })
     it('Throw error on using API without node', async () => {
