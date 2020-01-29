@@ -12,6 +12,7 @@ import com.kryptokrauts.aeternity.sdk.domain.secret.impl.BaseKeyPair;
 import com.kryptokrauts.aeternity.sdk.domain.secret.impl.RawKeyPair;
 import com.kryptokrauts.aeternity.sdk.service.keypair.KeyPairService;
 import com.kryptokrauts.aeternity.sdk.service.keypair.KeyPairServiceFactory;
+import com.kryptokrauts.aeternity.sdk.util.ByteUtils;
 import com.kryptokrauts.aeternity.sdk.util.EncodingType;
 import com.kryptokrauts.aeternity.sdk.util.EncodingUtils;
 import com.kryptokrauts.aeternity.sdk.util.SigningUtil;
@@ -357,6 +358,139 @@ public class GenerationAndSigningTest extends BaseTest {
                     EncodingUtils.encodeCheck(
                         Hex.decode(hex.substring(2)), ApiIdentifiers.ACCOUNT_PUBKEY);
                 assertEquals(fromHexAddress, address);
+              });
+          it(
+              "commitmentHash generation test",
+              () -> {
+                final String kkNamespaceCommitmentId =
+                    "cm_27G8vARHeEm3Z1KsDwTZ4kTWwdNorDJryAaT5fjtJDcegfDjBQ";
+                final String generatedCommitmentId =
+                    EncodingUtils.generateCommitmentHash(BaseTest.KK_NAMESPACE, BaseTest.TEST_SALT);
+                assertEquals(kkNamespaceCommitmentId, generatedCommitmentId);
+              });
+          it(
+              "formatSalt generation test",
+              () -> {
+                final byte[] oneSalt =
+                    new byte[] {
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      9,
+                      110,
+                      (byte) 178,
+                      (byte) 148,
+                      (byte) 244,
+                      (byte) 193,
+                      91
+                    };
+                final byte[] formattedSalt =
+                    ByteUtils.leftPad(32, BaseTest.TEST_SALT.toByteArray());
+
+                assertArrayEquals(oneSalt, formattedSalt);
+              });
+          it(
+              "hash name and namespace",
+              () -> {
+                byte[] generatedHash = EncodingUtils.hash(BaseTest.NAME.getBytes());
+                byte[] kkHash =
+                    new byte[] {
+                      (byte) 226,
+                      (byte) 34,
+                      (byte) 173,
+                      (byte) 200,
+                      (byte) 83,
+                      (byte) 245,
+                      (byte) 155,
+                      (byte) 227,
+                      (byte) 178,
+                      (byte) 61,
+                      (byte) 137,
+                      (byte) 129,
+                      (byte) 46,
+                      (byte) 107,
+                      (byte) 56,
+                      (byte) 219,
+                      (byte) 48,
+                      (byte) 231,
+                      (byte) 61,
+                      (byte) 232,
+                      (byte) 212,
+                      (byte) 25,
+                      (byte) 240,
+                      (byte) 132,
+                      (byte) 173,
+                      (byte) 147,
+                      (byte) 145,
+                      (byte) 146,
+                      (byte) 118,
+                      (byte) 88,
+                      (byte) 125,
+                      (byte) 26
+                    };
+
+                assertArrayEquals(kkHash, generatedHash);
+
+                byte[] generatedNS = EncodingUtils.hash(BaseTest.NS.getBytes());
+                byte[] nsHash =
+                    new byte[] {
+                      (byte) 146,
+                      (byte) 139,
+                      (byte) 32,
+                      (byte) 54,
+                      (byte) 105,
+                      (byte) 67,
+                      (byte) 226,
+                      (byte) 175,
+                      (byte) 209,
+                      (byte) 30,
+                      (byte) 188,
+                      (byte) 14,
+                      (byte) 174,
+                      (byte) 46,
+                      (byte) 83,
+                      (byte) 169,
+                      (byte) 59,
+                      (byte) 241,
+                      (byte) 119,
+                      (byte) 164,
+                      (byte) 252,
+                      (byte) 243,
+                      (byte) 91,
+                      (byte) 204,
+                      (byte) 100,
+                      (byte) 213,
+                      (byte) 3,
+                      (byte) 112,
+                      (byte) 78,
+                      (byte) 101,
+                      (byte) 226,
+                      (byte) 2
+                    };
+
+                assertArrayEquals(nsHash, generatedNS);
               });
         });
   }
