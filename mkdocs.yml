@@ -164,7 +164,10 @@ nav:
             - JavaScript: 'developer-tools/sdks/aepp-sdk-js/README.md'
             - Python: 'developer-tools/sdks/aepp-sdk-python/README.md'
             - Elixir: 'developer-tools/sdks/aepp-sdk-elixir/README.md'
-            - Java: 'developer-tools/sdks/aepp-sdk-java/README.md'
+            - Java:
+               - Introduction: 'developer-tools/sdks/aepp-sdk-java/README.md'
+               - Contributing: 'developer-tools/sdks/aepp-sdk-java/CONTRIBUTING.md'
+               - CHANGELOG: 'developer-tools/sdks/aepp-sdk-java/docs/changelog.md'
         - Middleware: 'developer-tools/aepp-middleware/README.md'
         - Token Faucet: 'developer-tools/aepp-faucet/README.md'
         - Frameworks:

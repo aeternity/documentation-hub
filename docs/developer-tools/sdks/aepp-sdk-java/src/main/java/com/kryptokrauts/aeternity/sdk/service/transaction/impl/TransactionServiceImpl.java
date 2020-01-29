@@ -1,87 +1,141 @@
 package com.kryptokrauts.aeternity.sdk.service.transaction.impl;
 
-import com.kryptokrauts.aeternity.generated.api.ChannelApiImpl;
-import com.kryptokrauts.aeternity.generated.api.ContractApiImpl;
-import com.kryptokrauts.aeternity.generated.api.TransactionApiImpl;
-import com.kryptokrauts.aeternity.generated.api.rxjava.ChannelApi;
-import com.kryptokrauts.aeternity.generated.api.rxjava.ContractApi;
-import com.kryptokrauts.aeternity.generated.api.rxjava.TransactionApi;
-import com.kryptokrauts.aeternity.generated.model.GenericSignedTx;
-import com.kryptokrauts.aeternity.generated.model.PostTxResponse;
+import com.kryptokrauts.aeternity.generated.api.rxjava.ExternalApi;
 import com.kryptokrauts.aeternity.generated.model.Tx;
-import com.kryptokrauts.aeternity.generated.model.UnsignedTx;
 import com.kryptokrauts.aeternity.sdk.constants.ApiIdentifiers;
 import com.kryptokrauts.aeternity.sdk.constants.SerializationTags;
+import com.kryptokrauts.aeternity.sdk.exception.TransactionCreateException;
+import com.kryptokrauts.aeternity.sdk.service.aeternity.AeternityServiceConfiguration;
 import com.kryptokrauts.aeternity.sdk.service.transaction.TransactionService;
-import com.kryptokrauts.aeternity.sdk.service.transaction.TransactionServiceConfiguration;
-import com.kryptokrauts.aeternity.sdk.service.transaction.type.AbstractTransaction;
-import com.kryptokrauts.aeternity.sdk.service.transaction.type.TransactionFactory;
+import com.kryptokrauts.aeternity.sdk.service.transaction.domain.DryRunRequest;
+import com.kryptokrauts.aeternity.sdk.service.transaction.domain.DryRunTransactionResults;
+import com.kryptokrauts.aeternity.sdk.service.transaction.domain.PostTransactionResult;
+import com.kryptokrauts.aeternity.sdk.service.transaction.type.model.AbstractTransactionModel;
 import com.kryptokrauts.aeternity.sdk.util.ByteUtils;
 import com.kryptokrauts.aeternity.sdk.util.EncodingUtils;
 import com.kryptokrauts.aeternity.sdk.util.SigningUtil;
+import com.kryptokrauts.sophia.compiler.generated.api.rxjava.DefaultApi;
 import io.reactivex.Single;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import javax.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
-import net.consensys.cava.bytes.Bytes;
-import net.consensys.cava.rlp.RLP;
-import org.bouncycastle.crypto.CryptoException;
+import org.apache.tuweni.bytes.Bytes;
+import org.apache.tuweni.rlp.RLP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-  @Nonnull private TransactionServiceConfiguration config;
+  protected static final Logger _logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
 
-  private TransactionApi transactionApi;
+  @Nonnull private AeternityServiceConfiguration config;
 
-  private ChannelApi channelApi;
+  @Nonnull private ExternalApi externalApi;
 
-  private ContractApi contractApi;
-
-  private TransactionFactory transactionFactory;
+  @Nonnull private DefaultApi compilerApi;
 
   @Override
-  public TransactionFactory getTransactionFactory() {
-    if (transactionFactory == null) {
-      transactionFactory =
-          new TransactionFactory(getTransactionApi(), getChannelApi(), getContractApi());
-    }
-    return transactionFactory;
+  public Single<String> asyncCreateUnsignedTransaction(AbstractTransactionModel<?> tx) {
+    return tx.buildTransaction(externalApi, compilerApi)
+        .createUnsignedTransaction(config.isNativeMode(), config.getMinimalGasPrice())
+        .map(single -> single.getTx());
   }
 
   @Override
-  public Single<UnsignedTx> createUnsignedTransaction(AbstractTransaction<?> tx) {
-    return tx.createUnsignedTransaction(config.isNativeMode(), config.getMinimalGasPrice());
+  public String blockingCreateUnsignedTransaction(AbstractTransactionModel<?> tx) {
+    return tx.buildTransaction(externalApi, compilerApi)
+        .createUnsignedTransaction(config.isNativeMode(), config.getMinimalGasPrice())
+        .blockingGet()
+        .getTx();
   }
 
   @Override
-  public Single<PostTxResponse> postTransaction(Tx tx) {
-    return getTransactionApi().rxPostTransaction(tx);
+  public Single<PostTransactionResult> asyncPostTransaction(AbstractTransactionModel<?> tx) {
+    return this.asyncPostTransaction(tx, this.config.getBaseKeyPair().getPrivateKey());
   }
 
   @Override
-  public Single<GenericSignedTx> getTransactionByHash(String txHash) {
-    return getTransactionApi().rxGetTransactionByHash(txHash);
+  public Single<PostTransactionResult> asyncPostTransaction(
+      AbstractTransactionModel<?> tx, String privateKey) throws TransactionCreateException {
+    return PostTransactionResult.builder()
+        .build()
+        .asyncGet(
+            externalApi.rxPostTransaction(
+                createGeneratedTxObject(
+                    signTransaction(
+                        asyncCreateUnsignedTransaction(tx).blockingGet(), privateKey))));
   }
 
   @Override
-  public String computeTxHash(final String encodedSignedTx) {
-    byte[] signed = EncodingUtils.decodeCheckWithIdentifier(encodedSignedTx);
+  public PostTransactionResult blockingPostTransaction(AbstractTransactionModel<?> tx) {
+    return this.blockingPostTransaction(tx, this.config.getBaseKeyPair().getPrivateKey());
+  }
+
+  @Override
+  public PostTransactionResult blockingPostTransaction(String signedTx) {
+    return PostTransactionResult.builder()
+        .build()
+        .blockingGet(externalApi.rxPostTransaction(createGeneratedTxObject(signedTx)));
+  }
+
+  @Override
+  public Single<PostTransactionResult> asyncPostTransaction(String signedTx) {
+    return PostTransactionResult.builder()
+        .build()
+        .asyncGet(externalApi.rxPostTransaction(createGeneratedTxObject(signedTx)));
+  }
+
+  @Override
+  public PostTransactionResult blockingPostTransaction(
+      AbstractTransactionModel<?> tx, String privateKey) throws TransactionCreateException {
+    return PostTransactionResult.builder()
+        .build()
+        .blockingGet(
+            externalApi.rxPostTransaction(
+                createGeneratedTxObject(
+                    signTransaction(
+                        asyncCreateUnsignedTransaction(tx).blockingGet(), privateKey))));
+  }
+
+  @Override
+  public String computeTxHash(final AbstractTransactionModel<?> tx)
+      throws TransactionCreateException {
+    byte[] signed =
+        EncodingUtils.decodeCheckWithIdentifier(
+            signTransaction(
+                asyncCreateUnsignedTransaction(tx).blockingGet(),
+                this.config.getBaseKeyPair().getPrivateKey()));
     return EncodingUtils.hashEncode(signed, ApiIdentifiers.TRANSACTION_HASH);
   }
 
   @Override
-  public Tx signTransaction(final UnsignedTx unsignedTx, final String privateKey)
-      throws CryptoException {
-    byte[] networkData = config.getNetwork().getId().getBytes(StandardCharsets.UTF_8);
-    byte[] binaryTx = EncodingUtils.decodeCheckWithIdentifier(unsignedTx.getTx());
-    byte[] txAndNetwork = ByteUtils.concatenate(networkData, binaryTx);
-    byte[] sig = SigningUtil.sign(txAndNetwork, privateKey);
-    String encodedSignedTx = encodeSignedTransaction(sig, binaryTx);
-    Tx tx = new Tx();
-    tx.setTx(encodedSignedTx);
-    return tx;
+  public String signTransaction(final String unsignedTx, final String privateKey)
+      throws TransactionCreateException {
+    try {
+      byte[] networkData = config.getNetwork().getId().getBytes(StandardCharsets.UTF_8);
+      byte[] binaryTx = EncodingUtils.decodeCheckWithIdentifier(unsignedTx);
+      byte[] txAndNetwork = ByteUtils.concatenate(networkData, binaryTx);
+      byte[] sig = SigningUtil.sign(txAndNetwork, privateKey);
+      String encodedSignedTx = encodeSignedTransaction(sig, binaryTx);
+      return encodedSignedTx;
+    } catch (Exception e) {
+      throw createException(e);
+    }
+  }
+
+  @Override
+  public Single<DryRunTransactionResults> asyncDryRunTransactions(DryRunRequest input) {
+    return DryRunTransactionResults.builder()
+        .build()
+        .asyncGet(this.externalApi.rxDryRunTxs(input.toGeneratedModel()));
+  }
+
+  @Override
+  public DryRunTransactionResults blockingDryRunTransactions(DryRunRequest input) {
+    return DryRunTransactionResults.builder()
+        .build()
+        .blockingGet(this.externalApi.rxDryRunTxs(input.toGeneratedModel()));
   }
 
   /**
@@ -93,9 +147,8 @@ public class TransactionServiceImpl implements TransactionService {
     Bytes encodedRlp =
         RLP.encodeList(
             rlpWriter -> {
-              rlpWriter.writeBigInteger(
-                  BigInteger.valueOf(SerializationTags.OBJECT_TAG_SIGNED_TRANSACTION));
-              rlpWriter.writeBigInteger(BigInteger.valueOf(SerializationTags.VSN));
+              rlpWriter.writeInt(SerializationTags.OBJECT_TAG_SIGNED_TRANSACTION);
+              rlpWriter.writeInt(SerializationTags.VSN_1);
               rlpWriter.writeList(
                   writer -> {
                     writer.writeByteArray(sig);
@@ -105,24 +158,19 @@ public class TransactionServiceImpl implements TransactionService {
     return EncodingUtils.encodeCheck(encodedRlp.toArray(), ApiIdentifiers.TRANSACTION);
   }
 
-  private TransactionApi getTransactionApi() {
-    if (transactionApi == null) {
-      transactionApi = new TransactionApi(new TransactionApiImpl(config.getApiClient()));
-    }
-    return transactionApi;
+  @Override
+  public String toString() {
+    return this.config.getNetwork().getId() + " " + this.config.isNativeMode();
   }
 
-  private ChannelApi getChannelApi() {
-    if (channelApi == null) {
-      channelApi = new ChannelApi(new ChannelApiImpl(config.getApiClient()));
-    }
-    return channelApi;
+  private TransactionCreateException createException(Exception e) {
+    return new TransactionCreateException(
+        String.format("Technical error creating exception: ", e.getMessage()), e);
   }
 
-  private ContractApi getContractApi() {
-    if (contractApi == null) {
-      contractApi = new ContractApi(new ContractApiImpl(config.getApiClient()));
-    }
-    return contractApi;
+  private Tx createGeneratedTxObject(String signedTx) {
+    Tx tx = new Tx();
+    tx.setTx(signedTx);
+    return tx;
   }
 }

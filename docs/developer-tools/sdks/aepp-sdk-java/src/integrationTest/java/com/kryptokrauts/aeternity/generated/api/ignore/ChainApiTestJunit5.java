@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxTestContext;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class ChainApiTestJunit5 extends BaseTestJunit5 {
 
   @Test
@@ -17,7 +19,7 @@ public class ChainApiTestJunit5 extends BaseTestJunit5 {
                 keyBlock -> {
                   testContext.verify(
                       () -> {
-                        System.out.println(keyBlock.toString());
+                        _logger.info(keyBlock.toString());
                         assertTrue(keyBlock.getHeight().longValue() > 0);
                         testContext.completeNow();
                       });
@@ -33,7 +35,7 @@ public class ChainApiTestJunit5 extends BaseTestJunit5 {
               if (res.failed()) {
                 fail();
               }
-              System.out.println(res.result().toString());
+              _logger.info(res.result().toString());
               assertTrue(res.result().getHeight().longValue() > 0);
             });
   }
