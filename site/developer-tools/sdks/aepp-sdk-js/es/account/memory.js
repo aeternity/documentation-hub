@@ -30,6 +30,7 @@ import { decode } from '../tx/builder/helpers'
 const secrets = new WeakMap()
 
 async function sign (data) {
+  if (this.isGa) throw new Error('You are trying to sign data using GA account without keypair')
   return Promise.resolve(Crypto.sign(data, secrets.get(this).secretKey))
 }
 
@@ -46,9 +47,6 @@ function setSecret (keyPair) {
 
 function validateKeyPair (keyPair) {
   if (!keyPair || typeof keyPair !== 'object') throw new Error('KeyPair must be an object')
-  if (keyPair.pub && keyPair.priv) {
-    keyPair = { publicKey: keyPair.pub, secretKey: keyPair.priv }
-  }
   if (!keyPair.secretKey || !keyPair.publicKey) throw new Error('KeyPair must must have "secretKey", "publicKey" properties')
   if (typeof keyPair.publicKey !== 'string' || keyPair.publicKey.indexOf('ak_') === -1) throw new Error('Public Key must be a base58c string with "ak_" prefix')
   if (
@@ -72,15 +70,18 @@ function validateKeyPair (keyPair) {
  * @return {Account}
  */
 const MemoryAccount = Account.compose({
-  init ({ keypair }) {
-    validateKeyPair(keypair)
-    if (Object.prototype.hasOwnProperty.call(keypair, 'priv') && Object.prototype.hasOwnProperty.call(keypair, 'pub')) {
-      keypair = { secretKey: keypair.priv, publicKey: keypair.pub }
-      console.warn('pub/priv naming for accounts has been deprecated, please use secretKey/publicKey')
-    }
+  init ({ keypair, gaId }) {
+    this.isGa = !!gaId
+    if (gaId) {
+      if (!Crypto.isAddressValid(gaId)) throw new Error('Invalid GA address')
+      secrets.set(this, { publicKey: gaId })
+    } else {
+      validateKeyPair(keypair)
 
-    this.setSecret(keypair)
+      this.setSecret(keypair)
+    }
   },
+  props: { isGa: false },
   methods: { sign, address, setSecret }
 })
 

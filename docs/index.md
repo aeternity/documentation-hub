@@ -49,10 +49,6 @@ We are thrilled to have you with us!
 
 [Token Faucet](https://testnet.faucet.aepps.com/) - a reward system that dispenses rewards in the form of a AE test tokens
 
-[Playground](https://testing.playground.aepps.com/) - a full-featured IDE
-
-[Goggles](https://goggles.aepps.com/) - a simple interface to decode and verify encoded transactions for the æternity network
-
 [AEKnow Explorer](https://www.aeknow.org/) - a blockchain browser for æternity
 
 [AEMonitor](https://aemonitor.mobycrypt.com/core) - a blockchain browser for æternity
@@ -60,9 +56,3 @@ We are thrilled to have you with us!
 [Node.js/MongoDB Middleware](https://github.com/kryztoval/aepp-middleware-mn) - a backend API
 
 [Aeternity Blockchain Explorer](https://ae.criesca.net:3011/explorer/dashboard.html) & [API Endpoint](https://ae.criesca.net:3011/api) - a blockchain browser for æternity
-
-
-## Other Projects
-----
-
-[AE News](https://aenews.io/)
