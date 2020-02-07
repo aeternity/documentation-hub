@@ -7,7 +7,7 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 
 ## For Developers
 
-- *placeholder*.aeternity.io provides a proxy to the middleware, so it's not "node only" because it supports middleware APIs and WebSocket as well
+- *placeholder*.aeternity.io provides a proxy to the middleware, so it's not "node only" because it supports middleware APIs and websocket as well
 
 ## Community
 - [Forum](https://forum.aeternity.com) - Official platform for announcements and discussions
@@ -131,3 +131,5 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 - [BigONE](https://big.one/) - Chinese cryptocurrency exchange
 - [Tokok](https://www.tokok.com/index) -  British Virgin Islands cryptocurrency exchange
 - [StealthEX](https://stealthex.io/) - Anonymous and limitless cryptocurrency exchange
+- [MultiSwap](https://multiswap.io/supported) - Fast and secure way to swap coins
+- [Jelly Swap](https://jelly.market/) - Fast and secure way to swap coins
