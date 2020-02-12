@@ -142,6 +142,7 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 - [ZB](https://www.zb.com/cn/)- Chinese cryptocurrency exchange
 - [BigONE](https://big.one/) - Chinese cryptocurrency exchange
 - [Tokok](https://www.tokok.com/index) -  British Virgin Islands cryptocurrency exchange
+- [AEX](https://www.aex88.com/#/en) - Seychelles cryptocurrency exchange
 - [StealthEX](https://stealthex.io/) - Anonymous and limitless cryptocurrency exchange
 - [MultiSwap](https://multiswap.io/supported) - Fast and secure way to swap coins
 - [Jelly Swap](https://jelly.market/) - Fast and secure way to swap coins
