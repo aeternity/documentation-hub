@@ -226,6 +226,7 @@ nav:
                - Introduction: 'developer-tools/sdks/aepp-sdk-java/README.md'
                - Contributing: 'developer-tools/sdks/aepp-sdk-java/CONTRIBUTING.md'
                - CHANGELOG: 'developer-tools/sdks/aepp-sdk-java/docs/changelog.md'
+            - Capability Matrix: 'developer-tools/sdks/capability_matrix.md'
         - Middleware: 'developer-tools/aepp-middleware/README.md'
         - Token Faucet: 'developer-tools/aepp-faucet/README.md'
         - Frameworks:
