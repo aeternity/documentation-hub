@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BlockM3.AEternity.SwaggerClientGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\mpiva\\Documents\\Projects\\BlockM3\\BlockM3.AEternity.SDK\\api\" \"C:\\Users\\mpiva\\Documents\\Projects\\BlockM3\\BlockM3.AEternity.SDK\\BlockM3.AEternity.SDK\\Generated\""
+    }
+  }
+}
