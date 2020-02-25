@@ -61,3 +61,6 @@
 [submodule "aesophia"]
 	path = aesophia
 	url = git@github.com:aeternity/aesophia.git
+[submodule "aepp-sdk-net"]
+	path = aepp-sdk-net
+	url = git@github.com:block-m3/aepp-sdk-net.git
