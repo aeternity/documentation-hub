@@ -71,6 +71,7 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 - [Go](https://github.com/aeternity/aepp-sdk-go) (Official) - Collection of software development tools in one installable package
 - [Elixir](https://github.com/aeternity/aepp-sdk-elixir) (Official) - Collection of software development tools in one installable package
 - [Java](https://github.com/kryptokrauts/aepp-sdk-java) (Community) - Collection of software development tools in one installable package
+- [.NET](https://github.com/block-m3/aepp-sdk-net) (Community) - Collection of software development tools in one installable package
 
 ## Developer Tools
 - [AEproject](https://github.com/aeternity/aepp-aeproject-js) - æternity Framework
@@ -106,6 +107,7 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 ) - Dentralized game
 - [CryptoTask](https://app.cryptotask.org/) - Online platform for Freelancers
 - [Showcase æpp](https://github.com/kryptokrauts/aepp-showcase-android) - Showcase of the Java SDK
+- [Block M3](https://www.blockm3.com/en/) - Providing integral solutions based on Blockchain
 
 ## Education and Standards
 
