@@ -2,7 +2,7 @@
 
 Send Online Top-up. Instant Wallet Recharge
 
-Recharge your wallet on the aeternity testnet https://sdk-testnet.aepps.com
+Recharge your wallet on the aeternity testnet https://faucet.aepps.com/
 
 ## Configuration
 
