@@ -96,6 +96,7 @@ You can use `onAccount` option for that which can  one of:
  - `keypair` object({ secretKey, publicKey })
  - `MemoryAccount` instance
  - account `public key`
+
  ```js
 // account must be included in SDK or you can always add it using account management API of SDK
 // await SDKInstance.addAccount(MemoryAccount({ keypair }))
