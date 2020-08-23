@@ -1,0 +1,18 @@
+contract HelloWorld =
+
+  record state = { 
+    name : string,
+    user : address }
+
+  stateful entrypoint init() = { 
+    name = "",
+    user = Call.caller }
+
+  public stateful entrypoint say_hello(name' : string) : string = 
+    let greetings = String.concat("Hello, ", name')
+    put(state{name = name'})
+    greetings
+
+  public entrypoint get_info() : string =
+    let public_address = Address.to_str(state.user) 
+    String.concat(state.name, public_address)
