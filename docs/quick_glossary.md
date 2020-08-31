@@ -42,6 +42,9 @@ The Aeternity Naming System (AENS) enables user-friendly identities for blockcha
 ### *AEproject*
 An æternity framework which helps with setting up a project. It simplifies the development of smart contracts in the aeternity network. It provides commands for compilation, deployment of smart contracts, running a local node and unit testing the contracts.
 
+### *AE Studio*
+An easy to use Web-IDE for the Sophia smart contract language that allows to write, compile, and deploy smart contracts as well as to call both local and stateful functions.
+
 ### *AEXs*
 The Aeternity Expansions (AEXs), or æxpansions, are standards proposed by the community at large, i.e. everyone. Some of them can be mandatory in a specific context, e.g. AEX-1 describes the set of rules governing this repository, but are restricted to the application layer.
 

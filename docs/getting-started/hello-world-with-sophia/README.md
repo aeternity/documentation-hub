@@ -1,30 +1,27 @@
 # TUTORIAL: How to create a Sophia smart contract in three(3) steps
 
 ## Overview
-This tutorial will quite aid the beginners to understand the fundamentals of smart contract and how to write your first smart contract with Sophia ML in 3 steps using the AEstudio online editor.
-
-## Prerequisites
-All you will need for this tutorial is an **Internet Connection** to visit the AEstudio at [https://studio.aepps.com](https://studio.aepps.com)
+This tutorial will quite aid you as a beginner to understand the fundamentals of Sophia smart contract by writing your first smart contract in 3 steps using the AE Studio online editor.
 
 ## Let's get started
 ### Step One(1) - Declaring the contract and it's state
-The first step to writing a Sophia SmartContract is to give the contract a name which in our case will be **HelloWorld**.
+The first step to writing a Sophia smart contract is to give the contract a name which in our case will be **HelloWorld**.
 ```aes
 contract HelloWorld =
 ```
-The next thing is to give the contract its state. Take a ```state``` to be the container that keeps the information of our declared smart contract. In our case, below is a sample:
+Then we give the contract its state. Take ```state``` to be the container that keeps the information of our declared smart contract. In our case, below is sample:
 ```aes
   record state = { word : string }
 ```
 
 ### Step Two(2) - Initializing the contract
-The second step is to initialize our smart contract which simply means setting our smart contract starting point/state. This step is where we will give value to our smart contract state object. In our case, we will make our word variable equal to an empty string. See example:
+The second step is to initialize our smart contract. This simply means setting our smart contract starting point. This step is where we will give value to our smart contract state object. In our case, we will make our word variable equal to an empty string. See sample:
 ```aes
   entrypoint init() = { word = "" }
 ```
 
 ### Step Three(3) - Utilizing the contract
-The last step is to utilize our contract writing functions to either perform logic tasks, add, remove, or read from our contract state. See example of how to add to our contract state:
+The last step is to utilize our contract by writing functions to either perform logic tasks, add, remove, update, or read from our contract state. See sample of how to update our contract state:
 ```aes
   public stateful entrypoint say_hello(name : string) : string = 
     let new_word = String.concat("Hello, ", name)
@@ -33,7 +30,7 @@ The last step is to utilize our contract writing functions to either perform log
 ```
 
 ## Deploying and Testing our contract
-Now that our smart contract code is ready, let's copy the full code and head to [AEstudio](https://studio.aepps.com) to paste the code so we can test our contract by deploying the contract to the testnet network in other to get a value of **Hello, æternal** or **Hello, world** depending on the name given as a parameter to our ```say_hello``` function.
+Now that our smart contract is ready, let's copy the full code, head to **AE Studio** at <a href="https://studio.aepps.com" target="_blank">https://studio.aepps.com</a>, paste the code, deploy our contract to the testnet network, and finally test our contract. The final result of our ```say_hello``` function will be **Hello, æternal** or **Hello, world** depending on the name given as a parameter to the function.
 ```aes
 contract HelloWorld =
 
@@ -50,5 +47,9 @@ contract HelloWorld =
 You should have an output simplier to the below image:
 <p align="center"><img src="https://ipfs.io/ipfs/QmbkBu3PQqRWUmBpRhFtJsAqoc7RADJxuokf6pYmigpeQ8"></p>
 
+## Helpful Links
+1. <a href="https://www.youtube.com/watch?v=ZUccuEaFBq8&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA" target="_blank">Tutorial Video</a>
+2. <a href="https://github.com/aeternity/aesophia/blob/lima/docs/sophia.md" target="_blank">Sophia Documentation</a>
+
 ## Conclusion
-It is fairly simple to create an æternity smart contract using Sophia ML. It even gets easier with time if you familiarize yourself with the language. In case you encounter any problems feel free to contact us through the [æternity Forum](https://forum.aeternity.com/c/development).
+It is fairly simple to create an æternity smart contract using Sophia. It even gets easier with time if you familiarize yourself with the language. In case you encounter any problems feel free to contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.

@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-deploying-a-smart-contract-on-main-network-with-aeproject" class="md-skip">
+        <a href="#tutorial-deploying-a-smart-contract-on-mainnet-network-with-aeproject" class="md-skip">
           Skip to content
         </a>
       
@@ -4197,12 +4197,26 @@
     Deploying HelloWorld contract on the mainnet network
   </a>
   
-    <nav class="md-nav" aria-label="Deploying HelloWorld contract on the mainnet network">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-confirmation" class="md-nav__link">
+    Deployment Confirmation
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Confirmation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deployment-confirmation" class="md-nav__link">
-    Deployment Confirmation
+  <a href="#aecli" class="md-nav__link">
+    AECLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ae-studio" class="md-nav__link">
+    AE Studio
   </a>
   
 </li>
@@ -4328,12 +4342,26 @@
     Deploying HelloWorld contract on the mainnet network
   </a>
   
-    <nav class="md-nav" aria-label="Deploying HelloWorld contract on the mainnet network">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-confirmation" class="md-nav__link">
+    Deployment Confirmation
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Confirmation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deployment-confirmation" class="md-nav__link">
-    Deployment Confirmation
+  <a href="#aecli" class="md-nav__link">
+    AECLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ae-studio" class="md-nav__link">
+    AE Studio
   </a>
   
 </li>
@@ -4370,71 +4398,63 @@
                   
                 
                 
-                <h1 id="tutorial-deploying-a-smart-contract-on-main-network-with-aeproject">TUTORIAL: Deploying a smart contract on main network with "AEproject"</h1>
+                <h1 id="tutorial-deploying-a-smart-contract-on-mainnet-network-with-aeproject">TUTORIAL: Deploying a smart contract on mainnet network with "AEproject"</h1>
 <h2 id="overview">Overview</h2>
-<p>This tutorial will walk you through the process of deploaying Sophia ML Smart contract on aeternity mainnet network with the <code>aeproject</code> tool. We will an fund an account and finally deploy our <strong>HelloWorld</strong> contract to æternity mainnet network.</p>
+<p>This tutorial will walk you through the process of deploying Sophia ML Smart contract on æternity mainnet network with the <strong>AEproject</strong> tool. We will an fund an account and finally deploy a <strong>HelloWorld</strong> contract.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Before we go any further, please make sure you have followed the <a href="../deploying-on-testnet/">Deploying on testnet</a> tutorial</p>
+<p>Before we go any further, please make sure you have followed the <a href="../deploying-on-testnet" target="_blank">Deploying on Testnet</a> tutorial.</p>
 <h2 id="getting-tokens">Getting Tokens</h2>
-<p>Since we have created an account at the <a href="../coding-locally-with-aeproject/">Coding Locally with AEproject</a> tutorial, we will look at seperate ways we can fund our account with tokens before we deploy our contract.</p>
+<p>Since we have created an account at the <strong>Deploying on Testnet</strong> tutorial, we will look at seperate ways we can fund our account with tokens before we deploy our contract to the æternity mainnet network.</p>
 <h3 id="superhero">Superhero</h3>
-<p><strong>Superhero</strong> is a P2P social platform that elevates the impact that sharing can have. You can earn AE easily on Superhero by creating and publishing good content on the web. Learn more about superhero at <a href="https://superhero.com">https://superhero.com</a>.</p>
+<p><strong>Superhero</strong> is a P2P social platform that elevates the impact that sharing can have. You can earn AE easily on Superhero by publishing good content on the web. Learn more about Superhero at <a href="https://superhero.com" target="_blank">https://superhero.com</a>.</p>
 <h3 id="exchanges">Exchanges</h3>
-<p>Another way in which you can fund your wallet with AE tokens is through exchanges plaforms where you can trade from Fiat currenty to AE tokens or from other cryptocurrencies to AEtoken. Check out CoinMarketCap at <a href="https://coinmarketcap.com/currencies/aeternity/markets">https://coinmarketcap.com/currencies/aeternity/markets</a> for more details on exchanges.</p>
+<p>Another way in which you can fund your account with AE tokens is through exchange plaforms. Here you can trade from Fiat currencies to AE tokens or from other cryptocurrencies to AE tokens. Check out <a href="https://coinmarketcap.com/currencies/aeternity/markets" target="_blank">CoinMarketCap</a> for more details on exchanges.</p>
 <h3 id="local-p2p">Local P2P</h3>
 <p>You can also purchase AE locally from an individual who is willing to sell. For the purpose of this tutorial, I will make use of this method to fund our previously created account with 1AE.</p>
 <h3 id="checking-our-balance">Checking our balance</h3>
-<p>Finally, let's check the balance of wallet on sdk-mainnet:</p>
-<pre><code class="bash">aecli account balance ./my-ae-wallet -u https://sdk-mainnet.aepps.com
+<p>Let's check the balance of our account on the mainnet network with the following command in our account directory:</p>
+<pre><code class="bash">aecli account balance ./my-ae-account -u https://sdk-mainnet.aepps.com
 </code></pre>
 
 <p>and we have it:</p>
-<pre><code class="bash">Balance________________ 1000000000000000000
-ID_____________________ ak_2K2qr83kVeQZzQ74CpoL5E7mUxA1QMNxAhCr1iyoYNyLnset56
-Nonce__________________ 1
-</code></pre>
-
-<p><em>Note:</em> If you try to get the account balance of our newly created account without funding it first with AE you will get the below error:</p>
-<pre><code class="bash">API ERROR: Account not found
+<pre><code class="bash">✔ Enter your password … *****
+Balance__________ 1000000000000000000
+ID_______________ ak_2rBj4fHW6CEcP4w7gZn1ALsyFifrt8wiDECt7n2mpmefRYfnyH
+Nonce____________ 1
 </code></pre>
 
 <h2 id="deploying-helloworld-contract-on-the-mainnet-network">Deploying HelloWorld contract on the mainnet network</h2>
-<p>The <code>aeproject deploy</code> command helps developers run their deployment scripts for their æpp. The sample deployment script is scaffolded in deployment folder. Before we run the deploy command we have to edit our deployment script which we got at the <a href="../coding-locally-with-aeproject/">Coding Locally with AEproject</a> tutorial. Here is how our new deploy script looks like:</p>
-<pre><code class="js">const Deployer = require('aeproject-lib').Deployer;
-
-const deploy = async (network, privateKey, compiler, networkId) =&gt; {
-  let deployer = new Deployer(network, privateKey, compiler, networkId)
-
-  await deployer.deploy(&quot;./contracts/HelloWorld.aes&quot;)
-};
-
-module.exports = {
-  deploy
-};
-</code></pre>
-
 <p>Now Let's deploy our <strong>HelloWorld</strong> contract to the mainnet network using the secret key of our previously created and funded account with the following command:</p>
-<pre><code class="bash">aeproject deploy -n mainnet -s 0ef6ce64e4cb01532a0097a8f08aaf8e81e06dc920a4182d5a464cd5bce67386aca3b0cd045fad53e984237a0797c29ebcae48cb4035d8a5fab5d89fafc30c00
+<pre><code class="bash">aeproject deploy -n mainnet -s 336e2063e02d7886925aa9a106f85bc952e39ac974e40fa7490c0aab12b551c2f3606032c111eaacb784aa21f35534642ca1d198866285dc37832e1721ea1e47
 </code></pre>
 
 <p>The expected result should be similar to this:</p>
-<pre><code class="bash">===== Contract: HelloWorld.aes has been deployed at ct_rxP8txFLPaK21ApZfNNix3mVzxRCQxxS1YoZhZ2fRRAjLztod =====
+<pre><code class="bash">===== Contract: HelloWorld.aes has been deployed at ct_27YfPckio77U6RJh9yisxidQZtegWmYQUxL5A8o8biQka7N4f1 =====
 Your deployment script finished successfully!
 </code></pre>
 
-<p>If you get an error saying Cannot find module 'aeproject-utils', execute the below command on your project directory and re-execute the deploy command.</p>
-<pre><code class="bash">npm install aeproject-utils prompts aeproject-logger
+<h2 id="deployment-confirmation">Deployment Confirmation</h2>
+<h3 id="aecli">AECLI</h3>
+<p>You can recheck your account balance to verify the deployment of the smart contract with the previous command. The output should be similar to this:</p>
+<pre><code class="bash">✔ Enter your password … *****
+Balance_________ 999919987000000000
+ID______________ ak_2rBj4fHW6CEcP4w7gZn1ALsyFifrt8wiDECt7n2mpmefRYfnyH
+Nonce___________ 2
 </code></pre>
 
-<h3 id="deployment-confirmation">Deployment Confirmation</h3>
-<p>You can recheck your account ballance to verify if the SmartContract was deployed using your account with the previous command. The output should be similar to this:</p>
-<pre><code class="bash">Balance____________ 999832437000000000
-ID_________________ ak_2K2qr83kVeQZzQ74CpoL5E7mUxA1QMNxAhCr1iyoYNyLnset56
-Nonce______________ 3
-</code></pre>
-
+<h3 id="ae-studio">AE Studio</h3>
+<p>You can also verify the contract deployment on the mainnet network using the might AE Studio with the following steps:</p>
+<ol>
+<li>Head to <a href="https://studio.aepps.com" target="_blank">AE Studio</a>.</li>
+<li>Copy the <strong>HelloWorld</strong> Contract codes, and paste it as a new contract.</li>
+<li>Click the <strong>MAINNET</strong> button, and complete the authentication system with Superhero.</li>
+<li>Copy the contract address given to you after executing the <code>aeproject deploy</code> command.</li>
+<li>Paste the contract address at the provided bar beside the <strong>Use at address:</strong> button, and click the button.</li>
+<li>Enter a name for the <code>say_hello</code> function, and click the <strong>Send Transaction</strong> button.</li>
+<li>Click the <strong>Call Locally</strong> button for the <code>get_info</code> function.   </li>
+</ol>
 <h2 id="conclusion">Conclusion</h2>
-<p>Deploying smart contracts to the æternity mainnet network is nice and easy. In just a few minutes and few commands, one can deploy their desired contracts on the network. If you encounter any problems please contact us through the <a href="https://forum.aeternity.com/c/development">æternity dev Forum category</a>.</p>
+<p>Deploying smart contracts to the æternity mainnet network is nice and easy. In just a few minutes and few commands, one can deploy their desired contracts on the network. If you encounter any problems please check out the <a href="https://www.youtube.com/watch?v=uoF4LWo4624&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=4" target="_blank">video tutorial</a> on YouTube or contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.</p>
                 
               
               

@@ -4414,7 +4414,7 @@
                 
                 <h1 id="tutorial-how-to-build-a-to-do-list-pp-part-three3">TUTORIAL: How to build a To-do list Æpp - Part Three(3)</h1>
 <h2 id="overview">Overview</h2>
-<p>This tutorial will teach you how to develop the communication process between the client side and the <em>ToDoManager</em> smart contract. We will setup the basic infrastructure in order to interact with the smart contract from the frontend.</p>
+<p>This tutorial will teach you how to develop the communication process between the client side and a <em>ToDoManager</em> smart contract. We will setup the basic infrastructure in order to interact with the smart contract from the frontend.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li>Before we go any further, please make sure you have followed the <a href="https://github.com/aeternity/tutorials/blob/master/build-to-do-list-aepp-1.md" target="_blank">first part</a> of <em>How to build a To-do list Æpp</em>.</li>
@@ -4442,7 +4442,7 @@
 
 <p>The ToDo List Æpp runs at http://localhost:8080.</p>
 <h2 id="applicatrion-structure">Applicatrion Structure</h2>
-<p>In this tutorial we will focus on the <strong>account.js</strong>, <strong>contractDetails.js</strong>, and <strong>ToDo.vue</strong> files. These files contain the essence of our project. Тhe other files are specific to the configuration of the frontend framework you have chosen - in our case - <em>Vue.js</em>. </p>
+<p>In this tutorial, we will focus on the <strong>account.js</strong>, <strong>contractDetails.js</strong>, and <strong>ToDo.vue</strong> files. These files contain the essence of our project. Тhe other files are specific to the configuration of the frontend framework you have chosen - in our case - <em>Vue.js</em>. </p>
 <p>Here is the structure of the <em>src</em> directory for the cloned project:</p>
 <pre><code>.
 ├── assets
@@ -4465,7 +4465,7 @@
 <p><em>Мost of the code is crammed into the <code>ToDo.vue</code> file. That is so, as for the purpose of this tutorial, good separation is not essential. Please do follow the VUE best practices once you start developing outside of this tutorial.</em></p>
 <h2 id="application-flow">Application flow</h2>
 <h3 id="accountjs-file">account.js file</h3>
-<p>The <code>account.js</code> file contains the configuration settings for the aepp in <code>~/advance-todo-aepp/src/config/account.js</code>. For example:</p>
+<p>The <code>account.js</code> file contains the configuration settings for the æpp in <code>~/advance-todo-aepp/src/config/account.js</code>. For example:</p>
 <pre><code class="js">export default {
   pub: 'ak_2mwRmUeYmfuW93ti9HMSUJzCk1EYcQEfikVSzgo6k2VghsWhgU',
   priv: 'bb9f0b01c8c9553cfbaf7ef81a50f977b1326801ebf7294d1c2cbccdedf27476e9bbf604e611b5460a3b3999e9771b6f60417d73ce7c5519e12f7e127a1225ca',
@@ -4474,11 +4474,7 @@
 }
 </code></pre>
 
-<p>The <code>account.js</code> file contains the information for:
-- the public key;
-- the private key;
-- the node we want to connect to;
-- the compiler we want to connect to;</p>
+<p>The <code>account.js</code> file contains the information for: the public key, the private key, the node we want to connect to, the compiler we want to connect to.</p>
 <p>We want to test our <em>To-do list Æpp</em> on the testnet newtork. The nodeUrl property should be <code>https://sdk-testnet.aepps.com</code>, the compilerUrl property is <code>https://compiler.aepps.com</code> while the pub and priv property is the wallet keypair.</p>
 <h3 id="contractdetailsjs-file">contractDetails.js file</h3>
 <p>The <code>contractDetails.js</code> file contains the information for the contract and the deployed contract address in <code>~/advance-todo-aepp/src/config/contractDetails.js</code>. For instance:</p>
@@ -4716,7 +4712,7 @@ The included features are:</p>
 <li>chaning a task status by a button click;</li>
 </ul>
 <p>You can now create a own awesome <strong>Æpp</strong>.</p>
-<p>The æternity team will keep this tutorial updated. If you encounter any problems please contract us through the <a href="https://forum.aeternity.com/c/development">æternity dev Forum category</a>.</p>
+<p>The æternity team will keep this tutorial updated. If you encounter any problems please check out the <a href="https://www.youtube.com/watch?v=rAbEtgLSNCo&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=9" target="_blank">video tutorial</a> on YouTube or contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.</p>
                 
               
               

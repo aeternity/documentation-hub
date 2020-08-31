@@ -4165,12 +4165,26 @@
     Deploying HelloWorld contract on the testnet network
   </a>
   
-    <nav class="md-nav" aria-label="Deploying HelloWorld contract on the testnet network">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-confirmation" class="md-nav__link">
+    Deployment Confirmation
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Confirmation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deployment-confirmation" class="md-nav__link">
-    Deployment Confirmation
+  <a href="#aecli" class="md-nav__link">
+    AECLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ae-studio" class="md-nav__link">
+    AE Studio
   </a>
   
 </li>
@@ -4288,12 +4302,26 @@
     Deploying HelloWorld contract on the testnet network
   </a>
   
-    <nav class="md-nav" aria-label="Deploying HelloWorld contract on the testnet network">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-confirmation" class="md-nav__link">
+    Deployment Confirmation
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Confirmation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#deployment-confirmation" class="md-nav__link">
-    Deployment Confirmation
+  <a href="#aecli" class="md-nav__link">
+    AECLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ae-studio" class="md-nav__link">
+    AE Studio
   </a>
   
 </li>
@@ -4332,15 +4360,15 @@
                 
                 <h1 id="tutorial-deploying-a-smart-contract-on-testnet-network-with-aeproject">TUTORIAL: Deploying a smart contract on testnet network with "AEproject"</h1>
 <h2 id="overview">Overview</h2>
-<p>This tutorial will walk you through the process of deploaying Sophia ML Smart contract on aeternity testnet network with the <code>aeproject</code> tool. We will install <code>aecli</code> tool, create an account, fund the account using <strong>Faucet</strong> and finally deploy our <strong>HelloWorld</strong> contract to æternity testnet network.</p>
+<p>This tutorial will walk you through the process of deploying Sophia ML Smart contract on æternity testnet network with the <strong>AEproject</strong> tool. We will install the <strong>AECLI</strong> tool, create an æternity account, fund the account using <strong>Faucet</strong> and finally deploy a <strong>HelloWorld</strong> contract.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Before we go any further, please make sure you have followed the <a href="../coding-locally-with-aeproject/">Coding Locally with AEproject</a> tutorial</p>
+<p>Before we go any further, please make sure you have followed the <a href="../coding-locally-with-aeproject" target="_blank">Coding Locally with AEproject</a> tutorial.</p>
 <h2 id="installing-aecli">Installing AECLI</h2>
 <p><strong>AECLI</strong> is a command Line Interface for the æternity blockchain. The package is available for installation from the npm global repository. You will be able to install it via the following command:</p>
 <pre><code>npm install -g @aeternity/aepp-cli
 </code></pre>
 
-<p>Now, you have a global command - <code>aecli</code>. With <code>aecli -h</code> command you have a quick reference list of all commands:</p>
+<p>Now, you have a global command <code>aecli</code>, with <code>aecli -h</code> command you have a quick reference list of all commands:</p>
 <pre><code class="bash">Usage: aecli [options] [command]
 
 Options:
@@ -4360,49 +4388,55 @@ Commands:
 </code></pre>
 
 <h2 id="creating-a-secure-account">Creating a secure account</h2>
-<p>Let's create our new æternity account:</p>
-<pre><code class="bash">aecli account create my-ae-wallet --password 12345
+<p>First, let's create an <code>account</code> folder in our <strong>coding_locally</strong> project folder:</p>
+<pre><code class="bash">mkdir ~/coding_locally/account
+</code></pre>
+
+<p>Go to the newly created folder <code>cd ~/coding_locally/account</code> and create a new æternity account with:</p>
+<pre><code class="bash">aecli account create my-ae-account --password 12345
 </code></pre>
 
 <p>Expected output:</p>
-<pre><code class="bash">Address____________ ak_2K2qr83kVeQZzQ74CpoL5E7mUxA1QMNxAhCr1iyoYNyLnset56
-Path_______________ ~/deploying-on-testnet/wallet/my-ae-wallet
+<pre><code class="bash">Address____________ ak_2rBj4fHW6CEcP4w7gZn1ALsyFifrt8wiDECt7n2mpmefRYfnyH
+Path_______________ ~/coding_locally/account/my-ae-account
 </code></pre>
 
-<p>The above command generates a wallet file with name - my-ae-wallet, located where the command was executed. The content of wallet file looks like this:</p>
-<pre><code class="json">{&quot;name&quot;:&quot;my-ae-wallet&quot;,&quot;version&quot;:1,&quot;public_key&quot;:&quot;ak_2K2qr83kVeQZzQ74CpoL5E7mUxA1QMNxAhCr1iyoYNyLnset56&quot;,&quot;id&quot;:&quot;c3502253-a4e0-4f1d-8bf6-2e33a0319451&quot;,&quot;crypto&quot;:{&quot;secret_type&quot;:&quot;ed25519&quot;,&quot;symmetric_alg&quot;:&quot;xsalsa20-poly1305&quot;,&quot;ciphertext&quot;:&quot;c6a575dda6d15e0fc34cccabbb8d946ef73fc3cd3496a4f9de255a3becd29c7371d0a52bdfe671d087b5b080a20be328b52b4a5d3c1817320b512136ceb51a73d6091283fa3abe8b630cea00c7229a7c&quot;,&quot;cipher_params&quot;:{&quot;nonce&quot;:&quot;5a40a900562642e9bdd79ab7b856e9ffcfd4d0380e3ed3f4&quot;},&quot;kdf&quot;:&quot;argon2id&quot;,&quot;kdf_params&quot;:{&quot;memlimit_kib&quot;:65536,&quot;opslimit&quot;:3,&quot;parallelism&quot;:1,&quot;salt&quot;:&quot;143bf0809f654f574a8235e1f97f72c6&quot;}}}
+<p>The above command generates an account file with the name <code>my-ae-account</code>, located at the directory the command was executed. The content of account file looks like this:</p>
+<pre><code class="json">{&quot;name&quot;:&quot;my-ae-account&quot;,&quot;version&quot;:1,&quot;public_key&quot;:&quot;ak_2rBj4fHW6CEcP4w7gZn1ALsyFifrt8wiDECt7n2mpmefRYfnyH&quot;,&quot;id&quot;:&quot;217c1716-fe58-4145-a80d-a7e12d6f1381&quot;,&quot;crypto&quot;:{&quot;secret_type&quot;:&quot;ed25519&quot;,&quot;symmetric_alg&quot;:&quot;xsalsa20-poly1305&quot;,&quot;ciphertext&quot;:&quot;ff1c6ba1dd48df09e536c4ffbbfff92c5a72a38ba41ac6f4a96501b323d2c9380fccdda798f53b2105d4e37346ae514cb6efc980930b542dccc0f7017d66bde6526ea269e843757d4627a91c4700eb81&quot;,&quot;cipher_params&quot;:{&quot;nonce&quot;:&quot;311d045274e9326cb2145722a029212c71affe007a38bc0b&quot;},&quot;kdf&quot;:&quot;argon2id&quot;,&quot;kdf_params&quot;:{&quot;memlimit_kib&quot;:65536,&quot;opslimit&quot;:3,&quot;parallelism&quot;:1,&quot;salt&quot;:&quot;517ce31f0fe994ee54b32860dafd591a&quot;}}}
 </code></pre>
 
-<p>In order to get the address and secret key of an account one can use the following command:</p>
-<pre><code class="bash">aecli account address my-ae-wallet --privateKey
+<p>In order to get the public address and secret key of our account, let's execute the following command in our account directory:</p>
+<pre><code class="bash">aecli account address my-ae-account --privateKey
 </code></pre>
 
-<p>Type your password in and you will see output similar to this:</p>
-<pre><code class="bash">Address________ ak_2K2qr83kVeQZzQ74CpoL5E7mUxA1QMNxAhCr1iyoYNyLnset56
+<p>Type your password and you will see an output similar to this:</p>
+<pre><code class="bash">✔ Enter your password … *****
+Address_______________ ak_2rBj4fHW6CEcP4w7gZn1ALsyFifrt8wiDECt7n2mpmefRYfnyH
 ✔ Are you sure you want print your secret key? … yes
-Secret Key_____ 0ef6ce64e4cb01532a0097a8f08aaf8e81e06dc920a4182d5a464cd5bce67386aca3b0cd045fad53e984237a0797c29ebcae48cb4035d8a5fab5d89fafc30c00
+Secret Key____________ 336e2063e02d7886925aa9a106f85bc952e39ac974e40fa7490c0aab12b551c2f3606032c111eaacb784aa21f35534642ca1d198866285dc37832e1721ea1e47
 </code></pre>
 
 <h2 id="getting-tokens">Getting Tokens</h2>
-<p>Since we have an account and we are develping on the testnet network, we can copy our wallet address and head to æternity's faucet æpp at <a href="https://faucet.aepps.com">https://faucet.aepps.com</a> to fund our wallet with 5AE. </p>
-<p>You should have an output simplier to the below image:
-<p align="center"><img src="https://ipfs.io/ipfs/QmVcVoQxGz3LpXixXhiDVN6XzTnvy59Z3yLaKs7T6ckveW"></p></p>
-<p>Finally, let's check the balance of wallet on sdk-testnet:</p>
-<pre><code class="bash">aecli account balance ./my-ae-wallet -u https://sdk-testnet.aepps.com
+<p>Since we have an account and we are developing on the testnet network, we can copy our account public address, head to æternity's faucet æpp at <a href="https://faucet.aepps.com" target="_blank">https://faucet.aepps.com</a> to fund our account with 5AE. </p>
+<p>You should have an output simpliar to the below image:
+<p align="center"><img src="https://ipfs.io/ipfs/QmTMWAx7j7Z5eGaXK5xG47Qwfm2j3ahFt1NgS9Kb8g4ASb"></p></p>
+<p>Finally, let's check the balance of the account on the testnet network with the following command in our account directory:</p>
+<pre><code class="bash">aecli account balance ./my-ae-account -u https://sdk-testnet.aepps.com
 </code></pre>
 
 <p>and we have it:</p>
-<pre><code class="bash">Balance________________ 5000000000000000000
-ID_____________________ ak_2K2qr83kVeQZzQ74CpoL5E7mUxA1QMNxAhCr1iyoYNyLnset56
-Nonce__________________ 1
+<pre><code class="bash">✔ Enter your password … *****
+Balance_____________ 5000000000000000000
+ID__________________ ak_2rBj4fHW6CEcP4w7gZn1ALsyFifrt8wiDECt7n2mpmefRYfnyH
+Nonce_______________ 1
 </code></pre>
 
-<p><em>Note:</em> If you try to get the account balance of our newly created account without funding it first with AE you will get the below error:</p>
+<p><em>Note:</em> If you try to get the account balance of a newly created account without funding it with AE you will get the below error:</p>
 <pre><code class="bash">API ERROR: Account not found
 </code></pre>
 
 <h2 id="deploying-helloworld-contract-on-the-testnet-network">Deploying HelloWorld contract on the testnet network</h2>
-<p>The <code>aeproject deploy</code> command helps developers run their deployment scripts for their æpp. The sample deployment script is scaffolded in deployment folder. Before we run the deploy command we have to edit our deployment script which we got at the <a href="../coding-locally-with-aeproject/">Coding Locally with AEproject</a> tutorial. Here is how our new deploy script looks like:</p>
+<p>The <code>aeproject deploy</code> command helps developers run their deployment scripts for their æpp. The sample deployment script is scaffolded in deployment folder. Before we run the deploy command we have to edit our deployment script in our <code>coding_locally</code> project folder. Here is how our new deploy script looks like:</p>
 <pre><code class="js">const Deployer = require('aeproject-lib').Deployer;
 
 const deploy = async (network, privateKey, compiler, networkId) =&gt; {
@@ -4416,28 +4450,39 @@ module.exports = {
 };
 </code></pre>
 
-<p>Now Let's deploy our <strong>HelloWorld</strong> contract to the testnet network using the secret key of our newly created and funded account with the following command:</p>
-<pre><code class="bash">aeproject deploy -n testnet -s 0ef6ce64e4cb01532a0097a8f08aaf8e81e06dc920a4182d5a464cd5bce67386aca3b0cd045fad53e984237a0797c29ebcae48cb4035d8a5fab5d89fafc30c00
+<p>Now Let's deploy our <strong>HelloWorld</strong> contract to the testnet network using the secret key of our newly created and funded account with the following command in our coding_locally directory:</p>
+<pre><code class="bash">aeproject deploy -n testnet -s 336e2063e02d7886925aa9a106f85bc952e39ac974e40fa7490c0aab12b551c2f3606032c111eaacb784aa21f35534642ca1d198866285dc37832e1721ea1e47
 </code></pre>
 
 <p>The expected result should be similar to this:</p>
-<pre><code class="bash">===== Contract: HelloWorld.aes has been deployed at ct_rxP8txFLPaK21ApZfNNix3mVzxRCQxxS1YoZhZ2fRRAjLztod =====
+<pre><code class="bash">===== Contract: HelloWorld.aes has been deployed at ct_27YfPckio77U6RJh9yisxidQZtegWmYQUxL5A8o8biQka7N4f1 =====
 Your deployment script finished successfully!
 </code></pre>
 
-<p>If you get an error saying Cannot find module 'aeproject-utils', execute the below command on your project directory and re-execute the deploy command.</p>
+<p>If you get an error; <em>Cannot find module 'aeproject-utils'</em>, execute the below command on your coding_locally directory and re-execute the deploy command.</p>
 <pre><code class="bash">npm install aeproject-utils prompts aeproject-logger
 </code></pre>
 
-<h3 id="deployment-confirmation">Deployment Confirmation</h3>
-<p>You can recheck your account ballance to verify if the SmartContract was deployed using your account with the previous command. The output should be similar to this:</p>
-<pre><code class="bash">Balance____________ 4999839654000000000
-ID_________________ ak_2K2qr83kVeQZzQ74CpoL5E7mUxA1QMNxAhCr1iyoYNyLnset56
-Nonce______________ 3
+<h2 id="deployment-confirmation">Deployment Confirmation</h2>
+<h3 id="aecli">AECLI</h3>
+<p>You can recheck your account balance to verify the deployment of the smart contract with the previous command. The output should be similar to this:</p>
+<pre><code class="bash">Balance_______________ 4999919987000000000
+ID____________________ ak_2rBj4fHW6CEcP4w7gZn1ALsyFifrt8wiDECt7n2mpmefRYfnyH
+Nonce_________________ 2
 </code></pre>
 
+<h3 id="ae-studio">AE Studio</h3>
+<p>You can also verify the contract deployment on the testnet network using the might AE Studio with the following steps:</p>
+<ol>
+<li>Head to <a href="https://studio.aepps.com" target="_blank">AE Studio</a>.</li>
+<li>Copy the <strong>HelloWorld</strong> Contract codes, and paste it as a new contract.</li>
+<li>Copy the contract address given to you after executing the <code>aeproject deploy</code> command.</li>
+<li>Paste the contract address at the provided bar beside the <strong>Use at address:</strong> button, and click the button.</li>
+<li>Enter a name for the <code>say_hello</code> function, and click the <strong>Send Transaction</strong> button.</li>
+<li>Click the <strong>Call Locally</strong> button for the <code>get_info</code> function. </li>
+</ol>
 <h2 id="conclusion">Conclusion</h2>
-<p>Deploying smart contracts to the æternity testnet network is nice and easy. In just a few minutes and few commands, one can deploy their desired contracts on the network. If you encounter any problems please contact us through the <a href="https://forum.aeternity.com/c/development">æternity dev Forum category</a>.</p>
+<p>Deploying smart contracts to the æternity testnet network easy. In just a few minutes and few commands, one can deploy their desired contracts on the network. If you encounter any problems please check out the <a href="https://www.youtube.com/watch?v=IoFlZHWbhX4&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=3" target="_blank">video tutorial</a> on YouTube or contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.</p>
                 
               
               

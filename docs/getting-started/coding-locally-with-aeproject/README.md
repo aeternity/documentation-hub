@@ -1,17 +1,15 @@
 # TUTORIAL: Coding locally with "AEproject"
 ## Overview
-This tutorial will walk you through the process of writing Sophia ML Smart contract with the ```aeproject``` tool. We will install **AEproject**, initialize a folder and go through the folder structure. Once this is done we will update our smartcontract.
+This tutorial will walk you through the process of writing Sophia ML Smart contract with the **AEproject** tool. We will install AEproject, initialize a folder with AEproject, and update an HelloWorld smart contract.
 
 ## Prerequisites
 - Installed node.js and npm (node package manager)
-- Installed docker and docker-compose. Installation instructions can be found [here](https://docs.docker.com/compose/install/)
-- Installed Visual Studio Code 2017 for Windows users
-- Completed the [Hello World with Sophia](../hello-world-with-sophia/README.md) tutorial
+- Installed docker and docker-compose. Installation instructions can be found <a href="https://docs.docker.com/compose/install/" target="_blank">here</a>
+- Installed Visual Studio Code
+- Completed the <a href="../hello-world-with-sophia" target="_blank">HelloWorld with Sophia</a> tutorial
 
 ## Installing AEproject
 **AEproject** is an æternity framework which helps with setting up an æpp project. The framework makes the development of smart contracts in the æternity network very easy. It provides commands for compilation of smart contracts, running a local æternity node, unit testing and deployment of smart contracts.
-
-### From npm global repository (recommended)
 
 The package is available for installation from the npm global repository. You will be able to install it via the following command:
 ```
@@ -19,8 +17,7 @@ npm install -g aeproject
 ```
 
 ### After installing
-Now, you have a global command - ```aeproject```
-With ```aeproject -h``` command you have a quick reference list of all commands:
+Now, you have a global command ```aeproject```, with ```aeproject -h``` command you have a quick reference list of all commands:
 
 ```bash
 Usage: aeproject [options] [command]
@@ -46,20 +43,18 @@ Commands:
   compatibility [options]  Start env with latest versions and test the current project for compatibility
 ```
 
-## Generating the folder project structure
-The first thing we need to do is create a project folder and initialize its structure.
-
-Let's create a folder for our project:
-```
-mkdir ~/codingLocally
+## Generating the project structure
+First, we need to do is create a project folder:
+```bash
+mkdir ~/coding_locally
 ```
 
-Go to the newly created folder ```cd ~/codingLocally``` and initialize the folder with:
-```
+Go to the newly created folder ```cd ~/coding_locally``` and initialize the folder with:
+```bash
 aeproject init
 ```
 
-You will see output similar to this:
+You will see an output similar to this:
 ```bash
 ===== Initializing AEproject =====
 ===== Installing aepp-sdk =====
@@ -88,21 +83,21 @@ The init command creates an æpp structure with several folders and scripts:
 │   └── exampleTest.js
 ```
 
-- contracts - directory in which the developer can create contracts
-   - `ExampleContract.aes` -  a sample smart contract
-- deployment - directory that contains the deployment scripts
-   - `deploy.js` - an examplary deployment script
-- docker - directory with docker configuration files
-- integrations - directory with contract settions
-- test - directory that contains the unit test scripts
-    - `exampleTest.js` - an examplary test script coming with the init
+* contracts - directory in which the developer can create contracts
+    + `ExampleContract.aes` - an examplary smart contract
+* deployment - directory that contains the deployment scripts
+    + `deploy.js` - an examplary deployment script
+* test - directory that contains the unit test scripts
+    + `exampleTest.js` - an examplary unit test script
 
 ## Creating the ```HelloWorld.aes``` smart contract
-Following up on our previously written **HelloWorld** smart contract, we will update our contract to add a wallet address and also retrieve our smart contract informations. The first thing we will do is to create the `HelloWorld.aes` file using the code below:
+Following up on our previously written **HelloWorld** smart contract, we make the following chages to the contract: add a wallet address to the `state`, update the `say_hello` function, and create `get_info` function to retrieve our smart contract data. 
+
+The first step is to create the `HelloWorld.aes` file:
 ```bash
 touch ./contracts/HelloWorld.aes
 ```
-Now we need to start coding our smart contract. The entire code of our ```HelloWorld.aes``` is:
+Now we can write Sophia codes in our newly created file. The entire code of our ```HelloWorld.aes``` is:
 ```aes
 contract HelloWorld =
 
@@ -119,11 +114,16 @@ contract HelloWorld =
     put(state{name = name'})
     greetings
 
-  public entrypoint get_info() : string =
-    let public_address = Address.to_str(state.user) 
-    String.concat(state.name, public_address)
+  public entrypoint get_info() =
+    state
 ```
-Our contract now stores a name as a string and a user as an address. The ```say_hello``` functions stores the name inserted as a paramenter then resurns a greeting with the name while the public address of the address initilizing the contract is been stored in the `user` state property. The ```get_info``` function then return the whole `state` data after conversting the address to a string.
+Our contract now stores `name`(as a string) and `user`(as an address) in its state. The `user` address is the account(public address) that deployed the contract. The ```say_hello``` functions stores the name inserted as a paramenter then returns a greeting with the name. Finally, the ```get_info``` function returns the whole `state` data as an object.
+
+## Helpful Links
+1. <a href="https://www.youtube.com/watch?v=1SveDRKBVho&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=2" target="_blank">Tutorial Video</a>
+2. <a href="https://youtu.be/JZO89dtc5uI" target="_blank">Video Introducing AEproject</a>
+3. <a href="https://youtu.be/7MwTuo70g5w" target="_blank">Video Installing AEproject on Ubuntu</a>
+4. <a href="https://youtu.be/ELE24MDuGC8" target="_blank">Video Installing AEproject on Windows</a>
 
 ## Conclusion
-Writing smart contracts to the æternity network is nice and easy. In just a few minutes and few commands, one can initilize a folder using the aeproject tool. Check out the next tutorial to learn how to deploy your smart contract. If you encounter any problems installing AEproject, check out installing AEproject video on [Ubuntu](https://youtu.be/7MwTuo70g5w), [Windows](https://youtu.be/ELE24MDuGC8) or contact us through the [æternity dev Forum category](https://forum.aeternity.com/c/development).
+Writing smart contracts on the æternity blockchain is nice and easy. In just a few minutes and few commands, one can initilize a folder using the aeproject tool. If you encounter any problems installing AEproject, contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.

@@ -1,7 +1,7 @@
 # TUTORIAL: How to build a To-do list Æpp - Part Three(3)
 
 ## Overview
-This tutorial will teach you how to develop the communication process between the client side and the *ToDoManager* smart contract. We will setup the basic infrastructure in order to interact with the smart contract from the frontend.
+This tutorial will teach you how to develop the communication process between the client side and a *ToDoManager* smart contract. We will setup the basic infrastructure in order to interact with the smart contract from the frontend.
 
 ## Prerequisites
 - Before we go any further, please make sure you have followed the <a href="https://github.com/aeternity/tutorials/blob/master/build-to-do-list-aepp-1.md" target="_blank">first part</a> of *How to build a To-do list Æpp*.
@@ -25,7 +25,7 @@ npm run serve
 The ToDo List Æpp runs at http://localhost:8080.
 
 ## Applicatrion Structure
-In this tutorial we will focus on the **account.js**, **contractDetails.js**, and **ToDo.vue** files. These files contain the essence of our project. Тhe other files are specific to the configuration of the frontend framework you have chosen - in our case - *Vue.js*. 
+In this tutorial, we will focus on the **account.js**, **contractDetails.js**, and **ToDo.vue** files. These files contain the essence of our project. Тhe other files are specific to the configuration of the frontend framework you have chosen - in our case - *Vue.js*. 
 
 Here is the structure of the *src* directory for the cloned project:
 ```
@@ -52,7 +52,7 @@ This tutorial will not deal with creation of the ui components and styling them.
 
 ## Application flow
 ### account.js file
-The ```account.js``` file contains the configuration settings for the aepp in ```~/advance-todo-aepp/src/config/account.js```. For example:
+The ```account.js``` file contains the configuration settings for the æpp in ```~/advance-todo-aepp/src/config/account.js```. For example:
 ```js
 export default {
   pub: 'ak_2mwRmUeYmfuW93ti9HMSUJzCk1EYcQEfikVSzgo6k2VghsWhgU',
@@ -61,11 +61,7 @@ export default {
   compilerUrl: 'https://compiler.aepps.com',
 }
 ```
-The ```account.js``` file contains the information for:
-- the public key;
-- the private key;
-- the node we want to connect to;
-- the compiler we want to connect to;
+The ```account.js``` file contains the information for: the public key, the private key, the node we want to connect to, the compiler we want to connect to.
 
 We want to test our *To-do list Æpp* on the testnet newtork. The nodeUrl property should be ```https://sdk-testnet.aepps.com```, the compilerUrl property is ```https://compiler.aepps.com``` while the pub and priv property is the wallet keypair.
 
@@ -316,4 +312,4 @@ The included features are:
 
 You can now create a own awesome **Æpp**.
 
-The æternity team will keep this tutorial updated. If you encounter any problems please contract us through the [æternity dev Forum category](https://forum.aeternity.com/c/development).
+The æternity team will keep this tutorial updated. If you encounter any problems please check out the <a href="https://www.youtube.com/watch?v=rAbEtgLSNCo&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=9" target="_blank">video tutorial</a> on YouTube or contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.

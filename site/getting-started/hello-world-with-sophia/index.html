@@ -4109,13 +4109,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#lets-get-started" class="md-nav__link">
     Let's get started
   </a>
@@ -4152,6 +4145,13 @@
         <li class="md-nav__item">
   <a href="#deploying-and-testing-our-contract" class="md-nav__link">
     Deploying and Testing our contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpful-links" class="md-nav__link">
+    Helpful Links
   </a>
   
 </li>
@@ -4256,13 +4256,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#lets-get-started" class="md-nav__link">
     Let's get started
   </a>
@@ -4304,6 +4297,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#helpful-links" class="md-nav__link">
+    Helpful Links
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#conclusion" class="md-nav__link">
     Conclusion
   </a>
@@ -4332,26 +4332,24 @@
                 
                 <h1 id="tutorial-how-to-create-a-sophia-smart-contract-in-three3-steps">TUTORIAL: How to create a Sophia smart contract in three(3) steps</h1>
 <h2 id="overview">Overview</h2>
-<p>This tutorial will quite aid the beginners to understand the fundamentals of smart contract and how to write your first smart contract with Sophia ML in 3 steps using the AEstudio online editor.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>All you will need for this tutorial is an <strong>Internet Connection</strong> to visit the AEstudio at <a href="https://studio.aepps.com">https://studio.aepps.com</a></p>
+<p>This tutorial will quite aid you as a beginner to understand the fundamentals of Sophia smart contract by writing your first smart contract in 3 steps using the AE Studio online editor.</p>
 <h2 id="lets-get-started">Let's get started</h2>
 <h3 id="step-one1-declaring-the-contract-and-its-state">Step One(1) - Declaring the contract and it's state</h3>
-<p>The first step to writing a Sophia SmartContract is to give the contract a name which in our case will be <strong>HelloWorld</strong>.</p>
+<p>The first step to writing a Sophia smart contract is to give the contract a name which in our case will be <strong>HelloWorld</strong>.</p>
 <pre><code class="aes">contract HelloWorld =
 </code></pre>
 
-<p>The next thing is to give the contract its state. Take a <code>state</code> to be the container that keeps the information of our declared smart contract. In our case, below is a sample:</p>
+<p>Then we give the contract its state. Take <code>state</code> to be the container that keeps the information of our declared smart contract. In our case, below is sample:</p>
 <pre><code class="aes">  record state = { word : string }
 </code></pre>
 
 <h3 id="step-two2-initializing-the-contract">Step Two(2) - Initializing the contract</h3>
-<p>The second step is to initialize our smart contract which simply means setting our smart contract starting point/state. This step is where we will give value to our smart contract state object. In our case, we will make our word variable equal to an empty string. See example:</p>
+<p>The second step is to initialize our smart contract. This simply means setting our smart contract starting point. This step is where we will give value to our smart contract state object. In our case, we will make our word variable equal to an empty string. See sample:</p>
 <pre><code class="aes">  entrypoint init() = { word = &quot;&quot; }
 </code></pre>
 
 <h3 id="step-three3-utilizing-the-contract">Step Three(3) - Utilizing the contract</h3>
-<p>The last step is to utilize our contract writing functions to either perform logic tasks, add, remove, or read from our contract state. See example of how to add to our contract state:</p>
+<p>The last step is to utilize our contract by writing functions to either perform logic tasks, add, remove, update, or read from our contract state. See sample of how to update our contract state:</p>
 <pre><code class="aes">  public stateful entrypoint say_hello(name : string) : string = 
     let new_word = String.concat(&quot;Hello, &quot;, name)
     put(state{word = new_word})
@@ -4359,7 +4357,7 @@
 </code></pre>
 
 <h2 id="deploying-and-testing-our-contract">Deploying and Testing our contract</h2>
-<p>Now that our smart contract code is ready, let's copy the full code and head to <a href="https://studio.aepps.com">AEstudio</a> to paste the code so we can test our contract by deploying the contract to the testnet network in other to get a value of <strong>Hello, æternal</strong> or <strong>Hello, world</strong> depending on the name given as a parameter to our <code>say_hello</code> function.</p>
+<p>Now that our smart contract is ready, let's copy the full code, head to <strong>AE Studio</strong> at <a href="https://studio.aepps.com" target="_blank">https://studio.aepps.com</a>, paste the code, deploy our contract to the testnet network, and finally test our contract. The final result of our <code>say_hello</code> function will be <strong>Hello, æternal</strong> or <strong>Hello, world</strong> depending on the name given as a parameter to the function.</p>
 <pre><code class="aes">contract HelloWorld =
 
   record state = { word : string }
@@ -4374,8 +4372,13 @@
 
 <p>You should have an output simplier to the below image:
 <p align="center"><img src="https://ipfs.io/ipfs/QmbkBu3PQqRWUmBpRhFtJsAqoc7RADJxuokf6pYmigpeQ8"></p></p>
+<h2 id="helpful-links">Helpful Links</h2>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=ZUccuEaFBq8&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA" target="_blank">Tutorial Video</a></li>
+<li><a href="https://github.com/aeternity/aesophia/blob/lima/docs/sophia.md" target="_blank">Sophia Documentation</a></li>
+</ol>
 <h2 id="conclusion">Conclusion</h2>
-<p>It is fairly simple to create an æternity smart contract using Sophia ML. It even gets easier with time if you familiarize yourself with the language. In case you encounter any problems feel free to contact us through the <a href="https://forum.aeternity.com/c/development">æternity Forum</a>.</p>
+<p>It is fairly simple to create an æternity smart contract using Sophia. It even gets easier with time if you familiarize yourself with the language. In case you encounter any problems feel free to contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.</p>
                 
               
               

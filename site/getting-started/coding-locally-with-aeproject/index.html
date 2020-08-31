@@ -4136,13 +4136,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-npm-global-repository-recommended" class="md-nav__link">
-    From npm global repository (recommended)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#after-installing" class="md-nav__link">
     After installing
   </a>
@@ -4155,8 +4148,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#generating-the-folder-project-structure" class="md-nav__link">
-    Generating the folder project structure
+  <a href="#generating-the-project-structure" class="md-nav__link">
+    Generating the project structure
   </a>
   
 </li>
@@ -4164,6 +4157,13 @@
         <li class="md-nav__item">
   <a href="#creating-the-helloworldaes-smart-contract" class="md-nav__link">
     Creating the HelloWorld.aes smart contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpful-links" class="md-nav__link">
+    Helpful Links
   </a>
   
 </li>
@@ -4271,13 +4271,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#from-npm-global-repository-recommended" class="md-nav__link">
-    From npm global repository (recommended)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#after-installing" class="md-nav__link">
     After installing
   </a>
@@ -4290,8 +4283,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#generating-the-folder-project-structure" class="md-nav__link">
-    Generating the folder project structure
+  <a href="#generating-the-project-structure" class="md-nav__link">
+    Generating the project structure
   </a>
   
 </li>
@@ -4299,6 +4292,13 @@
         <li class="md-nav__item">
   <a href="#creating-the-helloworldaes-smart-contract" class="md-nav__link">
     Creating the HelloWorld.aes smart contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helpful-links" class="md-nav__link">
+    Helpful Links
   </a>
   
 </li>
@@ -4332,24 +4332,22 @@
                 
                 <h1 id="tutorial-coding-locally-with-aeproject">TUTORIAL: Coding locally with "AEproject"</h1>
 <h2 id="overview">Overview</h2>
-<p>This tutorial will walk you through the process of writing Sophia ML Smart contract with the <code>aeproject</code> tool. We will install <strong>AEproject</strong>, initialize a folder and go through the folder structure. Once this is done we will update our smartcontract.</p>
+<p>This tutorial will walk you through the process of writing Sophia ML Smart contract with the <strong>AEproject</strong> tool. We will install AEproject, initialize a folder with AEproject, and update an HelloWorld smart contract.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li>Installed node.js and npm (node package manager)</li>
-<li>Installed docker and docker-compose. Installation instructions can be found <a href="https://docs.docker.com/compose/install/">here</a></li>
-<li>Installed Visual Studio Code 2017 for Windows users</li>
-<li>Completed the <a href="../hello-world-with-sophia/">Hello World with Sophia</a> tutorial</li>
+<li>Installed docker and docker-compose. Installation instructions can be found <a href="https://docs.docker.com/compose/install/" target="_blank">here</a></li>
+<li>Installed Visual Studio Code</li>
+<li>Completed the <a href="../hello-world-with-sophia" target="_blank">HelloWorld with Sophia</a> tutorial</li>
 </ul>
 <h2 id="installing-aeproject">Installing AEproject</h2>
 <p><strong>AEproject</strong> is an æternity framework which helps with setting up an æpp project. The framework makes the development of smart contracts in the æternity network very easy. It provides commands for compilation of smart contracts, running a local æternity node, unit testing and deployment of smart contracts.</p>
-<h3 id="from-npm-global-repository-recommended">From npm global repository (recommended)</h3>
 <p>The package is available for installation from the npm global repository. You will be able to install it via the following command:</p>
 <pre><code>npm install -g aeproject
 </code></pre>
 
 <h3 id="after-installing">After installing</h3>
-<p>Now, you have a global command - <code>aeproject</code>
-With <code>aeproject -h</code> command you have a quick reference list of all commands:</p>
+<p>Now, you have a global command <code>aeproject</code>, with <code>aeproject -h</code> command you have a quick reference list of all commands:</p>
 <pre><code class="bash">Usage: aeproject [options] [command]
 
 Options:
@@ -4373,17 +4371,16 @@ Commands:
   compatibility [options]  Start env with latest versions and test the current project for compatibility
 </code></pre>
 
-<h2 id="generating-the-folder-project-structure">Generating the folder project structure</h2>
-<p>The first thing we need to do is create a project folder and initialize its structure.</p>
-<p>Let's create a folder for our project:</p>
-<pre><code>mkdir ~/codingLocally
+<h2 id="generating-the-project-structure">Generating the project structure</h2>
+<p>First, we need to do is create a project folder:</p>
+<pre><code class="bash">mkdir ~/coding_locally
 </code></pre>
 
-<p>Go to the newly created folder <code>cd ~/codingLocally</code> and initialize the folder with:</p>
-<pre><code>aeproject init
+<p>Go to the newly created folder <code>cd ~/coding_locally</code> and initialize the folder with:</p>
+<pre><code class="bash">aeproject init
 </code></pre>
 
-<p>You will see output similar to this:</p>
+<p>You will see an output similar to this:</p>
 <pre><code class="bash">===== Initializing AEproject =====
 ===== Installing aepp-sdk =====
 ===== Installing AEproject locally =====
@@ -4411,23 +4408,26 @@ Commands:
 </code></pre>
 
 <ul>
-<li>contracts - directory in which the developer can create contracts</li>
-<li><code>ExampleContract.aes</code> -  a sample smart contract</li>
-<li>deployment - directory that contains the deployment scripts</li>
+<li>contracts - directory in which the developer can create contracts<ul>
+<li><code>ExampleContract.aes</code> - an examplary smart contract</li>
+</ul>
+</li>
+<li>deployment - directory that contains the deployment scripts<ul>
 <li><code>deploy.js</code> - an examplary deployment script</li>
-<li>docker - directory with docker configuration files</li>
-<li>integrations - directory with contract settions</li>
+</ul>
+</li>
 <li>test - directory that contains the unit test scripts<ul>
-<li><code>exampleTest.js</code> - an examplary test script coming with the init</li>
+<li><code>exampleTest.js</code> - an examplary unit test script</li>
 </ul>
 </li>
 </ul>
 <h2 id="creating-the-helloworldaes-smart-contract">Creating the <code>HelloWorld.aes</code> smart contract</h2>
-<p>Following up on our previously written <strong>HelloWorld</strong> smart contract, we will update our contract to add a wallet address and also retrieve our smart contract informations. The first thing we will do is to create the <code>HelloWorld.aes</code> file using the code below:</p>
+<p>Following up on our previously written <strong>HelloWorld</strong> smart contract, we make the following chages to the contract: add a wallet address to the <code>state</code>, update the <code>say_hello</code> function, and create <code>get_info</code> function to retrieve our smart contract data. </p>
+<p>The first step is to create the <code>HelloWorld.aes</code> file:</p>
 <pre><code class="bash">touch ./contracts/HelloWorld.aes
 </code></pre>
 
-<p>Now we need to start coding our smart contract. The entire code of our <code>HelloWorld.aes</code> is:</p>
+<p>Now we can write Sophia codes in our newly created file. The entire code of our <code>HelloWorld.aes</code> is:</p>
 <pre><code class="aes">contract HelloWorld =
 
   record state = { 
@@ -4443,14 +4443,20 @@ Commands:
     put(state{name = name'})
     greetings
 
-  public entrypoint get_info() : string =
-    let public_address = Address.to_str(state.user) 
-    String.concat(state.name, public_address)
+  public entrypoint get_info() =
+    state
 </code></pre>
 
-<p>Our contract now stores a name as a string and a user as an address. The <code>say_hello</code> functions stores the name inserted as a paramenter then resurns a greeting with the name while the public address of the address initilizing the contract is been stored in the <code>user</code> state property. The <code>get_info</code> function then return the whole <code>state</code> data after conversting the address to a string.</p>
+<p>Our contract now stores <code>name</code>(as a string) and <code>user</code>(as an address) in its state. The <code>user</code> address is the account(public address) that deployed the contract. The <code>say_hello</code> functions stores the name inserted as a paramenter then returns a greeting with the name. Finally, the <code>get_info</code> function returns the whole <code>state</code> data as an object.</p>
+<h2 id="helpful-links">Helpful Links</h2>
+<ol>
+<li><a href="https://www.youtube.com/watch?v=1SveDRKBVho&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=2" target="_blank">Tutorial Video</a></li>
+<li><a href="https://youtu.be/JZO89dtc5uI" target="_blank">Video Introducing AEproject</a></li>
+<li><a href="https://youtu.be/7MwTuo70g5w" target="_blank">Video Installing AEproject on Ubuntu</a></li>
+<li><a href="https://youtu.be/ELE24MDuGC8" target="_blank">Video Installing AEproject on Windows</a></li>
+</ol>
 <h2 id="conclusion">Conclusion</h2>
-<p>Writing smart contracts to the æternity network is nice and easy. In just a few minutes and few commands, one can initilize a folder using the aeproject tool. Check out the next tutorial to learn how to deploy your smart contract. If you encounter any problems installing AEproject, check out installing AEproject video on <a href="https://youtu.be/7MwTuo70g5w">Ubuntu</a>, <a href="https://youtu.be/ELE24MDuGC8">Windows</a> or contact us through the <a href="https://forum.aeternity.com/c/development">æternity dev Forum category</a>.</p>
+<p>Writing smart contracts on the æternity blockchain is nice and easy. In just a few minutes and few commands, one can initilize a folder using the aeproject tool. If you encounter any problems installing AEproject, contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.</p>
                 
               
               
