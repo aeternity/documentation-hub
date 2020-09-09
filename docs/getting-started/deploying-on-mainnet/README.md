@@ -1,21 +1,21 @@
 # TUTORIAL: Deploying a smart contract on mainnet network with "AEproject"
 ## Overview
-This tutorial will walk you through the process of deploying Sophia ML Smart contract on æternity mainnet network with the **AEproject** tool. We will an fund an account and finally deploy a **HelloWorld** contract.
+This tutorial will walk you through the process of deploying Sophia ML Smart contract on the æternity mainnet network with the **AEproject** tool. We will fund our account and finally deploy a **HelloWorld** contract.
 
 ## Prerequisites
 Before we go any further, please make sure you have followed the <a href="../deploying-on-testnet" target="_blank">Deploying on Testnet</a> tutorial.
 
 ## Getting Tokens
-Since we have created an account at the **Deploying on Testnet** tutorial, we will look at seperate ways we can fund our account with tokens before we deploy our contract to the æternity mainnet network.
+Since we have created an account at the **Deploying on Testnet** tutorial, we will look at separate ways we can fund our account with tokens before we deploy our contract to the æternity mainnet network.
 
 ### Superhero
 **Superhero** is a P2P social platform that elevates the impact that sharing can have. You can earn AE easily on Superhero by publishing good content on the web. Learn more about Superhero at <a href="https://superhero.com" target="_blank">https://superhero.com</a>.
 
 ### Exchanges
-Another way in which you can fund your account with AE tokens is through exchange plaforms. Here you can trade from Fiat currencies to AE tokens or from other cryptocurrencies to AE tokens. Check out <a href="https://coinmarketcap.com/currencies/aeternity/markets" target="_blank">CoinMarketCap</a> for more details on exchanges.
+Another way in which you can fund your account with AE tokens is through exchange platforms. Here you can trade from Fiat currencies to AE tokens or from other cryptocurrencies to AE tokens. Check out <a href="https://coinmarketcap.com/currencies/aeternity/markets" target="_blank">CoinMarketCap</a> for more details on exchanges.
 
 ### Local P2P
-You can also purchase AE locally from an individual who is willing to sell. For the purpose of this tutorial, I will make use of this method to fund our previously created account with 1AE.
+You can also purchase AE locally from an individual who is willing to sell. For this tutorial, I will make use of this method to fund our previously created account with 1AE.
 
 ### Checking our balance
 Let's check the balance of our account on the mainnet network with the following command in our account directory:
@@ -63,4 +63,4 @@ You can also verify the contract deployment on the mainnet network using the mig
 7. Click the **Call Locally** button for the `get_info` function.   
 
 ## Conclusion
-Deploying smart contracts to the æternity mainnet network is nice and easy. In just a few minutes and few commands, one can deploy their desired contracts on the network. If you encounter any problems please check out the <a href="https://www.youtube.com/watch?v=uoF4LWo4624&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=4" target="_blank">video tutorial</a> on YouTube or contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.
+Deploying smart contracts to the æternity mainnet network is nice and easy. In just a few minutes and with a few commands, one can deploy their desired contracts on the network. If you encounter any problems please check out the <a href="https://www.youtube.com/watch?v=uoF4LWo4624&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=4" target="_blank">video tutorial</a> on YouTube or contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.

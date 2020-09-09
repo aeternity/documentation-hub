@@ -1,16 +1,16 @@
 # TUTORIAL: How to build a To-do list Æpp - Part Three(3)
 
 ## Overview
-This tutorial will teach you how to develop the communication process between the client side and a *ToDoManager* smart contract. We will setup the basic infrastructure in order to interact with the smart contract from the frontend.
+This tutorial will teach you how to develop the communication process between the client-side and a **ToDoManager** smart contract. We will setup the basic infrastructure to interact with the smart contract from the frontend.
 
 ## Prerequisites
 - Before we go any further, please make sure you have followed the <a href="https://github.com/aeternity/tutorials/blob/master/build-to-do-list-aepp-1.md" target="_blank">first part</a> of *How to build a To-do list Æpp*.
 
 ## Plan
-I have published the simple frontend project on Github. We will start with cloning the github repository and I will explain the most important segments of the *Advance To-do list Æpp*.
+I have published the simple frontend project on GitHub. We will start with cloning the GitHub repository and I will explain the most important segments of the *Advance To-do list Æpp*.
 
 ## Getting started 
-1. Clone the Github repository and open your IDE at the directory:
+1. Clone the GitHub repository and open your IDE at the directory:
 ```
 git clone https://github.com/aekiti/advance-todo-aepp.git
 ```
@@ -22,9 +22,9 @@ npm install
 ```
 npm run serve
 ```
-The ToDo List Æpp runs at http://localhost:8080.
+The ToDo List Æpp runs at <a href="http://localhost:8080" target="_blank">http://localhost:8080</a>.
 
-## Applicatrion Structure
+## Application Structure
 In this tutorial, we will focus on the **account.js**, **contractDetails.js**, and **ToDo.vue** files. These files contain the essence of our project. Тhe other files are specific to the configuration of the frontend framework you have chosen - in our case - *Vue.js*. 
 
 Here is the structure of the *src* directory for the cloned project:
@@ -46,9 +46,9 @@ Here is the structure of the *src* directory for the cloned project:
 ├── main.js
 ```
 
-This tutorial will not deal with creation of the ui components and styling them.
+This tutorial will not deal with the creation of the UI components and styling them.
 
-*Мost of the code is crammed into the ```ToDo.vue``` file. That is so, as for the purpose of this tutorial, good separation is not essential. Please do follow the VUE best practices once you start developing outside of this tutorial.*
+*Мost of the code is crammed into the ```ToDo.vue``` file. That is so, as, for this tutorial, a good separation is not essential. Please do follow the VUE best practices once you start developing outside of this tutorial.*
 
 ## Application flow
 ### account.js file
@@ -63,7 +63,7 @@ export default {
 ```
 The ```account.js``` file contains the information for: the public key, the private key, the node we want to connect to, the compiler we want to connect to.
 
-We want to test our *To-do list Æpp* on the testnet newtork. The nodeUrl property should be ```https://sdk-testnet.aepps.com```, the compilerUrl property is ```https://compiler.aepps.com``` while the pub and priv property is the wallet keypair.
+We want to test our *To-do list Æpp* on the testnet network. The nodeUrl property should be ```https://sdk-testnet.aepps.com```, the compilerUrl property is ```https://compiler.aepps.com``` while the pub and priv property is the wallet keypair.
 
 ### contractDetails.js file
 The ```contractDetails.js``` file contains the information for the contract and the deployed contract address in ```~/advance-todo-aepp/src/config/contractDetails.js```. For instance:
@@ -165,12 +165,12 @@ export default {
 }
 ```
 
-In the <a href="https://github.com/aeternity/tutorials/blob/master/build-to-do-list-aepp-1.md" target="_blank">previous tutorial</a> we have deployed the ```ToDoManager.aes``` contract to the testnet, we will use the deployed contract address as a ```contractAddress``` property.
+In the <a href="https://github.com/aeternity/tutorials/blob/master/build-to-do-list-aepp-1.md" target="_blank">previous tutorial</a>, we have deployed the ```ToDoManager.aes``` contract to the testnet, we will use the deployed contract address as a ```contractAddress``` property.
 
 ### Todo.vue file
 The application flow starts with the authentication step. The code placed in the ```getClient``` lifecycle hook provides client and contractInstance in ```~/advance-todo-aepp/src/components/ToDo.vue```.
 
-The contractInstance will use the ```.call``` method to execute a contract funtion that either reads from the contract without chaning the state or a contract function the changes the state of the contract after getting the client.
+The contractInstance will use the ```.call``` method to execute a contract funtion that either reads from the contract without changing the contract state or changes the state of the contract after getting the client.
 
 ```js
 async getClient() {
@@ -204,7 +204,7 @@ async getClient() {
 ```
 
 #### Get all tasks
-The first step after successful authentication is to take all the tasks in the contract, if any. Тhis is achieved by calling the ```get_todos``` function of our ```ToDoManager``` contract. Finally we will store the results in the ```toDos``` array and visualize it in the frontend template.
+The first step after successful authentication is to take all the tasks in the contract, if any. Тhis is achieved by calling the ```get_todos``` function of our ```ToDoManager``` contract. Finally, we will store the results in the ```toDos``` array and visualize it in the frontend template.
 
 ```js
   async getContractTasks() {
@@ -289,8 +289,7 @@ Changing a task status is done by calling the ```edit_todo_state``` function of 
 ```
 
 ## Conclusion
-Let’s briefly recap what we did during this tutorial series. 
-In the <a href="https://github.com/aeternity/tutorials/blob/master/build-to-do-list-aepp-1.md" target="_blank">first part</a> we created a basic ```ToDoManager.aes``` contract that can:
+Let’s briefly recap what we did during this tutorial series. In the <a href="https://github.com/aeternity/tutorials/blob/master/build-to-do-list-aepp-1.md" target="_blank">first part</a> we created a basic ```ToDoManager.aes``` contract that can:
 
 - create a new task;
 - read a specific task;
@@ -298,18 +297,17 @@ In the <a href="https://github.com/aeternity/tutorials/blob/master/build-to-do-l
 - delete a specific task;
 - get all tasks;
 - get total tasks count;
-- get task by index;
+- get a task by index;
 
-We wrote basic unit tests for the contract. Compile it with ```testnet``` network selected and deploy the contract to the ```testnet```.
-**This part** shows us how to communicate with the previously deployed contract.
-The included features are:
+We wrote basic unit tests for the contract. Compiled it with the ```testnet``` network and deployed the contract to the ```testnet```.
+**This part** shows us how to communicate with the previously deployed contract. The included features are:
 
 - connecting the account with testnet;
 - getting the account's balance;
 - getting all the task and visualize them in the browser;
-- creating a task by typing name in a input field and press enter;
-- chaning a task status by a button click;
+- creating a task by typing name in an input field and press enter;
+- changing a task status by a button click;
 
-You can now create a own awesome **Æpp**.
+You can now create your own awesome **Æpp**.
 
 The æternity team will keep this tutorial updated. If you encounter any problems please check out the <a href="https://www.youtube.com/watch?v=rAbEtgLSNCo&list=PLVz98HTQCJzRmy8naIh49mAW306kGyGXA&index=9" target="_blank">video tutorial</a> on YouTube or contact us through the <a href="https://forum.aeternity.com/c/development" target="_blank">æternity dev Forum category</a>.
