@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockM3.AEternity.SDK", "BlockM3.AEternity.SDK\BlockM3.AEternity.SDK.csproj", "{BD9EB9D8-4AB8-4235-A390-ABB1FDCCAEA4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BEDE27C4-70A8-4DA2-BE4B-BBFE3EC0FDD6} = {BEDE27C4-70A8-4DA2-BE4B-BBFE3EC0FDD6}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockM3.AEternity.SDK.Tests", "BlockM3.AEternity.SDK.Tests\BlockM3.AEternity.SDK.Tests.csproj", "{0D91B928-CFB9-4855-9975-8184376F43BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockM3.AEternity.SDK.Integration.Tests", "BlockM3.AEternity.SDK.Integration.Tests\BlockM3.AEternity.SDK.Integration.Tests.csproj", "{7633361E-2BC9-4A18-A5E9-CDDC58F8E773}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockM3.AEternity.SwaggerClientGenerator", "BlockM3.AEternity.SwaggerClientGenerator\BlockM3.AEternity.SwaggerClientGenerator.csproj", "{BEDE27C4-70A8-4DA2-BE4B-BBFE3EC0FDD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD9EB9D8-4AB8-4235-A390-ABB1FDCCAEA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9EB9D8-4AB8-4235-A390-ABB1FDCCAEA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9EB9D8-4AB8-4235-A390-ABB1FDCCAEA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9EB9D8-4AB8-4235-A390-ABB1FDCCAEA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D91B928-CFB9-4855-9975-8184376F43BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D91B928-CFB9-4855-9975-8184376F43BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D91B928-CFB9-4855-9975-8184376F43BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D91B928-CFB9-4855-9975-8184376F43BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7633361E-2BC9-4A18-A5E9-CDDC58F8E773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7633361E-2BC9-4A18-A5E9-CDDC58F8E773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7633361E-2BC9-4A18-A5E9-CDDC58F8E773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7633361E-2BC9-4A18-A5E9-CDDC58F8E773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEDE27C4-70A8-4DA2-BE4B-BBFE3EC0FDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEDE27C4-70A8-4DA2-BE4B-BBFE3EC0FDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEDE27C4-70A8-4DA2-BE4B-BBFE3EC0FDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEDE27C4-70A8-4DA2-BE4B-BBFE3EC0FDD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB23CDEC-4056-41CF-9559-5851F678229B}
+	EndGlobalSection
+EndGlobal

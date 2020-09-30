@@ -257,6 +257,12 @@ nav:
         - FungibleToken: 'aepp-sophia-examples/libraries/FungibleToken/README.md'
         - NonFungibleToken: 'aepp-sophia-examples/libraries/NonFungibleToken/README.md'
         - MultisignatureWallet: 'aepp-sophia-examples/libraries/MultisignatureWallet/README.md'
+    - Getting Started:
+        - HelloWorld with Sophia: 'getting-started/hello-world-with-sophia/README.md'
+        - Coding Locally with AEproject: 'getting-started/coding-locally-with-aeproject/README.md'
+        - Deploying on Testnet: 'getting-started/deploying-on-testnet/README.md'
+        - Deploying on Mainnet: 'getting-started/deploying-on-mainnet/README.md'
+        - Advance ToDo aepp: 'getting-started/advance-to-do-aepp/README.md'
 extra_css: [site/assets/extra.css]
 theme:
   name: 'material'

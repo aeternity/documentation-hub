@@ -2,26 +2,12 @@ Quick Glossary Proposal
 =====
 This quick glossary contains many of the terms used in relation to æternity.
 
-### *AE*
-The æternity token (AE) is used as payment for any resources that users consume on the platform, e.g. sending payments, using oracles, etc. The distribution of AE in the genesis block will be determined by a smart contract hosted on Ethereum. More AE will be created via mining.
-
 ### *æternity*
 æternity is a decentralized, public blockchain that uses the GHOST consensus protocol, with Proof-of-Work (PoW) for security and Proof-of-Stake (PoS) for governance. æternity is an account-based system, like Ethereum, and does not use Bitcoin-style unspent transaction outputs (UTXO).
 
 Real-world data can interface with smart contracts through decentralized “oracles”. Scalability and trustless Turing-complete state channels set æternity apart from other Blockchain 2.0 projects.
 
 [Source](https://github.com/aeternity/aeternity-reimagined/blob/master/overview.md)
-
-### *Account*
-An object containing an address, balance, nonce, and optional storage and code. An account can be a contract account or an externally owned account.
-
-[Source](https://github.com/ethereumbook/ethereumbook)
-
-### *AirGap*
-A crypto wallet system that let's you secure cypto assets with one secret on an offline device like a smartphone. The AirGap Wallet application is installed on an everyday smartphone, which is connected to the æternity blockchain and therefore requires an internet connection. AirGap Vault is installed on a dedicated or old smartphone that has no connection to any network, thus it is air gapped.
-
-### *AENS*
-The Aeternity Naming System (AENS) enables user-friendly identities for blockchain entities, such as user accounts, oracles, contracts, etc.
 
 ### *æpp*
 A decentralized application built on æternity blockchain. At a minimum, it is a smart contract and a web user interface. More broadly, an æpp is a web application that is built in top of open, decentralized, peer-to-peer infrastructure services.
@@ -36,13 +22,36 @@ As a result:
 1 ætto = 0.000000000000000001 AE
 ```
 
+### *Account*
+An object containing an address, balance, nonce, and optional storage and code. An account can be a contract account or an externally owned account.
+
+[Source](https://github.com/ethereumbook/ethereumbook)
+
+### *Address*
+Most generally, this represents an EOA or contract that can receive (destination address) or send (source address) transactions on the blockchain. More specifically, it is the rightmost 160 bits of a Keccak hash of an ECDSA public key.
+
+### *AE*
+The æternity token (AE) is used as payment for any resources that users consume on the platform, e.g. sending payments, using oracles, etc. The distribution of AE in the genesis block will be determined by a smart contract hosted on Ethereum. More AE will be created via mining.
+
+### *AECLI*
+A command Line Interface for the æternity blockchain.
+
+### *AENS*
+The Aeternity Naming System (AENS) enables user-friendly identities for blockchain entities, such as user accounts, oracles, contracts, etc.
+
+### *AEproject*
+An æternity framework which helps with setting up a project. It simplifies the development of smart contracts in the aeternity network. It provides commands for compilation, deployment of smart contracts, running a local node and unit testing the contracts.
+
+### *AE Studio*
+An easy to use Web-IDE for the Sophia smart contract language that allows to write, compile, and deploy smart contracts as well as to call both local and stateful functions.
+
 ### *AEXs*
 The Aeternity Expansions (AEXs), or æxpansions, are standards proposed by the community at large, i.e. everyone. Some of them can be mandatory in a specific context, e.g. AEX-1 describes the set of rules governing this repository, but are restricted to the application layer.
 
 [Source](https://github.com/aeternity/AEXs/blob/master/README.md)
 
-### *Address*
-Most generally, this represents an EOA or contract that can receive (destination address) or send (source address) transactions on the blockchain. More specifically, it is the rightmost 160 bits of a Keccak hash of an ECDSA public key.
+### *AirGap*
+A crypto wallet system that let's you secure cypto assets with one secret on an offline device like a smartphone. The AirGap Wallet application is installed on an everyday smartphone, which is connected to the æternity blockchain and therefore requires an internet connection. AirGap Vault is installed on a dedicated or old smartphone that has no connection to any network, thus it is air gapped.
 
 ### *Application-specific integrated circuit (ASIC)*
 An application-specific integrated circuit (ASIC) /ˈeɪsɪk/, is an integrated circuit (IC) customized for a particular use, rather than intended for general-purpose use. For example, a chip designed to run in a digital voice recorder or a high-efficiency Bitcoin miner is an ASIC. Application-specific standard products (ASSPs) are intermediate between ASICs and industry standard integrated circuits like the 7400 series or the 4000 series.
@@ -82,9 +91,6 @@ Decentralized Autonomous Organization. A company or other organization that oper
 Bitcoin faucets are a reward system, in the form of a website or app, that dispenses rewards in the form of a satoshi, which is a hundredth of a millionth BTC, for visitors to claim in exchange for completing a captcha or task as described by the website. There are also faucets that dispense alternative cryptocurrencies.
 
 æternity's faucets are a service that dispenses funds in the form of free test ættos that can be used on a testnet.
-
-### *forgAE*
-An æternity framework which helps with setting up a project. It simplifies the development of smart contracts in the aeternity network. It provides commands for compilation, deployment of smart contracts, running a local node and unit testing the contracts.
 
 ### *Fork*
 A change in protocol causing the creation of an alternative chain, or a temporal divergence in two potential block paths during mining.
@@ -128,6 +134,7 @@ As a result:
 ```
 1 microAE = 0.000001 AE
 ```
+
 ### *Miner*
 A network node that finds valid proof of work for new blocks, by repeated hashing.
 
@@ -152,14 +159,17 @@ The Functional Typed Warded Virtual Machine is used to efficiently and safely ex
 ### *Smart Contract*
 A program that executes on the æternity computing infrastructure.
 
+### *Superhero*
+A P2P social platform that elevates the impact that sharing can have. 
+
 ### *Testnet*
 Short for "test network", a network used to simulate the behavior of the main æternity network.
 
 ### *Transaction*
 Data committed to the æternity Blockchain signed by an originating account, targeting a specific address. The transaction contains metadata such as the gas limit for that transaction.
 
-### *Wallet*
-Software that holds secret keys. Used to access and control æternity accounts and interact with smart contracts. Keys need not be stored in a wallet, and can instead be retrieved from offline storage (e.g., a memory card or paper) for improved security. Despite the name, wallets never store the actual coins or tokens.
-
 ### *Turing complete*
 A concept named after English mathematician and computer scientist Alan Turing; a system of data-manipulation rules (such as a computer's instruction set, a programming language, or a cellular automaton) is said to be "Turing complete" or "computationally universal" if it can be used to simulate any Turing machine.
+
+### *Wallet*
+Software that holds secret keys. Used to access and control æternity accounts and interact with smart contracts. Keys need not be stored in a wallet, and can instead be retrieved from offline storage (e.g., a memory card or paper) for improved security. Despite the name, wallets never store the actual coins or tokens.
