@@ -194,13 +194,12 @@ nav:
         - aesophia: 'aesophia/README.md'
 extra_css: [site/assets/extra.css]
 theme:
-  name: 'material'
-  palette:
-    primary: 'pink'
-    accent: 'white'
-  font:
-    text: 'Roboto'
-    code: 'Roboto Mono'
-
+    name: readthedocs
+    highlightjs: true
+    hljs_languages:
+        - yaml
+        - json
+        - bash
+        
 repo_name: 'aeternity/documentation-hub'
 repo_url: 'https://github.com/aeternity/documentation-hub'
