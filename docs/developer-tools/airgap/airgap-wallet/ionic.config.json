@@ -1,7 +1,0 @@
-{
-  "name": "AirGap Wallet",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}

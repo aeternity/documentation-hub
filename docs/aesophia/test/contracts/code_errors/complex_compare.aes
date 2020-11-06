@@ -1,4 +1,0 @@
-contract ComplexCompare =
-
-  entrypoint test(x : string * int) =
-    ("foo", 1) != x

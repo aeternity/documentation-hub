@@ -1,6 +1,0 @@
-{application, eqc_test,
- [{description, "Dummy app for enabling running only the QuickCheck tests"},
-  {vsn, ""},
-  {registered, []},
-  {applications, []}
- ]}.

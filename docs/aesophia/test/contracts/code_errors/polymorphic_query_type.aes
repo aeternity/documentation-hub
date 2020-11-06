@@ -1,5 +1,0 @@
-contract PolymorphicQueryType =
-  stateful function is_oracle(o) =
-    Oracle.check(o)
-
-  entrypoint main() = ()

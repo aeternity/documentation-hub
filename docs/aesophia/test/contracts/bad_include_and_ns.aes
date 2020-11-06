@@ -1,6 +1,0 @@
-contract Bad =
-  include "included.aes"
-  namespace Foo =
-    function foo() = 42
-
-  entrypoint foo() = 43

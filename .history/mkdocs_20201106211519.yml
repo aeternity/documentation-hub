@@ -1,0 +1,216 @@
+site_name: æternity Documentation Hub
+nav:
+    - Introduction: 'index.md'
+    - Quick Glossary: 'quick_glossary.md'
+    - Node:
+        - Documentation: 'aeternity/README.md'
+        - Get Started:
+            - Build in Windows: 'aeternity/docs/build-windows.md'
+            - Build in Ubuntu: 'aeternity/docs/build.md'
+            - Configuration: 'aeternity/docs/configuration.md'
+            - CUDA Miner: 'aeternity/docs/cuda-miner.md'
+            - Docker: 'aeternity/docs/docker.md'
+            - Installation in Windows: 'aeternity/docs/installation-windows.md'
+            - Installation in Ubuntu: 'aeternity/docs/installation.md'
+            - Operation: 'aeternity/docs/operation.md'
+    - Protocol:
+        - æternity Protocol: 'protocol/README.md'
+        - AENS Naming System: 'protocol/AENS.md'
+        - Gossip: 'protocol/GOSSIP.md'
+        - Stratum: 'protocol/STRATUM.md'
+        - Sync: 'protocol/SYNC.md'
+        - Serializations:  'protocol/serializations.md'
+        - Channels:
+            - State Channels: 'protocol/channels/README.md'
+            - Off-chain: 'protocol/channels/OFF-CHAIN.md'
+            - On-chain: 'protocol/channels/ON-CHAIN.md'
+            - Authentication: 'protocol/channels/authentication.md'
+            - State: 'protocol/channels/state.md'
+        - Consensus:
+            - Bitcoin-NG: 'protocol/consensus/bitcoin-ng.md'
+            - Coinbase: 'protocol/consensus/coinbase.md'
+            - Consensus: 'protocol/consensus/consensus.md'
+            - Inflation: 'protocol/consensus/inflation.png'
+            - Locking: 'protocol/consensus/locking.md'
+        - Contracts:
+            - AEVM: 'protocol/contracts/aevm.md'
+            - Contract Life Cycle Examples: 'protocol/contracts/contract_life_cycle.md'
+            - Contract State Tree: 'protocol/contracts/contract_state_tree.md'
+            - Contract Transactions: 'protocol/contracts/contract_transactions.md'
+            - Contract VMS: 'protocol/contracts/contract_vms.md'
+            - Contracts: 'protocol/contracts/contracts.md'
+            - The Solidity Language: 'protocol/contracts/solidity.md'
+            - The Sophia Language: 'protocol/contracts/sophia.md'
+            - Sophia Explained: 'protocol/contracts/sophia_explained.md'
+            - Standard Library: 'protocol/contracts/sophia_stdlib.md'
+            - The Varna Language: 'protocol/contracts/varna.md'
+        - Generalized Accounts:
+            - Generalized Accounts: 'protocol/generalized_accounts/ga_explained.md'
+            - Generic Accounts: 'protocol/generalized_accounts/generalized_accounts.md'
+        - Node:
+            - API:
+              - Account API Usage: 'protocol/node/api/account_api_usage.md'
+              - API Encoding: 'protocol/node/api/api_encoding.md'
+              - State Channel WebSocket API: 'protocol/node/api/channel_ws_api.md'
+              - Channels API Usage: 'protocol/node/api/channels_api_usage.md'
+              - Contract API Usage: 'protocol/node/api/contract_api_usage.md'
+              - Mining API Usage: 'protocol/node/api/mining_api_usage.md'
+              - Naming System API Usage: 'protocol/node/api/naming_system_api_usage.md'
+              - Oracle API Usage: 'protocol/node/api/oracle_api_usage.md'
+              - Spend API Usage: 'protocol/node/api/spend_api_usage.md'
+              - Examples:
+                  - State Channels:
+                      - WebSocket API Examples: 'protocol/node/api/examples/channels/README.md'
+                      - JSON-RPS:
+                          - Abort Updates:
+                              - abort_deposit: 'protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_abort_deposit.md'
+                              - abort_offchain_update: 'protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_abort_offchain_update.md'
+                              - abort_settle: 'protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_abort_settle.md'
+                              - abort_shutdown: 'protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_abort_shutdown.md'
+                              - abort_slash: 'protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_abort_slash.md'
+                              - abort_snapshot_solo: 'protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_abort_snapshot_solo.md'
+                              - abort_withdraw: 'protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_abort_withdraw.md'
+                              - can_not_abort_while_open: 'protocol/node/api/examples/channels/json-rpc/abort_updates/sc_ws_can_not_abort_while_open.md'
+                          - Changeable Fee:
+                              - set_fee_close_mutual: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_close_mutual.md'
+                              - set_fee_close_solo: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_close_solo.md'
+                              - set_fee_create: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_create.md'
+                              - set_fee_deposit: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_deposit.md'
+                              - set_fee_settle: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_settle.md'
+                              - set_fee_slash: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_slash.md'
+                              - set_fee_snapshot: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_snapshot.md'
+                              - set_fee_withdrawl: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_withdrawl.md'
+                          - Continious:
+                              - init_per_group: 'protocol/node/api/examples/channels/json-rpc/continuous/init_per_group.md'
+                              - deposit: 'protocol/node/api/examples/channels/json-rpc/continuous/sc_ws_deposit.md'
+                              - failed_update: 'protocol/node/api/examples/channels/json-rpc/continuous/sc_ws_failed_update.md'
+                              - generic_messages: 'protocol/node/api/examples/channels/json-rpc/continuous/sc_ws_generic_messages.md'
+                              - ping_pong: 'protocol/node/api/examples/channels/json-rpc/continuous/sc_ws_ping_pong.md'
+                              - update_conflict: 'protocol/node/api/examples/channels/json-rpc/continuous/sc_ws_update_conflict.md'
+                              - withdraw: 'protocol/node/api/examples/channels/json-rpc/continuous/sc_ws_withdraw.md'
+                          - Contracts:
+                              - init_per_group: 'protocol/node/api/examples/channels/json-rpc/contracts/init_per_group.md'
+                              - environment_contract: 'protocol/node/api/examples/channels/json-rpc/contracts/sc_ws_environment_contract.md'
+                              - nameservice_contract: 'protocol/node/api/examples/channels/json-rpc/contracts/sc_ws_nameservice_contract.md'
+                              - oracle_contract: 'protocol/node/api/examples/channels/json-rpc/contracts/sc_ws_oracle_contract.md'
+                              - remote_call_contract: 'protocol/node/api/examples/channels/json-rpc/contracts/sc_ws_remote_call_contract.md'
+                              - remote_call_contract_refering_onchain_data: 'protocol/node/api/examples/channels/json-rpc/contracts/sc_ws_remote_call_contract_refering_onchain_data.md'
+                              - wrong_call_data: 'protocol/node/api/examples/channels/json-rpc/contracts/sc_ws_wrong_call_data.md'
+                          - Generalized Accounts:
+                              - both:
+                                  - basic_open_close: 'protocol/node/api/examples/channels/json-rpc/generalized_accounts/both/basic_open_close.md'
+                              - initiator:
+                                  - basic_open_close: 'protocol/node/api/examples/channels/json-rpc/generalized_accounts/initiator/basic_open_close.md'
+                              - responder:
+                                  - basic_open_close: 'protocol/node/api/examples/channels/json-rpc/generalized_accounts/responder/basic_open_close.md'
+                          - Reconnect:
+                              - basic_client_reconnect_i: 'protocol/node/api/examples/channels/json-rpc/reconnect/basic_client_reconnect_i.md'
+                              - basic_client_reconnect_i_w_reestablish: 'protocol/node/api/examples/channels/json-rpc/reconnect/basic_client_reconnect_i_w_reestablish.md'
+                              - basic_client_reconnect_r: 'protocol/node/api/examples/channels/json-rpc/reconnect/basic_client_reconnect_r.md'
+                          - With Meta:
+                              - init_per_group: 'protocol/node/api/examples/channels/json-rpc/with_meta/init_per_group.md'
+                              - deposit: 'protocol/node/api/examples/channels/json-rpc/with_meta/sc_ws_deposit.md'
+                              - remote_call_contract: 'protocol/node/api/examples/channels/json-rpc/with_meta/sc_ws_remote_call_contract.md'
+                              - withdraw: 'protocol/node/api/examples/channels/json-rpc/with_meta/sc_ws_withdraw.md'
+                          - basic_open_close: 'protocol/node/api/examples/channels/json-rpc/sc_ws_basic_open_close_server.md'
+                          - basic_open_close_server: 'protocol/node/api/examples/channels/json-rpc/sc_ws_basic_open_close.md'
+                          - broken_open_params: 'protocol/node/api/examples/channels/json-rpc/sc_ws_broken_open_params.md'
+                          - close_mutual: 'protocol/node/api/examples/channels/json-rpc/sc_ws_set_fee_close_mutual.md'
+                          - close_solo: 'protocol/node/api/examples/channels/json-rpc/sc_ws_close_mutual.md'
+                          - leave_reconnect: 'protocol/node/api/examples/channels/json-rpc/sc_ws_leave_reconnect.md'
+                          - leave_reestablish: 'protocol/node/api/examples/channels/json-rpc/sc_ws_leave_reestablish.md'
+                          - leave_reestablish_responder_stays: 'protocol/node/api/examples/channels/json-rpc/sc_ws_leave_reestablish_responder_stays.md'
+                          - leave_reestablish_wrong_fsm_id: 'protocol/node/api/examples/channels/json-rpc/sc_ws_leave_reestablish_wrong_fsm_id.md'
+                          - min_depth_is_modifiable: 'protocol/node/api/examples/channels/json-rpc/min_depth_is_modifiable.md'
+                          - min_depth_not_reached_timeout: 'protocol/node/api/examples/channels/json-rpc/min_depth_not_reached_timeout.md'
+                          - opening_ping_pong: 'protocol/node/api/examples/channels/json-rpc/opening_ping_pong.md'
+                          - slash: 'protocol/node/api/examples/channels/json-rpc/slash.md'
+                          - snapshot_solo: 'protocol/node/api/examples/channels/json-rpc/snapshot_solo.md'
+                          - timeout_open: 'protocol/node/api/examples/channels/json-rpc/timeout_open.md'
+                          - update_with_meta: 'protocol/node/api/examples/channels/json-rpc/update_with_meta.md'
+        - Oracles:
+            - Oracles: 'protocol/oracles/oracles.md'
+            - Oracle Life Cycle Examples: 'protocol/oracles/oracle_life_cycle.md'
+            - Oracle State Tree: 'protocol/oracles/oracle_state_tree.md'
+            - Oracle Transactions: 'protocol/oracles/oracle_transactions.md.'
+    - Aetmodel:
+        - Threat Model: 'aetmodel/ThreatModel.md'
+##    - AEXs:
+##        - AEX1: 'AEXs/AEXS/aex-1.md'
+##        - AEX2: 'AEXs/AEXS/aex-2.md'
+##        - AEX3: 'AEXs/AEXS/aex-3.md'
+##        - AEX4: 'AEXs/AEXS/aex-4.md'
+##        - AEX5: 'AEXs/AEXS/aex-5.md'
+##        - AEX7: 'AEXs/AEXS/aex-7.md'
+##        - AEX9: 'AEXs/AEXS/aex-9.md'
+##        - AEX10: 'AEXs/AEXS/aex-10.md'
+##        - AEX-Draft: 'AEXs/AEXS/aex-draft_data_serialization.md'
+#    - Node Usage API:
+#        - Latest Stable Release:
+#            - Autogenerated æternity Node API Documentation: 'protocol/api-docs/README.md'
+#        - Encoding Scheme: 'protocol/node/api/api_encoding.md'
+#        - Account Managment: 'protocol/node/api/account_api_usage.md'
+#        - Spending Tokens: 'protocol/node/api/spend_api_usage.md'
+#        - Oracle: 'protocol/node/api/oracle_api_usage.md'
+#        - Naming System: 'protocol/node/api/naming_system_api_usage.md'
+#        - Contract: 'protocol/node/api/contract_api_usage.md'
+#        - Channels: 'protocol/node/api/channels_api_usage.md'
+#        - Mining: 'protocol/node/api/mining_api_usage.md'
+    - Developer Tools:
+#        - æternity Framework:
+#            - AEproject: 'developer-tools/æternity-frameworks/aepp-aeproject-js/README.md'
+        - Software Development Kits:
+            - JavaScript: 'docs/developer-tools/sdk-js.md'
+#               - Introduction: 
+#               - Contributing: 'developer-tools/sdks/aepp-sdk-js/contrib/README.md'
+#               - CHANGELOG: 'developer-tools/sdks/aepp-sdk-js/CHANGELOG.md'
+#            - Go: 'developer-tools/sdks/aepp-sdk-go/README.md'
+#            - Python: 'developer-tools/sdks/aepp-sdk-python/README.md'
+            - Elixir: 'developer-tools/sdks/aepp-sdk-elixir/README.md'
+#            - Java:
+#               - Introduction: 'developer-tools/sdks/aepp-sdk-java/README.md'
+#               - Contributing: 'developer-tools/sdks/aepp-sdk-java/CONTRIBUTING.md'
+#               - CHANGELOG: 'developer-tools/sdks/aepp-sdk-java/docs/changelog.md'
+#            - .NET: 'developer-tools/sdks/aepp-sdk-net/README.md'
+            - Capability Matrix: 'developer-tools/sdks/capability_matrix.md'
+#        - Middleware: 'developer-tools/aepp-middleware/README.md'
+        - Token Faucet: 'developer-tools/aepp-faucet/README.md'
+        - Frameworks:
+            - æpp Components: 'developer-tools/frameworks/aepp-components/README.md'
+        - Contract Editor: 'developer-tools/aepp-contracts/README.md'
+#        - AirGap: TODO
+    #     - CLI Tools:
+    #         - JavaScript
+    #         - Stratum:
+    #            - Library
+    #         - Websocket
+    #    - Online Test Tools:
+    #         - Smart Contract Editor
+    #         - Blockchain Explorer
+    #         - Faucet
+    #            - Token Faucet
+    #            - æpp Faucet
+
+    - Sophia Smart Contracts:
+        - Documentation: 'docs/sophia.md'
+
+    - Getting Started:
+        - HelloWorld with Sophia: 'getting-started/hello-world-with-sophia/README.md'
+        - Coding Locally with AEproject: 'getting-started/coding-locally-with-aeproject/README.md'
+        - Deploying on Testnet: 'getting-started/deploying-on-testnet/README.md'
+        - Deploying on Mainnet: 'getting-started/deploying-on-mainnet/README.md'
+        - Advance ToDo aepp: 'getting-started/advance-to-do-aepp/README.md'
+    - Sophia Compiler:
+        - aesophia: 'aesophia/README.md'
+extra_css: [site/assets/extra.css]
+theme:
+  name: 'material'
+  palette:
+    primary: 'pink'
+    accent: 'white'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+
+repo_name: 'aeternity/documentation-hub'
+repo_url: 'https://github.com/aeternity/documentation-hub'

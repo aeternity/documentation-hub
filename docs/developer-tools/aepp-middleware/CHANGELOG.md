@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Docker configuration 
  - Count transaction for account
  - Add endpoint to get transactions for an acccount (paginated)
- - Add endpoint to the the number of transcations for an account
+ - Add endpoint to the the number of transactions for an account
 
 ## [0.1.0] - Unreleased
 
