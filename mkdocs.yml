@@ -4,6 +4,9 @@ nav:
     - Quick Glossary: 'quick_glossary.md'
     - Node:
         - Documentation: 'aeternity/README.md'
+    - Wallets:
+        - Web (important): 'wallets/superhero.md'
+        - Mobile: 'wallets/mobile.md'
     - Protocol:
         - æternity Protocol: 'protocol/README.md'
         - AENS Naming System: 'protocol/AENS.md'
@@ -150,8 +153,9 @@ nav:
     - Developer Tools:
 #        - æternity Framework:
 #            - AEproject: 'developer-tools/æternity-frameworks/aepp-aeproject-js/README.md'
+        - Transaction Explorer: developer-tools/tx-explorer.md
         - Software Development Kits:
-            - JavaScript: 'docs/developer-tools/sdk-js.md'
+            - JavaScript: 'developer-tools/sdk-js.md'
 #               - Introduction: 
 #               - Contributing: 'developer-tools/sdks/aepp-sdk-js/contrib/README.md'
 #               - CHANGELOG: 'developer-tools/sdks/aepp-sdk-js/CHANGELOG.md'
@@ -166,9 +170,9 @@ nav:
 #            - Capability Matrix: 'developer-tools/sdks/capability_matrix.md'
 #        - Middleware: 'developer-tools/aepp-middleware/README.md'
         - Token Faucet: 'developer-tools/aepp-faucet/README.md'
-        - Frameworks:
-            - æpp Components: 'developer-tools/frameworks/aepp-components/README.md'
-        - Contract Editor: 'developer-tools/aepp-contracts/README.md'
+#        - Frameworks:
+#            - æpp Components: 'developer-tools/frameworks/aepp-components/README.md'
+        - Contract Editor: 'developer-tools/aestudio.md'
 #        - AirGap: TODO
     #     - CLI Tools:
     #         - JavaScript
@@ -183,7 +187,7 @@ nav:
     #            - æpp Faucet
 
     - Sophia Smart Contracts:
-        - Documentation: 'docs/sophia.md'
+        - Documentation: 'sophia.md'
         - Getting Started:
             - HelloWorld with Sophia: 'getting-started/hello-world-with-sophia/README.md'
             - Coding Locally with AEproject: 'getting-started/coding-locally-with-aeproject/README.md'
@@ -194,12 +198,14 @@ nav:
         - aesophia: 'aesophia/README.md'
 extra_css: [site/assets/extra.css]
 theme:
-    name: readthedocs
-    highlightjs: true
-    hljs_languages:
-        - yaml
-        - json
-        - bash
+  name: 'material'
+  palette:
+    primary: 'pink'
+    accent: 'white'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+
         
 repo_name: 'aeternity/documentation-hub'
 repo_url: 'https://github.com/aeternity/documentation-hub'
