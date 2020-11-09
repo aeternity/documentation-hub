@@ -1,9 +1,0 @@
-contract Test =
-  payable entrypoint foo(x : int) =
-    if (x > Call.value)
-      true
-    else
-      false
-
-  entrypoint bar(x : int) =
-    x + 7

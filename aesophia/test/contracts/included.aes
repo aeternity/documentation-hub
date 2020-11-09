@@ -1,2 +1,0 @@
-namespace Included =
-  function foo() = 42

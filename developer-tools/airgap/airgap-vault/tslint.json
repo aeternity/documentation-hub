@@ -1,4 +1,0 @@
-{
-  "extends": "typestrict",
-  "rulesDirectory": ["tslint-config-prettier"]
-}

@@ -1,3 +1,0 @@
-contract MathSum =
-    entrypoint sum (x: int, y: int) : int =
-        x + y

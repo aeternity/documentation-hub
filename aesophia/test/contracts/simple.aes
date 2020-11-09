@@ -1,4 +1,0 @@
-
-contract Simple =
-  type t = int => int
-  entrypoint dummy() = ()

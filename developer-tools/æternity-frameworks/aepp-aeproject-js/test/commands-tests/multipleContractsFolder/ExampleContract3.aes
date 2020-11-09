@@ -1,3 +1,0 @@
-contract ExampleContract3 =
-  type state = ()
-  entrypoint main(x : int) = x

@@ -1,7 +1,0 @@
-### verify account
-GET https://sdk-testnet.aepps.com/v2/account/ak$kcCLR4GVfBpX6ctFMeXJh33eQT7Cky5SfVzDczDMNo5QM4vyt/balance
-
-### get the version 
-POST http://localhost:5000/account/ak$kcCLR4GVfBpX6ctFMeXJh33eQT7Cky5SfVzDczDMNo5QM4vyt
-
-
