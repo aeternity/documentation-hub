@@ -1,9 +1,0 @@
-contract GA =
-  record state = { secret : int }
-
-  entrypoint init() = { secret = 0 }
-
-  stateful entrypoint nonce_correct(s : int) : bool =
-    let ok = state.secret == s
-    put(state{secret = s + 1})
-    ok

@@ -311,7 +311,7 @@ considered closed and allow no further modifications. The on-chain persisted
 channel object is removed from the on-chain state trees.
 
 `channel total >=
-  transcation initiator_amount_final + responder_amount_final + fee`
+  transaction initiator_amount_final + responder_amount_final + fee`
 
 
 ### `channel_close_solo`

@@ -1,3 +1,0 @@
-contract IndentFail =
-  entrypoint twoSpace() = ()
- entrypoint oneSpace() = ()

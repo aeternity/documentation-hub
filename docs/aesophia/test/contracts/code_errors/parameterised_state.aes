@@ -1,4 +1,0 @@
-contract ParameterisedState =
-
-  type state('a) = list('a)
-

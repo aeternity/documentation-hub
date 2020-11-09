@@ -1,2 +1,0 @@
-contract HigherOrderEntrypoint =
-  entrypoint add(x : int) = (y) => x + y

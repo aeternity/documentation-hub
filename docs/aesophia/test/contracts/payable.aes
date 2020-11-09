@@ -1,3 +1,0 @@
-payable contract Test =
-  payable entrypoint foo(x : int) = ()
-  function bar() = 42
