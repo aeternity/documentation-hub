@@ -173,7 +173,6 @@ nav:
 #        - Frameworks:
 #            - æpp Components: 'developer-tools/frameworks/aepp-components/README.md'
         - Contract Editor: 'developer-tools/aestudio.md'
-#        - AirGap: TODO
     #     - CLI Tools:
     #         - JavaScript
     #         - Stratum:
@@ -187,13 +186,13 @@ nav:
     #            - æpp Faucet
 
     - Sophia Smart Contracts:
-        - Documentation: 'sophia.md'
         - Getting Started:
             - HelloWorld with Sophia: 'getting-started/hello-world-with-sophia/README.md'
             - Coding Locally with AEproject: 'getting-started/coding-locally-with-aeproject/README.md'
             - Deploying on Testnet: 'getting-started/deploying-on-testnet/README.md'
             - Deploying on Mainnet: 'getting-started/deploying-on-mainnet/README.md'
             - Advance ToDo aepp: 'getting-started/advance-to-do-aepp/README.md'
+        - Documentation: 'sophia.md'
     - Sophia Compiler:
         - aesophia: 'aesophia/README.md'
 extra_css: [site/assets/extra.css]

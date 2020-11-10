@@ -37,7 +37,7 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 ## Node and Middleware
 - [Node](https://github.com/aeternity/aeternity) - The official æternity node written in Erlang
 - [Node documentation](http://docs.aeternity.io) - Documentation about operating the official node implementation
-- [Aeternal](https://github.com/aeternity/aeternal) - Node middleware
+- [Aeternal](https://github.com/aeternity/ae_mdw) - Node middleware
 
 ## Virtual Machines
 
@@ -45,15 +45,14 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 - [aesophia](https://github.com/aeternity/aesophia) - Compiler for Sophia
 
 ## Smart contracts
-- [Sophia](https://github.com/aeternity/protocol/blob/master/contracts/sophia.md) - The æternity smart contract language
+- [Sophia](https://aeternity-sophia.readthedocs.io/en/latest/) - The æternity smart contract language
 - [Sophia CLI](https://github.com/aeternity/aesophia_cli) - The command line client for the Sophia compiler
 - [Sophia HTTP](https://github.com/aeternity/aesophia_http) - The http server exposing the Sophia compiler
 
 ## Wallets
 - [AirGap](https://airgap.it) - Cryptocurrency hardware wallet
 - [AirGap Vault](https://github.com/airgap-it/airgap-vault) - Offline secure wallet
-- [Base App](https://base.aepp.com) - Webapp wallet and dAepp directory
-- [Waellet](https://waellet.com) - Metamask for æternity
+- [Superhero Wallet](https://waellet.com) - Metamask for æternity
 - [Ledger](ledger.com) - Cryptocurrency hardware wallet
 - [hd-wallet](https://github.com/aeternity/hd-wallet-js) - HD Wallet for the æternity network, targeting Epoch
 - [Trust Wallet](https://trustwallet.com/aeternity-wallet) -  Cryptocurrency hardware wallet
@@ -67,18 +66,17 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 
 ## Software Development Kits (SDKs)
 - [Javascript](https://github.com/aeternity/aepp-sdk-js) (Official) - Collection of software development tools in one installable package
-- [Python](https://github.com/aeternity/aepp-sdk-python) (Official) - Collection of software development tools in one installable package
-- [Go](https://github.com/aeternity/aepp-sdk-go) (Official) - Collection of software development tools in one installable package
-- [Elixir](https://github.com/aeternity/aepp-sdk-elixir) (Official) - Collection of software development tools in one installable package
-- [Java](https://github.com/kryptokrauts/aepp-sdk-java) (Community) - Collection of software development tools in one installable package
-- [.NET](https://github.com/block-m3/aepp-sdk-net) (Community) - Collection of software development tools in one installable package
+- Outdated: [Python](https://github.com/aeternity/aepp-sdk-python) (Official) - Collection of software development tools in one installable package
+- Outdated: [Go](https://github.com/aeternity/aepp-sdk-go) (Official) - Collection of software development tools in one installable package
+- Outdated: [Elixir](https://github.com/aeternity/aepp-sdk-elixir) (Official) - Collection of software development tools in one installable package
+- Outdated: [Java](https://github.com/kryptokrauts/aepp-sdk-java) (Community) - Collection of software development tools in one installable package
+- Outdated: [.NET](https://github.com/block-m3/aepp-sdk-net) (Community) - Collection of software development tools in one installable package
 
 ## Developer Tools
 - [AEproject](https://github.com/aeternity/aepp-aeproject-js) - æternity Framework
-- [Testnet faucet](https://testnet.faucet.aepps.com) - Top-up your account on the Testnet network
 - [Blockchain Explorer (Mainnet)]( https://explorer.aepps.com) - Blockchain browser for æternity
 - [Blockchain Explorer (Testnet)]( https://explorer.testnet.aeternity.io/#/) - Blockchain browser for æternity
-- [Contract Editor](https://contracts.aepps.com/#/) - Online IDE for Smart Contracts written in Sophia
+- [Contract Editor](https://studio.aepps.com/) - Online IDE for Smart Contracts written in Sophia
 - [Token Faucet](https://faucet.aepps.com) - Reward system that dispenses rewards in the form of a AE test tokens
 - [AEKnow Explorer](https://www.aeknow.org/) - Blockchain browser for æternity
 - [AEMonitor](https://aemonitor.mobycrypt.com/core) - Blockchain browser for æternity
