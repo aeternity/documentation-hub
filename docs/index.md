@@ -15,7 +15,7 @@ We are thrilled to have you with us!
 
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/aeternity/awesome-aeternity)
 
-A curated list of awesome [aeternity](https://aeternity.com) resources
+A curated list of awesome aeternity resources:
 
 ## For Developers
 
