@@ -126,7 +126,6 @@ A curated list of awesome aeternity resources:
 
 ## Exchanges
 
-- [Binance](binance.com) - the largest cryptocurrency exchange in the world
 - [MXC Exchange](https://www.mxc.ceo/) - Chinese assets trading platform
 - [Gate.io](https://www.gate.io/) - Chinese assets trading platform
 - [OKEx](https://www.okex.com/) - Maltese cryptocurrency exchange

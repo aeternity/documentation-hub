@@ -35,9 +35,7 @@ nav:
             - Contracts: 'protocol/contracts/contracts.md'
             - The Solidity Language: 'protocol/contracts/solidity.md'
             - The Sophia Language: 'protocol/contracts/sophia.md'
-            - Sophia Explained: 'protocol/contracts/sophia_explained.md'
             - Standard Library: 'protocol/contracts/sophia_stdlib.md'
-            - The Varna Language: 'protocol/contracts/varna.md'
         - Generalized Accounts:
             - Generalized Accounts: 'protocol/generalized_accounts/ga_explained.md'
             - Generic Accounts: 'protocol/generalized_accounts/generalized_accounts.md'
@@ -73,7 +71,6 @@ nav:
                               - set_fee_settle: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_settle.md'
                               - set_fee_slash: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_slash.md'
                               - set_fee_snapshot: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_snapshot.md'
-                              - set_fee_withdrawl: 'protocol/node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_withdrawl.md'
                           - Continious:
                               - init_per_group: 'protocol/node/api/examples/channels/json-rpc/continuous/init_per_group.md'
                               - deposit: 'protocol/node/api/examples/channels/json-rpc/continuous/sc_ws_deposit.md'
