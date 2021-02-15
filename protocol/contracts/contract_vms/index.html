@@ -701,6 +701,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#aevm_03-aevm_04" class="md-nav__link">
+    AEVM_03 -&gt; AEVM_04
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -755,32 +762,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../sophia_explained/" class="md-nav__link">
-      Sophia Explained
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../sophia_stdlib/" class="md-nav__link">
       Standard Library
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../varna/" class="md-nav__link">
-      The Varna Language
     </a>
   </li>
 
@@ -1288,18 +1271,6 @@
   <li class="md-nav__item">
     <a href="../../node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_snapshot/" class="md-nav__link">
       set_fee_snapshot
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_withdrawl.md" class="md-nav__link">
-      set_fee_withdrawl
     </a>
   </li>
 
@@ -2415,6 +2386,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#aevm_03-aevm_04" class="md-nav__link">
+    AEVM_03 -&gt; AEVM_04
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2485,7 +2463,17 @@ the serialization packs the version into one integer.)</p>
 <td>Improved AEVM for Sophia, Fortuna release</td>
 </tr>
 <tr>
-<td>05-FFFF</td>
+<td>05</td>
+<td><a href="../fate/">FATE_01</a></td>
+<td>For Sophia contracts using FATE (Lima release)</td>
+</tr>
+<tr>
+<td>06</td>
+<td><a href="../aevm/">AEVM_04</a></td>
+<td>Improved AEVM for Sophia, Lima release</td>
+</tr>
+<tr>
+<td>07-FFFF</td>
 <td></td>
 <td>UNUSED</td>
 </tr>
@@ -2508,7 +2496,7 @@ the serialization packs the version into one integer.)</p>
 </tr>
 <tr>
 <td>01</td>
-<td><a href="../sophia/#the-sophia_01-abi">Sophia_01</a></td>
+<td><a href="../aevm/#the-sophia_aevm_01-abi">Sophia_AEVM_01</a></td>
 <td>For Sophia contracts on the AEVM</td>
 </tr>
 <tr>
@@ -2517,7 +2505,12 @@ the serialization packs the version into one integer.)</p>
 <td>For Solidity contracts on the AEVM</td>
 </tr>
 <tr>
-<td>03-FFFF</td>
+<td>03</td>
+<td><a href="../fate/">Sophia_FATE_01</a></td>
+<td>For Sophia contracts using FATE</td>
+</tr>
+<tr>
+<td>04-FFFF</td>
 <td></td>
 <td>UNUSED</td>
 </tr>
@@ -2582,6 +2575,24 @@ the serialization packs the version into one integer.)</p>
 <td>(Not applicable.)</td>
 <td><code>0x0</code>, <code>0x1</code></td>
 </tr>
+<tr>
+<td>Lima</td>
+<td>contract call</td>
+<td><code>0x1</code>, <code>0x3</code>, <code>0x4</code>, <code>0x5</code>, <code>0x6</code></td>
+<td><code>0x1</code>, <code>0x3</code></td>
+</tr>
+<tr>
+<td></td>
+<td>contract create</td>
+<td><code>0x5</code>, <code>0x6</code></td>
+<td><code>0x1</code>, <code>0x3</code></td>
+</tr>
+<tr>
+<td></td>
+<td>oracle register</td>
+<td>(Not applicable.)</td>
+<td><code>0x0</code>, <code>0x1</code>, <code>0x3</code></td>
+</tr>
 </tbody>
 </table>
 <p>The number after the machine name designates the version of the machine.
@@ -2592,7 +2603,8 @@ to the new machine version.</p>
 uses the same ABI (Solidity_1). The languages can in the future be extended
 with new functionality and new ABIs reflected by the ABI version number.</p>
 <p>For a description of each ABI see the corresponding language description:
-<a href="../sophia/">Sophia</a>, <a href="../solidity/">Solidity</a>, <a href="../varna/">Varna</a>.</p>
+<a href="https://github.com/aeternity/aesophia">Sophia</a>,
+<a href="../solidity/">Solidity</a>.</p>
 <h2 id="the-ternity-ethereum-virtual-machine-aevm">The Æternity Ethereum Virtual Machine AEVM</h2>
 <p>See <a href="../aevm/">The AEVM</a>.</p>
 <h2 id="consensus-breaking-changes-between-aevm-versions">Consensus breaking changes between AEVM versions</h2>
@@ -2608,6 +2620,13 @@ with new functionality and new ABIs reflected by the ABI version number.</p>
 <ul>
 <li>New primitive operations (<code>Auth.tx_hash</code>)</li>
 <li>New crypto primitives</li>
+</ul>
+<h3 id="aevm_03-aevm_04">AEVM_03 -&gt; AEVM_04</h3>
+<ul>
+<li>New crypto primitives</li>
+<li>Memory gas adjustments</li>
+<li>Updated arguments for AENS-functions</li>
+<li>Support for <code>payable</code></li>
 </ul>
                 
               

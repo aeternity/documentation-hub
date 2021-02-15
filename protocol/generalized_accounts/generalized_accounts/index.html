@@ -688,32 +688,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../contracts/sophia_explained/" class="md-nav__link">
-      Sophia Explained
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../contracts/sophia_stdlib/" class="md-nav__link">
       Standard Library
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../contracts/varna/" class="md-nav__link">
-      The Varna Language
     </a>
   </li>
 
@@ -1349,18 +1325,6 @@
   <li class="md-nav__item">
     <a href="../../node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_snapshot/" class="md-nav__link">
       set_fee_snapshot
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../node/api/examples/channels/json-rpc/changeable_fee/sc_ws_set_fee_withdrawl.md" class="md-nav__link">
-      set_fee_withdrawl
     </a>
   </li>
 
@@ -2783,12 +2747,14 @@ is valid. If the account at <code>owner_id</code> is already a GA, the transacti
 considered invalid.</p>
 <p>The transaction MUST include a signature created by the private key belonging to
 the <code>owner_id</code>.</p>
-<p>The <code>auth_fun</code> is a function hash as described in the <a href="../../contracts/sophia/">Sophia</a>
+<p>The <code>auth_fun</code> is a function hash as described in the 
+<a href="https://github.com/aeternity/aesophia/blob/master/docs/sophia.md">Sophia</a>
 section.</p>
 <p>If valid, the transaction will set the <code>ga_contract</code> and <code>ga_auth_fun</code> of the
 <code>owner_id</code> account.</p>
 <h3 id="meta_tx"><code>meta_tx</code></h3>
-<p>```
+<p>Before Iris, version 1:
+ ```
  Fieldname       Size (bytes)</p>
 <hr />
 <p>| ga_id        | 32  |</p>
@@ -2807,14 +2773,37 @@ section.</p>
 <hr />
 <p>| tx           | var |</p>
 <hr />
-<p>```</p>
+<pre><code>
+After Iris, version 2:
+ ```
+ Fieldname       Size (bytes)
+ -------------- -----
+| ga_id        | 32  |
+ -------------- -----
+| auth_data    | var |
+ -------------- -----
+| abi_version  | 2   |
+ -------------- -----
+| fee          | var |
+ -------------- -----
+| gas          | var |
+ -------------- -----
+| gas_price    | var |
+ -------------- -----
+| tx           | var |
+ -------------- -----
+</code></pre>
+
 <p>For the actual wire format please consult the <a href="../../serializations/">serialisation</a> document.</p>
 <p>The semantics of this transaction are similar to the <a href="../../contracts/contract_transactions/#contract-call-transaction">Call Contract Transaction</a>.</p>
 <p>A <code>meta_tx</code> is always a call of the <code>auth_fun</code> on the contract located at
 <code>ga_id</code> with the supplied <code>auth_data</code>.</p>
 <p>The <code>auth_fun</code> call MUST return true for the <code>tx</code> to be considered valid.</p>
-<p>The <code>auth_fun</code> is a function hash as described in the <a href="../../contracts/sophia/">Sophia</a>
+<p>The <code>auth_fun</code> is a function hash as described in the <a href="https://github.com/aeternity/aesophia/blob/master/docs/sophia.md">Sophia</a>
 section.</p>
+<p>The <code>ttl</code> is the maximum block height that could include the transaction. This
+had changed from Iris hardfork and the innermost transaction's <code>ttl</code> is being
+used instead.</p>
 <p>The <code>tx</code>, or inner transaction, MUST be a well formed transaction with nonce set
 to <code>0</code>. The <code>tx</code> MUST NOT be a <code>ga_attach_tx</code> transaction.</p>
 <h2 id="backwards-compatibility">Backwards compatibility</h2>

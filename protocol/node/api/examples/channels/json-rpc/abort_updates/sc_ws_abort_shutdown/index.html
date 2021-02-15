@@ -688,32 +688,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../../../../contracts/sophia_explained/" class="md-nav__link">
-      Sophia Explained
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../../../../../../contracts/sophia_stdlib/" class="md-nav__link">
       Standard Library
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../../../../../contracts/varna/" class="md-nav__link">
-      The Varna Language
     </a>
   </li>
 
@@ -1555,15 +1531,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initiator-node_28" class="md-nav__link">
-    initiator &lt;--- node
+  <a href="#responder-closes-websocket-connection" class="md-nav__link">
+    responder closes WebSocket connection
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#responder-closes-websocket-connection" class="md-nav__link">
-    responder closes WebSocket connection
+  <a href="#initiator-node_28" class="md-nav__link">
+    initiator &lt;--- node
   </a>
   
 </li>
@@ -1743,18 +1719,6 @@
   <li class="md-nav__item">
     <a href="../../changeable_fee/sc_ws_set_fee_snapshot/" class="md-nav__link">
       set_fee_snapshot
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../changeable_fee/sc_ws_set_fee_withdrawl.md" class="md-nav__link">
-      set_fee_withdrawl
     </a>
   </li>
 
@@ -3295,15 +3259,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initiator-node_28" class="md-nav__link">
-    initiator &lt;--- node
+  <a href="#responder-closes-websocket-connection" class="md-nav__link">
+    responder closes WebSocket connection
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#responder-closes-websocket-connection" class="md-nav__link">
-    responder closes WebSocket connection
+  <a href="#initiator-node_28" class="md-nav__link">
+    initiator &lt;--- node
   </a>
   
 </li>
@@ -3342,7 +3306,7 @@
                   <h1>abort_shutdown</h1>
                 
                 <h4 id="initiator-opens-a-websocket-connection">initiator opens a WebSocket connection</h4>
-<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;host=localhost&amp;initiator_amount=70000000000000&amp;initiator_id=ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&amp;role=initiator
+<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;host=localhost&amp;initiator_amount=70000000000000&amp;initiator_id=ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&amp;role=initiator
 </code></pre>
 
 <h4 id="initiator-node">initiator &lt;--- node</h4>
@@ -3353,7 +3317,7 @@
     &quot;channel_id&quot;: null,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;fsm_up&quot;,
-      &quot;fsm_id&quot;: &quot;ba_WCeR03UEfOYP2AwUC3QNR7zp3Xux5zHIGM6NgR8VgkXfjcZP&quot;
+      &quot;fsm_id&quot;: &quot;ba_mSN5KSeZUeiP2rfrfaU19lLQjcgGqEMIU28jFqZ6ryrNsXT7&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3365,7 +3329,7 @@
 <p>The local fsm has been started</p>
 </blockquote>
 <h4 id="responder-opens-a-websocket-connection">responder opens a WebSocket connection</h4>
-<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;initiator_amount=70000000000000&amp;initiator_id=ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&amp;role=responder
+<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;initiator_amount=70000000000000&amp;initiator_id=ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&amp;role=responder
 </code></pre>
 
 <h4 id="responder-node">responder &lt;--- node</h4>
@@ -3376,7 +3340,7 @@
     &quot;channel_id&quot;: null,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;fsm_up&quot;,
-      &quot;fsm_id&quot;: &quot;ba_jZHUYMzzu6hrXVPFBXCDsjrsGiKwwJqoyIlFdwsfVRRCldVB&quot;
+      &quot;fsm_id&quot;: &quot;ba_qTeLw0Owf9apCBl53l6UurPndFgQcDwbI2hXog1FJnRo93r9&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3430,7 +3394,7 @@
   &quot;params&quot;: {
     &quot;channel_id&quot;: null,
     &quot;data&quot;: {
-      &quot;signed_tx&quot;: &quot;tx_+IgLAcC4g/iBMgGhAcW47IdoVlsitY21h/Ku93EKqO7HEQeD04gBq8ukLLv0hj+qJSJgAKEB0TZvMXURn2j/DUUtWanRpprEaPBWgtcFtlVhYne0ThCGJGE5yoAAAgoAhhAGeddIAMCgFk9HuJ93FJGde2FyW3hXYthviTWdftxygmDVi9qw3+4908nh7w==&quot;,
+      &quot;signed_tx&quot;: &quot;tx_+IkLAcC4hPiCMgGhAWSuDghi3tNLOnvuIVm5FIbC9Ikodk2/E4CKiamLla+Bhj+qJSJgAKEBkLMuMMqdp4Acg/adLsNQ2VimQAyKhQvdpRTurgwqcKGGJGE5yoAAAgoAhhALIe8QAMCgZP8IHNNsTxaYp/GakGy6MTXm8MnOngPkebqMLgn1uEaBu9RsTf4=&quot;,
       &quot;updates&quot;: []
     }
   },
@@ -3440,11 +3404,11 @@
 
 <h4 id="initiator-node_3">initiator ---&gt; node</h4>
 <pre><code class="javascript">{
-  &quot;id&quot;: -576460752303422862,
+  &quot;id&quot;: -576460752303422086,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.initiator_sign&quot;,
   &quot;params&quot;: {
-    &quot;signed_tx&quot;: &quot;tx_+MsLAfhCuEC2RXPKYpPX8vtV6k0pVy1DOTYhF9Jm6Y36Rx1PuJZJV4FzVP50lDXdHr3KZ3jGyFIg69Rl79XQ1I/UohM+opcNuIP4gTIBoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79IY/qiUiYAChAdE2bzF1EZ9o/w1FLVmp0aaaxGjwVoLXBbZVYWJ3tE4QhiRhOcqAAAIKAIYQBnnXSADAoBZPR7ifdxSRnXthclt4V2LYb4k1nX7ccoJg1YvasN/uPZSgu0I=&quot;
+    &quot;signed_tx&quot;: &quot;tx_+MwLAfhCuED+3yfwLUfl3cMCAbW+kidU0KUkxGax2EsTn4A9QXNI95GSKAEHYBN9bH044M0FjqSdUn0TCNKxpq8HnFOKlH4AuIT4gjIBoQFkrg4IYt7TSzp77iFZuRSGwvSJKHZNvxOAiompi5WvgYY/qiUiYAChAZCzLjDKnaeAHIP2nS7DUNlYpkAMioUL3aUU7q4MKnChhiRhOcqAAAIKAIYQCyHvEADAoGT/CBzTbE8WmKfxmpBsujE15vDJzp4D5Hm6jC4J9bhGgbtwTXkQ&quot;
   }
 }
 </code></pre>
@@ -3452,7 +3416,7 @@
 <h4 id="initiator-node_4">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
   &quot;channel_id&quot;: null,
-  &quot;id&quot;: -576460752303422862,
+  &quot;id&quot;: -576460752303422086,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: &quot;ok&quot;,
   &quot;version&quot;: 1
@@ -3464,9 +3428,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: null,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;event&quot;: &quot;funding_created&quot;
+      &quot;event&quot;: &quot;funding_created&quot;,
+      &quot;fsm_id&quot;: &quot;ba_qTeLw0Owf9apCBl53l6UurPndFgQcDwbI2hXog1FJnRo93r9&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3478,9 +3443,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.sign.responder_sign&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: null,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;signed_tx&quot;: &quot;tx_+MsLAfhCuEC2RXPKYpPX8vtV6k0pVy1DOTYhF9Jm6Y36Rx1PuJZJV4FzVP50lDXdHr3KZ3jGyFIg69Rl79XQ1I/UohM+opcNuIP4gTIBoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79IY/qiUiYAChAdE2bzF1EZ9o/w1FLVmp0aaaxGjwVoLXBbZVYWJ3tE4QhiRhOcqAAAIKAIYQBnnXSADAoBZPR7ifdxSRnXthclt4V2LYb4k1nX7ccoJg1YvasN/uPZSgu0I=&quot;,
+      &quot;signed_tx&quot;: &quot;tx_+MwLAfhCuED+3yfwLUfl3cMCAbW+kidU0KUkxGax2EsTn4A9QXNI95GSKAEHYBN9bH044M0FjqSdUn0TCNKxpq8HnFOKlH4AuIT4gjIBoQFkrg4IYt7TSzp77iFZuRSGwvSJKHZNvxOAiompi5WvgYY/qiUiYAChAZCzLjDKnaeAHIP2nS7DUNlYpkAMioUL3aUU7q4MKnChhiRhOcqAAAIKAIYQCyHvEADAoGT/CBzTbE8WmKfxmpBsujE15vDJzp4D5Hm6jC4J9bhGgbtwTXkQ&quot;,
       &quot;updates&quot;: []
     }
   },
@@ -3490,19 +3455,19 @@
 
 <h4 id="responder-node_4">responder ---&gt; node</h4>
 <pre><code class="javascript">{
-  &quot;id&quot;: -576460752303422861,
+  &quot;id&quot;: -576460752303422085,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.responder_sign&quot;,
   &quot;params&quot;: {
-    &quot;signed_tx&quot;: &quot;tx_+QENCwH4hLhAUSd/dV+6aSFNO5nzNEtgnNV3yKD4kF6aDAwWxVNUMiW9jrlCXTfmU/IGmSgntrwKXFPi4J1Mz9XMUtKmnSSlC7hAtkVzymKT1/L7VepNKVctQzk2IRfSZumN+kcdT7iWSVeBc1T+dJQ13R69ymd4xshSIOvUZe/V0NSP1KITPqKXDbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7j1w8a8A&quot;
+    &quot;signed_tx&quot;: &quot;tx_+QEOCwH4hLhA79tf7DfgCJu/wiLTkx6LyoC4wd3MCebTQZHxRjOQvID2PW+Kt6b1NEWpJsENeAIoo/MRoKLj9isnnLoH/3xmCLhA/t8n8C1H5d3DAgG1vpInVNClJMRmsdhLE5+APUFzSPeRkigBB2ATfWx9OODNBY6knVJ9EwjSsaavB5xTipR+ALiE+IIyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAsh7xAAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RoG7epJgHg==&quot;
   }
 }
 </code></pre>
 
 <h4 id="responder-node_5">responder &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: null,
-  &quot;id&quot;: -576460752303422861,
+  &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
+  &quot;id&quot;: -576460752303422085,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: &quot;ok&quot;,
   &quot;version&quot;: 1
@@ -3514,10 +3479,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;info&quot;: &quot;funding_created&quot;,
-      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAUSd/dV+6aSFNO5nzNEtgnNV3yKD4kF6aDAwWxVNUMiW9jrlCXTfmU/IGmSgntrwKXFPi4J1Mz9XMUtKmnSSlC7hAtkVzymKT1/L7VepNKVctQzk2IRfSZumN+kcdT7iWSVeBc1T+dJQ13R69ymd4xshSIOvUZe/V0NSP1KITPqKXDbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7j1w8a8A&quot;,
+      &quot;tx&quot;: &quot;tx_+QEOCwH4hLhA79tf7DfgCJu/wiLTkx6LyoC4wd3MCebTQZHxRjOQvID2PW+Kt6b1NEWpJsENeAIoo/MRoKLj9isnnLoH/3xmCLhA/t8n8C1H5d3DAgG1vpInVNClJMRmsdhLE5+APUFzSPeRkigBB2ATfWx9OODNBY6knVJ9EwjSsaavB5xTipR+ALiE+IIyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAsh7xAAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RoG7epJgHg==&quot;,
       &quot;type&quot;: &quot;channel_create_tx&quot;
     }
   },
@@ -3530,9 +3495,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: null,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;event&quot;: &quot;funding_signed&quot;
+      &quot;event&quot;: &quot;funding_signed&quot;,
+      &quot;fsm_id&quot;: &quot;ba_mSN5KSeZUeiP2rfrfaU19lLQjcgGqEMIU28jFqZ6ryrNsXT7&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3544,10 +3510,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;info&quot;: &quot;funding_signed&quot;,
-      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAUSd/dV+6aSFNO5nzNEtgnNV3yKD4kF6aDAwWxVNUMiW9jrlCXTfmU/IGmSgntrwKXFPi4J1Mz9XMUtKmnSSlC7hAtkVzymKT1/L7VepNKVctQzk2IRfSZumN+kcdT7iWSVeBc1T+dJQ13R69ymd4xshSIOvUZe/V0NSP1KITPqKXDbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7j1w8a8A&quot;,
+      &quot;tx&quot;: &quot;tx_+QEOCwH4hLhA79tf7DfgCJu/wiLTkx6LyoC4wd3MCebTQZHxRjOQvID2PW+Kt6b1NEWpJsENeAIoo/MRoKLj9isnnLoH/3xmCLhA/t8n8C1H5d3DAgG1vpInVNClJMRmsdhLE5+APUFzSPeRkigBB2ATfWx9OODNBY6knVJ9EwjSsaavB5xTipR+ALiE+IIyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAsh7xAAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RoG7epJgHg==&quot;,
       &quot;type&quot;: &quot;channel_create_tx&quot;
     }
   },
@@ -3560,10 +3526,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;info&quot;: &quot;channel_changed&quot;,
-      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAUSd/dV+6aSFNO5nzNEtgnNV3yKD4kF6aDAwWxVNUMiW9jrlCXTfmU/IGmSgntrwKXFPi4J1Mz9XMUtKmnSSlC7hAtkVzymKT1/L7VepNKVctQzk2IRfSZumN+kcdT7iWSVeBc1T+dJQ13R69ymd4xshSIOvUZe/V0NSP1KITPqKXDbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7j1w8a8A&quot;,
+      &quot;tx&quot;: &quot;tx_+QEOCwH4hLhA79tf7DfgCJu/wiLTkx6LyoC4wd3MCebTQZHxRjOQvID2PW+Kt6b1NEWpJsENeAIoo/MRoKLj9isnnLoH/3xmCLhA/t8n8C1H5d3DAgG1vpInVNClJMRmsdhLE5+APUFzSPeRkigBB2ATfWx9OODNBY6knVJ9EwjSsaavB5xTipR+ALiE+IIyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAsh7xAAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RoG7epJgHg==&quot;,
       &quot;type&quot;: &quot;channel_create_tx&quot;
     }
   },
@@ -3576,10 +3542,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;info&quot;: &quot;channel_changed&quot;,
-      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAUSd/dV+6aSFNO5nzNEtgnNV3yKD4kF6aDAwWxVNUMiW9jrlCXTfmU/IGmSgntrwKXFPi4J1Mz9XMUtKmnSSlC7hAtkVzymKT1/L7VepNKVctQzk2IRfSZumN+kcdT7iWSVeBc1T+dJQ13R69ymd4xshSIOvUZe/V0NSP1KITPqKXDbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7j1w8a8A&quot;,
+      &quot;tx&quot;: &quot;tx_+QEOCwH4hLhA79tf7DfgCJu/wiLTkx6LyoC4wd3MCebTQZHxRjOQvID2PW+Kt6b1NEWpJsENeAIoo/MRoKLj9isnnLoH/3xmCLhA/t8n8C1H5d3DAgG1vpInVNClJMRmsdhLE5+APUFzSPeRkigBB2ATfWx9OODNBY6knVJ9EwjSsaavB5xTipR+ALiE+IIyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAsh7xAAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RoG7epJgHg==&quot;,
       &quot;type&quot;: &quot;channel_create_tx&quot;
     }
   },
@@ -3593,7 +3559,7 @@
   &quot;method&quot;: &quot;channels.message&quot;,
   &quot;params&quot;: {
     &quot;info&quot;: &quot;Hello&quot;,
-    &quot;to&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+    &quot;to&quot;: &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;
   }
 }
 </code></pre>
@@ -3603,13 +3569,13 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.message&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;message&quot;: {
-        &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
-        &quot;from&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
+        &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
+        &quot;from&quot;: &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;,
         &quot;info&quot;: &quot;Hello&quot;,
-        &quot;to&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+        &quot;to&quot;: &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;
       }
     }
   },
@@ -3623,7 +3589,7 @@
   &quot;method&quot;: &quot;channels.message&quot;,
   &quot;params&quot;: {
     &quot;info&quot;: &quot;Hello back&quot;,
-    &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+    &quot;to&quot;: &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;
   }
 }
 </code></pre>
@@ -3633,13 +3599,13 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.message&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;message&quot;: {
-        &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
-        &quot;from&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;,
+        &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
+        &quot;from&quot;: &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;,
         &quot;info&quot;: &quot;Hello back&quot;,
-        &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+        &quot;to&quot;: &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;
       }
     }
   },
@@ -3649,13 +3615,13 @@
 
 <h4 id="initiator-node_10">initiator ---&gt; node</h4>
 <pre><code class="javascript">{
-  &quot;id&quot;: -576460752303422860,
+  &quot;id&quot;: -576460752303422084,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.get.balances&quot;,
   &quot;params&quot;: {
     &quot;accounts&quot;: [
-      &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
-      &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+      &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;,
+      &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;
     ]
   }
 }
@@ -3663,16 +3629,16 @@
 
 <h4 id="initiator-node_11">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
-  &quot;id&quot;: -576460752303422860,
+  &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
+  &quot;id&quot;: -576460752303422084,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: [
     {
-      &quot;account&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
+      &quot;account&quot;: &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;,
       &quot;balance&quot;: 69999999999999
     },
     {
-      &quot;account&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;,
+      &quot;account&quot;: &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;,
       &quot;balance&quot;: 40000000000001
     }
   ],
@@ -3685,7 +3651,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;own_funding_locked&quot;
     }
@@ -3703,7 +3669,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;own_funding_locked&quot;
     }
@@ -3721,7 +3687,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;funding_locked&quot;
     }
@@ -3739,7 +3705,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;funding_locked&quot;
     }
@@ -3757,7 +3723,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;open&quot;
     }
@@ -3775,9 +3741,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.update&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;state&quot;: &quot;tx_+QENCwH4hLhAUSd/dV+6aSFNO5nzNEtgnNV3yKD4kF6aDAwWxVNUMiW9jrlCXTfmU/IGmSgntrwKXFPi4J1Mz9XMUtKmnSSlC7hAtkVzymKT1/L7VepNKVctQzk2IRfSZumN+kcdT7iWSVeBc1T+dJQ13R69ymd4xshSIOvUZe/V0NSP1KITPqKXDbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7j1w8a8A&quot;
+      &quot;state&quot;: &quot;tx_+QEOCwH4hLhA79tf7DfgCJu/wiLTkx6LyoC4wd3MCebTQZHxRjOQvID2PW+Kt6b1NEWpJsENeAIoo/MRoKLj9isnnLoH/3xmCLhA/t8n8C1H5d3DAgG1vpInVNClJMRmsdhLE5+APUFzSPeRkigBB2ATfWx9OODNBY6knVJ9EwjSsaavB5xTipR+ALiE+IIyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAsh7xAAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RoG7epJgHg==&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3789,7 +3755,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;open&quot;
     }
@@ -3807,9 +3773,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.update&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;state&quot;: &quot;tx_+QENCwH4hLhAUSd/dV+6aSFNO5nzNEtgnNV3yKD4kF6aDAwWxVNUMiW9jrlCXTfmU/IGmSgntrwKXFPi4J1Mz9XMUtKmnSSlC7hAtkVzymKT1/L7VepNKVctQzk2IRfSZumN+kcdT7iWSVeBc1T+dJQ13R69ymd4xshSIOvUZe/V0NSP1KITPqKXDbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7j1w8a8A&quot;
+      &quot;state&quot;: &quot;tx_+QEOCwH4hLhA79tf7DfgCJu/wiLTkx6LyoC4wd3MCebTQZHxRjOQvID2PW+Kt6b1NEWpJsENeAIoo/MRoKLj9isnnLoH/3xmCLhA/t8n8C1H5d3DAgG1vpInVNClJMRmsdhLE5+APUFzSPeRkigBB2ATfWx9OODNBY6knVJ9EwjSsaavB5xTipR+ALiE+IIyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAsh7xAAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RoG7epJgHg==&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3829,9 +3795,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.sign.shutdown_sign&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;signed_tx&quot;: &quot;tx_+GQLAcC4X/hdNQGhBsgfIiUnuHH3f7Fx3yy/GhAJ9WbW/UT8DpCuJUxCWgwwoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79IY2kdavv/+GG0jrV+ABAIYSMJzlQAA+8S0Tcg==&quot;,
+      &quot;signed_tx&quot;: &quot;tx_+GULAcC4YPheNQGhBgYIFerHM1JYR2AiPy8jyT/6rFp7p2AJvLAxdUIqcW9goQFkrg4IYt7TSzp77iFZuRSGwvSJKHZNvxOAiompi5WvgYY3+GXW5/+GHK96fwgBAIYPY36W8ACBvKqOdW4=&quot;,
       &quot;updates&quot;: []
     }
   },
@@ -3854,7 +3820,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;aborted_update&quot;
     }
@@ -3876,9 +3842,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.sign.shutdown_sign&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;signed_tx&quot;: &quot;tx_+GQLAcC4X/hdNQGhBsgfIiUnuHH3f7Fx3yy/GhAJ9WbW/UT8DpCuJUxCWgwwoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIY2kdavv/+GG0jrV+ABAIYSMJzlQAAXQXqmyw==&quot;,
+      &quot;signed_tx&quot;: &quot;tx_+GQLAcC4X/hdNQGhBgYIFerHM1JYR2AiPy8jyT/6rFp7p2AJvLAxdUIqcW9goQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYY3+rniy/+GHLHOiuwBAIYPXtZ/KABBNYH6Ng==&quot;,
       &quot;updates&quot;: []
     }
   },
@@ -3901,7 +3867,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;aborted_update&quot;
     }
@@ -3923,9 +3889,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.sign.shutdown_sign&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;signed_tx&quot;: &quot;tx_+GQLAcC4X/hdNQGhBsgfIiUnuHH3f7Fx3yy/GhAJ9WbW/UT8DpCuJUxCWgwwoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79IY2kdavv/+GG0jrV+ABAIYSMJzlQAA+8S0Tcg==&quot;,
+      &quot;signed_tx&quot;: &quot;tx_+GULAcC4YPheNQGhBgYIFerHM1JYR2AiPy8jyT/6rFp7p2AJvLAxdUIqcW9goQFkrg4IYt7TSzp77iFZuRSGwvSJKHZNvxOAiompi5WvgYY3+GXW5/+GHK96fwgBAIYPY36W8ACBvKqOdW4=&quot;,
       &quot;updates&quot;: []
     }
   },
@@ -3935,19 +3901,19 @@
 
 <h4 id="initiator-node_22">initiator ---&gt; node</h4>
 <pre><code class="javascript">{
-  &quot;id&quot;: -576460752303422859,
+  &quot;id&quot;: -576460752303422083,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.shutdown_sign&quot;,
   &quot;params&quot;: {
-    &quot;signed_tx&quot;: &quot;tx_+KcLAfhCuEB1CH+NIXZ5/xNK8eKT0kuHipdbBm808Utw54FHE8cS01Tc8MU+NbqVTP46V8LGUebTAD+lj4nvcNFoXDBL/ggFuF/4XTUBoQbIHyIlJ7hx93+xcd8svxoQCfVm1v1E/A6QriVMQloMMKEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGNpHWr7//hhtI61fgAQCGEjCc5UAAPvHAcQs=&quot;
+    &quot;signed_tx&quot;: &quot;tx_+KgLAfhCuEAsmwmRw0WemEY70IB4TMmBCRbqmlmKwG1AISpS9KSXQ8YPC3ejGxz4OVspzW+vg0igyeXoVTiU2LyKqxRNLEAPuGD4XjUBoQYGCBXqxzNSWEdgIj8vI8k/+qxae6dgCbywMXVCKnFvYKEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGN/hl1uf/hhyven8IAQCGD2N+lvAAgbwoZTS9&quot;
   }
 }
 </code></pre>
 
 <h4 id="initiator-node_23">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
-  &quot;id&quot;: -576460752303422859,
+  &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
+  &quot;id&quot;: -576460752303422083,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: &quot;ok&quot;,
   &quot;version&quot;: 1
@@ -3966,7 +3932,7 @@
 
 <h4 id="initiator-node_25">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+  &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
   &quot;error&quot;: {
     &quot;code&quot;: 3,
     &quot;data&quot;: [
@@ -3995,7 +3961,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;shutdown&quot;
     }
@@ -4009,9 +3975,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.sign.shutdown_sign_ack&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;signed_tx&quot;: &quot;tx_+KcLAfhCuEB1CH+NIXZ5/xNK8eKT0kuHipdbBm808Utw54FHE8cS01Tc8MU+NbqVTP46V8LGUebTAD+lj4nvcNFoXDBL/ggFuF/4XTUBoQbIHyIlJ7hx93+xcd8svxoQCfVm1v1E/A6QriVMQloMMKEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGNpHWr7//hhtI61fgAQCGEjCc5UAAPvHAcQs=&quot;,
+      &quot;signed_tx&quot;: &quot;tx_+KgLAfhCuEAsmwmRw0WemEY70IB4TMmBCRbqmlmKwG1AISpS9KSXQ8YPC3ejGxz4OVspzW+vg0igyeXoVTiU2LyKqxRNLEAPuGD4XjUBoQYGCBXqxzNSWEdgIj8vI8k/+qxae6dgCbywMXVCKnFvYKEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGN/hl1uf/hhyven8IAQCGD2N+lvAAgbwoZTS9&quot;,
       &quot;updates&quot;: []
     }
   },
@@ -4034,7 +4000,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;aborted_update&quot;
     }
@@ -4048,9 +4014,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.conflict&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
-      &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+      &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
       &quot;error_code&quot;: 42,
       &quot;error_msg&quot;: &quot;unknown&quot;,
       &quot;round&quot;: 1
@@ -4062,7 +4028,7 @@
 
 <h4 id="responder-node_22">responder ---&gt; node</h4>
 <pre><code class="javascript">{
-  &quot;id&quot;: -576460752303422858,
+  &quot;id&quot;: -576460752303422082,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system&quot;,
   &quot;params&quot;: {
@@ -4073,8 +4039,8 @@
 
 <h4 id="responder-node_23">responder &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
-  &quot;id&quot;: -576460752303422858,
+  &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
+  &quot;id&quot;: -576460752303422082,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: &quot;ok&quot;,
   &quot;version&quot;: 1
@@ -4083,7 +4049,7 @@
 
 <h4 id="initiator-node_27">initiator ---&gt; node</h4>
 <pre><code class="javascript">{
-  &quot;id&quot;: -576460752303422857,
+  &quot;id&quot;: -576460752303422081,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system&quot;,
   &quot;params&quot;: {
@@ -4097,21 +4063,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
-    &quot;data&quot;: {
-      &quot;event&quot;: &quot;died&quot;
-    }
-  },
-  &quot;version&quot;: 1
-}
-</code></pre>
-
-<h4 id="initiator-node_28">initiator &lt;--- node</h4>
-<pre><code class="javascript">{
-  &quot;jsonrpc&quot;: &quot;2.0&quot;,
-  &quot;method&quot;: &quot;channels.info&quot;,
-  &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;died&quot;
     }
@@ -4121,10 +4073,24 @@
 </code></pre>
 
 <h4 id="responder-closes-websocket-connection">responder closes WebSocket connection</h4>
+<h4 id="initiator-node_28">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;died&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
 <h4 id="initiator-node_29">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: &quot;ch_2X8qcE5YqtXdLmvx2cnFvSUUe5LYoJnAxA5iu1qhSEyZsb26f5&quot;,
-  &quot;id&quot;: -576460752303422857,
+  &quot;channel_id&quot;: &quot;ch_3f4zCrFTFC81nCCu89ySMB4NEzZKJ91jUwf2LoNCJaNQR5FRf&quot;,
+  &quot;id&quot;: -576460752303422081,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: &quot;ok&quot;,
   &quot;version&quot;: 1

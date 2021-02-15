@@ -686,32 +686,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../../../../contracts/sophia_explained/" class="md-nav__link">
-      Sophia Explained
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../../../../../contracts/sophia_stdlib/" class="md-nav__link">
       Standard Library
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../../../../contracts/varna/" class="md-nav__link">
-      The Varna Language
     </a>
   </li>
 
@@ -1219,18 +1195,6 @@
   <li class="md-nav__item">
     <a href="../changeable_fee/sc_ws_set_fee_snapshot/" class="md-nav__link">
       set_fee_snapshot
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../changeable_fee/sc_ws_set_fee_withdrawl.md" class="md-nav__link">
-      set_fee_withdrawl
     </a>
   </li>
 
@@ -2428,6 +2392,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#initiator-node_6" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#responder-node_4" class="md-nav__link">
     responder ---&gt; node
   </a>
@@ -2437,13 +2408,6 @@
         <li class="md-nav__item">
   <a href="#responder-node_5" class="md-nav__link">
     responder &lt;--- node
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#initiator-node_6" class="md-nav__link">
-    initiator &lt;--- node
   </a>
   
 </li>
@@ -2547,13 +2511,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initiator-node_14" class="md-nav__link">
-    initiator &lt;--- node
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#responder-node_13" class="md-nav__link">
     responder ---&gt; node
   </a>
@@ -2563,6 +2520,13 @@
         <li class="md-nav__item">
   <a href="#responder-node_14" class="md-nav__link">
     responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_14" class="md-nav__link">
+    initiator &lt;--- node
   </a>
   
 </li>
@@ -2708,20 +2672,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initiator-node_25" class="md-nav__link">
-    initiator &lt;--- node
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#initiator-info_3" class="md-nav__link">
-    initiator info
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#responder-node_23" class="md-nav__link">
     responder &lt;--- node
   </a>
@@ -2736,7 +2686,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#initiator-node_26" class="md-nav__link">
+  <a href="#initiator-node_25" class="md-nav__link">
     initiator &lt;--- node
   </a>
   
@@ -2750,8 +2700,29 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#initiator-info_3" class="md-nav__link">
+    initiator info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#responder-info_4" class="md-nav__link">
     responder info
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responder-node_25" class="md-nav__link">
+    responder &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initiator-node_26" class="md-nav__link">
+    initiator &lt;--- node
   </a>
   
 </li>
@@ -2766,13 +2737,6 @@
         <li class="md-nav__item">
   <a href="#initiator-node_27" class="md-nav__link">
     initiator &lt;--- node
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#responder-node_25" class="md-nav__link">
-    responder &lt;--- node
   </a>
   
 </li>
@@ -2799,6 +2763,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#initiator-node_29" class="md-nav__link">
+    initiator &lt;--- node
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#responder-node_28" class="md-nav__link">
     responder &lt;--- node
   </a>
@@ -2808,13 +2779,6 @@
         <li class="md-nav__item">
   <a href="#responder-closes-websocket-connection" class="md-nav__link">
     responder closes WebSocket connection
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#initiator-node_29" class="md-nav__link">
-    initiator &lt;--- node
   </a>
   
 </li>
@@ -2853,7 +2817,7 @@
                   <h1>Sc ws opening ping pong</h1>
                 
                 <h4 id="initiator-opens-a-websocket-connection">initiator opens a WebSocket connection</h4>
-<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;host=localhost&amp;initiator_amount=70000000000000&amp;initiator_id=ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&amp;role=initiator
+<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;host=localhost&amp;initiator_amount=70000000000000&amp;initiator_id=ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&amp;role=initiator
 </code></pre>
 
 <h4 id="initiator-node">initiator &lt;--- node</h4>
@@ -2864,7 +2828,7 @@
     &quot;channel_id&quot;: null,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;fsm_up&quot;,
-      &quot;fsm_id&quot;: &quot;ba_+PKfgWO3fus+GUzJCxT0gg6OkunsTL9Q23IZNHdI45Yu8/t/&quot;
+      &quot;fsm_id&quot;: &quot;ba_61Hfn0RdxDq+ebMce/X/9E8q3tnPol9r1qRUP3Krou7qYRo5&quot;
     }
   },
   &quot;version&quot;: 1
@@ -2901,7 +2865,7 @@
 </code></pre>
 
 <h4 id="responder-opens-a-websocket-connection">responder opens a WebSocket connection</h4>
-<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;initiator_amount=70000000000000&amp;initiator_id=ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&amp;role=responder
+<pre><code>ws://localhost:3014/channel?channel_reserve=2&amp;initiator_amount=70000000000000&amp;initiator_id=ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&amp;keep_running=false&amp;lock_period=10&amp;port=13179&amp;protocol=json-rpc&amp;push_amount=1&amp;responder_amount=40000000000000&amp;responder_id=ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&amp;role=responder
 </code></pre>
 
 <h4 id="responder-node">responder &lt;--- node</h4>
@@ -2912,7 +2876,7 @@
     &quot;channel_id&quot;: null,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;fsm_up&quot;,
-      &quot;fsm_id&quot;: &quot;ba_6tE1sJytBz57Wcc68WReUE1/ApEDdGPg0jTC7evsm2dtOA6w&quot;
+      &quot;fsm_id&quot;: &quot;ba_ktuhEDXyVYsX5H1SSJwAUDEvtwpnL2+3Q1M8GuZW0vWa0kZ7&quot;
     }
   },
   &quot;version&quot;: 1
@@ -2997,6 +2961,21 @@
 <h4 id="initiator-node_5">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.sign.initiator_sign&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: null,
+    &quot;data&quot;: {
+      &quot;signed_tx&quot;: &quot;tx_+IgLAcC4g/iBMgGhAWSuDghi3tNLOnvuIVm5FIbC9Ikodk2/E4CKiamLla+Bhj+qJSJgAKEBkLMuMMqdp4Acg/adLsNQ2VimQAyKhQvdpRTurgwqcKGGJGE5yoAAAgoAhhAGeddIAMCgZP8IHNNsTxaYp/GakGy6MTXm8MnOngPkebqMLgn1uEYF1at+KA==&quot;,
+      &quot;updates&quot;: []
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_6">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system.pong&quot;,
   &quot;params&quot;: {
     &quot;channel_id&quot;: null,
@@ -3034,28 +3013,13 @@
 }
 </code></pre>
 
-<h4 id="initiator-node_6">initiator &lt;--- node</h4>
-<pre><code class="javascript">{
-  &quot;jsonrpc&quot;: &quot;2.0&quot;,
-  &quot;method&quot;: &quot;channels.sign.initiator_sign&quot;,
-  &quot;params&quot;: {
-    &quot;channel_id&quot;: null,
-    &quot;data&quot;: {
-      &quot;signed_tx&quot;: &quot;tx_+IgLAcC4g/iBMgGhAcW47IdoVlsitY21h/Ku93EKqO7HEQeD04gBq8ukLLv0hj+qJSJgAKEB0TZvMXURn2j/DUUtWanRpprEaPBWgtcFtlVhYne0ThCGJGE5yoAAAgoAhhAGeddIAMCgFk9HuJ93FJGde2FyW3hXYthviTWdftxygmDVi9qw3+4F3w96DA==&quot;,
-      &quot;updates&quot;: []
-    }
-  },
-  &quot;version&quot;: 1
-}
-</code></pre>
-
 <h4 id="initiator-node_7">initiator ---&gt; node</h4>
 <pre><code class="javascript">{
   &quot;id&quot;: -576460752303423396,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.initiator_sign&quot;,
   &quot;params&quot;: {
-    &quot;signed_tx&quot;: &quot;tx_+MsLAfhCuECcxnnEK6NTRdVfC5MMsm0VjyTZ52VuFfuwiRGhHv1YPaOEnBK+fcFedfiKlkvxOXWq2eS9cyDOgjyvzFTOE6wHuIP4gTIBoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79IY/qiUiYAChAdE2bzF1EZ9o/w1FLVmp0aaaxGjwVoLXBbZVYWJ3tE4QhiRhOcqAAAIKAIYQBnnXSADAoBZPR7ifdxSRnXthclt4V2LYb4k1nX7ccoJg1YvasN/uBRj0aso=&quot;
+    &quot;signed_tx&quot;: &quot;tx_+MsLAfhCuEC9oAoX1ti0Tq7zEHcWVTzqZkMj5+3e2mDFi08wxPLYk8Ww/evmOEFsFIy11X+q3UaEZqpzA1NNe4OmLO/RgTUFuIP4gTIBoQFkrg4IYt7TSzp77iFZuRSGwvSJKHZNvxOAiompi5WvgYY/qiUiYAChAZCzLjDKnaeAHIP2nS7DUNlYpkAMioUL3aUU7q4MKnChhiRhOcqAAAIKAIYQBnnXSADAoGT/CBzTbE8WmKfxmpBsujE15vDJzp4D5Hm6jC4J9bhGBRRXnx8=&quot;
   }
 }
 </code></pre>
@@ -3075,9 +3039,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: null,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
-      &quot;event&quot;: &quot;funding_created&quot;
+      &quot;event&quot;: &quot;funding_created&quot;,
+      &quot;fsm_id&quot;: &quot;ba_ktuhEDXyVYsX5H1SSJwAUDEvtwpnL2+3Q1M8GuZW0vWa0kZ7&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3099,9 +3064,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.sign.responder_sign&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: null,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
-      &quot;signed_tx&quot;: &quot;tx_+MsLAfhCuECcxnnEK6NTRdVfC5MMsm0VjyTZ52VuFfuwiRGhHv1YPaOEnBK+fcFedfiKlkvxOXWq2eS9cyDOgjyvzFTOE6wHuIP4gTIBoQHFuOyHaFZbIrWNtYfyrvdxCqjuxxEHg9OIAavLpCy79IY/qiUiYAChAdE2bzF1EZ9o/w1FLVmp0aaaxGjwVoLXBbZVYWJ3tE4QhiRhOcqAAAIKAIYQBnnXSADAoBZPR7ifdxSRnXthclt4V2LYb4k1nX7ccoJg1YvasN/uBRj0aso=&quot;,
+      &quot;signed_tx&quot;: &quot;tx_+MsLAfhCuEC9oAoX1ti0Tq7zEHcWVTzqZkMj5+3e2mDFi08wxPLYk8Ww/evmOEFsFIy11X+q3UaEZqpzA1NNe4OmLO/RgTUFuIP4gTIBoQFkrg4IYt7TSzp77iFZuRSGwvSJKHZNvxOAiompi5WvgYY/qiUiYAChAZCzLjDKnaeAHIP2nS7DUNlYpkAMioUL3aUU7q4MKnChhiRhOcqAAAIKAIYQBnnXSADAoGT/CBzTbE8WmKfxmpBsujE15vDJzp4D5Hm6jC4J9bhGBRRXnx8=&quot;,
       &quot;updates&quot;: []
     }
   },
@@ -3139,7 +3104,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system.pong&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: null,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;action&quot;: &quot;system&quot;,
       &quot;tag&quot;: &quot;pong&quot;
@@ -3155,14 +3120,14 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.responder_sign&quot;,
   &quot;params&quot;: {
-    &quot;signed_tx&quot;: &quot;tx_+QENCwH4hLhAnMZ5xCujU0XVXwuTDLJtFY8k2edlbhX7sIkRoR79WD2jhJwSvn3BXnX4ipZL8Tl1qtnkvXMgzoI8r8xUzhOsB7hAxz+flPRsW7x5X/ZZCmxihzJYh0pwbYPJCiza/9VqxgyqzX+FdT/01tiU9nam67ihzZ3Ko+Tn8g2JSsxdk5TbAbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7gVEVXvG&quot;
+    &quot;signed_tx&quot;: &quot;tx_+QENCwH4hLhAvaAKF9bYtE6u8xB3FlU86mZDI+ft3tpgxYtPMMTy2JPFsP3r5jhBbBSMtdV/qt1GhGaqcwNTTXuDpizv0YE1BbhA6/ECjOGKmTlrapSNLI1xiNrCGjFXaoZjGFuTogrj405zXCZSenE0PSoYAkV5Rp0G9Sp/1EBQjxRkRhKPZCvBBriD+IEyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAZ510gAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RgUrbmeH&quot;
   }
 }
 </code></pre>
 
 <h4 id="responder-node_11">responder &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: null,
+  &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
   &quot;id&quot;: -576460752303423395,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: &quot;ok&quot;,
@@ -3175,10 +3140,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;info&quot;: &quot;funding_created&quot;,
-      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAnMZ5xCujU0XVXwuTDLJtFY8k2edlbhX7sIkRoR79WD2jhJwSvn3BXnX4ipZL8Tl1qtnkvXMgzoI8r8xUzhOsB7hAxz+flPRsW7x5X/ZZCmxihzJYh0pwbYPJCiza/9VqxgyqzX+FdT/01tiU9nam67ihzZ3Ko+Tn8g2JSsxdk5TbAbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7gVEVXvG&quot;,
+      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAvaAKF9bYtE6u8xB3FlU86mZDI+ft3tpgxYtPMMTy2JPFsP3r5jhBbBSMtdV/qt1GhGaqcwNTTXuDpizv0YE1BbhA6/ECjOGKmTlrapSNLI1xiNrCGjFXaoZjGFuTogrj405zXCZSenE0PSoYAkV5Rp0G9Sp/1EBQjxRkRhKPZCvBBriD+IEyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAZ510gAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RgUrbmeH&quot;,
       &quot;type&quot;: &quot;channel_create_tx&quot;
     }
   },
@@ -3191,9 +3156,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: null,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
-      &quot;event&quot;: &quot;funding_signed&quot;
+      &quot;event&quot;: &quot;funding_signed&quot;,
+      &quot;fsm_id&quot;: &quot;ba_61Hfn0RdxDq+ebMce/X/9E8q3tnPol9r1qRUP3Krou7qYRo5&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3213,25 +3179,9 @@
 <h4 id="initiator-node_13">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
-  &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
-  &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
-    &quot;data&quot;: {
-      &quot;info&quot;: &quot;funding_signed&quot;,
-      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAnMZ5xCujU0XVXwuTDLJtFY8k2edlbhX7sIkRoR79WD2jhJwSvn3BXnX4ipZL8Tl1qtnkvXMgzoI8r8xUzhOsB7hAxz+flPRsW7x5X/ZZCmxihzJYh0pwbYPJCiza/9VqxgyqzX+FdT/01tiU9nam67ihzZ3Ko+Tn8g2JSsxdk5TbAbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7gVEVXvG&quot;,
-      &quot;type&quot;: &quot;channel_create_tx&quot;
-    }
-  },
-  &quot;version&quot;: 1
-}
-</code></pre>
-
-<h4 id="initiator-node_14">initiator &lt;--- node</h4>
-<pre><code class="javascript">{
-  &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system.pong&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;action&quot;: &quot;system&quot;,
       &quot;tag&quot;: &quot;pong&quot;
@@ -3256,10 +3206,26 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system.pong&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;action&quot;: &quot;system&quot;,
       &quot;tag&quot;: &quot;pong&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_14">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
+    &quot;data&quot;: {
+      &quot;info&quot;: &quot;funding_signed&quot;,
+      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAvaAKF9bYtE6u8xB3FlU86mZDI+ft3tpgxYtPMMTy2JPFsP3r5jhBbBSMtdV/qt1GhGaqcwNTTXuDpizv0YE1BbhA6/ECjOGKmTlrapSNLI1xiNrCGjFXaoZjGFuTogrj405zXCZSenE0PSoYAkV5Rp0G9Sp/1EBQjxRkRhKPZCvBBriD+IEyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAZ510gAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RgUrbmeH&quot;,
+      &quot;type&quot;: &quot;channel_create_tx&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3281,7 +3247,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system.pong&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;action&quot;: &quot;system&quot;,
       &quot;tag&quot;: &quot;pong&quot;
@@ -3306,7 +3272,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system.pong&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;action&quot;: &quot;system&quot;,
       &quot;tag&quot;: &quot;pong&quot;
@@ -3321,10 +3287,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;info&quot;: &quot;channel_changed&quot;,
-      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAnMZ5xCujU0XVXwuTDLJtFY8k2edlbhX7sIkRoR79WD2jhJwSvn3BXnX4ipZL8Tl1qtnkvXMgzoI8r8xUzhOsB7hAxz+flPRsW7x5X/ZZCmxihzJYh0pwbYPJCiza/9VqxgyqzX+FdT/01tiU9nam67ihzZ3Ko+Tn8g2JSsxdk5TbAbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7gVEVXvG&quot;,
+      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAvaAKF9bYtE6u8xB3FlU86mZDI+ft3tpgxYtPMMTy2JPFsP3r5jhBbBSMtdV/qt1GhGaqcwNTTXuDpizv0YE1BbhA6/ECjOGKmTlrapSNLI1xiNrCGjFXaoZjGFuTogrj405zXCZSenE0PSoYAkV5Rp0G9Sp/1EBQjxRkRhKPZCvBBriD+IEyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAZ510gAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RgUrbmeH&quot;,
       &quot;type&quot;: &quot;channel_create_tx&quot;
     }
   },
@@ -3337,10 +3303,10 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.on_chain_tx&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;info&quot;: &quot;channel_changed&quot;,
-      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAnMZ5xCujU0XVXwuTDLJtFY8k2edlbhX7sIkRoR79WD2jhJwSvn3BXnX4ipZL8Tl1qtnkvXMgzoI8r8xUzhOsB7hAxz+flPRsW7x5X/ZZCmxihzJYh0pwbYPJCiza/9VqxgyqzX+FdT/01tiU9nam67ihzZ3Ko+Tn8g2JSsxdk5TbAbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7gVEVXvG&quot;,
+      &quot;tx&quot;: &quot;tx_+QENCwH4hLhAvaAKF9bYtE6u8xB3FlU86mZDI+ft3tpgxYtPMMTy2JPFsP3r5jhBbBSMtdV/qt1GhGaqcwNTTXuDpizv0YE1BbhA6/ECjOGKmTlrapSNLI1xiNrCGjFXaoZjGFuTogrj405zXCZSenE0PSoYAkV5Rp0G9Sp/1EBQjxRkRhKPZCvBBriD+IEyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAZ510gAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RgUrbmeH&quot;,
       &quot;type&quot;: &quot;channel_create_tx&quot;
     }
   },
@@ -3363,7 +3329,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system.pong&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;action&quot;: &quot;system&quot;,
       &quot;tag&quot;: &quot;pong&quot;
@@ -3388,7 +3354,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.system.pong&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;action&quot;: &quot;system&quot;,
       &quot;tag&quot;: &quot;pong&quot;
@@ -3404,7 +3370,7 @@
   &quot;method&quot;: &quot;channels.message&quot;,
   &quot;params&quot;: {
     &quot;info&quot;: &quot;Hello&quot;,
-    &quot;to&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+    &quot;to&quot;: &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;
   }
 }
 </code></pre>
@@ -3414,13 +3380,13 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.message&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;message&quot;: {
-        &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
-        &quot;from&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
+        &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
+        &quot;from&quot;: &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;,
         &quot;info&quot;: &quot;Hello&quot;,
-        &quot;to&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+        &quot;to&quot;: &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;
       }
     }
   },
@@ -3434,7 +3400,7 @@
   &quot;method&quot;: &quot;channels.message&quot;,
   &quot;params&quot;: {
     &quot;info&quot;: &quot;Hello back&quot;,
-    &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+    &quot;to&quot;: &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;
   }
 }
 </code></pre>
@@ -3444,13 +3410,13 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.message&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;message&quot;: {
-        &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
-        &quot;from&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;,
+        &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
+        &quot;from&quot;: &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;,
         &quot;info&quot;: &quot;Hello back&quot;,
-        &quot;to&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;
+        &quot;to&quot;: &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;
       }
     }
   },
@@ -3465,8 +3431,8 @@
   &quot;method&quot;: &quot;channels.get.balances&quot;,
   &quot;params&quot;: {
     &quot;accounts&quot;: [
-      &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
-      &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;
+      &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;,
+      &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;
     ]
   }
 }
@@ -3474,16 +3440,16 @@
 
 <h4 id="initiator-node_23">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+  &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
   &quot;id&quot;: -576460752303423394,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: [
     {
-      &quot;account&quot;: &quot;ak_2W5Z2uyH8s1smQo2ZxgB8V3hH9VCJkXmGCaATmtRQjJUbQ8MNB&quot;,
+      &quot;account&quot;: &quot;ak_mLjWgLbapr5CiVD2Q248aS2TQj9itXnoPv5tteXvZaJ8tdD2C&quot;,
       &quot;balance&quot;: 69999999999999
     },
     {
-      &quot;account&quot;: &quot;ak_2b94FCuxybDzRCpVHVCKusRQerR81duJ7ryHDfZdPLAW8YRiub&quot;,
+      &quot;account&quot;: &quot;ak_26jAbCjYM16ppbhFG6PCQhv6HkwRAri7QNJfoEtb1R8amLscpt&quot;,
       &quot;balance&quot;: 40000000000001
     }
   ],
@@ -3496,7 +3462,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;own_funding_locked&quot;
     }
@@ -3514,7 +3480,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;own_funding_locked&quot;
     }
@@ -3527,30 +3493,12 @@
 <blockquote>
 <p>Funding has been confirmed locally on-chain</p>
 </blockquote>
-<h4 id="initiator-node_25">initiator &lt;--- node</h4>
-<pre><code class="javascript">{
-  &quot;jsonrpc&quot;: &quot;2.0&quot;,
-  &quot;method&quot;: &quot;channels.info&quot;,
-  &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
-    &quot;data&quot;: {
-      &quot;event&quot;: &quot;funding_locked&quot;
-    }
-  },
-  &quot;version&quot;: 1
-}
-</code></pre>
-
-<h4 id="initiator-info_3">initiator info</h4>
-<blockquote>
-<p>Funding has been confirmed on-chain by other party</p>
-</blockquote>
 <h4 id="responder-node_23">responder &lt;--- node</h4>
 <pre><code class="javascript">{
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;funding_locked&quot;
     }
@@ -3563,14 +3511,14 @@
 <blockquote>
 <p>Funding has been confirmed on-chain by other party</p>
 </blockquote>
-<h4 id="initiator-node_26">initiator &lt;--- node</h4>
+<h4 id="initiator-node_25">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
-      &quot;event&quot;: &quot;open&quot;
+      &quot;event&quot;: &quot;funding_locked&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3582,7 +3530,7 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;open&quot;
     }
@@ -3591,10 +3539,42 @@
 }
 </code></pre>
 
+<h4 id="initiator-info_3">initiator info</h4>
+<blockquote>
+<p>Funding has been confirmed on-chain by other party</p>
+</blockquote>
 <h4 id="responder-info_4">responder info</h4>
 <blockquote>
 <p>Channel is <code>open</code> and ready to use</p>
 </blockquote>
+<h4 id="responder-node_25">responder &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.update&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
+    &quot;data&quot;: {
+      &quot;state&quot;: &quot;tx_+QENCwH4hLhAvaAKF9bYtE6u8xB3FlU86mZDI+ft3tpgxYtPMMTy2JPFsP3r5jhBbBSMtdV/qt1GhGaqcwNTTXuDpizv0YE1BbhA6/ECjOGKmTlrapSNLI1xiNrCGjFXaoZjGFuTogrj405zXCZSenE0PSoYAkV5Rp0G9Sp/1EBQjxRkRhKPZCvBBriD+IEyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAZ510gAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RgUrbmeH&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
+<h4 id="initiator-node_26">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;open&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
 <h4 id="initiator-info_4">initiator info</h4>
 <blockquote>
 <p>Channel is <code>open</code> and ready to use</p>
@@ -3604,23 +3584,9 @@
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.update&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
-      &quot;state&quot;: &quot;tx_+QENCwH4hLhAnMZ5xCujU0XVXwuTDLJtFY8k2edlbhX7sIkRoR79WD2jhJwSvn3BXnX4ipZL8Tl1qtnkvXMgzoI8r8xUzhOsB7hAxz+flPRsW7x5X/ZZCmxihzJYh0pwbYPJCiza/9VqxgyqzX+FdT/01tiU9nam67ihzZ3Ko+Tn8g2JSsxdk5TbAbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7gVEVXvG&quot;
-    }
-  },
-  &quot;version&quot;: 1
-}
-</code></pre>
-
-<h4 id="responder-node_25">responder &lt;--- node</h4>
-<pre><code class="javascript">{
-  &quot;jsonrpc&quot;: &quot;2.0&quot;,
-  &quot;method&quot;: &quot;channels.update&quot;,
-  &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
-    &quot;data&quot;: {
-      &quot;state&quot;: &quot;tx_+QENCwH4hLhAnMZ5xCujU0XVXwuTDLJtFY8k2edlbhX7sIkRoR79WD2jhJwSvn3BXnX4ipZL8Tl1qtnkvXMgzoI8r8xUzhOsB7hAxz+flPRsW7x5X/ZZCmxihzJYh0pwbYPJCiza/9VqxgyqzX+FdT/01tiU9nam67ihzZ3Ko+Tn8g2JSsxdk5TbAbiD+IEyAaEBxbjsh2hWWyK1jbWH8q73cQqo7scRB4PTiAGry6Qsu/SGP6olImAAoQHRNm8xdRGfaP8NRS1ZqdGmmsRo8FaC1wW2VWFid7ROEIYkYTnKgAACCgCGEAZ510gAwKAWT0e4n3cUkZ17YXJbeFdi2G+JNZ1+3HKCYNWL2rDf7gVEVXvG&quot;
+      &quot;state&quot;: &quot;tx_+QENCwH4hLhAvaAKF9bYtE6u8xB3FlU86mZDI+ft3tpgxYtPMMTy2JPFsP3r5jhBbBSMtdV/qt1GhGaqcwNTTXuDpizv0YE1BbhA6/ECjOGKmTlrapSNLI1xiNrCGjFXaoZjGFuTogrj405zXCZSenE0PSoYAkV5Rp0G9Sp/1EBQjxRkRhKPZCvBBriD+IEyAaEBZK4OCGLe00s6e+4hWbkUhsL0iSh2Tb8TgIqJqYuVr4GGP6olImAAoQGQsy4wyp2ngByD9p0uw1DZWKZADIqFC92lFO6uDCpwoYYkYTnKgAACCgCGEAZ510gAwKBk/wgc02xPFpin8ZqQbLoxNebwyc6eA+R5uowuCfW4RgUrbmeH&quot;
     }
   },
   &quot;version&quot;: 1
@@ -3640,7 +3606,7 @@
 
 <h4 id="responder-node_27">responder &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+  &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
   &quot;id&quot;: -576460752303423393,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: &quot;ok&quot;,
@@ -3659,12 +3625,26 @@
 }
 </code></pre>
 
+<h4 id="initiator-node_29">initiator &lt;--- node</h4>
+<pre><code class="javascript">{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;method&quot;: &quot;channels.info&quot;,
+  &quot;params&quot;: {
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
+    &quot;data&quot;: {
+      &quot;event&quot;: &quot;died&quot;
+    }
+  },
+  &quot;version&quot;: 1
+}
+</code></pre>
+
 <h4 id="responder-node_28">responder &lt;--- node</h4>
 <pre><code class="javascript">{
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;method&quot;: &quot;channels.info&quot;,
   &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+    &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
     &quot;data&quot;: {
       &quot;event&quot;: &quot;died&quot;
     }
@@ -3674,26 +3654,12 @@
 </code></pre>
 
 <h4 id="responder-closes-websocket-connection">responder closes WebSocket connection</h4>
-<h4 id="initiator-node_29">initiator &lt;--- node</h4>
+<h4 id="initiator-node_30">initiator &lt;--- node</h4>
 <pre><code class="javascript">{
-  &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
+  &quot;channel_id&quot;: &quot;ch_kAgbNDfzDxi1rbJZAEqe93U3WszrgncPrb38koG9fpgEXNRLu&quot;,
   &quot;id&quot;: -576460752303423392,
   &quot;jsonrpc&quot;: &quot;2.0&quot;,
   &quot;result&quot;: &quot;ok&quot;,
-  &quot;version&quot;: 1
-}
-</code></pre>
-
-<h4 id="initiator-node_30">initiator &lt;--- node</h4>
-<pre><code class="javascript">{
-  &quot;jsonrpc&quot;: &quot;2.0&quot;,
-  &quot;method&quot;: &quot;channels.info&quot;,
-  &quot;params&quot;: {
-    &quot;channel_id&quot;: &quot;ch_oUcRxjPdXNpPziWFVaaXHeDaPncVCuFNYMAr7svCVzLz2beyA&quot;,
-    &quot;data&quot;: {
-      &quot;event&quot;: &quot;died&quot;
-    }
-  },
   &quot;version&quot;: 1
 }
 </code></pre>
