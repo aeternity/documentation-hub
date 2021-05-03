@@ -136,3 +136,4 @@ A curated list of awesome [aeternity](https://aeternity.com) resources
 - [StealthEX](https://stealthex.io/) - Anonymous and limitless cryptocurrency exchange
 - [MultiSwap](https://multiswap.io/supported) - Fast and secure way to swap coins
 - [Jelly Swap](https://jelly.market/) - Fast and secure way to swap coins
+- [InstaEx](https://instaex.io) - Instant cryptocurrency exchange
