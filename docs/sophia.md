@@ -12,5 +12,5 @@
 
 # How do I write them ?
 
-Hop over to the [sophia documentation](http://aeternity-sophia.readthedocs.io/) and learn to write and deploy your first contract. 
+Hop over to the [sophia documentation](https://aeternity.com/aesophia/) and learn to write and deploy your first contract. 
 Use [AEstudio](http://https://studio.aepps.com/), the free web-IDE for writing and testing smart contracts on Aeternity!
