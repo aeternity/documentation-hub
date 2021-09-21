@@ -1,8 +1,0 @@
-# Folders
-/.githooks
-/public
-
-# Files
-.babelrc
-.travis.yml
-aepp-identity-deploy.enc

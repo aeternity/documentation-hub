@@ -1,3 +1,0 @@
-contract MissingEventType =
-  entrypoint main() =
-    Chain.event("MAIN")

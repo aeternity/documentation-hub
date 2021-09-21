@@ -1,3 +1,0 @@
-contract PolymorphicEntrypoint =
-  entrypoint fail() : 'a = abort("fail")
-

@@ -1,2 +1,0 @@
-contract Stub =
-  entrypoint foo : (int) => int

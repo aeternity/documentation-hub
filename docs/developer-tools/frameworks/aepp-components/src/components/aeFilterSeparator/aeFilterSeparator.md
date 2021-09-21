@@ -1,3 +1,0 @@
-```js
-<ae-filter-separator />
-```
